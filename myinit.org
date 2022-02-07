@@ -1,0 +1,341 @@
+* INTERFACE tweaks
+#+BEGIN_SRC emacs-lisp
+  ;; Who I am
+
+  ;; be able to create directories in neotree
+  (global-set-key (kbd "C-c d") 'make-directory)
+
+  (setq user-full-name "Arvydas Gasparaviciusn")
+  (setq user-mail-address "arvydas.gaspa@gmail.com")
+  ;; the blinking cursor is nothing, but an annoyance
+  (blink-cursor-mode 0)
+
+  ;; highlight the current line
+  (global-hl-line-mode 1)
+
+  ;; writes parens automatically for you
+  (electric-pair-mode +1)  
+
+  (menu-bar-mode -1)            ; Disable the menu bar
+  (tool-bar-mode -1)          ; Disable the toolbar
+  (toggle-scroll-bar -1) ; turn off scrollbar
+  (show-paren-mode 1) ; highlight parenthesis
+
+  ;; Show matching parens
+  (setq show-paren-delay 0)
+
+  ;; enable y/n answers
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+  ;; Set up the visible bell
+  (setq visible-bell t)
+
+  ;; nice scrolling
+  (setq scroll-margin 0
+  scroll-conservatively 100000
+  scroll-preserve-screen-position 1)
+
+  ;; never lose the layout c-c left/right
+  (winner-mode 1)
+
+  ;; ; display line numbers - finally...
+  ;; (global-display-line-numbers-mode 1) 
+
+  ;; (load-theme 'zenburn t)
+  ;; (load-theme 'wombat t)
+  (load-theme 'ample t)
+  ;; (load-theme 'waher t)
+  ;; (load-theme 'spacegray t)
+  ;; (load-theme 'ample t)
+
+#+END_SRC
+* KEYBINDINGS
+#+BEGIN_SRC emacs-lisp
+  ;; Easily jump to my main org file
+  (defun aga-find-current nil
+    "Find the myinit.org file."
+    (interactive)
+    (find-file "~/Dropbox/emacs/myinit.org") ;; Ubuntu
+    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
+    (delete-other-windows))
+  ;; Find my NEW init file
+  (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
+
+
+  ;; Easily jump to my main org file
+  (defun aga-find-old nil
+    "Find the myinit.org file."
+    (interactive)
+    (find-file "~/Dropbox/7.dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
+    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
+    (delete-other-windows))
+    ;; Find OLD init file
+    (global-set-key (kbd "C-x <C-home>") 'aga-find-old)
+
+  ;; open my django docs
+  (defun django-docs nil
+    "Find the myinit.org file."
+    (interactive)
+    (find-file "~/Dropbox/org/django.org")) ;; ubuntu
+    (global-set-key [f5] 'django-docs)
+#+END_SRC
+* Ace windows for - EASY WINDOW SWITCHING
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
+;		aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
+		aw-dispatch-always t)
+    :bind (("C-x o" . ace-window)
+	   ("M-O" . ace-swap-window)
+	   ("C-x v" . aw-split-window-horz)))
+  (defvar aw-dispatch-alist
+  '((?x aw-delete-window " Ace - Delete Window")
+      (?m aw-swap-window " Ace - Swap Window")
+      (?n aw-flip-window)
+      (?h aw-split-window-vert " Ace - Split Vert Window")
+      (?v aw-split-window-horz " Ace - Split Horz Window")
+      (?i delete-other-windows " Ace - Maximize Window")
+      (?o delete-other-windows))
+  "List of actions for `aw-dispatch-default'.")
+#+END_SRC
+* keybind discovery
+which-key states which possible key commbinations can be used after a button is input
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  (setq which-key-idle-delay 0.2)
+  :config
+  (which-key-mode 1))
+#+END_SRC
+* Saveplace 
+#+BEGIN_SRC emacs-lisp
+;; saveplace remembers your location in a file when saving files
+(use-package saveplace
+  :ensure t
+  :config
+  ;; activate it for all buffers
+  (setq-default save-place t)
+  (save-place-mode 1)
+)
+#+END_SRC
+* expand region
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind ("C-=" . er/expand-region))
+#+END_SRC
+* Undo-tree UNDO/REDO
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+  :ensure t
+  :init
+  (global-undo-tree-mode))
+#+END_SRC
+* Council/Ivy/Swiper BUFFER HELP
+Swiper gives us a really efficient incremental search with regular
+expressions and Ivy / Counsel replace a lot of ido or helms completion
+functionality pagrinde viskas is cia -
+https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilities_in_your/
+#+begin_src emacs-lisp
+     ;; Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
+     (use-package counsel
+     :ensure t
+     :after ivy
+     :config (counsel-mode))
+   #+end_src
+* Company - AUTOCOMPLETION in buffers
+#+BEGIN_SRC emacs-lisp
+  ;; Company provides autosuggestion/completion in buffers (writing code, pathing to files, etc).
+  ;; press <f1> to display the documentation for the selected candidate
+  ;; or C-w to see its source
+    (use-package company
+      :ensure t
+      :config
+      (setq company-idle-delay 0) ; lb svarbu, instant suggestion
+      ;; (setq company-show-numbers t)  
+      (setq company-tooltip-limit 10)
+      ;; (setq company-minimum-prefix-length 2)
+      (setq company-tooltip-align-annotations t)
+      ;; invert the navigation direction if the the completion popup-isearch-match
+      ;; is displayed on top (happens near the bottom of windows)
+      (setq company-tooltip-flip-when-above t)
+      (global-company-mode))
+#+END_SRC
+* Directories
+#+BEGIN_SRC emacs-lisp
+(setq default-directory "~/Dropbox/1.planai/")
+;Backups
+(setq backup-directory-alist '(("." . "~/Dropbox/7.dotfiles/usable_emacs/MyEmacsBackups")))
+#+END_SRC
+* Projectile
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+#+END_SRC
+* Magit
+#+BEGIN_SRC emacs-lisp
+;; install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
+;; use personal access token
+;; add this to terminal to save the token for furher use
+;; git config --global credential.helper store
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))
+#+END_SRC
+* supersave - issaugo perjunginejant bufferius 
+#+BEGIN_SRC emacs-lisp
+;; ace window integration - BUTINA
+(use-package super-save
+  :ensure t
+  :config
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
+  ;; add integration with ace-window
+  (add-to-list 'super-save-triggers 'ace-window)
+  (super-save-mode +1))
+#+END_SRC
+* Jump to Text
+  See https://github.com/abo-abo/avy for more info
+  #+begin_src emacs-lisp
+	(use-package avy
+	  :ensure t
+	  :bind 
+	  (("M-s" . avy-goto-char-timer)
+    ;;	     ("M-g f" . avy-goto-line)
+		 ("M-p" . avy-goto-word-1)))
+;;  You can check the avy home page for their recommended configuration which you get by configuring this way instead:
+    ;; (use-package avy
+    ;; :ensure t
+    ;; :config
+    ;; (avy-setup-default))
+    (setq avy-background t) ; cool, makes the background darker
+  #+end_src
+* move text
+#+BEGIN_SRC emacs-lisp
+(use-package move-text
+  :ensure t)
+(move-text-default-bindings)
+#+END_SRC
+* impatient mode - LIVE HTML PREVIEW
+#+BEGIN_SRC emacs-lisp
+  ;; simple explanation https://github.com/skeeto/impatient-mode
+  ;; M-x httpd-start - or maybe directory would be nice
+  ;; M-x impatient-mode - on EACH and EVERY file (css, js and hmtl)
+  (use-package impatient-mode
+    :ensure t
+    :commands impatient-mode)
+#+END_SRC
+* NAVIGATION 
+#+BEGIN_SRC emacs-lisp
+     ;; Ivy is a generic completion mechanism for Emacs.
+     (use-package ivy
+     :defer 0.1
+     :diminish
+     :bind (("C-c C-r" . ivy-resume)
+     ("C-x B" . ivy-switch-buffer-other-window))
+     :custom
+
+     (ivy-count-format "(%d/%d) ")
+     ;; nice if you want before opened buffers to appear after a close
+     (ivy-use-virtual-buffers t)
+     :config (ivy-mode))
+
+     (use-package ivy-rich
+     :ensure t
+     :init (ivy-rich-mode 1))
+
+     ;; Swiper, an Ivy-enhanced alternative to Isearch.
+     (use-package swiper
+     :after ivy
+     :bind (("C-s" . swiper)
+	    ("C-r" . swiper)))
+
+     (use-package neotree
+     :ensure t
+     :init
+     (setq neo-smart-open t
+     neo-autorefresh t
+     neo-force-change-root t)
+     (setq neo-theme (if (display-graphic-p) 'icons global))
+     (setq neo-window-width 35)
+     (global-set-key [f8] 'neotree-toggle))
+#+END_SRC
+* APPEARANCE
+#+BEGIN_SRC emacs-lisp
+     ;; jeigu neveikia icons - prasau, paaiskinimas
+     ;; https://github.com/seagle0128/all-the-icons-ivy-rich
+     (use-package all-the-icons-ivy-rich
+     :ensure t
+     :init (all-the-icons-ivy-rich-mode 1))
+#+END_SRC
+* hungry delete
+#+BEGIN_SRC emacs-lisp
+; deletes all the whitespace when you hit backspace or delete
+  (use-package hungry-delete
+  :ensure t
+  :config
+  (global-hungry-delete-mode))
+#+END_SRC
+* HTML completion
+#+BEGIN_SRC emacs-lisp
+  ;; SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
+  ;; for quickly entering HTML
+  ;; c-j to autocomplete 
+  ;; cheat sheet - https://docs.emmet.io/cheat-sheet/
+  (use-package emmet-mode
+  :ensure t
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
+#+END_SRC
+
+* Emoji
+#+BEGIN_SRC emacs-lisp
+  ;; for facebook auto posting
+  (use-package emojify
+  :ensure t 
+  :hook (after-init . global-emojify-mode))
+#+END_SRC
+* Rip Grep
+#+BEGIN_SRC emacs-lisp
+;; sudo apt install ripgrep
+;; M-x rg and search away
+;; nice video https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
+;; added ripgrep
+(use-package rg
+  :ensure t
+  :config)
+#+END_SRC
+* Beacon mode
+#+BEGIN_SRC emacs-lisp
+  ;; Never lose your cursor again
+  (use-package beacon
+  :ensure t
+  :config
+    (progn
+      (setq beacon-blink-when-point-moves-vertically nil) ; default nil
+      (setq beacon-blink-when-point-moves-horizontally nil) ; default nil
+      (setq beacon-blink-when-buffer-changes t) ; default t
+      (setq beacon-blink-when-window-scrolls t) ; default t
+      (setq beacon-blink-when-window-changes t) ; default t
+      (setq beacon-blink-when-focused nil) ; default nil
+
+      (setq beacon-blink-duration 0.3) ; default 0.3
+      (setq beacon-blink-delay 0.3) ; default 0.3
+      (setq beacon-size 20) ; default 40
+      ;; (setq beacon-color "yellow") ; default 0.5
+      (setq beacon-color 0.5) ; default 0.5
+
+      (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
+
+      (beacon-mode 1)))
+#+END_SRC
