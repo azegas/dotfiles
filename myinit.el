@@ -50,7 +50,7 @@ scroll-preserve-screen-position 1)
 (defun aga-find-current nil
   "Find the myinit.org file."
   (interactive)
-  (find-file "~/Dropbox/emacs/myinit.org") ;; Ubuntu
+  (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
   ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
   (delete-other-windows))
 ;; Find my NEW init file
@@ -142,8 +142,8 @@ scroll-preserve-screen-position 1)
     (global-company-mode))
 
 (setq default-directory "~/Dropbox/1.planai/")
-;Backups
-(setq backup-directory-alist '(("." . "~/Dropbox/7.dotfiles/usable_emacs/MyEmacsBackups")))
+;; ;Backups
+;; (setq backup-directory-alist '(("." . "~/Dropbox/7.dotfiles/usable_emacs/MyEmacsBackups")))
 
 (use-package projectile
   :ensure t

@@ -55,7 +55,7 @@
   (defun aga-find-current nil
     "Find the myinit.org file."
     (interactive)
-    (find-file "~/Dropbox/emacs/myinit.org") ;; Ubuntu
+    (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
     ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
     (delete-other-windows))
   ;; Find my NEW init file
@@ -167,9 +167,9 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
 #+END_SRC
 * Directories
 #+BEGIN_SRC emacs-lisp
-(setq default-directory "~/Dropbox/1.planai/")
-;Backups
-(setq backup-directory-alist '(("." . "~/Dropbox/7.dotfiles/usable_emacs/MyEmacsBackups")))
+  (setq default-directory "~/Dropbox/1.planai/")
+  ;; ;Backups
+  ;; (setq backup-directory-alist '(("." . "~/Dropbox/7.dotfiles/usable_emacs/MyEmacsBackups")))
 #+END_SRC
 * Projectile
 #+BEGIN_SRC emacs-lisp
