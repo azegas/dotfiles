@@ -1,50 +1,64 @@
 ;; Who I am
 
-;; be able to create directories in neotree
-(global-set-key (kbd "C-c d") 'make-directory)
+  ;; be able to create directories in neotree
+  (global-set-key (kbd "C-c d") 'make-directory)
 
-(setq user-full-name "Arvydas Gasparaviciusn")
-(setq user-mail-address "arvydas.gaspa@gmail.com")
-;; the blinking cursor is nothing, but an annoyance
-(blink-cursor-mode 0)
+  (setq user-full-name "Arvydas Gasparaviciusn")
+  (setq user-mail-address "arvydas.gaspa@gmail.com")
+  ;; the blinking cursor is nothing, but an annoyance
+  (blink-cursor-mode 0)
 
-;; highlight the current line
-(global-hl-line-mode 1)
+  ;; highlight the current line
+  (global-hl-line-mode 1)
 
-;; writes parens automatically for you
-(electric-pair-mode +1)  
+  ;; writes parens automatically for you
+  (electric-pair-mode +1)  
 
-(menu-bar-mode -1)            ; Disable the menu bar
-(tool-bar-mode -1)          ; Disable the toolbar
-(toggle-scroll-bar -1) ; turn off scrollbar
-(show-paren-mode 1) ; highlight parenthesis
+  (menu-bar-mode -1)            ; Disable the menu bar
+  (tool-bar-mode -1)          ; Disable the toolbar
+  (toggle-scroll-bar -1) ; turn off scrollbar
+  (show-paren-mode 1) ; highlight parenthesis
 
-;; Show matching parens
-(setq show-paren-delay 0)
+  ;; Show matching parens
+  (setq show-paren-delay 0)
 
-;; enable y/n answers
-(fset 'yes-or-no-p 'y-or-n-p)
+  ;; enable y/n answers
+  (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Set up the visible bell
-(setq visible-bell t)
+  ;; Set up the visible bell
+  (setq visible-bell t)
 
-;; nice scrolling
-(setq scroll-margin 0
-scroll-conservatively 100000
-scroll-preserve-screen-position 1)
+  ;; nice scrolling
+  (setq scroll-margin 0
+  scroll-conservatively 100000
+  scroll-preserve-screen-position 1)
 
-;; never lose the layout c-c left/right
-(winner-mode 1)
+  ;; never lose the layout c-c left/right
+  (winner-mode 1)
 
-;; ; display line numbers - finally...
-;; (global-display-line-numbers-mode 1) 
+  ;; ; display line numbers - finally...
+  ;; (global-display-line-numbers-mode 1) 
 
-;; (load-theme 'zenburn t)
-;; (load-theme 'wombat t)
-(load-theme 'ample t)
-;; (load-theme 'waher t)
-;; (load-theme 'spacegray t)
-;; (load-theme 'ample t)
+  ;; (load-theme 'zenburn t)
+  ;; (load-theme 'wombat t)
+  (load-theme 'ample t)
+  ;; (load-theme 'waher t)
+  ;; (load-theme 'spacegray t)
+  ;; (load-theme 'ample t)
+
+;; startup & default view
+;; copied from old config, dont remember what any of it does below
+  (custom-set-variables
+   '(org-hide-leading-stars t)
+   '(org-startup-folded (quote t))	;PAGALIAU!!!
+   '(org-startup-indented t)
+   '(org-startup-indented t)	        ;this is amazing, no need to care about pressing TAB (when diary f.x.) "Org Indent Mode"
+   '(org-startup-with-inline-images t)
+   '(org-startup-with-latex-preview t)
+   '(org-confirm-babel-evaluate nil)
+   '(org-src-fontify-natively t)
+   '(org-export-with-toc nil)
+   )
 
 ;; Easily jump to my main org file
 (defun aga-find-current nil
@@ -255,9 +269,8 @@ neo-force-change-root t)
 :ensure t 
 :hook (after-init . global-emojify-mode))
 
-;; sudo apt install ripgrep
-;; M-x rg and search away
-;; nice video https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
+;; sudo apt install ripgrep M-x rg and search away nice video
+;; https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
 ;; added ripgrep
 (use-package rg
   :ensure t
@@ -302,7 +315,8 @@ neo-force-change-root t)
 ;; M-x org-agenda-file-list. Go there and save the changes to init.el
 ;; if your org agenda files are not there, do C-c C-e on the parentheses below. Evaluate them.
 (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
-                         "~/Dropbox/documents/org/inbox.org"))
+                         "~/Dropbox/documents/org/inbox.org"
+                         "~/Dropbox/documents/org/diary.org"))
 
 ;; Stop preparing agenda buffers on startup
 (setq org-agenda-inhibit-startup t)
