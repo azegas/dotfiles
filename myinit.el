@@ -290,7 +290,7 @@ neo-force-change-root t)
          ("M-g j" . dumb-jump-go)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config 
+  :config
   (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
 :init
 (dumb-jump-mode)
