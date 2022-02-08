@@ -361,3 +361,108 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
   :ensure
 )
 #+END_SRC
+
+* Org agenda
+** Org agenda files and other small configurations
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "SIANDIEN(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+
+  ;; M-x org-agenda-file-list. Go there and save the changes to init.el
+  ;; if your org agenda files are not there, do C-c C-e on the parentheses below. Evaluate them.
+  (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
+                           "~/Dropbox/documents/org/inbox.org"
+                           "~/Dropbox/documents/org/diary.org"))
+
+  ;; Stop preparing agenda buffers on startup
+  (setq org-agenda-inhibit-startup t)
+
+  ;; shortcut for opening agenda view
+  (global-set-key (kbd "C-c a") 'org-agenda)
+
+  ;; not 100% remember what these do, but lets keep it
+  (setq org-log-into-drawer "LOGBOOK")
+  (setq org-directory "~/Dropbox/documents/org/")
+  (setq org-archive-location "::datetree/")
+  (setq org-agenda-restore-windows-after-quit t)
+  ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
+
+  ;; https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
+  ;; sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 6)))
+
+  (setq org-log-note-clock-out t)
+  ;; Clock out when moving task to a done state
+  (setq org-clock-out-when-done t)
+  ;; Resume clocking task when emacs is restarted
+  (org-clock-persistence-insinuate)
+  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+  (setq org-clock-persist t)
+  ;; Resume clocking task on clock-in if the clock is open
+  (setq org-clock-in-resume t)
+  ;; Do not prompt to resume an active clock, just resume it
+  (setq org-clock-persist-query-resume nil)
+  (setq org-clock-into-drawer "CLOCK")
+  ;; quite nice, tells you when the task has been finished when you say DONE on it
+  (setq org-log-done t)
+
+  # C-c C-z - tiesiog make note under a heading
+  # to log into drawer with c-c c-z, reikia:
+  # m-x customise-variable RET org-log-into-drawer - select LOGBOOK save and apply.
+
+#+END_SRC
+** Templates c-c c
+#+BEGIN_SRC emacs-lisp
+;; setting up the templates for c-c c
+(define-key global-map "\C-cc" 'org-capture)
+(setq org-capture-templates '(("i" "Inbox" entry
+                               (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox")
+			       "* %i%?")
+                               ("s" "Seima" entry
+                               (file+headline "~/Dropbox/1.planai/seima.org" "Seima to-do")
+			       "* %i%?")
+                               ("v" "Versliukas" entry
+                               (file+headline "~/Dropbox/2.versliukas/versliukas.org" "Versliukas to-do")
+			       "* %i%?")
+                               ("o" "Obelsdumas" entry
+                               (file+headline "~/Dropbox/3.client_websites/obelsdumas/obelsdumas.org" "Obelsdumas to-do")
+			       "* %i%?")
+                               ("j" "Julija.consulting" entry
+                               (file+headline "~/Dropbox/3.client_websites/julija.consulting/julija.consulting.org" "Julija.consulting to-do")
+			       "* %i%?")
+			      ("d" "Diary" entry
+ 			       (file+datetree "~/Dropbox/1.planai/diary.org" "Diary")
+			       "* %U %^{Title} %?")
+                              ("p" "Planned" entry
+                               (file+headline "~/Dropbox/1.planai/tickler.org" "Planned")
+                               "* %i%? %^{SCHEDULED}p" :prepend t)
+                              ("r" "Repeating" entry
+                               (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating")
+                               "* %i%? %^{SCHEDULED}p")))
+#+END_SRC
+** Sasha agenda (shows daily stuff divided)
+ ;#+BEGIN_SRC emacs-lisp
+         ;; https://sachachua.com/blog/2007/12/a-day-in-a-life-with-org/
+         (setq org-agenda-custom-commands
+               '(("a" "My custom agenda"
+                  ((org-agenda-list nil nil 2 nil)
+                   (todo "WAITING")
+                   (todo "NEXT")
+                   (todo "TODO")))))
+   ;; https://newbedev.com/how-to-view-the-next-days-in-org-mode-s-agenda
+   ;; these apply to everything in a agenda!!!!
+   ;; (setq org-agenda-span 7
+   ;;       org-agenda-start-on-weekday nil	;angeda starts from today not from Monday
+   ;;       org-agenda-start-day "-2d")	;two days back from today
+
+   (setq org-agenda-start-on-weekday nil)	;nice, finally agenda starts from today
+   (setq org-agenda-span 'day)		;iz pz only show today in agenda
+
+      ;; agenda-day-estimated time
+      (defun my-day-page ()
+         (interactive)
+         (org-agenda-list nil nil 1)
+         (org-agenda-columns))
+
+      (define-key global-map [f10] 'my-day-page)
+
+ #+END_SRC
