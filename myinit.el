@@ -61,7 +61,7 @@ scroll-preserve-screen-position 1)
 (defun aga-find-old nil
   "Find the myinit.org file."
   (interactive)
-  (find-file "~/Dropbox/7.dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
+  (find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
   ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
   (delete-other-windows))
   ;; Find OLD init file

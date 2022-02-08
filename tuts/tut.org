@@ -1,4 +1,4 @@
-# Emacs on windows
+* Emacs on windows
 
 some useful stuff https://www.gnu.org/software/emacs/manual/html_mono/efaq-w32.html#Location-of-init-file
 
@@ -34,3 +34,25 @@ add this to the .emacs file. right under use-package installation
 (org-babel-load-file (expand-file-name "C:\\Users\\Arvydas\\Dropbox\\temp_emacs\\myinit.org"))
 
 imesk theme i .emacs.d, jokiu folderiu. turetu veikti
+* Shortcuts
+`M-g j/o` - Dumb jump
+
+`M-x flyspell` - auto_correct(choose from meniu)
+
+`C-M i` - step on a word and correct it's spelling. multiple presses for different words
+
+`C-c C-p I` - open buffers OF THE CURRENT PROJECT
+
+`M-,` - Go back one step
+
+`C-h i` - info about your whole linux system and programs installed
+
+`C-h r` - info manual emacs
+
+`C-h m` - describe mode
+
+`C-h k` - describe key
+
+`C-x n s` - narrow down to one headline in org mode
+`C-x n w` - widen back to normal
+
