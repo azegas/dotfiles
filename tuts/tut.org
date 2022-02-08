@@ -35,24 +35,33 @@ add this to the .emacs file. right under use-package installation
 
 imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 * Shortcuts
-`M-g j/o` - Dumb jump
-
-`M-x flyspell` - auto_correct(choose from meniu)
-
-`C-M i` - step on a word and correct it's spelling. multiple presses for different words
-
-`C-c C-p I` - open buffers OF THE CURRENT PROJECT
-
-`M-,` - Go back one step
-
-`C-h i` - info about your whole linux system and programs installed
-
-`C-h r` - info manual emacs
-
-`C-h m` - describe mode
-
-`C-h k` - describe key
-
-`C-x n s` - narrow down to one headline in org mode
-`C-x n w` - widen back to normal
+1) M-g j     = Dumb jump
+2) M-%       = Query replace
+3) M-x flyspell = auto_correct(choose from meniu)
+4) C-M i = step on a word and correct it's spelling. multiple presses for different words
+5) C-c C-p I = open buffers OF THE CURRENT PROJECT
+6) M-,       = Go back one step
+7) C-h i     = info about your whole linux system and programs installed
+8) C-h r     = info manual emacs
+9) C-h m     = describe mode
+10) C-h k    = describe key
+11) C-x n s  = narrow down to one headline in org mode
+12) C-x n w  = widen back to normal
+13) C-c u    = undo tree visualize
+14) M-x highlight-regexp = highlights word occurences in the buffer
+15) C-x h    = mark buffer
+16) C-x SPC  = rectangle mode
+17) C-u c-u c-u . = enter current date timestamp - this puts to agenda
+18) C-c .    = enter current date timestamp same
+19) C-c !    = enter current date timestamp BUT no agenda entry
+20) C-x (    = define macro - do a sequence
+21) C-x )    = stop defining
+22) C-x e    = executes macro
+23) C-SCP x2 = makes a mark
+24) C-x C-SCP = jumps to that mark
+25) C-x r SCP <any> = resgister a key(position)
+26) C-x r j <any> = jump to the key(to that position)
+27) C-c C-w  = refile to enother point in the org document or another file
+28) C-c C-s  = schedule org item
+29) C-c C-d  = set a deadine to org item
 
