@@ -374,12 +374,14 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
 #+END_SRC
 
 * Org agenda
+# best org mode tutorial playlist:
+# https://www.youtube.com/watch?v=sQS06Qjnkcc&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=1
 ** Org agenda files and other small configurations
 #+BEGIN_SRC emacs-lisp
-  (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "SIANDIEN(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
-
-  ;; M-x org-agenda-file-list. Go there and save the changes to init.el
+  ;; M-x org-agenda-file-list. Go there and click "save the changes" MANUALLY to save to init.el. Otherwise, emacs wont read it on every boot.
+  ;; Write all org-agenda-files ONCE, do the procedure described in the line above and forget about it. Refiling will work, agenda will work.
   ;; if your org agenda files are not there, do C-c C-e on the parentheses below. Evaluate them.
+
   (setq org-agenda-files '("~/Dropbox/documents/org/personal/seima.org"
                            "~/Dropbox/documents/org/personal/inbox.org"
                            "~/Dropbox/documents/org/personal/diary.org"))
