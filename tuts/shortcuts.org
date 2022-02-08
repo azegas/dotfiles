@@ -1,0 +1,4 @@
+M-g j/o - Dumb jump
+M-x flyspell - auto_correct(choose from meniu)
+C-c C-p I - open buffers OF THE CURRENT PROJECT
+M-, - Go back one step
