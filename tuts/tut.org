@@ -353,4 +353,9 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 28) C-c C-s  = schedule org item
 29) C-c C-d  = set a deadine to org item
 30) C-x C-x  = Move cursor to the other end of selection.
+31) C-a a    = org agenda
+32) C-c c    = capture something (write note and put it somewhere in the template)
+33) C-c C-z  = make a note under sme org heading
+34) C-c a a F = follow up mode. expands the task in agenda view
+
 
