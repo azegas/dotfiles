@@ -339,3 +339,25 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
 
       (beacon-mode 1)))
 #+END_SRC
+* Dumb jump
+  # jump to definition.
+  # ok, so, wow.
+  # Let's say I have a views.py in django and I "def veganai(request):" and then the function below it.
+  # I later use that function in another file, let's say urls.py. I can then go to urls.py, stand on that function and
+  # then go M-g j or o to jump to that definition (in views.py)
+  # this is amazing and life saving. I should not forget that this option exists.
+  # video of how to use it - https://www.youtube.com/watch?v=wBfZzaff77g
+
+#+BEGIN_SRC emacs-lisp
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config
+  (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+:init
+(dumb-jump-mode)
+  :ensure
+)
+#+END_SRC
