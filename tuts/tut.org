@@ -1,4 +1,292 @@
-* Emacs on windows
+* Old emacs notes
+  :LOGBOOK:
+  CLOCK: [2021-08-01 Sk 05:19]--[2021-08-01 Sk 15:46] => 10:27
+  CLOCK: [2021-07-31 Št 18:46]--[2021-07-31 Št 22:46] =>  4:00
+  - Note taken on [2021-07-31 Št 20:45] \\
+    for fuck sakes I am again in emacs whole evening... trying out helm mode,
+    looking for other small things, tweaking stuff, fixing stuff... man oh man
+    it is endless if I allow myself to.
+  - Note taken on [2021-07-31 Št 18:18] \\
+    found an autosave package
+
+    https://christiantietze.de/posts/2020/10/emacs-auto-saving-and-email-drafts/
+  - Note taken on [2021-07-31 Št 16:43] \\
+    found expand-region package. amazing. c-=
+  - Note taken on [2021-07-31 Št 15:26] \\
+    dude wtf. was trying to add date at every heading, so I know when I start
+    a project.
+
+    used this in .emacs
+
+    and got 5000-6000 lines printed in obelsdumas org file. It broke. I couldnt open it
+    had to open in vim and delete all the lines that were created, multiple in one second...
+
+    #+BEGIN_SRC emacs-lisp
+    (defun update-last-edited (beg end length)
+      (when
+          (and
+           (not (org-before-first-heading-p))
+           (org-get-heading))
+        (org-entry-put nil "LAST-EDITED" (format-time-string "[%Y-%m-%d %a
+    %H:%M:%S]"))))
+
+    (add-to-list 'after-change-functions 'update-last-edited)
+    #+END_SRC
+
+    I kind of forgot vims keybindings, thats scary.
+  - Note taken on [2021-07-30 Pn 18:32] \\
+    Org as a spreadsheet system: a short introduction
+
+    https://orgmode.org/worg/org-tutorials/org-spreadsheet-intro.html
+  - Note taken on [2021-07-30 Pn 16:59] \\
+    blemba zinok gal reikes gauti evil mode... su emacs bindings is just wayy slower
+    when you actually are doing repetitive work, not just messing around like I used
+    to
+  - Note taken on [2021-07-30 Pn 16:43] \\
+    pize isivaizduok.. praleidau apie valandzike su sita problema.
+
+    https://orgmode.org/manual/Updating-the-table.html
+
+    3.5.9 Updating the table
+
+    In order to recalculate a line of a table or the entire table, use the following commands:
+
+    C-c * (org-table-recalculate)
+
+    KOL issiaiskinau
+  - Note taken on [2021-07-30 Pn 16:23] \\
+    krc kas yra "local setup has been refreshed".
+
+    nebegaliu evaluate funkciju skaiciavimo lenteliu.. nei vienam kompe nei kitam
+
+    Nei senam faile nei naujam
+  - Note taken on [2021-07-30 Pn 15:16] \\
+    replace-string - very cool. make sure you are above the content
+
+    n mygtukas iseina is rikiuotes lol
+  - Note taken on [2021-07-30 Pn 14:39] \\
+    dude... table eddition in emacs.. using it as a spreadsheet.. amazing!!!
+
+    https://orgmode.org/worg/org-tutorials/org-spreadsheet-intro.html
+
+    https://www.youtube.com/watch?v=5vGGgfs0q3k
+
+    calculating the csv tables for obels dumas orders like crazyyy
+  - Note taken on [2021-07-30 Pn 13:58] \\
+    tables in images from csv files
+
+    C-c | (org-table-create-or-convert-from-region)
+  - Note taken on [2021-07-30 Pn 13:56] \\
+    SELECT RECTANGLE!! and delete. so useful with CSV tables now.
+
+    In Emacs-24.4, the rectangle commands are alo made available via rectangular
+    selection: hit C-x SPC and then move around to select a rectangle (it should
+    be highlighted visually), after which you can use the usual C-w to remove it.
+
+    https://www.gnu.org/software/emacs/manual/html_node/emacs/Rectangles.html#Rectangles
+  - Note taken on [2021-07-30 Pn 10:14] \\
+    Images in emacs
+    #+CAPTION: This is the caption for the next figure link (or table)
+    #+NAME:   fig:SED-HR4049
+    [[./img/a.jpg]]
+    [[file:/tmp/image.png]]
+    C-c C-x C-v (org-toggle-inline-images)
+  (setq org-image-actual-width nil) - to myinit to be able to resize images?
+    #+NAME: fig:figure name
+    #+CAPTION: figure name
+    #+ATTR_ORG: :width 500
+    #+ATTR_LATEX: :width 2.0in
+    #+ATTR_HTML: :width 500
+    #+ATTR_HTML: :alt cat/spider image :title Action! :align right
+    [[file:~/Dropbox/doviliukas/emacs-html/images/karstas.jpeg]]
+
+    #+NAME: fig:figure name
+    #+ATTR_ORG: :width 500
+    #+ATTR_LATEX: :width 2.0in
+    #+ATTR_HTML: :width 500
+    #+CAPTION: A black cat stalking a spider
+    #+ATTR_HTML: :alt cat/spider image :title Action!
+    [[file:~/Dropbox/doviliukas/emacs-html/images/karstas.jpeg][Pranesimas]]
+
+
+    wow, clickable image - [[http://www.gnu.org/software/emacs/][GNU Emacs]] - collapse this
+    look more on export section.
+
+  - Note taken on [2021-07-30 Pn 09:17] \\
+    maybe I should create 3 separate files for the 3 main projects now.
+    1 - Personal website
+    2 - Obelsdumas
+    3 - Emacs
+  - Note taken on [2021-07-30 Pn 08:55] \\
+    watching this video - efficient keybindings emacs
+    https://www.youtube.com/watch?v=Dq5UOt63Mms
+  CLOCK: [2021-07-30 Pn 08:54]--[2021-07-30 Pn 09:17] =>  0:23
+  - Note taken on [2021-07-28 Wed 09:31] \\
+    labai nice - habit tracking mode.
+  CLOCK: [2021-07-28 Wed 08:38]--[2021-07-28 Wed 09:31] =>  0:53
+  - Note taken on [2021-07-27 Tue 14:41] \\
+    https://www.youtube.com/watch?v=nUvdddKZQzs&t=625s sitas video buvo inspiration susidelioti viska i projektus. Time stamps, comments, etc
+  CLOCK: [2021-07-27 Tue 14:39]--[2021-07-27 Tue 14:40] =>  0:01
+  CLOCK: [2021-07-27 Tue 12:12]--[2021-07-27 Tue 14:30] =>  2:18
+  CLOCK: [2021-07-27 Tue 08:43]--[2021-07-27 Tue 12:32] =>  3:49 - emacs research helm, make clock.org, transfer etc
+  CLOCK: [2021-07-27 Tue 08:17]--[2021-07-27 Tue 08:25] =>  0:08 - emacs
+  CLOCK: [2021-07-26 Mon 10:30]--[2021-07-26 Mon 18:05] =>  7:35 - org mode GTD way (first time)
+  CLOCK: [2021-07-19 Pr 13:42]--[2021-07-19 Pr 15:22] =>  1:40 - emacs agenda view
+  CLOCK: [2021-07-19 Pr 12:25]--[2021-07-19 Pr 13:12] =>  0:47 - emacs time tracking solution
+  CLOCK: [2021-07-19 Pr 15:20]--[2021-07-19 Pr 16:24] =>  1:04 - emacs autocompletion for languages
+  CLOCK: [2021-07-18 Sk 17:58]--[2021-07-18 Sk 18:15] =>  0:17 - doing totally random stuff (org mode time stuff)
+  CLOCK: [2021-07-17 Št 07:09]--[2021-07-17 Št 08:18] =>  1:09 - Mess around emacs theme. finally choosing zenburn.
+  CLOCK: [2021-07-16 Pn 19:50]--[2021-07-16 Pn 22:10] =>  2:20 - emacs/lol... getting better at using vim bindings in emacs. closign buffers, opening shells, closing windows, splitting windows. tomorrow have to look into themes
+  CLOCK: [2021-07-16 Pn 16:32]--[2021-07-16 Pn 18:32] =>  2:00 - setting up emacs/cleaning google drive/ putting stuff to dropbox and to .org files
+  - Note taken on [2021-07-27 Tue 14:31] \\
+    gg pman. again with emacs most of the day.. Julyte might come namo
+    earlier soon and what have you been doing? emacs lol.
+
+          Can not hold myself from trying to configure it the way I want and the way
+          it looks meaningful and helpful for me.
+
+          created clock.org file where I will clock all my times in. Better than
+          having them merged in the same file with journals.
+
+          as of now, after 3 or so hours, I have deleted clock.org because I have
+          found this funcion that allows me to take and log notes together with timestamps
+          along the project. thats a good way for now I think.
+  - Note taken on [2021-07-27 Tue 12:42] \\
+    Every single time I find something useful and implement in emacs org mode -
+          ofc it takes time, then all of the suddent I find a video of Reiner Konig
+          and my world just flips around. He introduces me to some cool feature that
+          kind of make my previous work useless.
+
+          not sure if I should just watch all of his videos and then start configuring
+          my emacs or just keep going and do stuff by myself and other resources.
+  - Note taken on [2021-07-26 Mon 14:24] \\
+    wow silly me, made some many mistakes trying to make this thing work.
+          but now one thing for sure - I will have a separate file with all the journaling
+          stuff. easy to input in it - yes.
+
+          one file to put all the time-stamped stuff - easy to put in - yes.
+
+          one place to dump all my thoughts in - gtd.org. easy to put in - lets try,
+          give me a moment.
+
+          Ok, back. It works like a charm.
+
+          and one place called - someday/maybe, where I will dump stuff that I dont
+          want and need to see on a daily basis. this list of tasks will be cleaned weekly.
+
+          refile - change location of the item c-c c-w and choose a place
+          archive - nothing gets deleted c-c c-x c-a
+          use template - c-c c
+   - Note taken on [2021-07-26 Mon 17:15] \\
+    So its the end of this working day. Spend the whole time, since 10am at the library
+          mostly configuring emacs to suite my liking. GTD method with emacs is quite easy and
+          I am liking it. Not dependent on evernote or anything like that, can be sure that
+          my workflow will remain the same for ears when I finally finish the setup phase, which
+          I am getting to an end to.
+
+          Theme - solarized from today. Will try it out. Creator - buddhist dude w/e, probs kept
+          an eye on details. Also it doenst strain my eyes so why not.
+
+          Yes, separate files for everything, orgzly on my phone all synced up, reviews are scheduled,
+          now all I have to do is stick to my schedules and do the actual work.
+  :END:
+* Emacs installation on LINUX
+Before even doing anything, in your .emacs.d/init.el file add all this info --
+ https://www.youtube.com/watch?v=EX9PKK3EMaw&t
+** susikuriam baze - init.el
+   Jeigu nauja sistema, tai reikia pirma eiti i .emacs.d ir susikurti init.el faila.
+ /home/azeubu/Dropbox/org/  Jis bus pagrindinis, ten desim tai:
+
+	(require 'package)
+     (setq package-enable-at-startup nil)
+     (add-to-list 'package-archives
+		  '("melpa" . "https://melpa.org/npackages/"))
+     (package-initialize)
+
+     ;; Bootstrap 'use-package
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+
+     (org-babel-load-file (expand-file-name "myinit.org"))
+
+** susikuriam sutrauka - myinit.org
+   vel, .emacs.d folderiuke sukuriam myinit.org
+
+   (require 'package)
+   (setq package-enable-at-startup nil)
+   (add-to-list 'package-archives
+   '("melpa" . "https://melpa.org/packages/"))
+   (package-initialize)
+
+   ;; Bootstrap 'use-package
+   (unless (package-installed-p 'use-package)
+   (package-refresh-contents)
+   (package-install 'use-package))
+** Totally new thingy krc 2021-12-06 - veikia su dropbox
+   sudo apt install emacs
+   atsidarai .emacs.d, susikuri init.el faila
+   ikeli visa sita content 
+
+   ;; Initialize package sources
+   (require 'package)
+
+   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+   ("org" . "https://orgmode.org/elpa/")
+   ("elpa" . "https://elpa.gnu.org/packages/")))
+
+   (package-initialize)
+   (unless package-archive-contents
+   (package-refresh-contents))
+
+   CIA PADARAI package-refresh-contents
+   perkrauni emacs, ziuri ar viskas ok
+   go and check M-x list-packages
+   PAMEGINK M-x package install use- ir jeigu meta ka nors - gerai, reiskia pasiruoses kitam zingsniui
+
+   open init.el ir ikelk 
+
+   (unless (package-installed-p 'use-package)
+   (package-refresh-contents)
+   (package-install 'use-package))
+
+   reload emacs, jeigu viskas veikia- einam sekanti zingsni
+
+   susikurk dropboxe vieta kur nori kelti emacs failus.
+   susikurk ten myinit.org IR TAIP PAT myinit.el
+    
+   i myinit.org ikelk sita content
+
+   #+BEGIN_SRC emacs-lisp
+   ;; Thanks, but no thanks
+   (setq inhibit-startup-message t)
+
+
+   (menu-bar-mode -1)            ; Disable the menu bar
+   (tool-bar-mode -1)          ; Disable the toolbar
+   (tooltip-mode -1)           ; Disable tooltips
+   (set-fringe-mode 10)       ; Give some breathing room
+
+   ;; Set up the visible bell
+   (setq visible-bell t)
+   (load-theme 'tango-dark)
+   #+END_SRC
+
+   turn off emacs, turn on. 
+
+   Jeigu pasikeicia theme - tu ready to go. jeigu ne, paziurek ar myinit.el turi ta pati content kaip org.
+
+   Blogiausiu atveju nueik i temp_emacs ir copy files from there.
+
+   zodziu, viskas okei dabar. galesiu su Jokubu pasneketi apie wordpress ir core files and etc ir editint juos normaliai.
+   vaziuoju pas Julyte dabar, ji siek tiek pyksta manau kad isejau paciam smuti fruti marketingo sukuryje daryti savo reikaliuku.
+   einu pareklaminti facebook, darysim zaidima
+
+** change caps to ctrl
+#+BEGIN_SRC bash
+   /usr/bin/setxkbmap -option "ctrl:swapcaps"
+   #+END_SRC
+* Emacs on WINDOWS
 
 some useful stuff https://www.gnu.org/software/emacs/manual/html_mono/efaq-w32.html#Location-of-init-file
 
