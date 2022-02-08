@@ -352,4 +352,5 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 27) C-c C-w  = refile to enother point in the org document or another file
 28) C-c C-s  = schedule org item
 29) C-c C-d  = set a deadine to org item
+30) C-x C-x  = Move cursor to the other end of selection.
 
