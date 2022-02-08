@@ -16,3 +16,6 @@
 `C-h m` - describe mode
 
 `C-h k` - describe key
+
+`C-x n s` - narrow down to one headline in org mode
+`C-x n w` - widen back to normal
