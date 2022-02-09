@@ -181,8 +181,8 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
 #+END_SRC
 * Directories
 #+BEGIN_SRC emacs-lisp
-  ;; ;Backups
-  (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/backups/emacs_backups/")))
+  ;; Automatically generated backups
+  (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
 #+END_SRC
 * Projectile
 #+BEGIN_SRC emacs-lisp
@@ -382,9 +382,14 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
   ;; Write all org-agenda-files ONCE, do the procedure described in the line above and forget about it. Refiling will work, agenda will work.
   ;; if your org agenda files are not there, do C-c C-e on the parentheses below. Evaluate them.
 
-  (setq org-agenda-files '("~/Dropbox/documents/org/personal/seima.org"
-                           "~/Dropbox/documents/org/personal/inbox.org"
-                           "~/Dropbox/documents/org/personal/diary.org"))
+  (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
+  "~/Dropbox/documents/org/inbox.org"
+  "~/Dropbox/documents/org/smutifruti.org"
+  "~/Dropbox/documents/org/dpd.org"
+  "~/Dropbox/documents/org/facebook_django.org"
+  "~/Dropbox/documents/org/personal.org"
+  "~/Dropbox/documents/org/arvydasdev.org"
+  "~/Dropbox/documents/org/diary.org"))
 
   ;; Stop preparing agenda buffers on startup
   (setq org-agenda-inhibit-startup t)
@@ -428,9 +433,9 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
 ;; setting up the templates for c-c c
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-capture-templates '(
-("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/personal/inbox.org" "Inbox")"* %i%?")
-("s" "Seima" entry (file+headline "~/Dropbox/documents/org/personal/seima.org" "Seima to-do")"* %i%?")
-("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/personal/diary.org" "Diary") "* %U %^{Title} %?")))
+("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox")"* %i%?")
+("s" "Seima" entry (file+headline "~/Dropbox/documents/org/seima.org" "Seima to-do")"* %i%?")
+("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/diary.org" "Diary") "* %U %^{Title} %?")))
 ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
 ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
 #+END_SRC
