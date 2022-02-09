@@ -357,5 +357,7 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 32) C-c c    = capture something (write note and put it somewhere in the template)
 33) C-c C-z  = make a note under sme org heading
 34) C-c a a F = follow up mode. expands the task in agenda view
+35) M-u      = capitalize all letters of a word
+36) m-l      = lowercase all letters of a word
 
 
