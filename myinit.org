@@ -472,3 +472,20 @@ Best org mode tutorial playlist:https://www.youtube.com/watch?v=sQS06Qjnkcc&list
       (define-key global-map [f10] 'my-day-page)
 
  #+END_SRC
+* Doom-modeline
+"Doom-modeline" converts a basic looking, all cramped modeline into a nice and clean one with only the necessary info and icons displayed. So far so good, liking it.
+#+BEGIN_SRC emacs-lisp
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+#+END_SRC
+* Flycheck
+"Flycheck" uses various syntax checking and linting tools to automatically check the contents of buffers while you type, and reports warnings and errors directly in the buffer. Or in the right corner if you use "Doom-modeline". Can click on the icon - shows all the errors. Great!
+https://www.flycheck.org/en/latest/#
+Not to confuse with flyspell - checks grammar.
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+#+END_SRC
