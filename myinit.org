@@ -92,7 +92,8 @@ scroll-preserve-screen-position 1)
     (find-file "~/Dropbox/org/django.org")) ;; ubuntu
     (global-set-key [f5] 'django-docs)
 #+END_SRC
-* Ace windows for - EASY WINDOW SWITCHING
+* Ace windows
+"Ace windows" helps me to switch windows easily. Main keybind - C-x o and then the commands that follow below.
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
     :ensure t
@@ -112,8 +113,8 @@ scroll-preserve-screen-position 1)
       (?o delete-other-windows))
   "List of actions for `aw-dispatch-default'.")
 #+END_SRC
-* keybind discovery
-which-key states which possible key commbinations can be used after a button is input
+* Keybind discovery
+"Which-key" states which possible key commbinations can be used after any button is pressed.
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
   :ensure t
@@ -124,9 +125,9 @@ which-key states which possible key commbinations can be used after a button is 
   :config
   (which-key-mode 1))
 #+END_SRC
-* Saveplace 
+* Saveplace
+"Saveplace" remembers your location in a file when saving files
 #+BEGIN_SRC emacs-lisp
-;; saveplace remembers your location in a file when saving files
 (use-package saveplace
   :ensure t
   :config
@@ -135,36 +136,35 @@ which-key states which possible key commbinations can be used after a button is 
   (save-place-mode 1)
 )
 #+END_SRC
-* expand region
+* Expand region
+"Expand region" allows me to select everything in between any kind of brackets by pressing C-=. The more I press it, the more it selects.
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
     :bind ("C-=" . er/expand-region))
 #+END_SRC
-* Undo-tree UNDO/REDO
+* Undo-tree
+"Undo tree" lets me to return to the file stage before any modifications were made. Keybind - C-x u.
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
   :ensure t
   :init
   (global-undo-tree-mode))
 #+END_SRC
-* Council/Ivy/Swiper BUFFER HELP
-Swiper gives us a really efficient incremental search with regular
-expressions and Ivy / Counsel replace a lot of ido or helms completion
-functionality pagrinde viskas is cia -
-https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilities_in_your/
+* Council/Ivy/Swiper
+"Swiper" gives us a really efficient incremental search with regular expressions
+"Ivy / Counsel" replace a lot of ido or helms completion functionality 
+Best explanation is here - https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilities_in_your/
 #+begin_src emacs-lisp
-     ;; Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
      (use-package counsel
      :ensure t
      :after ivy
      :config (counsel-mode))
    #+end_src
-* Company - AUTOCOMPLETION in buffers
+* Company
+"Company" provides autosuggestion/completion in buffers (writing code, pathing to files, etc).
+press <f1> to display the documentation for the selected candidate or C-w to see its source
 #+BEGIN_SRC emacs-lisp
-  ;; Company provides autosuggestion/completion in buffers (writing code, pathing to files, etc).
-  ;; press <f1> to display the documentation for the selected candidate
-  ;; or C-w to see its source
     (use-package company
       :ensure t
       :config
@@ -184,6 +184,7 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
   (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
 #+END_SRC
 * Projectile
+"Projectile" allows me to have a list of my projects under one keybind - C-c p p. I can then open a project and my working directory will remain to that project that I opened. With a shortcut C-c p f I can look thrugh ALL the files of that particular project directory. Super useful, makes the buffers way tidier.
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
@@ -193,17 +194,21 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 #+END_SRC
 * Magit
+"Magit" - can not imagine working with git without it. Instead of writing full commands like: "git add ." and then "git commit -m 'bla blaa'" then "git push"... I can simply `C-x g` for a git status. Then `s` to do git add. And finally `C-c C-c` to invoke git commit and simply write a message. Then press `p` and I just pushed the changes. Way quickier than the termina, believe me. 
+
+Some notes:
+- install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
+- use personal access token
+- add this to terminal to save the token for furher use
+- git config --global credential.helper store
 #+BEGIN_SRC emacs-lisp
-;; install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
-;; use personal access token
-;; add this to terminal to save the token for furher use
-;; git config --global credential.helper store
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 #+END_SRC
-* supersave - issaugo perjunginejant bufferius 
+* Supersave
+"Supersave" autosaves buffers for me. I am kind of used to clicking C-x C-s all the time, but "Supersave" just makes sure that it saves all the buffers when I switch windows and so on. So if I ever want to close my emacs - I can be sure that all the buffers are saved.
 #+BEGIN_SRC emacs-lisp
 ;; ace window integration - BUTINA
 (use-package super-save
@@ -215,8 +220,9 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
   (add-to-list 'super-save-triggers 'ace-window)
   (super-save-mode +1))
 #+END_SRC
-* Jump to Text
-  See https://github.com/abo-abo/avy for more info
+* Avy
+"Avy" lets me jump to to a specific letter or a word quickly. M-s and I can type a word, it will immeaditely jump to it on any opened and visible buffer.
+See https://github.com/abo-abo/avy for more info.
   #+begin_src emacs-lisp
 	(use-package avy
 	  :ensure t
@@ -231,24 +237,25 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
     ;; (avy-setup-default))
     (setq avy-background t) ; cool, makes the background darker
   #+end_src
-* move text
+* Move text
+"Move text" allows me to click M-up/down arrow key and move the text line by line up and down.
 #+BEGIN_SRC emacs-lisp
 (use-package move-text
   :ensure t)
 (move-text-default-bindings)
 #+END_SRC
-* impatient mode - LIVE HTML PREVIEW
+* Impatient mode
+"Impatient mode" lets you to have a browser window with LIVE HTML preview. Add files by 'M-x httpd-start'. Then do `M-x impatient-mode` - on EACH and EVERY file (css, js and hmtl).
+Otherwise, read simple explanation here - https://github.com/skeeto/impatient-mode.
 #+BEGIN_SRC emacs-lisp
-  ;; simple explanation https://github.com/skeeto/impatient-mode
-  ;; M-x httpd-start - or maybe directory would be nice
-  ;; M-x impatient-mode - on EACH and EVERY file (css, js and hmtl)
   (use-package impatient-mode
     :ensure t
     :commands impatient-mode)
 #+END_SRC
-* NAVIGATION 
+* Navigation
+** Ivy
+"Ivy" is a generic completion mechanism for Emacs.
 #+BEGIN_SRC emacs-lisp
-     ;; Ivy is a generic completion mechanism for Emacs.
      (use-package ivy
      :defer 0.1
      :diminish
@@ -264,13 +271,18 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
      (use-package ivy-rich
      :ensure t
      :init (ivy-rich-mode 1))
-
-     ;; Swiper, an Ivy-enhanced alternative to Isearch.
+#+END_SRC
+** Swiper
+"Swiper" - an Ivy-enhanced alternative to Isearch.
+#+BEGIN_SRC emacs-lisp
      (use-package swiper
      :after ivy
      :bind (("C-s" . swiper)
 	    ("C-r" . swiper)))
-
+#+END_SRC
+** Neotree
+"Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a sidebar filetree. Toggle on/off with F8.
+#+BEGIN_SRC emacs-lisp
      (use-package neotree
      :ensure t
      :init
@@ -281,53 +293,53 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
      (setq neo-window-width 35)
      (global-set-key [f8] 'neotree-toggle))
 #+END_SRC
-* APPEARANCE
+* All the icons
+"All the icons" - icons visible on buffer window as well as sidebar filetree.
+neveikia icons - prasau, paaiskinimas - https://github.com/seagle0128/all-the-icons-ivy-rich
 #+BEGIN_SRC emacs-lisp
-     ;; jeigu neveikia icons - prasau, paaiskinimas
-     ;; https://github.com/seagle0128/all-the-icons-ivy-rich
      (use-package all-the-icons-ivy-rich
      :ensure t
      :init (all-the-icons-ivy-rich-mode 1))
 #+END_SRC
-* hungry delete
+* Hungry delete
+"Hungry delete" - deletes all the whitespace when you hit backspace or delete.
 #+BEGIN_SRC emacs-lisp
-; deletes all the whitespace when you hit backspace or delete
   (use-package hungry-delete
   :ensure t
   :config
   (global-hungry-delete-mode))
 #+END_SRC
-* HTML completion
+* Emmet mode
+"Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
+Cheat sheet - https://docs.emmet.io/cheat-sheet/
+note:
+SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
 #+BEGIN_SRC emacs-lisp
-  ;; SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
-  ;; for quickly entering HTML
-  ;; c-j to autocomplete 
-  ;; cheat sheet - https://docs.emmet.io/cheat-sheet/
   (use-package emmet-mode
   :ensure t
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
 #+END_SRC
-* Emoji
+* Emojify
+"Emojify" allows to preview emojis in emacs buffers. Needed for facebook auto posting
 #+BEGIN_SRC emacs-lisp
-  ;; for facebook auto posting
   (use-package emojify
   :ensure t 
   :hook (after-init . global-emojify-mode))
 #+END_SRC
-* Rip Grep
+* Rg
+"Rg" - rip grep. Helps to search for a term through many files. Super useful when need to change something on many files. 
+Installation: Sudo apt install ripgrep M-x rg and search away 
+Tut: nice video https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
 #+BEGIN_SRC emacs-lisp
-  ;; sudo apt install ripgrep M-x rg and search away nice video
-  ;; https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
-  ;; added ripgrep
   (use-package rg
     :ensure t
     :config)
 #+END_SRC
-* Beacon mode
+* Beacon
+"Beacon" - never lose your cursor again. Flashes the cursor location when switching buffers.
 #+BEGIN_SRC emacs-lisp
-  ;; Never lose your cursor again
   (use-package beacon
   :ensure t
   :config
@@ -350,14 +362,12 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
       (beacon-mode 1)))
 #+END_SRC
 * Dumb jump
-  # jump to definition.
-  # ok, so, wow.
-  # Let's say I have a views.py in django and I "def veganai(request):" and then the function below it.
-  # I later use that function in another file, let's say urls.py. I can then go to urls.py, stand on that function and
-  # then go M-g j or o to jump to that definition (in views.py)
-  # this is amazing and life saving. I should not forget that this option exists.
-  # video of how to use it - https://www.youtube.com/watch?v=wBfZzaff77g
-
+"Dumb jump" - jump to definition.
+Tut: ok, so, wow. Let's say I have a views.py in django and I "def veganai(request):" and then the function below it.
+I later use that function in another file, let's say urls.py. I can then go to urls.py, stand on that function and
+then go M-g j or o to jump to that definition (in views.py)
+this is amazing and life saving. I should not forget that this option exists.
+video of how to use it - https://www.youtube.com/watch?v=wBfZzaff77g
 #+BEGIN_SRC emacs-lisp
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
@@ -371,10 +381,8 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
   :ensure
 )
 #+END_SRC
-
 * Org agenda
-# best org mode tutorial playlist:
-# https://www.youtube.com/watch?v=sQS06Qjnkcc&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=1
+Best org mode tutorial playlist:https://www.youtube.com/watch?v=sQS06Qjnkcc&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=1
 ** Org agenda files and other small configurations
 #+BEGIN_SRC emacs-lisp
   ;; M-x org-agenda-file-list. Go there and click "save the changes" MANUALLY to save to init.el. Otherwise, emacs wont read it on every boot.
