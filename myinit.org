@@ -394,13 +394,12 @@ https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilit
   ;; Stop preparing agenda buffers on startup
   (setq org-agenda-inhibit-startup t)
 
+  ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
+  (setq org-log-into-drawer "QUICK_NOTES")
+
   ;; shortcut for opening agenda view
   (global-set-key (kbd "C-c a") 'org-agenda)
 
-  ;; not 100% remember what these do, but lets keep it
-  (setq org-log-into-drawer "LOGBOOK")
-  (setq org-directory "~/Dropbox/documents/org/")
-  (setq org-archive-location "::datetree/")
   (setq org-agenda-restore-windows-after-quit t)
   ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
 
