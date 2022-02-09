@@ -362,6 +362,8 @@ Tut: nice video https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=Protesila
       (beacon-mode 1)))
 #+END_SRC
 * Dumb jump
+UPDATE 2022-02-09 Kind of not needed anymore since using Elpy and it has the same function, even more convieniently placed.
+
 "Dumb jump" - jump to definition.
 Tut: ok, so, wow. Let's say I have a views.py in django and I "def veganai(request):" and then the function below it.
 I later use that function in another file, let's say urls.py. I can then go to urls.py, stand on that function and
@@ -488,4 +490,40 @@ Not to confuse with flyspell - checks grammar.
   :ensure t
   :init
   (global-flycheck-mode t))
+#+END_SRC
+* Elpy
+TUT:
+"Elpy" - various python modes for easier python programming. Installs various other packages as well.
+A few videos to help install elpy and customize. https://www.youtube.com/watch?v=0kuCeS-mfyc, https://www.youtube.com/watch?v=mflvdXKyA_g
+Helpful blog post - https://www.ruiying.online/post/use-emacs-as-python-ide/
+Elpy official docs - https://elpy.readthedocs.io/en/latest/index.html
+When using tab autocompletion, click f1 and get the explanation in another buffer. Company doccumentation window.
+
+KEYS:
+C-c C-c to send region to python interactive interpreter,
+C-c C-d to show documentation, 
+C-c C-z Switch between your script and the interactive shell,
+M-. to go to definition.(or use dumb-jump shortcut M-g g)
+C-c n/p - move to next, previous error
+C-c C-e - Edit all occurrences of the symbol at point at once
+
+and of course more amazing shortcuts here - https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146
+
+INSTALL:
+1. add export PATH=$PATH:~/.local/bin to your .bashrc file and reload emacs.
+2. should get a message asking something about RPC, click yes.
+3. then make sure jedi is installed in your system. others use flake8, others use jedi.. idk. zamansky and the guy from he tutorial video use jedi.
+4. do M-x elpy-config to see the config
+5. check your .emacs.d folder. if there is one called "elpy" and it is empty or something, do M-x elpy-rpc-restart. Folders will appear, packages will install. Then do elpy-config.
+6. pip install flake8 - get to see more syntax checks. M-x elpy-config to confirm its installed
+
+#+BEGIN_SRC emacs-lisp
+  (setq elpy-rpc-python-command "python3")
+  (setq python-shell-interpreter "python3")
+  (setq elpy-get-info-from-shell t)
+  (use-package elpy
+    :ensure t
+    ;; :custom (elpy-rpc-backend "jedi")
+    :init
+    (elpy-enable))
 #+END_SRC
