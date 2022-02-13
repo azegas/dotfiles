@@ -620,17 +620,8 @@ TUT:
 A few videos to help install elpy and customize. https://www.youtube.com/watch?v=0kuCeS-mfyc, https://www.youtube.com/watch?v=mflvdXKyA_g
 Helpful blog post - https://www.ruiying.online/post/use-emacs-as-python-ide/
 Elpy official docs - https://elpy.readthedocs.io/en/latest/index.html
-When using tab autocompletion, click f1 and get the explanation in another buffer. Company doccumentation window.
-
-KEYS:
-C-c C-c to send region to python interactive interpreter,
-C-c C-d to show documentation, 
-C-c C-z Switch between your script and the interactive shell,
-M-. to go to definition.(or use dumb-jump shortcut M-g g)
-C-c n/p - move to next, previous error
-C-c C-e - Edit all occurrences of the symbol at point at once
-
-and of course more amazing shortcuts here - https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146
+When using tab autocompletion, click f1 and get the explanation in another buffer. Company doccumentation window. 
+and of course more amazing [[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
 
 INSTALL:
 1. add export PATH=$PATH:~/.local/bin to your .bashrc file and reload emacs.
