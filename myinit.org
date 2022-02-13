@@ -440,7 +440,7 @@ Best org mode tutorial playlist:https://www.youtube.com/watch?v=sQS06Qjnkcc&list
 
   ;; https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
   ;; sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 4)))
 
   (setq org-log-note-clock-out t)
   ;; Clock out when moving task to a done state
