@@ -452,3 +452,23 @@ scroll-preserve-screen-position 1)
   ;; :custom (elpy-rpc-backend "jedi")
   :init
   (elpy-enable))
+
+(defun my-python-line ()
+ (interactive)
+  (save-excursion
+  (setq the_script_buffer (format (buffer-name)))
+  (end-of-line)
+  (kill-region (point) (progn (back-to-indentation) (point)))
+  ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
+  (setq the_py_buffer "*Python*")
+  (switch-to-buffer-other-window  the_py_buffer)
+  (goto-char (buffer-end 1))
+  (yank)
+  (comint-send-input)
+  (switch-to-buffer-other-window the_script_buffer)
+  (yank)
+  )
+)
+
+(eval-after-load "elpy"
+ '(define-key elpy-mode-map (kbd "C-c <return>") 'my-python-line))

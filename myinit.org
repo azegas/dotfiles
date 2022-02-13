@@ -641,3 +641,28 @@ INSTALL:
     :init
     (elpy-enable))
 #+END_SRC
+
+Execute python by line, or if you read the tutorial, by block as well.
+Some geniuses wrote [[https://stackoverflow.com/questions/31957564/emacs-python-elpy-send-code-to-interpreter][this]] - super useful when working with python. Can
+execute one line at a time. Default elpy has this function, but it says - ups, not working.
+#+BEGIN_SRC emacs-lisp
+  (defun my-python-line ()
+   (interactive)
+    (save-excursion
+    (setq the_script_buffer (format (buffer-name)))
+    (end-of-line)
+    (kill-region (point) (progn (back-to-indentation) (point)))
+    ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
+    (setq the_py_buffer "*Python*")
+    (switch-to-buffer-other-window  the_py_buffer)
+    (goto-char (buffer-end 1))
+    (yank)
+    (comint-send-input)
+    (switch-to-buffer-other-window the_script_buffer)
+    (yank)
+    )
+  )
+
+  (eval-after-load "elpy"
+   '(define-key elpy-mode-map (kbd "C-c <return>") 'my-python-line))
+#+END_SRC
