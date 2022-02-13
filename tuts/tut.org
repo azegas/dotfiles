@@ -359,5 +359,18 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 34) C-c a a F = follow up mode. expands the task in agenda view
 35) M-u      = capitalize all letters of a word
 36) m-l      = lowercase all letters of a word
-
-
+37) C-x left = previous buffer. Faster than C-x b? maybe. Cia gi winner mode.
+38) C-c C-l  = after selecting text - add link shortcut
+39) C-c C-x e = set effort estimate on an org headline
+40) C-c C-x C-c = see the effort estimate table
+41) C-c C-x C-j = go to clock entry
+42) C-c C-e  = ELPY Edit all occurrences of the symbol at point at once
+43) C-c C-c  = ELPY send region to python interactive interpreter,
+44) C-c C-d  = ELPY show documentation,
+45) C-c C-z  = ELPY Switch between your script and the interactive shell
+46) M-.      = ELPY go to definition.(or use dumb-jump shortcut M-g g)
+47) C-c n/p  = ELPY  move to next, previous error
+48) C-c C-v  = ELPY Syntax check with flake8
+49) C-c C-n  = ELPY Next flake8 error
+50) C-c C-t  = ELPY Start tests
+51) C-h v kill-ring = Watch your kill ring
