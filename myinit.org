@@ -2,19 +2,44 @@
 #+BEGIN_SRC emacs-lisp
   ;; Who I am
 
-  ;; be able to create directories in neotree
-  (global-set-key (kbd "C-c d") 'make-directory)
-
   (setq user-full-name "Arvydas Gasparaviciusn")
   (setq user-mail-address "arvydas.gaspa@gmail.com")
   ;; the blinking cursor is nothing, but an annoyance
   (blink-cursor-mode 0)
 
+  ;; Show where buffers end.
+  (setq-default indicate-empty-lines t)
+
+  ;; be able to create directories in neotree
+  (global-set-key (kbd "C-c d") 'make-directory)
+
+  (setq fill-column 80)
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+  ;; or do
+  ;; (global-set-key (kbd "C-c q") 'auto-fill-mode)
+
+  ;; Be aware of whitespace.
+  (setq whitespace-style '(face trailing tabs tab-mark))
+  (global-whitespace-mode)
+
+  ;; maximize my Emacs frame on start-up
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+  ;;disable splash screen and startup message
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message nil)
+
   ;; highlight the current line
   (global-hl-line-mode 1)
 
+  ;; Delete marked region when typing over it. Woooow.
+  (delete-selection-mode t)
+
+  ;; Don't insert tabs.
+  (setq-default indent-tabs-mode nil)
+
   ;; writes parens automatically for you
-  (electric-pair-mode +1)  
+  (electric-pair-mode +1)
 
   (menu-bar-mode -1)            ; Disable the menu bar
   (tool-bar-mode -1)          ; Disable the toolbar
