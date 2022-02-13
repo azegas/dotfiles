@@ -411,20 +411,26 @@ Best org mode tutorial playlist:https://www.youtube.com/watch?v=sQS06Qjnkcc&list
   ;; Write all org-agenda-files ONCE, do the procedure described in the line above and forget about it. Refiling will work, agenda will work.
   ;; if your org agenda files are not there, do C-c C-e on the parentheses below. Evaluate them.
 
-  (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
-  "~/Dropbox/documents/org/inbox.org"
-  "~/Dropbox/documents/org/smutifruti.org"
-  "~/Dropbox/documents/org/dpd.org"
-  "~/Dropbox/documents/org/facebook_django.org"
-  "~/Dropbox/documents/org/personal.org"
-  "~/Dropbox/documents/org/arvydasdev.org"
-  "~/Dropbox/documents/org/diary.org"))
+  ;; (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
+  ;; "~/Dropbox/documents/org/refile.org"
+  ;; "~/Dropbox/documents/org/smutifruti.org"
+  ;; "~/Dropbox/documents/org/dpd.org"
+  ;; "~/Dropbox/documents/org/facebook_django.org"
+  ;; "~/Dropbox/documents/org/personal.org"
+  ;; "~/Dropbox/documents/org/arvydasdev.org"
+  ;; "~/Dropbox/documents/org/diary.org"))
+
+
+  (setq org-agenda-files '("~/Dropbox/documents/org/"))
+
+  ;;Initial visbility
+  (setq org-startup-folded 'show2levels)
 
   ;; Stop preparing agenda buffers on startup
   (setq org-agenda-inhibit-startup t)
 
   ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
-  (setq org-log-into-drawer "QUICK_NOTES")
+  (setq org-log-into-drawer "LOGBOOK")
 
   ;; shortcut for opening agenda view
   (global-set-key (kbd "C-c a") 'org-agenda)
