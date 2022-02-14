@@ -533,7 +533,6 @@ Beautiful interface to view all the tasks in a separated fashion.
       (setq org-clock-in-switch-to-state "IN-PROGRESS")
       (setq org-clock-out-switch-to-state "WAITING")
 
-
       ;; to see all the emacs predifined colors - M-x list-colors-display
       (setq org-todo-keyword-faces
 	       (quote (("TODO" :foreground "IndianRed1" :weight bold)
