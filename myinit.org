@@ -253,8 +253,12 @@ See https://github.com/abo-abo/avy for more info.
 (move-text-default-bindings)
 #+END_SRC
 * Impatient mode
-"Impatient mode" lets you to have a browser window with LIVE HTML preview. Add files by 'M-x httpd-start'. Then do `M-x impatient-mode` - on EACH and EVERY file (css, js and hmtl).
-Otherwise, read simple explanation here - https://github.com/skeeto/impatient-mode.
+"Impatient mode" lets you to have a browser window with LIVE HTML
+preview. Add files by 'M-x httpd-start'. Then do `M-x
+impatient-mode` - on EACH and EVERY file (css, js and hmtl). And then
+go to this link http://localhost:8080/imp/
+Otherwise, read simple explanation here -
+https://github.com/skeeto/impatient-mode.
 #+BEGIN_SRC emacs-lisp
   (use-package impatient-mode
     :ensure t
