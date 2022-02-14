@@ -206,7 +206,7 @@ scroll-preserve-screen-position 1)
 :defer 0.1
 :diminish
 :bind (("C-c C-r" . ivy-resume)
-("C-x B" . ivy-switch-buffer-other-window))
+("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
 :custom
 
 (ivy-count-format "(%d/%d) ")
@@ -322,10 +322,21 @@ scroll-preserve-screen-position 1)
 (setq org-agenda-inhibit-startup t)
 
 ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
+;; C-c C-z - tiesiog make note under a heading
+;; to log into drawer with c-c c-z, reikia:
+;; m-x customise-variable RET org-log-into-drawer - select LOGBOOK save and apply.
 (setq org-log-into-drawer "LOGBOOK")
+
+;; No need to have two places to make notes. "clock" and "Logbook"
+;; Put clock and logbook notes into one
+(setq org-clock-into-drawer "LOGBOOK")
 
 ;; shortcut for opening agenda view
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+;; hide any scheduled tasks that are already completed.
+;; if I hide, i will forget to archive them.. not good
+;; (setq org-agenda-skip-scheduled-if-done t)
 
 (setq org-agenda-restore-windows-after-quit t)
 ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
@@ -345,13 +356,8 @@ scroll-preserve-screen-position 1)
 (setq org-clock-in-resume t)
 ;; Do not prompt to resume an active clock, just resume it
 (setq org-clock-persist-query-resume nil)
-(setq org-clock-into-drawer "CLOCK")
-;; quite nice, tells you when the task has been finished when you say DONE on it
-(setq org-log-done t)
-
-;; C-c C-z - tiesiog make note under a heading
-;; to log into drawer with c-c c-z, reikia:
-;; m-x customise-variable RET org-log-into-drawer - select LOGBOOK save and apply.
+;; quite nice, asks you to write a closing note for a task when it's marked as DONE
+(setq org-log-done 'note)
 
 (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
 
@@ -360,8 +366,13 @@ scroll-preserve-screen-position 1)
 ;; setting up the templates for c-c c
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-capture-templates '(
-("r" "Refile" entry (file+headline "~/Dropbox/documents/org/refile.org" "Refile")"* TODO %?\n%U%^{Effort}p") ;; genius. that effort.
-("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/diary.org" "Diary") "* %U %^{Title} %?")))
+("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%U%^{Effort}p")
+("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%U%^{Effort}p")
+("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%U%^{Effort}p")
+("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%U%^{Effort}p")
+("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%U%^{Effort}p")
+("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title} %?")
+("r" "Refile" entry (file+headline "~/Dropbox/documents/org/refile.org" "Refile")"* TODO %?\n%U%^{Effort}p"))) ;; genius. that effort.
 ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
 ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
 
@@ -371,7 +382,6 @@ scroll-preserve-screen-position 1)
 ;; When clocking in, change the state to "in progress", then when clocking out change state to "waiting".
     (setq org-clock-in-switch-to-state "IN-PROGRESS")
     (setq org-clock-out-switch-to-state "WAITING")
-
 
     ;; to see all the emacs predifined colors - M-x list-colors-display
     (setq org-todo-keyword-faces
@@ -439,6 +449,11 @@ scroll-preserve-screen-position 1)
   :ensure t
   :init (doom-modeline-mode 1))
 
+  ;; Show how many characters in a buffer
+  ;; nice, just add whatever you like to the modeline
+  ;; link of variables http://doc.endlessparentheses.com/Var/mode-line-format
+  (add-to-list 'global-mode-string '(" %i"))
+
 (use-package flycheck
   :ensure t
   :init
@@ -471,4 +486,8 @@ scroll-preserve-screen-position 1)
 )
 
 (eval-after-load "elpy"
- '(define-key elpy-mode-map (kbd "C-c <return>") 'my-python-line))
+ '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
+
+(use-package iedit
+:ensure t
+  :bind (("C-c ;" . iedit-mode)))
