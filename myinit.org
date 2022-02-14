@@ -1,3 +1,4 @@
+# old configuration for reference - https://github.com/arvydasg/random_dotfiles/commit/653f0d621f66f25a944b6c5e57945571a7a4da02
 * Interface tweaks
 #+BEGIN_SRC emacs-lisp
   ;; Who I am
