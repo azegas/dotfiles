@@ -684,5 +684,5 @@ execute one line at a time. Default elpy has this function, but it says - ups, n
   )
 
   (eval-after-load "elpy"
-   '(define-key elpy-mode-map (kbd "C-c <return>") 'my-python-line))
+   '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 #+END_SRC
