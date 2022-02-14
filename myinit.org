@@ -268,21 +268,21 @@ https://github.com/skeeto/impatient-mode.
 ** Ivy
 "Ivy" is a generic completion mechanism for Emacs.
 #+BEGIN_SRC emacs-lisp
-     (use-package ivy
-     :defer 0.1
-     :diminish
-     :bind (("C-c C-r" . ivy-resume)
-     ("C-x B" . ivy-switch-buffer-other-window))
-     :custom
+  (use-package ivy
+  :defer 0.1
+  :diminish
+  :bind (("C-c C-r" . ivy-resume)
+  ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+  :custom
 
-     (ivy-count-format "(%d/%d) ")
-     ;; nice if you want before opened buffers to appear after a close
-     (ivy-use-virtual-buffers t)
-     :config (ivy-mode))
+  (ivy-count-format "(%d/%d) ")
+  ;; nice if you want before opened buffers to appear after a close
+  (ivy-use-virtual-buffers t)
+  :config (ivy-mode))
 
-     (use-package ivy-rich
-     :ensure t
-     :init (ivy-rich-mode 1))
+  (use-package ivy-rich
+  :ensure t
+  :init (ivy-rich-mode 1))
 #+END_SRC
 ** Swiper
 "Swiper" - an Ivy-enhanced alternative to Isearch.
