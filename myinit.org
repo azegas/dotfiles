@@ -618,6 +618,11 @@ or like so:
   (use-package doom-modeline
     :ensure t
     :init (doom-modeline-mode 1))
+
+    ;; Show how many characters in a buffer
+    ;; nice, just add whatever you like to the modeline
+    ;; link of variables http://doc.endlessparentheses.com/Var/mode-line-format
+    (add-to-list 'global-mode-string '(" %i"))
 #+END_SRC
 * Flycheck
 "Flycheck" uses various syntax checking and linting tools to automatically check the contents of buffers while you type, and reports warnings and errors directly in the buffer. Or in the right corner if you use "Doom-modeline". Can click on the icon - shows all the errors. Great!
