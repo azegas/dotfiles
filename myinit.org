@@ -97,7 +97,7 @@
   (defun django-docs nil
     "Find the myinit.org file."
     (interactive)
-    (find-file "~/Dropbox/org/django.org")) ;; ubuntu
+    (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
     (global-set-key [f5] 'django-docs)
 #+END_SRC
 * Ace windows
