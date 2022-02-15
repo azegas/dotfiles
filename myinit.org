@@ -691,3 +691,29 @@ execute one line at a time. Default elpy has this function, but it says - ups, n
   (eval-after-load "elpy"
    '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 #+END_SRC
+* Iedit
+"Iedit" - a package that allows to edit all the alike strings in the
+buffer. Would have been useful on 02.14 when editing facebook_django
+urls, but was getting an error. More about it [[https://github.com/victorhge/iedit/issues/146][here]].
+#+BEGIN_SRC emacs-lisp
+(use-package iedit
+:ensure t
+  :bind (("C-;" . iedit-mode)))
+#+END_SRC
+* Volatile Highlights
+"Volatile highlights" - temporarily highlight changes from pasting etc.
+#+BEGIN_SRC emacs-lisp
+(use-package volatile-highlights
+  :ensure t
+  :config
+  (volatile-highlights-mode t))
+#+END_SRC
+* Ws-butler
+"Ws-butler" - whitespace butler - clean up whitespace automatically on
+saving buffer.
+#+BEGIN_SRC emacs-lisp
+(use-package ws-butler
+  :ensure t
+  :config
+  (ws-butler-global-mode t))
+#+END_SRC
