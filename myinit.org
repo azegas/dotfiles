@@ -13,6 +13,12 @@
 
   ;; be able to create directories in neotree
   (global-set-key (kbd "C-c d") 'make-directory)
+  ;; This shortcut exists and works already in org files, but I made it
+  ;; available from any buffer!! Useful when editing other type of files
+  ;; and want to jump to your clocked task. Otherwise would have to open
+  ;; agenda first and only then org-clock-goto.
+  ;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
+  (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
 
   (setq fill-column 80)
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
