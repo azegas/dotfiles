@@ -381,3 +381,12 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 56) M-x emacs-lisp-byte-compile = after modifying emacs package file,
     run this (while in the opened buffer) to save the changes. Helped
     with iedit.
+57) M-x eww  = EWW browser
+58) C-c C-o  = ORG open linka
+59) A        = ORG agenda append agenda view to buffer
+60) o        = ORG agenda delete other windows
+61) f1 v     = DESCRIBE VARIABLE - super useful. can look for all kind
+    of information. Like directories of plugins and so on... try it out.
+62) C-v      = scroll buffer down
+63) M-v      = scroll buffer up
+64) M-! nautilus . = open current dir in nautilus. oh yeah
