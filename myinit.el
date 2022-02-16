@@ -1,7 +1,10 @@
 ;; Who I am
 
+(require 'json)
+
 (setq user-full-name "Arvydas Gasparaviciusn")
 (setq user-mail-address "arvydas.gaspa@gmail.com")
+
 ;; the blinking cursor is nothing, but an annoyance
 (blink-cursor-mode 0)
 
@@ -10,9 +13,39 @@
 
 ;; be able to create directories in neotree
 (global-set-key (kbd "C-c d") 'make-directory)
+;; This shortcut exists and works already in org files, but I made it
+;; available from any buffer!! Useful when editing other type of files
+;; and want to jump to your clocked task. Otherwise would have to open
+;; agenda first and only then org-clock-goto.
+;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
+(global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
 
+;; start wrapping at 80 characters?
 (setq fill-column 80)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; Show how many characters in a buffer
+;; nice, just add whatever you like to the modeline
+;; link of variables http://doc.endlessparentheses.com/Var/mode-line-format
+(add-to-list 'global-mode-string '(" %i"))
+
+;; Eww is cool, but pls open links in chrome. ty
+(setq browse-url-browser-function 'browse-url-generic
+browse-url-generic-program "google-chrome")
+
+;; column-number in mode-line.
+(column-number-mode 1)
+
+;; file size indication in mode-line.
+(size-indication-mode 1)
+
+;; Disable indent-tabs-mode omg, a lifesaver in org mode.  Usually I
+;; would be able to get to left border, but now it prevents me from
+;; doing so. Meaning - everything is aligned perfectly, no more - [ ]
+;; out of order and tempate dates are out of order, not aligned... perfect!!
+;; actually, not sure what this does, lol. Everything is aligned anyw
+(setq-default indent-tabs-mode nil)
+
 ;; or do
 ;; (global-set-key (kbd "C-c q") 'auto-fill-mode)
 
@@ -33,9 +66,6 @@
 ;; Delete marked region when typing over it. Woooow.
 (delete-selection-mode t)
 
-;; Don't insert tabs.
-(setq-default indent-tabs-mode nil)
-
 ;; writes parens automatically for you
 (electric-pair-mode +1)
 
@@ -43,6 +73,13 @@
 (tool-bar-mode -1)          ; Disable the toolbar
 (toggle-scroll-bar -1) ; turn off scrollbar
 (show-paren-mode 1) ; highlight parenthesis
+
+;; no need for this.. geting "Warning: desktop file appears to be in
+;; use by PID xxx" error.. neotree is not an "unclosable" buffer anymore.. fuck it.
+;; (setq desktop-save-mode 1)
+;; (setq desktop-path '("~/.emacs.d/.cache/"))
+;; (desktop-read)
+
 
 ;; Show matching parens
 (setq show-paren-delay 0)
@@ -64,7 +101,7 @@ scroll-preserve-screen-position 1)
 ;; ; display line numbers - finally...
 ;; (global-display-line-numbers-mode 1)
 
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
 
 ;; Easily jump to my main org file
 (defun aga-find-current nil
@@ -91,26 +128,33 @@ scroll-preserve-screen-position 1)
 (defun django-docs nil
   "Find the myinit.org file."
   (interactive)
-  (find-file "~/Dropbox/org/django.org")) ;; ubuntu
+  (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
   (global-set-key [f5] 'django-docs)
 
 (use-package ace-window
     :ensure t
     :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
 ;		aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
-		aw-dispatch-always t)
+                aw-dispatch-always t)
     :bind (("C-x o" . ace-window)
-	   ("M-O" . ace-swap-window)
-	   ("C-x v" . aw-split-window-horz)))
-  (defvar aw-dispatch-alist
-  '((?x aw-delete-window " Ace - Delete Window")
-      (?m aw-swap-window " Ace - Swap Window")
+           ("M-O" . ace-swap-window)
+           ("C-x v" . aw-split-window-horz)))
+   (defvar aw-dispatch-alist
+  '((?x aw-delete-window "Delete Window")
+      (?m aw-swap-window "Swap Windows")
+      (?M aw-move-window "Move Window")
+      (?c aw-copy-window "Copy Window")
+      (?f aw-switch-buffer-in-window "Select Buffer")
       (?n aw-flip-window)
-      (?h aw-split-window-vert " Ace - Split Vert Window")
-      (?v aw-split-window-horz " Ace - Split Horz Window")
-      (?i delete-other-windows " Ace - Maximize Window")
-      (?o delete-other-windows))
-  "List of actions for `aw-dispatch-default'.")
+      (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+      (?c aw-split-window-fair "Split Fair Window")
+      (?h aw-split-window-vert "Split Vert Window")
+      (?v aw-split-window-horz "Split Horz Window")
+      (?o delete-other-windows)
+      ;; (?o delete-other-windows "Delete Other Windows")
+      ;; (?o delete-other-windows " Ace - Maximize Window")
+      (?? aw-show-dispatch-help))
+      "List of actions for `aw-dispatch-default'.")
 
 (use-package which-key
   :ensure t
@@ -147,7 +191,7 @@ scroll-preserve-screen-position 1)
   :ensure t
   :config
   (setq company-idle-delay 0) ; lb svarbu, instant suggestion
-  ;; (setq company-show-numbers t)  
+  ;; (setq company-show-numbers t)
   (setq company-tooltip-limit 10)
   ;; (setq company-minimum-prefix-length 2)
   (setq company-tooltip-align-annotations t)
@@ -199,8 +243,16 @@ scroll-preserve-screen-position 1)
 (move-text-default-bindings)
 
 (use-package impatient-mode
-  :ensure t
-  :commands impatient-mode)
+    :ensure t
+    :commands impatient-mode)
+
+;; to be able to preview .md files
+;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
+;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
+(defun markdown-html (buffer)
+  (princ (with-current-buffer buffer
+    (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+  (current-buffer)))
 
 (use-package ivy
 :defer 0.1
@@ -315,8 +367,9 @@ scroll-preserve-screen-position 1)
 
 (setq org-agenda-files '("~/Dropbox/documents/org/"))
 
-;;Initial visbility
-(setq org-startup-folded 'show2levels)
+;;Initial visbility doesn't want to work with global variable, so
+;; better set #+STARTUP: fold and alike in each file
+;; (setq org-startup-folded t)
 
 ;; Stop preparing agenda buffers on startup
 (setq org-agenda-inhibit-startup t)
@@ -336,7 +389,7 @@ scroll-preserve-screen-position 1)
 
 ;; hide any scheduled tasks that are already completed.
 ;; if I hide, i will forget to archive them.. not good
-;; (setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-scheduled-if-done t)
 
 (setq org-agenda-restore-windows-after-quit t)
 ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
@@ -371,7 +424,7 @@ scroll-preserve-screen-position 1)
 ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%U%^{Effort}p")
 ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%U%^{Effort}p")
 ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%U%^{Effort}p")
-("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title} %?")
+("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")
 ("r" "Refile" entry (file+headline "~/Dropbox/documents/org/refile.org" "Refile")"* TODO %?\n%U%^{Effort}p"))) ;; genius. that effort.
 ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
 ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
@@ -449,11 +502,6 @@ scroll-preserve-screen-position 1)
   :ensure t
   :init (doom-modeline-mode 1))
 
-  ;; Show how many characters in a buffer
-  ;; nice, just add whatever you like to the modeline
-  ;; link of variables http://doc.endlessparentheses.com/Var/mode-line-format
-  (add-to-list 'global-mode-string '(" %i"))
-
 (use-package flycheck
   :ensure t
   :init
@@ -468,26 +516,96 @@ scroll-preserve-screen-position 1)
   :init
   (elpy-enable))
 
-(defun my-python-line ()
- (interactive)
-  (save-excursion
-  (setq the_script_buffer (format (buffer-name)))
-  (end-of-line)
-  (kill-region (point) (progn (back-to-indentation) (point)))
-  ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
-  (setq the_py_buffer "*Python*")
-  (switch-to-buffer-other-window  the_py_buffer)
-  (goto-char (buffer-end 1))
-  (yank)
-  (comint-send-input)
-  (switch-to-buffer-other-window the_script_buffer)
-  (yank)
-  )
-)
+;; (defun my-python-line ()
+;;  (interactive)
+;;   (save-excursion
+;;   (setq the_script_buffer (format (buffer-name)))
+;;   (end-of-line)
+;;   (kill-region (point) (progn (back-to-indentation) (point)))
+;;   ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
+;;   (setq the_py_buffer "*Python*")
+;;   (switch-to-buffer-other-window  the_py_buffer)
+;;   (goto-char (buffer-end 1))
+;;   (yank)
+;;   (comint-send-input)
+;;   (switch-to-buffer-other-window the_script_buffer)
+;;   (yank)
+;;   )
+;; )
 
-(eval-after-load "elpy"
- '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
+;; (eval-after-load "elpy"
+;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 
 (use-package iedit
 :ensure t
-  :bind (("C-c ;" . iedit-mode)))
+  :bind (("C-;" . iedit-mode)))
+
+(use-package volatile-highlights
+  :ensure t
+  :config
+  (volatile-highlights-mode t))
+
+(use-package ws-butler
+  :ensure t
+  :config
+  (ws-butler-global-mode t))
+
+(use-package popwin
+:ensure t
+:config
+(popwin-mode 1))
+
+(use-package eww
+  :commands eww eww-follow-link
+  :init
+  (setq browse-url-browser-function 'eww-browse-url)
+  (setq eww-search-prefix "http://www.google.com/search?q=")
+
+  (defun eww-wiki (text)
+    "Function used to search wikipedia for the given text."
+    (interactive (list (read-string "Wiki for: ")))
+    (eww (format "https://en.m.wikipedia.org/wiki/Special:Search?search=%s"
+                 (url-encode-url text))))
+
+  :bind (("C-c w w" . eww)
+         ("C-c w i" . eww-wiki)
+         ("C-c w l" . eww-follow-link)))
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-palenight t)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+(use-package web-mode
+    :ensure t
+    :config
+	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+	   (setq web-mode-engines-alist
+		 '(("django"    . "\\.html\\'")))
+	   (setq web-mode-ac-sources-alist
+	   '(("css" . (ac-source-css-property))
+         ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+         (setq web-mode-enable-auto-closing t))
+         (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
+         (setq web-mode-enable-current-element-highlight t)
+
+         (add-hook 'web-mode 'emmet-mode)
+
+(use-package yasnippet                  ; Snippets
+  :ensure t)
+  (yas-global-mode 1)
+(use-package yasnippet-snippets         ; Collection of snippets
+  :ensure t)
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
