@@ -1,218 +1,97 @@
-# old configuration for reference - https://github.com/arvydasg/random_dotfiles/commit/653f0d621f66f25a944b6c5e57945571a7a4da02
 * Interface tweaks
 #+BEGIN_SRC emacs-lisp
-  ;; Who I am
+    ;; the blinking cursor is nothing, but an annoyance
+    (blink-cursor-mode 0)
+    ;; Show where buffers end.
+    (setq-default indicate-empty-lines t)
+    ;; start wrapping at 80 characterers
+    (setq fill-column 80)
+    (add-hook 'text-mode-hook 'turn-on-auto-fill)
+    ;; column-number in mode-line.
+    (column-number-mode 1)
+    ;; file size indication in mode-line.
+    (size-indication-mode 1)
+    ;; Be aware of whitespace.
+    (setq whitespace-style '(face trailing tabs tab-mark))
+    (global-whitespace-mode)
+    ;; ;; maximize my Emacs frame on start-up
+    ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+    ;;disable splash screen and startup message
+    (setq inhibit-startup-message t)
+    (setq initial-scratch-message nil)
+    ;; highlight the current line
+    (global-hl-line-mode 1)
+    ;; Delete marked region when typing over it. Woooow.
+    (delete-selection-mode t)
+    ;; writes parens automatically for you
+    (electric-pair-mode +1)
+    ;; Disable the menu bar
+    (menu-bar-mode -1)
+    ;; Disable the toolbar
+    (tool-bar-mode -1)
+    ;; turn off scrollbar
+    (toggle-scroll-bar -1)
+    ;; highlight parenthesis
+    (show-paren-mode 1)
+    ;; Show matching parens
+    (setq show-paren-delay 0)
+    ;; enable y/n answers
+    (fset 'yes-or-no-p 'y-or-n-p)
+    ;; Set up the visible bell
+    (setq visible-bell t)
+    ;; never lose the layout c-c left/right
+    (winner-mode 1)
+    ; display line numbers - finally...
+    ;; (global-display-line-numbers-mode 1)
+    (add-hook 'text-mode-hook #'display-line-numbers-mode)
+    (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
-  (setq user-full-name "Arvydas Gasparaviciusn")
-  (setq user-mail-address "arvydas.gaspa@gmail.com")
-  ;; the blinking cursor is nothing, but an annoyance
-  (blink-cursor-mode 0)
+    ;; Turns on spell-checking in text buffers
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    ;; Turns on spell-checking in programming mode buffers, but only the COMMENTS
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
-  ;; Show where buffers end.
-  (setq-default indicate-empty-lines t)
+    ;; Easily jump to my main org file
+    (defun aga-find-current nil
+      "Find the myinit.org file."
+      (interactive)
+      (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
+      ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
+      (delete-other-windows))
+    ;; Find my NEW init file
+    (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
 
-  ;; be able to create directories in neotree
-  (global-set-key (kbd "C-c d") 'make-directory)
-  ;; This shortcut exists and works already in org files, but I made it
-  ;; available from any buffer!! Useful when editing other type of files
-  ;; and want to jump to your clocked task. Otherwise would have to open
-  ;; agenda first and only then org-clock-goto.
-  ;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
-  (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
+    ;; Easily jump to my main org file
+    (defun aga-find-old nil
+      "Find the myinit.org file."
+      (interactive)
+      (find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
+      ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
+      (delete-other-windows))
+      ;; Find OLD init file
+      (global-set-key (kbd "C-x <C-home>") 'aga-find-old)
 
-  ;; start wrapping at 80 characters?
-  (setq fill-column 80)
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+    ;; open my django docs
+    (defun django-docs nil
+      "Find the myinit.org file."
+      (interactive)
+      (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
+      (global-set-key [f5] 'django-docs)
 
-  ;; Show how many characters in a buffer
-  ;; nice, just add whatever you like to the modeline
-  ;; link of variables http://doc.endlessparentheses.com/Var/mode-line-format
-  (add-to-list 'global-mode-string '(" %i"))
+  ;; Show startup time on emacs-load
+  (defun efs/display-startup-time ()
+    (message "Emacs loaded in %s with %d garbage collections."
+	     (format "%.2f seconds"
+		     (float-time
+		       (time-subtract after-init-time before-init-time)))
+	     gcs-done))
 
-  ;; Eww is cool, but pls open links in chrome. ty
-  (setq browse-url-browser-function 'browse-url-generic
-  browse-url-generic-program "google-chrome")
-
-  ;; column-number in mode-line.
-  (column-number-mode 1)
-
-  ;; file size indication in mode-line.
-  (size-indication-mode 1)
-
-  ;; Disable indent-tabs-mode omg, a lifesaver in org mode.  Usually I
-  ;; would be able to get to left border, but now it prevents me from
-  ;; doing so. Meaning - everything is aligned perfectly, no more - [ ]
-  ;; out of order and tempate dates are out of order, not aligned... perfect!!
-  ;; actually, not sure what this does, lol. Everything is aligned anyw
-  (setq-default indent-tabs-mode nil)
-
-  ;; or do
-  ;; (global-set-key (kbd "C-c q") 'auto-fill-mode)
-
-  ;; Be aware of whitespace.
-  (setq whitespace-style '(face trailing tabs tab-mark))
-  (global-whitespace-mode)
-
-  ;; maximize my Emacs frame on start-up
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-  ;;disable splash screen and startup message
-  (setq inhibit-startup-message t)
-  (setq initial-scratch-message nil)
-
-  ;; highlight the current line
-  (global-hl-line-mode 1)
-
-  ;; Delete marked region when typing over it. Woooow.
-  (delete-selection-mode t)
-
-  ;; writes parens automatically for you
-  (electric-pair-mode +1)
-
-  (menu-bar-mode -1)            ; Disable the menu bar
-  (tool-bar-mode -1)          ; Disable the toolbar
-  (toggle-scroll-bar -1) ; turn off scrollbar
-  (show-paren-mode 1) ; highlight parenthesis
-
-  ;; no need for this.. geting "Warning: desktop file appears to be in
-  ;; use by PID xxx" error.. neotree is not an "unclosable" buffer anymore.. fuck it.
-  ;; (setq desktop-save-mode 1)
-  ;; (setq desktop-path '("~/.emacs.d/.cache/"))
-  ;; (desktop-read)
-
-
-  ;; Show matching parens
-  (setq show-paren-delay 0)
-
-  ;; enable y/n answers
-  (fset 'yes-or-no-p 'y-or-n-p)
-
-  ;; Set up the visible bell
-  (setq visible-bell t)
-
-  ;; nice scrolling
-  (setq scroll-margin 0
-  scroll-conservatively 100000
-  scroll-preserve-screen-position 1)
-
-  ;; never lose the layout c-c left/right
-  (winner-mode 1)
-
-  ;; ; display line numbers - finally...
-  ;; (global-display-line-numbers-mode 1)
-
-  ;; (load-theme 'zenburn t)
-
+  (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 #+END_SRC
-* Keybindings
-#+BEGIN_SRC emacs-lisp
-  ;; Easily jump to my main org file
-  (defun aga-find-current nil
-    "Find the myinit.org file."
-    (interactive)
-    (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
-    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
-    (delete-other-windows))
-  ;; Find my NEW init file
-  (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
-
-
-  ;; Easily jump to my main org file
-  (defun aga-find-old nil
-    "Find the myinit.org file."
-    (interactive)
-    (find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
-    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
-    (delete-other-windows))
-    ;; Find OLD init file
-    (global-set-key (kbd "C-x <C-home>") 'aga-find-old)
-
-  ;; open my django docs
-  (defun django-docs nil
-    "Find the myinit.org file."
-    (interactive)
-    (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
-    (global-set-key [f5] 'django-docs)
-#+END_SRC
-* Ace windows
-"Ace windows" helps me to switch windows easily. Main keybind - C-x o and then the commands that follow below.
-#+BEGIN_SRC emacs-lisp
-    (use-package ace-window
-      :ensure t
-      :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
-  ;		aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
-                  aw-dispatch-always t)
-      :bind (("C-x o" . ace-window)
-             ("M-O" . ace-swap-window)
-             ("C-x v" . aw-split-window-horz)))
-     (defvar aw-dispatch-alist
-    '((?x aw-delete-window "Delete Window")
-        (?m aw-swap-window "Swap Windows")
-        (?M aw-move-window "Move Window")
-        (?c aw-copy-window "Copy Window")
-        (?f aw-switch-buffer-in-window "Select Buffer")
-        (?n aw-flip-window)
-        (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-        (?c aw-split-window-fair "Split Fair Window")
-        (?h aw-split-window-vert "Split Vert Window")
-        (?v aw-split-window-horz "Split Horz Window")
-        (?o delete-other-windows)
-        ;; (?o delete-other-windows "Delete Other Windows")
-        ;; (?o delete-other-windows " Ace - Maximize Window")
-        (?? aw-show-dispatch-help))
-        "List of actions for `aw-dispatch-default'.")
-#+END_SRC
-* Keybind discovery
-"Which-key" states which possible key commbinations can be used after any button is pressed.
-#+BEGIN_SRC emacs-lisp
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
-  (setq which-key-idle-delay 0.2)
-  :config
-  (which-key-mode 1))
-#+END_SRC
-* Saveplace
-"Saveplace" remembers your location in a file when saving files
-#+BEGIN_SRC emacs-lisp
-(use-package saveplace
-  :ensure t
-  :config
-  ;; activate it for all buffers
-  (setq-default save-place t)
-  (save-place-mode 1)
-)
-#+END_SRC
-* Expand region
-"Expand region" allows me to select everything in between any kind of brackets by pressing C-=. The more I press it, the more it selects.
-#+BEGIN_SRC emacs-lisp
-  (use-package expand-region
-    :ensure t
-    :bind ("C-=" . er/expand-region))
-#+END_SRC
-* Undo-tree
-"Undo tree" lets me to return to the file stage before any modifications were made. Keybind - C-x u.
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-  :ensure t
-  :init
-  (global-undo-tree-mode))
-#+END_SRC
-* Council/Ivy/Swiper
-"Swiper" gives us a really efficient incremental search with regular expressions
-"Ivy / Counsel" replace a lot of ido or helms completion functionality 
-Best explanation is here - https://www.reddit.com/r/emacs/comments/910pga/tip_how_to_use_ivy_and_its_utilities_in_your/
-#+begin_src emacs-lisp
-     (use-package counsel
-     :ensure t
-     :after ivy
-     :config (counsel-mode))
-   #+end_src
 * Company
-"Company" provides autosuggestion/completion in buffers (writing code, pathing to files, etc).
-press <f1> to display the documentation for the selected candidate or C-w to see its source
+"Company" provides autosuggestion/completion in buffers (writing code,
+pathing to files, etc).  press <f1> to display the documentation for
+the selected candidate or C-w to see its source
 #+BEGIN_SRC emacs-lisp
     (use-package company
       :ensure t
@@ -227,128 +106,64 @@ press <f1> to display the documentation for the selected candidate or C-w to see
       (setq company-tooltip-flip-when-above t)
       (global-company-mode))
 #+END_SRC
-* Directories
-#+BEGIN_SRC emacs-lisp
-  ;; Automatically generated backups
-  (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
-#+END_SRC
-* Projectile
-"Projectile" allows me to have a list of my projects under one keybind - C-c p p. I can then open a project and my working directory will remain to that project that I opened. With a shortcut C-c p f I can look thrugh ALL the files of that particular project directory. Super useful, makes the buffers way tidier.
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :ensure t
-    :config
-    (projectile-global-mode)
-    (setq projectile-completion-system 'ivy)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-#+END_SRC
-* Magit
-"Magit" - can not imagine working with git without it. Instead of writing full commands like: "git add ." and then "git commit -m 'bla blaa'" then "git push"... I can simply `C-x g` for a git status. Then `s` to do git add. And finally `C-c C-c` to invoke git commit and simply write a message. Then press `p` and I just pushed the changes. Way quickier than the termina, believe me. 
-
-Some notes:
-- install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
-- use personal access token
-- add this to terminal to save the token for furher use
-- git config --global credential.helper store
-#+BEGIN_SRC emacs-lisp
-(use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)
-         ("C-x C-g" . magit-status)))
-#+END_SRC
-* Supersave
-"Supersave" autosaves buffers for me. I am kind of used to clicking C-x C-s all the time, but "Supersave" just makes sure that it saves all the buffers when I switch windows and so on. So if I ever want to close my emacs - I can be sure that all the buffers are saved.
-#+BEGIN_SRC emacs-lisp
-;; ace window integration - BUTINA
-(use-package super-save
-  :ensure t
-  :config
-  (setq super-save-auto-save-when-idle t)
-  (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
-  ;; add integration with ace-window
-  (add-to-list 'super-save-triggers 'ace-window)
-  (super-save-mode +1))
-#+END_SRC
-* Avy
-"Avy" lets me jump to to a specific letter or a word quickly. M-s and I can type a word, it will immeaditely jump to it on any opened and visible buffer.
-See https://github.com/abo-abo/avy for more info.
-  #+begin_src emacs-lisp
-	(use-package avy
-	  :ensure t
-	  :bind 
-	  (("M-s" . avy-goto-char-timer)
-    ;;	     ("M-g f" . avy-goto-line)
-		 ("M-p" . avy-goto-word-1)))
-;;  You can check the avy home page for their recommended configuration which you get by configuring this way instead:
-    ;; (use-package avy
-    ;; :ensure t
-    ;; :config
-    ;; (avy-setup-default))
-    (setq avy-background t) ; cool, makes the background darker
-  #+end_src
-* Move text
-"Move text" allows me to click M-up/down arrow key and move the text line by line up and down.
-#+BEGIN_SRC emacs-lisp
-(use-package move-text
-  :ensure t)
-(move-text-default-bindings)
-#+END_SRC
-* Impatient mode
-"Impatient mode" lets you to have a browser window with LIVE HTML
-preview. Add files by 'M-x httpd-start'. Then do `M-x
-impatient-mode` - on EACH and EVERY file (css, js and hmtl). And then
-go to this link http://localhost:8080/imp/
-Otherwise, read simple explanation here -
-https://github.com/skeeto/impatient-mode.
-#+BEGIN_SRC emacs-lisp
-    (use-package impatient-mode
-      :ensure t
-      :commands impatient-mode)
-
-  ;; to be able to preview .md files
-  ;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
-  ;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
-  (defun markdown-html (buffer)
-    (princ (with-current-buffer buffer
-      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
-    (current-buffer)))
-
-#+END_SRC
-* Navigation
-** Ivy
-"Ivy" is a generic completion mechanism for Emacs.
-#+BEGIN_SRC emacs-lisp
-  (use-package ivy
-  :defer 0.1
-  :diminish
-  :bind (("C-c C-r" . ivy-resume)
-  ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-  :custom
-
-  (ivy-count-format "(%d/%d) ")
-  ;; nice if you want before opened buffers to appear after a close
-  (ivy-use-virtual-buffers t)
-  :config (ivy-mode))
-
-  (use-package ivy-rich
-  :ensure t
-  :init (ivy-rich-mode 1))
-#+END_SRC
-** Swiper
-"Swiper" - an Ivy-enhanced alternative to Isearch.
+* Councel
+Click M-o while in C-x f or M-o to get a lot of options!
+#+begin_src emacs-lisp
+     (use-package counsel
+     :ensure t
+     :after ivy
+     :config (counsel-mode))
+#+end_src
+* Swiper
+"Swiper" - an Ivy-enhanced alternative to Isearch. Instead of regular
+C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
 #+BEGIN_SRC emacs-lisp
      (use-package swiper
      :after ivy
      :bind (("C-s" . swiper)
 	    ("C-r" . swiper)))
 #+END_SRC
-** Neotree
-"Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a sidebar filetree. Toggle on/off with F8.
+* Ivy
+"Ivy" is a generic completion mechanism for Emacs.
+C-c f, M-x basically. Other packages use it as well.
 #+BEGIN_SRC emacs-lisp
-         (use-package neotree
-         :ensure t
-         :init
-         (setq neo-smart-open t
+(use-package ivy
+   :defer 0.1
+   :diminish
+   :bind (("C-c C-r" . ivy-resume)
+   ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+   :custom
+
+   (ivy-count-format "(%d/%d) ")
+   ;; nice if you want before opened buffers to appear after a close
+   (ivy-use-virtual-buffers t)
+   :config (ivy-mode))
+
+   (use-package ivy-rich
+   :ensure t
+   :init (ivy-rich-mode 1))
+#+END_SRC
+* Which-key
+"Which-key" states which possible key commbinations can be used after
+any button is pressed.
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  (setq which-key-idle-delay 0.2)
+  :config
+  (which-key-mode 1))
+#+END_SRC
+* Neotree
+"Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a
+sidebar filetree. Toggle on/off with F8.
+#+BEGIN_SRC emacs-lisp
+(use-package neotree
+:ensure t
+:init
+(setq neo-smart-open t
          neo-autorefresh t
          neo-force-change-root t)
          (setq neo-theme (if (display-graphic-p) 'icons global))
@@ -364,108 +179,19 @@ https://github.com/skeeto/impatient-mode.
   (if (daemonp)
       (add-hook 'server-switch-hook #'neotree-startup)
       (add-hook 'after-init-hook #'neotree-startup))
+#+END_SRC
+* Org-Mode
+** Agenda
+[[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Amazing explanation here]]
+#+BEGIN_SRC emacs-lisp
+  ;; M-x org-agenda-file-list. Go there and click "save the changes"
+  ;; MANUALLY to save to init.el. Otherwise, emacs wont read it on
+  ;; every boot.  Write all org-agenda-files ONCE, do the procedure
+  ;; described in the line above and forget about it. Refiling will
+  ;; work, agenda will work.  if your org agenda files are not there,
+  ;; do C-c C-e on the parentheses below. Evaluate them.
 
-#+END_SRC
-* All the icons
-"All the icons" - icons visible on buffer window as well as sidebar filetree.
-neveikia icons on fresh Linux os install? Prasau - [[https://github.com/seagle0128/all-the-icons-ivy-rich][paaiskinimas]].
-Do M-x all-the-icons-install-fonts to install the necessary fonts.
-Then check your ~/.local/share/fonts/ if the icons appeared there or not.
-#+BEGIN_SRC emacs-lisp
-     (use-package all-the-icons-ivy-rich
-     :ensure t
-     :init (all-the-icons-ivy-rich-mode 1))
-#+END_SRC
-* Hungry delete
-"Hungry delete" - deletes all the whitespace when you hit backspace or delete.
-#+BEGIN_SRC emacs-lisp
-  (use-package hungry-delete
-  :ensure t
-  :config
-  (global-hungry-delete-mode))
-#+END_SRC
-* Emmet mode
-"Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
-Cheat sheet - https://docs.emmet.io/cheat-sheet/
-note:
-SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
-#+BEGIN_SRC emacs-lisp
-  (use-package emmet-mode
-  :ensure t
-  :config
-  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
-#+END_SRC
-* Emojify
-"Emojify" allows to preview emojis in emacs buffers. Needed for facebook auto posting
-#+BEGIN_SRC emacs-lisp
-  (use-package emojify
-  :ensure t 
-  :hook (after-init . global-emojify-mode))
-#+END_SRC
-* Rg
-"Rg" - rip grep. Helps to search for a term through many files. Super useful when need to change something on many files. 
-Installation: Sudo apt install ripgrep M-x rg and search away 
-Tut: nice video https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
-#+BEGIN_SRC emacs-lisp
-  (use-package rg
-    :ensure t
-    :config)
-#+END_SRC
-* Beacon
-"Beacon" - never lose your cursor again. Flashes the cursor location when switching buffers.
-#+BEGIN_SRC emacs-lisp
-  (use-package beacon
-  :ensure t
-  :config
-    (progn
-      (setq beacon-blink-when-point-moves-vertically nil) ; default nil
-      (setq beacon-blink-when-point-moves-horizontally nil) ; default nil
-      (setq beacon-blink-when-buffer-changes t) ; default t
-      (setq beacon-blink-when-window-scrolls t) ; default t
-      (setq beacon-blink-when-window-changes t) ; default t
-      (setq beacon-blink-when-focused nil) ; default nil
-
-      (setq beacon-blink-duration 0.3) ; default 0.3
-      (setq beacon-blink-delay 0.3) ; default 0.3
-      (setq beacon-size 20) ; default 40
-      ;; (setq beacon-color "yellow") ; default 0.5
-      (setq beacon-color 0.5) ; default 0.5
-
-      (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
-
-      (beacon-mode 1)))
-#+END_SRC
-* Dumb jump
-UPDATE 2022-02-09 Kind of not needed anymore since using Elpy and it has the same function, even more convieniently placed.
-
-"Dumb jump" - jump to definition.
-Tut: ok, so, wow. Let's say I have a views.py in django and I "def veganai(request):" and then the function below it.
-I later use that function in another file, let's say urls.py. I can then go to urls.py, stand on that function and
-then go M-g j or o to jump to that definition (in views.py)
-this is amazing and life saving. I should not forget that this option exists.
-video of how to use it - https://www.youtube.com/watch?v=wBfZzaff77g
-#+BEGIN_SRC emacs-lisp
-(use-package dumb-jump
-  :bind (("M-g o" . dumb-jump-go-other-window)
-         ("M-g j" . dumb-jump-go)
-         ("M-g x" . dumb-jump-go-prefer-external)
-         ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config
-  (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
-:init
-(dumb-jump-mode)
-  :ensure
-)
-#+END_SRC
-* Org agenda
-Best org mode tutorial playlist:https://www.youtube.com/watch?v=sQS06Qjnkcc&list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE&index=1
-** Org agenda files and other small configurations
-#+BEGIN_SRC emacs-lisp
-  ;; M-x org-agenda-file-list. Go there and click "save the changes" MANUALLY to save to init.el. Otherwise, emacs wont read it on every boot.
-  ;; Write all org-agenda-files ONCE, do the procedure described in the line above and forget about it. Refiling will work, agenda will work.
-  ;; if your org agenda files are not there, do C-c C-e on the parentheses below. Evaluate them.
-
+  (setq org-agenda-files '("~/Dropbox/documents/org/"))
   ;; (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
   ;; "~/Dropbox/documents/org/refile.org"
   ;; "~/Dropbox/documents/org/smutifruti.org"
@@ -474,13 +200,6 @@ Best org mode tutorial playlist:https://www.youtube.com/watch?v=sQS06Qjnkcc&list
   ;; "~/Dropbox/documents/org/personal.org"
   ;; "~/Dropbox/documents/org/arvydasdev.org"
   ;; "~/Dropbox/documents/org/diary.org"))
-
-
-  (setq org-agenda-files '("~/Dropbox/documents/org/"))
-
-  ;;Initial visbility doesn't want to work with global variable, so
-  ;; better set #+STARTUP: fold and alike in each file
-  ;; (setq org-startup-folded t)
 
   ;; Stop preparing agenda buffers on startup
   (setq org-agenda-inhibit-startup t)
@@ -508,75 +227,9 @@ Best org mode tutorial playlist:https://www.youtube.com/watch?v=sQS06Qjnkcc&list
   ;; https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
   ;; sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
   (setq org-refile-targets '((org-agenda-files :maxlevel . 4)))
-
-  (setq org-log-note-clock-out t)
-  ;; Clock out when moving task to a done state
-  (setq org-clock-out-when-done t)
-  ;; Resume clocking task when emacs is restarted
-  (org-clock-persistence-insinuate)
-  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-  (setq org-clock-persist t)
-  ;; Resume clocking task on clock-in if the clock is open
-  (setq org-clock-in-resume t)
-  ;; Do not prompt to resume an active clock, just resume it
-  (setq org-clock-persist-query-resume nil)
   ;; quite nice, asks you to write a closing note for a task when it's marked as DONE
   (setq org-log-done 'note)
-#+END_SRC
-** Templates c-c c
-#+BEGIN_SRC emacs-lisp
 
-  (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
-
-
-  ;; useful org-capture document - https://orgmode.org/manual/Template-expansion.html
-  ;; setting up the templates for c-c c
-  (define-key global-map "\C-cc" 'org-capture)
-  (setq org-capture-templates '(
-  ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%U%^{Effort}p")
-  ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%U%^{Effort}p")
-  ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%U%^{Effort}p")
-  ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%U%^{Effort}p")
-  ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%U%^{Effort}p")
-  ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")
-  ("r" "Refile" entry (file+headline "~/Dropbox/documents/org/refile.org" "Refile")"* TODO %?\n%U%^{Effort}p"))) ;; genius. that effort.
-  ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
-  ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
-#+END_SRC
-** Sasha agenda (shows daily stuff divided)
-Beautiful interface to view all the tasks in a separated fashion.
- ;#+BEGIN_SRC emacs-lisp
-
-
-
-
-            ;; https://sachachua.com/blog/2007/12/a-day-in-a-life-with-org/
-            (setq org-agenda-custom-commands
-                  '(("a" "My custom agenda"
-                     ((org-agenda-list nil nil 2 nil)
-                      (todo "NEXT")
-                      (todo "TODO")))))
-      ;; https://newbedev.com/how-to-view-the-next-days-in-org-mode-s-agenda
-      ;; these apply to everything in a agenda!!!!
-      ;; (setq org-agenda-span 7
-      ;;       org-agenda-start-on-weekday nil	;angeda starts from today not from Monday
-      ;;       org-agenda-start-day "-2d")	;two days back from today
-
-      (setq org-agenda-start-on-weekday nil)	;nice, finally agenda starts from today
-      (setq org-agenda-span 'day)		;iz pz only show today in agenda
-
-         ;; agenda-day-estimated time
-         (defun my-day-page ()
-            (interactive)
-            (org-agenda-list nil nil 1)
-            (org-agenda-columns))
-
-         (define-key global-map [f10] 'my-day-page)
-
- #+END_SRC
-** Bierber agenda
-[[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Amazing explanation here]]
-#+BEGIN_SRC emacs-lisp
       (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
 
@@ -625,15 +278,14 @@ Beautiful interface to view all the tasks in a separated fashion.
 						     (org-agenda-skip-if nil '(scheduled deadline))))
 		      (org-agenda-overriding-header "ALL normal priority tasks:")))))))
 
+  ;; This shortcut exists and works already in org files, but I made it
+  ;; available from any buffer!! Useful when editing other type of files
+  ;; and want to jump to your clocked task. Otherwise would have to open
+  ;; agenda first and only then org-clock-goto.
+  ;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
+  (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
+
    #+END_SRC
-** Archiving notes
-TUT: more about archiving - http://doc.endlessparentheses.com/Var/org-archive-location.html
-its possible to archive like so:
-
-#+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
-#+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
-
-or like so:
 ** Org habit
 [[https://orgmode.org/manual/Repeated-tasks.html][Docs of Repeated tasks]]
 [[https://orgmode.org/manual/Repeated-tasks.html][Docs of Org Habit]]
@@ -648,6 +300,21 @@ or like so:
   ;; (setq org-habit-following-days 0)
   ;; (setq org-habit-preceding-days 30)
 #+END_SRC
+
+** Clock
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-note-clock-out t)
+  ;; Clock out when moving task to a done state
+  (setq org-clock-out-when-done t)
+  ;; Resume clocking task when emacs is restarted
+  (org-clock-persistence-insinuate)
+  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+  (setq org-clock-persist t)
+  ;; Resume clocking task on clock-in if the clock is open
+  (setq org-clock-in-resume t)
+  ;; Do not prompt to resume an active clock, just resume it
+  (setq org-clock-persist-query-resume nil)
+#+END_SRC
 ** Effort
 #+BEGIN_SRC emacs-lisp
   ;; To create an estimate for a task or subtree start column mode with C-c C-x C-c and collapse the tree with c
@@ -660,51 +327,344 @@ or like so:
                                       ("STYLE_ALL" . "habit"))))
 
   (global-set-key [f9] 'org-agenda-filter-by-effort)
+#+END_SRC
+** Templates
+#+BEGIN_SRC emacs-lisp
+  ;; useful org-capture document - https://orgmode.org/manual/Template-expansion.html
+  ;; setting up the templates for c-c c
+  (define-key global-map "\C-cc" 'org-capture)
+  (setq org-capture-templates '(
+  ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%U%^{Effort}p")
+  ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%U%^{Effort}p")
+  ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%U%^{Effort}p")
+  ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%U%^{Effort}p")
+  ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%U%^{Effort}p")
+  ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")
+  ("r" "Refile" entry (file+headline "~/Dropbox/documents/org/refile.org" "Refile")"* TODO %?\n%U%^{Effort}p"))) ;; genius. that effort.
+  ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
+  ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
+#+END_SRC
+** Archiving notes
+TUT: more about archiving - http://doc.endlessparentheses.com/Var/org-archive-location.html
+its possible to archive like so:
 
+#+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
+#+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
+* Ace windows
+"Ace windows" helps me to switch windows easily. Main keybind - C-x o
+and then the commands that follow below.
+#+BEGIN_SRC emacs-lisp
+(use-package ace-window
+      :ensure t
+      :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
+  ;		aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
+                  aw-dispatch-always t)
+      :bind (("C-x o" . ace-window)
+             ("M-O" . ace-swap-window)
+             ("C-x v" . aw-split-window-horz)))
+     (defvar aw-dispatch-alist
+    '((?x aw-delete-window "Delete Window")
+        (?m aw-swap-window "Swap Windows")
+        (?M aw-move-window "Move Window")
+        (?c aw-copy-window "Copy Window")
+        (?f aw-switch-buffer-in-window "Select Buffer")
+        (?n aw-flip-window)
+        (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+        (?c aw-split-window-fair "Split Fair Window")
+        (?h aw-split-window-vert "Split Vert Window")
+        (?v aw-split-window-horz "Split Horz Window")
+        (?o delete-other-windows)
+        ;; (?o delete-other-windows "Delete Other Windows")
+        ;; (?o delete-other-windows " Ace - Maximize Window")
+        (?? aw-show-dispatch-help))
+        "List of actions for `aw-dispatch-default'.")
+#+END_SRC
+* Expand region
+"Expand region" allows me to select everything in between any kind of
+brackets by pressing C-=. The more I press it, the more it selects.
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind ("C-=" . er/expand-region))
+#+END_SRC
+* Saveplace
+"Saveplace" remembers your location in a file when saving files
+#+BEGIN_SRC emacs-lisp
+(use-package saveplace
+  :ensure t
+  :config
+  ;; activate it for all buffers
+  (setq-default save-place t)
+  (save-place-mode 1))
+#+END_SRC
+* Directories
+#+BEGIN_SRC emacs-lisp
+  ;; Automatically generated backups
+  (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
+#+END_SRC
+* Undo-tree
+"Undo tree" lets me to return to the file stage before any
+modifications were made. Keybind - C-x u.
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+  :ensure t
+  :init
+  (global-undo-tree-mode))
+#+END_SRC
+* Projectile
+"Projectile" allows me to have a list of my projects under one
+keybind - C-c p p. I can then open a project and my working directory
+will remain to that project that I opened. With a shortcut C-c p f I
+can look thrugh ALL the files of that particular project
+directory. Super useful, makes the buffers way tidier.
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+#+END_SRC
+* Magit
+"Magit" - can not imagine working with git without it. Instead of
+writing full commands like: "git add ." and then "git commit -m 'bla
+blaa'" then "git push"... I can simply `C-x g` for a git status. Then
+`s` to do git add. And finally `C-c C-c` to invoke git commit and
+simply write a message. Then press `p` and I just pushed the
+changes. Way quickier than the termina, believe me.
+
+Some notes:
+- install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
+- use personal access token
+- add this to terminal to save the token for furher use
+- git config --global credential.helper store
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))
+#+END_SRC
+* Avy
+"Avy" lets me jump to to a specific letter or a word quickly. M-s and
+I can type a word, it will immeaditely jump to it on any opened and
+visible buffer.  See https://github.com/abo-abo/avy for more info.
+  #+begin_src emacs-lisp
+	(use-package avy
+	  :ensure t
+	  :bind
+	  (("M-s" . avy-goto-char-timer)
+    ;;	     ("M-g f" . avy-goto-line)
+		 ("M-p" . avy-goto-word-1)))
+;;  You can check the avy home page for their recommended configuration which you get by configuring this way instead:
+    ;; (use-package avy
+    ;; :ensure t
+    ;; :config
+    ;; (avy-setup-default))
+    (setq avy-background t) ; cool, makes the background darker
+  #+end_src
+* Impatient mode
+"Impatient mode" lets you to have a browser window with LIVE HTML
+preview. Add files by 'M-x httpd-start'. Then do `M-x
+impatient-mode` - on EACH and EVERY file (css, js and hmtl). And then
+go to this link http://localhost:8080/imp/
+Otherwise, read simple explanation here -
+https://github.com/skeeto/impatient-mode.
+#+BEGIN_SRC emacs-lisp
+    (use-package impatient-mode
+      :ensure t
+      :commands impatient-mode)
+
+  ;; to be able to preview .md files
+  ;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
+  ;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
+  (defun markdown-html (buffer)
+    (princ (with-current-buffer buffer
+      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+    (current-buffer)))
+#+END_SRC
+* Supersave
+"Supersave" autosaves buffers for me. I am kind of used to clicking
+C-x C-s all the time, but "Supersave" just makes sure that it saves
+all the buffers when I switch windows and so on. So if I ever want to
+close my emacs - I can be sure that all the buffers are saved.
+#+BEGIN_SRC emacs-lisp
+;; ace window integration - BUTINA
+(use-package super-save
+  :ensure t
+  :config
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
+  ;; add integration with ace-window
+  (add-to-list 'super-save-triggers 'ace-window)
+  (super-save-mode +1))
+#+END_SRC
+* All the icons
+"All the icons" - icons visible on buffer window as well as sidebar
+filetree.  neveikia icons on fresh Linux os install? Prasau -
+[[https://github.com/seagle0128/all-the-icons-ivy-rich][paaiskinimas]].  Do M-x all-the-icons-install-fonts to install the
+necessary fonts.  Then check your ~/.local/share/fonts/ if the icons
+appeared there or not.
+#+BEGIN_SRC emacs-lisp
+     (use-package all-the-icons-ivy-rich
+     :ensure t
+     :init (all-the-icons-ivy-rich-mode 1))
+#+END_SRC
+* Hungry delete
+"Hungry delete" - deletes all the whitespace when you hit backspace or
+delete.
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+  :ensure t
+  :config
+  (global-hungry-delete-mode))
+#+END_SRC
+* Emojify
+"Emojify" allows to preview emojis in emacs buffers. Needed for
+facebook auto posting
+#+BEGIN_SRC emacs-lisp
+  (use-package emojify
+  :ensure t
+  :hook (after-init . global-emojify-mode))
+#+END_SRC
+* Rg
+"Rg" - rip grep. Helps to search for a term through many files. Super
+useful when need to change something on many files.  Installation:
+Sudo apt install ripgrep M-x rg and search away Tut: nice video
+https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
+#+BEGIN_SRC emacs-lisp
+  (use-package rg
+    :ensure t
+    :config)
 #+END_SRC
 * Doom-modeline
-"Doom-modeline" converts a basic looking, all cramped modeline into a nice and clean one with only the necessary info and icons displayed. So far so good, liking it.
+"Doom-modeline" converts a basic looking, all cramped modeline into a
+nice and clean one with only the necessary info and icons
+displayed. So far so good, liking it.
 #+BEGIN_SRC emacs-lisp
   (use-package doom-modeline
     :ensure t
     :init (doom-modeline-mode 1))
 #+END_SRC
 * Flycheck
-"Flycheck" uses various syntax checking and linting tools to automatically check the contents of buffers while you type, and reports warnings and errors directly in the buffer. Or in the right corner if you use "Doom-modeline". Can click on the icon - shows all the errors. Great!
-https://www.flycheck.org/en/latest/#
-Not to confuse with flyspell - checks grammar.
+"Flycheck" uses various syntax checking and linting tools to
+automatically check the contents of buffers while you type, and
+reports warnings and errors directly in the buffer. Or in the right
+corner if you use "Doom-modeline". Can click on the icon - shows all
+the errors. Great!  https://www.flycheck.org/en/latest/# Not to
+confuse with flyspell - checks grammar.
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :ensure t
   :init
   (global-flycheck-mode t))
 #+END_SRC
-* Elpy
-TUT:
-"Elpy" - various python modes for easier python programming. Installs various other packages as well.
-A few videos to help install elpy and customize. https://www.youtube.com/watch?v=0kuCeS-mfyc, https://www.youtube.com/watch?v=mflvdXKyA_g
-Helpful blog post - https://www.ruiying.online/post/use-emacs-as-python-ide/
-Elpy official docs - https://elpy.readthedocs.io/en/latest/index.html
-When using tab autocompletion, click f1 and get the explanation in another buffer. Company doccumentation window. 
-and of course more amazing [[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
+* Volatile Highlights
+"Volatile highlights" - temporarily highlight changes from pasting
+etc.
+#+BEGIN_SRC emacs-lisp
+(use-package volatile-highlights
+  :ensure t
+  :config
+  (volatile-highlights-mode t))
+#+END_SRC
+* Ws-butler
+"Ws-butler" - whitespace butler - clean up whitespace automatically on
+saving buffer.
+#+BEGIN_SRC emacs-lisp
+(use-package ws-butler
+  :ensure t
+  :config
+  (ws-butler-global-mode t))
+#+END_SRC
+* Doom themes
+More about doom themes [[https://github.com/doomemacs/themes][here]].
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+    :ensure t
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (load-theme 'doom-palenight t)
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
+#+END_SRC
+
+* OFF Beacon
+"Beacon" - never lose your cursor again. Flashes the cursor location when switching buffers.
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+  :ensure t
+  :config
+    (progn
+      (setq beacon-blink-when-point-moves-vertically nil) ; default nil
+      (setq beacon-blink-when-point-moves-horizontally nil) ; default nil
+      (setq beacon-blink-when-buffer-changes t) ; default t
+      (setq beacon-blink-when-window-scrolls t) ; default t
+      (setq beacon-blink-when-window-changes t) ; default t
+      (setq beacon-blink-when-focused nil) ; default nil
+
+      (setq beacon-blink-duration 0.3) ; default 0.3
+      (setq beacon-blink-delay 0.3) ; default 0.3
+      (setq beacon-size 20) ; default 40
+      ;; (setq beacon-color "yellow") ; default 0.5
+      (setq beacon-color 0.5) ; default 0.5
+
+      (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
+
+      (beacon-mode 1)))
+#+END_SRC
+
+* Try
+Try is a package that allows you to try out Emacs packages without
+installing them. If you pass a URL to a plain text .el-file it
+evaluates the content, without storing the file.
+#+BEGIN_SRC emacs-lisp
+(use-package try
+	:ensure t)
+#+END_SRC
+
+
+
+* TURNED OFF PLUGINS BELOW THIS LINE *
+
+
+
+* OFF Elpy
+TUT: "Elpy" - various python modes for easier python
+programming. Installs various other packages as well.  A few videos to
+help install elpy and
+customize. https://www.youtube.com/watch?v=0kuCeS-mfyc,
+https://www.youtube.com/watch?v=mflvdXKyA_g Helpful blog post -
+https://www.ruiying.online/post/use-emacs-as-python-ide/ Elpy official
+docs - https://elpy.readthedocs.io/en/latest/index.html When using tab
+autocompletion, click f1 and get the explanation in another
+buffer. Company doccumentation window.  and of course more amazing
+[[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
 
 INSTALL:
-1. add export PATH=$PATH:~/.local/bin to your .bashrc file and reload emacs.
+1. add export PATH=$PATH:~/.local/bin to your .bashrc file and reload
+   emacs.
 2. should get a message asking something about RPC, click yes.
-3. then make sure jedi is installed in your system. others use flake8, others use jedi.. idk. zamansky and the guy from he tutorial video use jedi.
+3. then make sure jedi is installed in your system. others use flake8,
+   others use jedi.. idk. zamansky and the guy from he tutorial video
+   use jedi.
 4. do M-x elpy-config to see the config
-5. check your .emacs.d folder. if there is one called "elpy" and it is empty or something, do M-x elpy-rpc-restart. Folders will appear, packages will install. Then do elpy-config.
-6. pip install flake8 - get to see more syntax checks. M-x elpy-config to confirm its installed
+5. check your .emacs.d folder. if there is one called "elpy" and it is
+   empty or something, do M-x elpy-rpc-restart. Folders will appear,
+   packages will install. Then do elpy-config.
+6. pip install flake8 - get to see more syntax checks. M-x elpy-config
+   to confirm its installed
 
 #+BEGIN_SRC emacs-lisp
-  (setq elpy-rpc-python-command "python3")
-  (setq python-shell-interpreter "python3")
-  (setq elpy-get-info-from-shell t)
-  (use-package elpy
-    :ensure t
-    ;; :custom (elpy-rpc-backend "jedi")
-    :init
-    (elpy-enable))
+  ;; (setq elpy-rpc-python-command "python3")
+  ;; (setq python-shell-interpreter "python3")
+  ;; (setq elpy-get-info-from-shell t)
+  ;; (use-package elpy
+  ;;   :ensure t
+  ;;   ;; :custom (elpy-rpc-backend "jedi")
+  ;;   :init
+  ;;   (elpy-enable))
 #+END_SRC
 
 No nee, use the regular macro.
@@ -732,33 +692,56 @@ No nee, use the regular macro.
   ;; (eval-after-load "elpy"
   ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 #+END_SRC
-* Iedit
+* OFF Dumb jump
+UPDATE 2022-02-09 Kind of not needed anymore since using Elpy and it has the same function, even more convieniently placed.
+
+"Dumb jump" - jump to definition.
+Tut: ok, so, wow. Let's say I have a views.py in django and I "def veganai(request):" and then the function below it.
+I later use that function in another file, let's say urls.py. I can then go to urls.py, stand on that function and
+then go M-g j or o to jump to that definition (in views.py)
+this is amazing and life saving. I should not forget that this option exists.
+video of how to use it - https://www.youtube.com/watch?v=wBfZzaff77g
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package dumb-jump
+  ;;   :bind (("M-g o" . dumb-jump-go-other-window)
+  ;;          ("M-g j" . dumb-jump-go)
+  ;;          ("M-g x" . dumb-jump-go-prefer-external)
+  ;;          ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  ;;   :config
+  ;;   (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+  ;; :init
+  ;; (dumb-jump-mode)
+  ;;   :ensure)
+#+END_SRC
+* OFF Emmet mode
+"Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
+Cheat sheet - https://docs.emmet.io/cheat-sheet/
+note:
+SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package emmet-mode
+  ;; :ensure t
+  ;; :config
+  ;; (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+  ;; (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
+#+END_SRC
+* OFF Move text
+"Move text" allows me to click M-up/down arrow key and move the text line by line up and down.
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package move-text
+  ;;   :ensure t)
+  ;; (move-text-default-bindings)
+#+END_SRC
+* OFF Iedit
 "Iedit" - a package that allows to edit all the alike strings in the
 buffer. Would have been useful on 02.14 when editing facebook_django
 urls, but was getting an error. More about it [[https://github.com/victorhge/iedit/issues/146][here]].
 #+BEGIN_SRC emacs-lisp
-(use-package iedit
-:ensure t
-  :bind (("C-;" . iedit-mode)))
+  ;; (use-package iedit
+  ;; :ensure t
+  ;;   :bind (("C-;" . iedit-mode)))
 #+END_SRC
-* Volatile Highlights
-"Volatile highlights" - temporarily highlight changes from pasting etc.
-#+BEGIN_SRC emacs-lisp
-(use-package volatile-highlights
-  :ensure t
-  :config
-  (volatile-highlights-mode t))
-#+END_SRC
-* Ws-butler
-"Ws-butler" - whitespace butler - clean up whitespace automatically on
-saving buffer.
-#+BEGIN_SRC emacs-lisp
-(use-package ws-butler
-  :ensure t
-  :config
-  (ws-butler-global-mode t))
-#+END_SRC
-* Popwin
+* OFF Popwin
 "Popwin" displays special buffers in a popup window instead of a
 regular buffer. So when I am looking for help - clicking C-h k for
 example, it opens a totally new buffer which is huge and is not
@@ -771,70 +754,57 @@ Official explanation -
 "Popwin makes you free from the hell of annoying buffers such like
 *Help*, *Completions*, *compilation*, and etc.". Tru.
 #+BEGIN_SRC emacs-lisp
-(use-package popwin
-:ensure t
-:config
-(popwin-mode 1))
+  ;; (use-package popwin
+  ;; :ensure t
+  ;; :config
+  ;; (popwin-mode 1))
 #+END_SRC
-*
-
-* Eww
-"Eww" is shipped with emacs, so no need to install. Writing some stuff
-here basically only to be able to customize eww itself. Cool to add.
-
-Shortcuts here - https://www.emacswiki.org/emacs/eww
-
-#+BEGIN_SRC emacs-lisp
-(use-package eww
-  :commands eww eww-follow-link
-  :init
-  (setq browse-url-browser-function 'eww-browse-url)
-  (setq eww-search-prefix "http://www.google.com/search?q=")
-
-  (defun eww-wiki (text)
-    "Function used to search wikipedia for the given text."
-    (interactive (list (read-string "Wiki for: ")))
-    (eww (format "https://en.m.wikipedia.org/wiki/Special:Search?search=%s"
-                 (url-encode-url text))))
-
-  :bind (("C-c w w" . eww)
-         ("C-c w i" . eww-wiki)
-         ("C-c w l" . eww-follow-link)))
-#+END_SRC
-* Doom themes
-More about doom themes [[https://github.com/doomemacs/themes][here]].
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :config
-    ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-palenight t)
-    ;; Corrects (and improves) org-mode's native fontification.
-    (doom-themes-org-config))
-#+END_SRC
-* web-mode
+* OFF web-mode
 "Web mode" - Got it basically only for maching tags highlighting
 feature. I am sure it has wayyy more cool features. But more about
 those - later.
 #+BEGIN_SRC emacs-lisp
-(use-package web-mode
-    :ensure t
-    :config
-	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-	   (setq web-mode-engines-alist
-		 '(("django"    . "\\.html\\'")))
-	   (setq web-mode-ac-sources-alist
-	   '(("css" . (ac-source-css-property))
-         ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-         (setq web-mode-enable-auto-closing t))
-         (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
-         (setq web-mode-enable-current-element-highlight t)
+  ;; (use-package web-mode
+  ;;     :ensure t
+  ;;     :config
+  ;; 	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  ;; 	   (setq web-mode-engines-alist
+  ;; 		 '(("django"    . "\\.html\\'")))
+  ;; 	   (setq web-mode-ac-sources-alist
+  ;; 	   '(("css" . (ac-source-css-property))
+  ;;          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+  ;;          (setq web-mode-enable-auto-closing t))
+  ;;          (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
+  ;;          (setq web-mode-enable-current-element-highlight t)
 
-         (add-hook 'web-mode 'emmet-mode)
+  ;;          (add-hook 'web-mode 'emmet-mode)
 #+END_SRC
-* Yasnippet
+* OFF Eww
+"Eww" is shipped with emacs, so no need to install. Writing some stuff
+here basically only to be able to customize eww itself. Cool to add.
+Shortcuts here - https://www.emacswiki.org/emacs/eww
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package eww
+  ;;   :commands eww eww-follow-link
+  ;;   :init
+  ;;   (setq browse-url-browser-function 'eww-browse-url)
+  ;;   (setq eww-search-prefix "http://www.google.com/search?q=")
+
+  ;;   (defun eww-wiki (text)
+  ;;     "Function used to search wikipedia for the given text."
+  ;;     (interactive (list (read-string "Wiki for: ")))
+  ;;     (eww (format "https://en.m.wikipedia.org/wiki/Special:Search?search=%s"
+  ;;                  (url-encode-url text))))
+
+  ;;   :bind (("C-c w w" . eww)
+  ;;          ("C-c w i" . eww-wiki)
+  ;;          ("C-c w l" . eww-follow-link)))
+
+  ;;   ;; Eww is cool, but pls open links in chrome. ty
+  ;;   (setq browse-url-browser-function 'browse-url-generic
+  ;;   browse-url-generic-program "google-chrome")
+#+END_SRC
+* OFF Yasnippet
 "[[https://www.youtube.com/watch?v=YDuqSwyZvlY][Yasnippet]]" - expand to a switch statement with placeholders. Tab
 between the placeholders & type actual values. like in [[https://www.youtube.com/watch?v=mflvdXKyA_g&list=PL-mFLc7R_MJdX0MxrqXEV4sM87hmVEkRw&index=2&t=67s][this]] video.
 I am kind of too new to programming to be using snippets, but its nice,
@@ -842,21 +812,21 @@ keeping this plugin for now.  It installs kind of many
 snippets... hope that doesn't slow emacs down. Shouldnt...
 You can also create your own snippet... possibly even for .org files.
 #+BEGIN_SRC emacs-lisp
-  (use-package yasnippet                  ; Snippets
-    :ensure t)
-    (yas-global-mode 1)
-  (use-package yasnippet-snippets         ; Collection of snippets
-    :ensure t)
+  ;; (use-package yasnippet                  ; Snippets
+  ;;   :ensure t)
+  ;;   (yas-global-mode 1)
+  ;; (use-package yasnippet-snippets         ; Collection of snippets
+  ;;   :ensure t)
 #+END_SRC
-* Markdown-mode
+* OFF Markdown-mode
 "Markdown-mode" - will use it to edit markdown files. Would be nice to
 see how it renders while I edit it.
 #+BEGIN_SRC emacs-lisp
-(use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  ;; (use-package markdown-mode
+  ;;   :ensure t
+  ;;   :commands (markdown-mode gfm-mode)
+  ;;   :mode (("README\\.md\\'" . gfm-mode)
+  ;;         ("\\.md\\'" . markdown-mode)
+  ;;         ("\\.markdown\\'" . markdown-mode))
+  ;;   :init (setq markdown-command "multimarkdown"))
 #+END_SRC
