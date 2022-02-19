@@ -390,3 +390,6 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 62) C-v      = scroll buffer down
 63) M-v      = scroll buffer up
 64) M-! nautilus . = open current dir in nautilus. oh yeah
+65) M-x clone-indirect-buffer = multiple views of same file
+66) M-o      = see councel option
+67) C-;      = flyspell auto correct previous word
