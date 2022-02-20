@@ -43,6 +43,8 @@
   ;; (global-display-line-numbers-mode 1)
   (add-hook 'text-mode-hook #'display-line-numbers-mode)
   (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  ;; turn off the error message at emacs launch
+  (setq ad-redefinition-action 'accept)
 
   ;; Turns on spell-checking in text buffers
   (add-hook 'text-mode-hook 'flyspell-mode)
@@ -134,26 +136,6 @@
   :config
   (which-key-mode 1))
 
-(use-package neotree
-:ensure t
-:init
-(setq neo-smart-open t
-         neo-autorefresh t
-         neo-force-change-root t)
-         (setq neo-theme (if (display-graphic-p) 'icons global))
-         (setq neo-window-width 35)
-         (global-set-key [f8] 'neotree-toggle))
-
-;; Launch neotree when opening emacs. First launch, then switch to another window.
-  (defun neotree-startup ()
-    (interactive)
-    (neotree-show)
-    (call-interactively 'other-window))
-
-  (if (daemonp)
-      (add-hook 'server-switch-hook #'neotree-startup)
-      (add-hook 'after-init-hook #'neotree-startup))
-
 ;; M-x org-agenda-file-list. Go there and click "save the changes"
 ;; MANUALLY to save to init.el. Otherwise, emacs wont read it on
 ;; every boot.  Write all org-agenda-files ONCE, do the procedure
@@ -173,35 +155,35 @@
 
 ;; Stop preparing agenda buffers on startup
 (setq org-agenda-inhibit-startup t)
-
 ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
 ;; C-c C-z - tiesiog make note under a heading
 ;; to log into drawer with c-c c-z, reikia:
 ;; m-x customise-variable RET org-log-into-drawer - select LOGBOOK save and apply.
 (setq org-log-into-drawer "LOGBOOK")
-
 ;; No need to have two places to make notes. "clock" and "Logbook"
 ;; Put clock and logbook notes into one
 (setq org-clock-into-drawer "LOGBOOK")
-
 ;; shortcut for opening agenda view
 (global-set-key (kbd "C-c a") 'org-agenda)
-
 ;; hide any scheduled tasks that are already completed.
 ;; if I hide, i will forget to archive them.. not good
 (setq org-agenda-skip-scheduled-if-done t)
-
 (setq org-agenda-restore-windows-after-quit t)
 ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
-
 ;; https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
 ;; sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
 (setq org-refile-targets '((org-agenda-files :maxlevel . 4)))
 ;; quite nice, asks you to write a closing note for a task when it's marked as DONE
 (setq org-log-done 'note)
+;; This shortcut exists and works already in org files, but I made it
+;; available from any buffer!! Useful when editing other type of files
+;; and want to jump to your clocked task. Otherwise would have to open
+;; agenda first and only then org-clock-goto.
+;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
+(global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
 
-    (setq org-todo-keywords
-    (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
+(setq org-todo-keywords
+(quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
 
 ;; When clocking in, change the state to "in progress", then when clocking out change state to "waiting".
     (setq org-clock-in-switch-to-state "IN-PROGRESS")
@@ -214,46 +196,42 @@
 		     ("IN-PROGRESS" :foreground "gold1" :weight bold)
 		     ("DONE" :foreground "forest green" :weight bold))))
 
+;; ;; Bieber agenda STARTS HERE
 
-;; dont show habit tasks in "all todos" list.
-  (defun air-org-skip-subtree-if-habit ()
-    "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
-    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-      (if (string= (org-entry-get nil "STYLE") "habit")
-	  subtree-end
-	nil)))
+;; ;; dont show habit tasks in "all todos" list.
+;;   (defun air-org-skip-subtree-if-habit ()
+;;     "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+;;     (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+;;       (if (string= (org-entry-get nil "STYLE") "habit")
+;; 	  subtree-end
+;; 	nil)))
 
-	;; defining a function to skip the tasks wiht priorities in the "all todo's list"
-    (defun air-org-skip-subtree-if-priority (priority)
-    "Skip an agenda subtree if it has a priority of PRIORITY.
+;; 	;; defining a function to skip the tasks wiht priorities in the "all todo's list"
+;;     (defun air-org-skip-subtree-if-priority (priority)
+;;     "Skip an agenda subtree if it has a priority of PRIORITY.
 
-	 PRIORITY may be one of the characters ?A, ?B, or ?C."
-	   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-		 (pri-value (* 1000 (- org-lowest-priority priority)))
-		 (pri-current (org-get-priority (thing-at-point 'line t))))
-	     (if (= pri-value pri-current)
-		 subtree-end
-	       nil)))
+;; 	 PRIORITY may be one of the characters ?A, ?B, or ?C."
+;; 	   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+;; 		 (pri-value (* 1000 (- org-lowest-priority priority)))
+;; 		 (pri-current (org-get-priority (thing-at-point 'line t))))
+;; 	     (if (= pri-value pri-current)
+;; 		 subtree-end
+;; 	       nil)))
 
-;; Final agenda view look
-(setq org-agenda-custom-commands
-      '(("a" "Daily agenda and all TODOs"
-	 ((tags "PRIORITY=\"A\""
-		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-		 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-	  (agenda "" ((org-agenda-span 'day)))
-	  (alltodo ""
-		   ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
-						   (air-org-skip-subtree-if-priority ?A)
-						   (org-agenda-skip-if nil '(scheduled deadline))))
-		    (org-agenda-overriding-header "ALL normal priority tasks:")))))))
+;; ;; Final agenda view look
+;; (setq org-agenda-custom-commands
+;;       '(("a" "Daily agenda and all TODOs"
+;; 	 ((tags "PRIORITY=\"A\""
+;; 		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+;; 		 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+;; 	  (agenda "" ((org-agenda-span 'day)))
+;; 	  (alltodo ""
+;; 		   ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+;; 						   (air-org-skip-subtree-if-priority ?A)
+;; 						   (org-agenda-skip-if nil '(scheduled deadline))))
+;; 		    (org-agenda-overriding-header "ALL normal priority tasks:")))))))
 
-;; This shortcut exists and works already in org files, but I made it
-;; available from any buffer!! Useful when editing other type of files
-;; and want to jump to your clocked task. Otherwise would have to open
-;; agenda first and only then org-clock-goto.
-;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
-(global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
+;; ;; Bieber agenda FINISHES HERE
 
 (use-package org-habit
   :ensure nil
@@ -261,7 +239,7 @@
   ;; (setq org-habit-show-habits-only-for-today t))
 
 ;; (require 'org-habit)
-(setq org-habit-graph-column 50) ;push little further to the rigth
+(setq org-habit-graph-column 54) ;push little further to the rigth
 ;; (setq org-habit-following-days 0)
 ;; (setq org-habit-preceding-days 30)
 
@@ -462,6 +440,59 @@
 
 (use-package try
 	:ensure t)
+
+(use-package python-mode
+  :ensure t
+  :hook (python-mode . lsp-deferred)
+  :custom
+  (python-shell-interpreter "python3"))
+
+(defun efs/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . efs/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t))
+
+;; enable docstring popup, tree at the top and other ui stuff
+(use-package lsp-ui
+  :ensure t
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-position 'at-point)
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-delay 0.5))
+
+(use-package neotree
+:ensure t
+:init
+(setq neo-smart-open t
+	 neo-autorefresh t
+	 neo-force-change-root t)
+	 (setq neo-theme (if (display-graphic-p) 'icons global))
+	 (setq neo-window-width 35)
+	 (global-set-key [f8] 'neotree-toggle))
+
+;; Launch neotree when opening emacs. First launch, then switch to another window.
+  (defun neotree-startup ()
+    (interactive)
+    (neotree-show)
+    (call-interactively 'other-window))
+
+  (if (daemonp)
+      (add-hook 'server-switch-hook #'neotree-startup)
+      (add-hook 'after-init-hook #'neotree-startup))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; (setq elpy-rpc-python-command "python3")
 ;; (setq python-shell-interpreter "python3")

@@ -393,3 +393,6 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 65) M-x clone-indirect-buffer = multiple views of same file
 66) M-o      = see councel option
 67) C-;      = flyspell auto correct previous word
+68) M-x flyckeck-list-errors = a list of errors in the buffer
+69) C-c C-p p/d = TREEMACS add/remove project to a workspace
+70) M-x lsp-treemacs-symbols = show the structure of the file
