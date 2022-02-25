@@ -1,12 +1,35 @@
 * Interface tweaks
 Build interface to look how I want it to look
-
-Remove all that excess crap I don’t need, remove the menu bar the
-scroll bar and the toolbar
 #+BEGIN_SRC emacs-lisp
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq visible-bell t)
+(blink-cursor-mode 0)
+(global-hl-line-mode 1)
+;; Show where buffers end.
+(setq-default indicate-empty-lines t)
+;; never lose the layout c-c left/right
+(winner-mode 1)
+;; Delete marked region when typing over it. Woooow.
+(delete-selection-mode t)
+#+END_SRC
+Startup. Disable splash screen and startup message.
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+;; turn off the error message at emacs launch
+(setq ad-redefinition-action 'accept)
+;; Show startup time on emacs-load
+(defun efs/display-startup-time ()
+(message "Emacs loaded in %s with %d garbage collections."
+(format "%.2f seconds"
+(float-time
+(time-subtract after-init-time before-init-time)))
+gcs-done))
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
 #+END_SRC
 Parentheses
 #+BEGIN_SRC emacs-lisp
@@ -46,62 +69,32 @@ Show me my config's and documentation
 (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
 (global-set-key [f5] 'django-docs)
 #+END_SRC
-
-
-
+Modeline. file size indication in mode-line. column-number in mode-line.
 #+BEGIN_SRC emacs-lisp
-    ;; the blinking cursor is nothing, but an annoyance
-    (blink-cursor-mode 0)
-    ;; Show where buffers end.
-    (setq-default indicate-empty-lines t)
-    ;; start wrapping at 80 characterers
-    (setq fill-column 80)
-    (add-hook 'text-mode-hook 'turn-on-auto-fill)
-    ;; column-number in mode-line.
-    (column-number-mode 1)
-    ;; file size indication in mode-line.
-    (size-indication-mode 1)
-    ;; Be aware of whitespace.
-    (setq whitespace-style '(face trailing tabs tab-mark))
-    (global-whitespace-mode)
-    ;; ;; maximize my Emacs frame on start-up
-    ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-    ;;disable splash screen and startup message
-    (setq inhibit-startup-message t)
-    (setq initial-scratch-message nil)
-    ;; highlight the current line
-    (global-hl-line-mode 1)
-    ;; Delete marked region when typing over it. Woooow.
-    (delete-selection-mode t)
-    ;; enable y/n answers
-    (fset 'yes-or-no-p 'y-or-n-p)
-    ;; Set up the visible bell
-    (setq visible-bell t)
-    ;; never lose the layout c-c left/right
-    (winner-mode 1)
-    ; display line numbers - finally...
-    ;; (global-display-line-numbers-mode 1)
-    (add-hook 'text-mode-hook #'display-line-numbers-mode)
-    (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-    ;; turn off the error message at emacs launch
-    (setq ad-redefinition-action 'accept)
-
-    ;; Turns on spell-checking in text buffers
-    (add-hook 'text-mode-hook 'flyspell-mode)
-    ;; Turns on spell-checking in programming mode buffers, but only the COMMENTS
-    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-
-
-  ;; Show startup time on emacs-load
-  (defun efs/display-startup-time ()
-    (message "Emacs loaded in %s with %d garbage collections."
-	     (format "%.2f seconds"
-		     (float-time
-		       (time-subtract after-init-time before-init-time)))
-	     gcs-done))
-
-  (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+(column-number-mode 1)
+(size-indication-mode 1)
+#+END_SRC
+Line numbers
+#+BEGIN_SRC emacs-lisp
+;; (global-display-line-numbers-mode 1)
+(add-hook 'text-mode-hook #'display-line-numbers-mode)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+#+END_SRC
+Spell checking
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+#+END_SRC
+Character wrap
+#+BEGIN_SRC emacs-lisp
+;; start wrapping at 80 characterers
+(setq fill-column 80)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+White-space
+#+BEGIN_SRC emacs-lisp
+(setq whitespace-style '(face trailing tabs tab-mark))
+(global-whitespace-mode)
 #+END_SRC
 * Company
 "Company" provides autosuggestion/completion in buffers (writing code,
