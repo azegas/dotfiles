@@ -1,4 +1,23 @@
 * Interface tweaks
+Build interface to look how I want it to look
+
+Remove all that excess crap I don’t need, remove the menu bar the
+scroll bar and the toolbar
+#+BEGIN_SRC emacs-lisp
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(toggle-scroll-bar -1)
+#+END_SRC
+Parentheses
+#+BEGIN_SRC emacs-lisp
+;; writes parens automatically for you
+(electric-pair-mode +1)
+;; highlight parenthesis
+(show-paren-mode 1)
+;; Show matching parens
+(setq show-paren-delay 0)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
     ;; the blinking cursor is nothing, but an annoyance
     (blink-cursor-mode 0)
@@ -23,18 +42,6 @@
     (global-hl-line-mode 1)
     ;; Delete marked region when typing over it. Woooow.
     (delete-selection-mode t)
-    ;; writes parens automatically for you
-    (electric-pair-mode +1)
-    ;; Disable the menu bar
-    (menu-bar-mode -1)
-    ;; Disable the toolbar
-    (tool-bar-mode -1)
-    ;; turn off scrollbar
-    (toggle-scroll-bar -1)
-    ;; highlight parenthesis
-    (show-paren-mode 1)
-    ;; Show matching parens
-    (setq show-paren-delay 0)
     ;; enable y/n answers
     (fset 'yes-or-no-p 'y-or-n-p)
     ;; Set up the visible bell
