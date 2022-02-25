@@ -53,6 +53,8 @@
     ;; Turns on spell-checking in programming mode buffers, but only the COMMENTS
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+    (setq calendar-date-style 'iso) 	;; hm does it even do anything
+
     ;; Easily jump to my main org file
     (defun aga-find-current nil
       "Find the myinit.org file."
@@ -108,8 +110,8 @@ the selected candidate or C-w to see its source
       (setq company-tooltip-flip-when-above t)
       (global-company-mode))
 #+END_SRC
-* Councel
-Click M-o while in C-x f or M-o to get a lot of options!
+* Counsel
+Click M-o while in C-x C-xf or M-o to get a lot of options!
 #+begin_src emacs-lisp
      (use-package counsel
      :ensure t
@@ -224,38 +226,38 @@ any button is pressed.
 
   ;; ;; Bieber agenda STARTS HERE
 
-  ;; ;; dont show habit tasks in "all todos" list.
-  ;;   (defun air-org-skip-subtree-if-habit ()
-  ;;     "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
-  ;;     (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-  ;;       (if (string= (org-entry-get nil "STYLE") "habit")
-  ;; 	  subtree-end
-  ;; 	nil)))
+  ;; dont show habit tasks in "all todos" list.
+    (defun air-org-skip-subtree-if-habit ()
+      "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+      (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+	(if (string= (org-entry-get nil "STYLE") "habit")
+	    subtree-end
+	  nil)))
 
-  ;; 	;; defining a function to skip the tasks wiht priorities in the "all todo's list"
-  ;;     (defun air-org-skip-subtree-if-priority (priority)
-  ;;     "Skip an agenda subtree if it has a priority of PRIORITY.
+	  ;; defining a function to skip the tasks wiht priorities in the "all todo's list"
+      (defun air-org-skip-subtree-if-priority (priority)
+      "Skip an agenda subtree if it has a priority of PRIORITY.
 
-  ;; 	 PRIORITY may be one of the characters ?A, ?B, or ?C."
-  ;; 	   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-  ;; 		 (pri-value (* 1000 (- org-lowest-priority priority)))
-  ;; 		 (pri-current (org-get-priority (thing-at-point 'line t))))
-  ;; 	     (if (= pri-value pri-current)
-  ;; 		 subtree-end
-  ;; 	       nil)))
+	   PRIORITY may be one of the characters ?A, ?B, or ?C."
+	     (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+		   (pri-value (* 1000 (- org-lowest-priority priority)))
+		   (pri-current (org-get-priority (thing-at-point 'line t))))
+	       (if (= pri-value pri-current)
+		   subtree-end
+		 nil)))
 
-  ;; ;; Final agenda view look
-  ;; (setq org-agenda-custom-commands
-  ;;       '(("a" "Daily agenda and all TODOs"
-  ;; 	 ((tags "PRIORITY=\"A\""
-  ;; 		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-  ;; 		 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-  ;; 	  (agenda "" ((org-agenda-span 'day)))
-  ;; 	  (alltodo ""
-  ;; 		   ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
-  ;; 						   (air-org-skip-subtree-if-priority ?A)
-  ;; 						   (org-agenda-skip-if nil '(scheduled deadline))))
-  ;; 		    (org-agenda-overriding-header "ALL normal priority tasks:")))))))
+  ;; Final agenda view look
+  (setq org-agenda-custom-commands
+	'(("a" "Daily agenda and all TODOs"
+	   ((tags "PRIORITY=\"A\""
+		  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+		   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+	    (agenda "" ((org-agenda-span 3)))
+	    (alltodo ""
+		     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+						     (air-org-skip-subtree-if-priority ?A)
+						     (org-agenda-skip-if nil '(scheduled deadline))))
+		      (org-agenda-overriding-header "ALL normal priority tasks:")))))))
 
   ;; ;; Bieber agenda FINISHES HERE
    #+END_SRC
@@ -634,6 +636,20 @@ evaluates the content, without storing the file.
     (lsp-ui-doc-position 'at-point)
     (lsp-ui-doc-show-with-cursor t)
     (lsp-ui-doc-delay 0.5))
+
+  ;; removed some stuff according to [[https://www.youtube.com/watch?v=Lu5XXoRjKUQ][this video]]
+  ;; Suggestions from official docs for performance
+  (setq gc-cons-threshold 100000000)
+  (setq lsp-completion-provider :capf)
+  (setq lsp-idle-delay 0.500)
+  (setq lsp-log-io nil)
+
+  ;; Annoying stuff
+  (setq lsp-enable-links nil)
+  (setq lsp-signature-render-documentation nil)
+  (setq lsp-headerline-breadcrumb-enable nil)
+  (setq lsp-ui-doc-enable nil)
+  (setq lsp-completion-enable-additional-text-edit nil)
 #+END_SRC
 * Neotree
 "Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a
@@ -650,16 +666,15 @@ sidebar filetree. Toggle on/off with F8.
 	   (global-set-key [f8] 'neotree-toggle))
 
   ;; Launch neotree when opening emacs. First launch, then switch to another window.
-    (defun neotree-startup ()
-      (interactive)
-      (neotree-show)
-      (call-interactively 'other-window))
+    ;; (defun neotree-startup ()
+    ;;   (interactive)
+    ;;   (neotree-show)
+    ;;   (call-interactively 'other-window))
 
-    (if (daemonp)
-	(add-hook 'server-switch-hook #'neotree-startup)
-	(add-hook 'after-init-hook #'neotree-startup))
+    ;; (if (daemonp)
+    ;;     (add-hook 'server-switch-hook #'neotree-startup)
+    ;;     (add-hook 'after-init-hook #'neotree-startup))
 #+END_SRC
-
 
 * Rainbow-delimiters
 rainbow-delimiters is useful in programming modes because it colorizes
@@ -671,11 +686,8 @@ without having to count them yourself.
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
-* TURNED OFF PLUGINS BELOW THIS LINE *
 
-
-
-* OFF Elpy
+* Elpy
 TUT: "Elpy" - various python modes for easier python
 programming. Installs various other packages as well.  A few videos to
 help install elpy and
@@ -683,7 +695,7 @@ customize. https://www.youtube.com/watch?v=0kuCeS-mfyc,
 https://www.youtube.com/watch?v=mflvdXKyA_g Helpful blog post -
 https://www.ruiying.online/post/use-emacs-as-python-ide/ Elpy official
 docs - https://elpy.readthedocs.io/en/latest/index.html When using tab
-autocompletion, click f1 and get the explanation in another
+auto completion, click f1 and get the explanation in another
 buffer. Company doccumentation window.  and of course more amazing
 [[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
 
@@ -697,19 +709,21 @@ INSTALL:
 4. do M-x elpy-config to see the config
 5. check your .emacs.d folder. if there is one called "elpy" and it is
    empty or something, do M-x elpy-rpc-restart. Folders will appear,
-   packages will install. Then do elpy-config.
+   packages will install. Then do elpy-coppnfig.
 6. pip install flake8 - get to see more syntax checks. M-x elpy-config
    to confirm its installed
 
+INSTALLS: yasnippet, pyenv, hightlight-indentation, elpy
+
 #+BEGIN_SRC emacs-lisp
-  ;; (setq elpy-rpc-python-command "python3")
-  ;; (setq python-shell-interpreter "python3")
-  ;; (setq elpy-get-info-from-shell t)
-  ;; (use-package elpy
-  ;;   :ensure t
-  ;;   ;; :custom (elpy-rpc-backend "jedi")
-  ;;   :init
-  ;;   (elpy-enable))
+  (setq elpy-rpc-python-command "python3")
+  (setq python-shell-interpreter "python3")
+  (setq elpy-get-info-from-shell t)
+  (use-package elpy
+    :ensure t
+    ;; :custom (elpy-rpc-backend "jedi")
+    :init
+    (elpy-enable))
 #+END_SRC
 
 No nee, use the regular macro.
@@ -737,6 +751,46 @@ No nee, use the regular macro.
   ;; (eval-after-load "elpy"
   ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 #+END_SRC
+* Emmet mode
+"Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
+Cheat sheet - https://docs.emmet.io/cheat-sheet/
+note:
+SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
+#+BEGIN_SRC emacs-lisp
+  (use-package emmet-mode
+  :ensure t
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
+#+END_SRC
+
+* OFF web-mode
+"Web mode" - Got it basically only for maching tags highlighting
+feature. I am sure it has wayyy more cool features. But more about
+those - later.
+INSTALLS: web-mode
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+      :ensure t
+      :config
+	     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+	     (setq web-mode-engines-alist
+		   '(("django"    . "\\.html\\'")))
+	     (setq web-mode-ac-sources-alist
+	     '(("css" . (ac-source-css-property))
+	   ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+	   (setq web-mode-enable-auto-closing t))
+	   (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
+	   (setq web-mode-enable-current-element-highlight t)
+
+	   (add-hook 'web-mode 'emmet-mode)
+#+END_SRC
+
+
+
+* TURNED OFF PLUGINS BELOW THIS LINE
+
+
 * OFF Dumb jump
 UPDATE 2022-02-09 Kind of not needed anymore since using Elpy and it has the same function, even more convieniently placed.
 
@@ -757,18 +811,6 @@ video of how to use it - https://www.youtube.com/watch?v=wBfZzaff77g
   ;; :init
   ;; (dumb-jump-mode)
   ;;   :ensure)
-#+END_SRC
-* OFF Emmet mode
-"Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
-Cheat sheet - https://docs.emmet.io/cheat-sheet/
-note:
-SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package emmet-mode
-  ;; :ensure t
-  ;; :config
-  ;; (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-  ;; (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
 #+END_SRC
 * OFF Move text
 "Move text" allows me to click M-up/down arrow key and move the text line by line up and down.
@@ -803,26 +845,6 @@ Official explanation -
   ;; :ensure t
   ;; :config
   ;; (popwin-mode 1))
-#+END_SRC
-* OFF web-mode
-"Web mode" - Got it basically only for maching tags highlighting
-feature. I am sure it has wayyy more cool features. But more about
-those - later.
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package web-mode
-  ;;     :ensure t
-  ;;     :config
-  ;; 	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  ;; 	   (setq web-mode-engines-alist
-  ;; 		 '(("django"    . "\\.html\\'")))
-  ;; 	   (setq web-mode-ac-sources-alist
-  ;; 	   '(("css" . (ac-source-css-property))
-  ;;          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-  ;;          (setq web-mode-enable-auto-closing t))
-  ;;          (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
-  ;;          (setq web-mode-enable-current-element-highlight t)
-
-  ;;          (add-hook 'web-mode 'emmet-mode)
 #+END_SRC
 * OFF Eww
 "Eww" is shipped with emacs, so no need to install. Writing some stuff

@@ -51,6 +51,8 @@
   ;; Turns on spell-checking in programming mode buffers, but only the COMMENTS
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+  (setq calendar-date-style 'iso) 	;; hm does it even do anything
+
   ;; Easily jump to my main org file
   (defun aga-find-current nil
     "Find the myinit.org file."
@@ -198,38 +200,38 @@
 
 ;; ;; Bieber agenda STARTS HERE
 
-;; ;; dont show habit tasks in "all todos" list.
-;;   (defun air-org-skip-subtree-if-habit ()
-;;     "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
-;;     (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-;;       (if (string= (org-entry-get nil "STYLE") "habit")
-;; 	  subtree-end
-;; 	nil)))
+;; dont show habit tasks in "all todos" list.
+  (defun air-org-skip-subtree-if-habit ()
+    "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (string= (org-entry-get nil "STYLE") "habit")
+	  subtree-end
+	nil)))
 
-;; 	;; defining a function to skip the tasks wiht priorities in the "all todo's list"
-;;     (defun air-org-skip-subtree-if-priority (priority)
-;;     "Skip an agenda subtree if it has a priority of PRIORITY.
+	;; defining a function to skip the tasks wiht priorities in the "all todo's list"
+    (defun air-org-skip-subtree-if-priority (priority)
+    "Skip an agenda subtree if it has a priority of PRIORITY.
 
-;; 	 PRIORITY may be one of the characters ?A, ?B, or ?C."
-;; 	   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-;; 		 (pri-value (* 1000 (- org-lowest-priority priority)))
-;; 		 (pri-current (org-get-priority (thing-at-point 'line t))))
-;; 	     (if (= pri-value pri-current)
-;; 		 subtree-end
-;; 	       nil)))
+	 PRIORITY may be one of the characters ?A, ?B, or ?C."
+	   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+		 (pri-value (* 1000 (- org-lowest-priority priority)))
+		 (pri-current (org-get-priority (thing-at-point 'line t))))
+	     (if (= pri-value pri-current)
+		 subtree-end
+	       nil)))
 
-;; ;; Final agenda view look
-;; (setq org-agenda-custom-commands
-;;       '(("a" "Daily agenda and all TODOs"
-;; 	 ((tags "PRIORITY=\"A\""
-;; 		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-;; 		 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-;; 	  (agenda "" ((org-agenda-span 'day)))
-;; 	  (alltodo ""
-;; 		   ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
-;; 						   (air-org-skip-subtree-if-priority ?A)
-;; 						   (org-agenda-skip-if nil '(scheduled deadline))))
-;; 		    (org-agenda-overriding-header "ALL normal priority tasks:")))))))
+;; Final agenda view look
+(setq org-agenda-custom-commands
+      '(("a" "Daily agenda and all TODOs"
+	 ((tags "PRIORITY=\"A\""
+		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+		 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+	  (agenda "" ((org-agenda-span 3)))
+	  (alltodo ""
+		   ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+						   (air-org-skip-subtree-if-priority ?A)
+						   (org-agenda-skip-if nil '(scheduled deadline))))
+		    (org-agenda-overriding-header "ALL normal priority tasks:")))))))
 
 ;; ;; Bieber agenda FINISHES HERE
 
@@ -470,6 +472,20 @@
   (lsp-ui-doc-show-with-cursor t)
   (lsp-ui-doc-delay 0.5))
 
+;; removed some stuff according to [[https://www.youtube.com/watch?v=Lu5XXoRjKUQ][this video]]
+;; Suggestions from official docs for performance
+(setq gc-cons-threshold 100000000)
+(setq lsp-completion-provider :capf)
+(setq lsp-idle-delay 0.500)
+(setq lsp-log-io nil)
+
+;; Annoying stuff
+(setq lsp-enable-links nil)
+(setq lsp-signature-render-documentation nil)
+(setq lsp-headerline-breadcrumb-enable nil)
+(setq lsp-ui-doc-enable nil)
+(setq lsp-completion-enable-additional-text-edit nil)
+
 (use-package neotree
 :ensure t
 :init
@@ -481,27 +497,27 @@
 	 (global-set-key [f8] 'neotree-toggle))
 
 ;; Launch neotree when opening emacs. First launch, then switch to another window.
-  (defun neotree-startup ()
-    (interactive)
-    (neotree-show)
-    (call-interactively 'other-window))
+  ;; (defun neotree-startup ()
+  ;;   (interactive)
+  ;;   (neotree-show)
+  ;;   (call-interactively 'other-window))
 
-  (if (daemonp)
-      (add-hook 'server-switch-hook #'neotree-startup)
-      (add-hook 'after-init-hook #'neotree-startup))
+  ;; (if (daemonp)
+  ;;     (add-hook 'server-switch-hook #'neotree-startup)
+  ;;     (add-hook 'after-init-hook #'neotree-startup))
 
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; (setq elpy-rpc-python-command "python3")
-;; (setq python-shell-interpreter "python3")
-;; (setq elpy-get-info-from-shell t)
-;; (use-package elpy
-;;   :ensure t
-;;   ;; :custom (elpy-rpc-backend "jedi")
-;;   :init
-;;   (elpy-enable))
+(setq elpy-rpc-python-command "python3")
+(setq python-shell-interpreter "python3")
+(setq elpy-get-info-from-shell t)
+(use-package elpy
+  :ensure t
+  ;; :custom (elpy-rpc-backend "jedi")
+  :init
+  (elpy-enable))
 
 ;; (defun my-python-line ()
 ;;  (interactive)
@@ -523,6 +539,27 @@
 ;; (eval-after-load "elpy"
 ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 
+(use-package emmet-mode
+:ensure t
+:config
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
+
+(use-package web-mode
+    :ensure t
+    :config
+	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+	   (setq web-mode-engines-alist
+		 '(("django"    . "\\.html\\'")))
+	   (setq web-mode-ac-sources-alist
+	   '(("css" . (ac-source-css-property))
+	 ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+	 (setq web-mode-enable-auto-closing t))
+	 (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
+	 (setq web-mode-enable-current-element-highlight t)
+
+	 (add-hook 'web-mode 'emmet-mode)
+
 ;; (use-package dumb-jump
 ;;   :bind (("M-g o" . dumb-jump-go-other-window)
 ;;          ("M-g j" . dumb-jump-go)
@@ -533,12 +570,6 @@
 ;; :init
 ;; (dumb-jump-mode)
 ;;   :ensure)
-
-;; (use-package emmet-mode
-;; :ensure t
-;; :config
-;; (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-;; (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
 
 ;; (use-package move-text
 ;;   :ensure t)
@@ -552,21 +583,6 @@
 ;; :ensure t
 ;; :config
 ;; (popwin-mode 1))
-
-;; (use-package web-mode
-;;     :ensure t
-;;     :config
-;; 	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-;; 	   (setq web-mode-engines-alist
-;; 		 '(("django"    . "\\.html\\'")))
-;; 	   (setq web-mode-ac-sources-alist
-;; 	   '(("css" . (ac-source-css-property))
-;;          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-;;          (setq web-mode-enable-auto-closing t))
-;;          (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
-;;          (setq web-mode-enable-current-element-highlight t)
-
-;;          (add-hook 'web-mode 'emmet-mode)
 
 ;; (use-package eww
 ;;   :commands eww eww-follow-link
