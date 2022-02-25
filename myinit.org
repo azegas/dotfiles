@@ -176,14 +176,6 @@ any button is pressed.
   ;; do C-c C-e on the parentheses below. Evaluate them.
 
   (setq org-agenda-files '("~/Dropbox/documents/org/"))
-  ;; (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
-  ;; "~/Dropbox/documents/org/refile.org"
-  ;; "~/Dropbox/documents/org/smutifruti.org"
-  ;; "~/Dropbox/documents/org/dpd.org"
-  ;; "~/Dropbox/documents/org/facebook_django.org"
-  ;; "~/Dropbox/documents/org/personal.org"
-  ;; "~/Dropbox/documents/org/arvydasdev.org"
-  ;; "~/Dropbox/documents/org/diary.org"))
 
   ;; Stop preparing agenda buffers on startup
   (setq org-agenda-inhibit-startup t)
@@ -273,13 +265,8 @@ any button is pressed.
     :ensure nil
     :config)
     ;; (setq org-habit-show-habits-only-for-today t))
-
-  ;; (require 'org-habit)
   (setq org-habit-graph-column 54) ;push little further to the rigth
-  ;; (setq org-habit-following-days 0)
-  ;; (setq org-habit-preceding-days 30)
 #+END_SRC
-
 ** Clock
 #+BEGIN_SRC emacs-lisp
   (setq org-log-note-clock-out t)
@@ -428,18 +415,13 @@ Some notes:
 I can type a word, it will immeaditely jump to it on any opened and
 visible buffer.  See https://github.com/abo-abo/avy for more info.
   #+begin_src emacs-lisp
-	(use-package avy
-	  :ensure t
-	  :bind
-	  (("M-s" . avy-goto-char-timer)
-    ;;	     ("M-g f" . avy-goto-line)
-		 ("M-p" . avy-goto-word-1)))
-;;  You can check the avy home page for their recommended configuration which you get by configuring this way instead:
-    ;; (use-package avy
-    ;; :ensure t
-    ;; :config
-    ;; (avy-setup-default))
-    (setq avy-background t) ; cool, makes the background darker
+  (use-package avy
+  :ensure t
+  :bind
+  (("M-s" . avy-goto-char-timer)
+  ("M-p" . avy-goto-word-1)))
+  ; cool, makes the background darker
+  (setq avy-background t)
   #+end_src
 * Impatient mode
 "Impatient mode" lets you to have a browser window with LIVE HTML
@@ -449,9 +431,9 @@ go to this link http://localhost:8080/imp/
 Otherwise, read simple explanation here -
 https://github.com/skeeto/impatient-mode.
 #+BEGIN_SRC emacs-lisp
-    (use-package impatient-mode
-      :ensure t
-      :commands impatient-mode)
+(use-package impatient-mode
+:ensure t
+:commands impatient-mode)
 
   ;; to be able to preview .md files
   ;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
@@ -569,7 +551,7 @@ More about doom themes [[https://github.com/doomemacs/themes][here]].
     (doom-themes-org-config))
 #+END_SRC
 
-* OFF Beacon
+* Beacon
 "Beacon" - never lose your cursor again. Flashes the cursor location when switching buffers.
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
@@ -768,7 +750,7 @@ SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
   (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
 #+END_SRC
 
-* OFF web-mode
+* Web-mode
 "Web mode" - Got it basically only for maching tags highlighting
 feature. I am sure it has wayyy more cool features. But more about
 those - later.
