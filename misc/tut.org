@@ -375,6 +375,7 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 50) C-c C-n  = ELPY Next flake8 error
 51) C-c C-t  = ELPY Start tests
 52) C-c RET  = ELPY (new shortcut) evaluate line
+52) M-x elpy-config  = ELPY config
 53) C-h v kill-ring = Watch your kill ring
 54) C-x o m  = AVY swap windows
 55) M-i      = indent, cool
@@ -397,3 +398,4 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 69) C-c C-p p/d = TREEMACS add/remove project to a workspace
 70) M-x lsp-treemacs-symbols = show the structure of the file
 71) m-x lsp-find-references = show where the function is being used
+72) C-c C-d  = when in python doc = gives documentation of chosen topic
