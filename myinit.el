@@ -1,94 +1,97 @@
-;; the blinking cursor is nothing, but an annoyance
-  (blink-cursor-mode 0)
-  ;; Show where buffers end.
-  (setq-default indicate-empty-lines t)
-  ;; start wrapping at 80 characterers
-  (setq fill-column 80)
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
-  ;; column-number in mode-line.
-  (column-number-mode 1)
-  ;; file size indication in mode-line.
-  (size-indication-mode 1)
-  ;; Be aware of whitespace.
-  (setq whitespace-style '(face trailing tabs tab-mark))
-  (global-whitespace-mode)
-  ;; ;; maximize my Emacs frame on start-up
-  ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  ;;disable splash screen and startup message
-  (setq inhibit-startup-message t)
-  (setq initial-scratch-message nil)
-  ;; highlight the current line
-  (global-hl-line-mode 1)
-  ;; Delete marked region when typing over it. Woooow.
-  (delete-selection-mode t)
-  ;; writes parens automatically for you
-  (electric-pair-mode +1)
-  ;; Disable the menu bar
-  (menu-bar-mode -1)
-  ;; Disable the toolbar
-  (tool-bar-mode -1)
-  ;; turn off scrollbar
-  (toggle-scroll-bar -1)
-  ;; highlight parenthesis
-  (show-paren-mode 1)
-  ;; Show matching parens
-  (setq show-paren-delay 0)
-  ;; enable y/n answers
-  (fset 'yes-or-no-p 'y-or-n-p)
-  ;; Set up the visible bell
-  (setq visible-bell t)
-  ;; never lose the layout c-c left/right
-  (winner-mode 1)
-  ; display line numbers - finally...
-  ;; (global-display-line-numbers-mode 1)
-  (add-hook 'text-mode-hook #'display-line-numbers-mode)
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-  ;; turn off the error message at emacs launch
-  (setq ad-redefinition-action 'accept)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(toggle-scroll-bar -1)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq visible-bell t)
+(blink-cursor-mode 0)
+(global-hl-line-mode 1)
+;; Show where buffers end.
+(setq-default indicate-empty-lines t)
+;; never lose the layout c-c left/right
+(winner-mode 1)
+;; Delete marked region when typing over it. Woooow.
+(delete-selection-mode t)
 
-  ;; Turns on spell-checking in text buffers
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  ;; Turns on spell-checking in programming mode buffers, but only the COMMENTS
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-  (setq calendar-date-style 'iso) 	;; hm does it even do anything
-
-  ;; Easily jump to my main org file
-  (defun aga-find-current nil
-    "Find the myinit.org file."
-    (interactive)
-    (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
-    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
-    (delete-other-windows))
-  ;; Find my NEW init file
-  (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
-
-  ;; Easily jump to my main org file
-  (defun aga-find-old nil
-    "Find the myinit.org file."
-    (interactive)
-    (find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
-    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
-    (delete-other-windows))
-    ;; Find OLD init file
-    (global-set-key (kbd "C-x <C-home>") 'aga-find-old)
-
-  ;; open my django docs
-  (defun django-docs nil
-    "Find the myinit.org file."
-    (interactive)
-    (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
-    (global-set-key [f5] 'django-docs)
-
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+;; turn off the error message at emacs launch
+(setq ad-redefinition-action 'accept)
 ;; Show startup time on emacs-load
 (defun efs/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-	   (format "%.2f seconds"
-		   (float-time
-		     (time-subtract after-init-time before-init-time)))
-	   gcs-done))
+(message "Emacs loaded in %s with %d garbage collections."
+(format "%.2f seconds"
+(float-time
+(time-subtract after-init-time before-init-time)))
+gcs-done))
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
+;; writes parens automatically for you
+(electric-pair-mode +1)
+;; highlight parenthesis
+(show-paren-mode 1)
+;; Show matching parens
+(setq show-paren-delay 0)
+
+;; Easily jump to my main org file
+(defun aga-find-current nil
+"Find the myinit.org file."
+(interactive)
+(find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
+;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
+(delete-other-windows))
+;; Find my NEW init file
+(global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
+
+;; Easily jump to my main org file
+(defun aga-find-old nil
+"Find the myinit.org file."
+(interactive)
+(find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
+;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
+(delete-other-windows))
+;; Find OLD init file
+(global-set-key (kbd "C-x <C-home>") 'aga-find-old)
+
+;; open my django docs
+(defun django-docs nil
+"Find the myinit.org file."
+(interactive)
+(find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
+(global-set-key [f5] 'django-docs)
+
+(column-number-mode 1)
+(size-indication-mode 1)
+
+;; (global-display-line-numbers-mode 1)
+(add-hook 'text-mode-hook #'display-line-numbers-mode)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+;; start wrapping at 80 characterers
+(setq fill-column 80)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+(setq whitespace-style '(face trailing tabs tab-mark))
+(global-whitespace-mode)
+
+(setq make-backup-files nil)
+(setq auto-save-list-file-name  nil)
+(setq auto-save-default nil)
+
+(defun ask-before-closing ()
+  "Ask whether or not to close, and then close if y was pressed"
+  (interactive)
+  (if (y-or-n-p (format "Exit Emacs? "))
+      (if (< emacs-major-version 22)
+          (save-buffers-kill-terminal)
+        (save-buffers-kill-emacs))
+    (message "Canceled exit")))
+
+(when window-system
+  (global-set-key (kbd "C-x C-c") 'ask-before-closing))
 
 (use-package company
   :ensure t
@@ -146,14 +149,6 @@
 ;; do C-c C-e on the parentheses below. Evaluate them.
 
 (setq org-agenda-files '("~/Dropbox/documents/org/"))
-;; (setq org-agenda-files '("~/Dropbox/documents/org/seima.org"
-;; "~/Dropbox/documents/org/refile.org"
-;; "~/Dropbox/documents/org/smutifruti.org"
-;; "~/Dropbox/documents/org/dpd.org"
-;; "~/Dropbox/documents/org/facebook_django.org"
-;; "~/Dropbox/documents/org/personal.org"
-;; "~/Dropbox/documents/org/arvydasdev.org"
-;; "~/Dropbox/documents/org/diary.org"))
 
 ;; Stop preparing agenda buffers on startup
 (setq org-agenda-inhibit-startup t)
@@ -239,11 +234,7 @@
   :ensure nil
   :config)
   ;; (setq org-habit-show-habits-only-for-today t))
-
-;; (require 'org-habit)
-(setq org-habit-graph-column 54) ;push little further to the rigth
-;; (setq org-habit-following-days 0)
-;; (setq org-habit-preceding-days 30)
+(setq org-habit-graph-column 72) ;push little further to the rigth
 
 (setq org-log-note-clock-out t)
 ;; Clock out when moving task to a done state
@@ -339,29 +330,24 @@
          ("C-x C-g" . magit-status)))
 
 (use-package avy
-	  :ensure t
-	  :bind
-	  (("M-s" . avy-goto-char-timer)
-    ;;	     ("M-g f" . avy-goto-line)
-		 ("M-p" . avy-goto-word-1)))
-;;  You can check the avy home page for their recommended configuration which you get by configuring this way instead:
-    ;; (use-package avy
-    ;; :ensure t
-    ;; :config
-    ;; (avy-setup-default))
-    (setq avy-background t) ; cool, makes the background darker
+:ensure t
+:bind
+(("M-s" . avy-goto-char-timer)
+("M-p" . avy-goto-word-1)))
+; cool, makes the background darker
+(setq avy-background t)
 
 (use-package impatient-mode
-    :ensure t
-    :commands impatient-mode)
+:ensure t
+:commands impatient-mode)
 
-;; to be able to preview .md files
-;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
-;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
-(defun markdown-html (buffer)
-  (princ (with-current-buffer buffer
-    (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
-  (current-buffer)))
+  ;; to be able to preview .md files
+  ;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
+  ;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
+  (defun markdown-html (buffer)
+    (princ (with-current-buffer buffer
+      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+    (current-buffer)))
 
 ;; ace window integration - BUTINA
 (use-package super-save
@@ -443,49 +429,6 @@
 (use-package try
 	:ensure t)
 
-(use-package python-mode
-  :ensure t
-  :hook (python-mode . lsp-deferred)
-  :custom
-  (python-shell-interpreter "python3"))
-
-(defun efs/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
-
-(use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :hook (lsp-mode . efs/lsp-mode-setup)
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-  :config
-  (lsp-enable-which-key-integration t))
-
-;; enable docstring popup, tree at the top and other ui stuff
-(use-package lsp-ui
-  :ensure t
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-doc-enable t)
-  (lsp-ui-doc-position 'at-point)
-  (lsp-ui-doc-show-with-cursor t)
-  (lsp-ui-doc-delay 0.5))
-
-;; removed some stuff according to [[https://www.youtube.com/watch?v=Lu5XXoRjKUQ][this video]]
-;; Suggestions from official docs for performance
-(setq gc-cons-threshold 100000000)
-(setq lsp-completion-provider :capf)
-(setq lsp-idle-delay 0.500)
-(setq lsp-log-io nil)
-
-;; Annoying stuff
-(setq lsp-enable-links nil)
-(setq lsp-signature-render-documentation nil)
-(setq lsp-headerline-breadcrumb-enable nil)
-(setq lsp-ui-doc-enable nil)
-(setq lsp-completion-enable-additional-text-edit nil)
-
 (use-package neotree
 :ensure t
 :init
@@ -518,6 +461,8 @@
   ;; :custom (elpy-rpc-backend "jedi")
   :init
   (elpy-enable))
+  (setq elpy-rpc-virtualenv-path 'current)
+  (set-language-environment "UTF-8")
 
 ;; (defun my-python-line ()
 ;;  (interactive)
@@ -559,6 +504,49 @@
 	 (setq web-mode-enable-current-element-highlight t)
 
 	 (add-hook 'web-mode 'emmet-mode)
+
+;; (use-package python-mode
+;;   :ensure t
+;;   :hook (python-mode . lsp-deferred)
+;;   :custom
+;;   (python-shell-interpreter "python3"))
+
+;; (defun efs/lsp-mode-setup ()
+;;   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+;;   (lsp-headerline-breadcrumb-mode))
+
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :commands (lsp lsp-deferred)
+;;   :hook (lsp-mode . efs/lsp-mode-setup)
+;;   :init
+;;   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+;;   :config
+;;   (lsp-enable-which-key-integration t))
+
+;; ;; enable docstring popup, tree at the top and other ui stuff
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :hook (lsp-mode . lsp-ui-mode)
+;;   :custom
+;;   (lsp-ui-doc-enable t)
+;;   (lsp-ui-doc-position 'at-point)
+;;   (lsp-ui-doc-show-with-cursor t)
+;;   (lsp-ui-doc-delay 0.5))
+
+;; ;; removed some stuff according to [[https://www.youtube.com/watch?v=Lu5XXoRjKUQ][this video]]
+;; ;; Suggestions from official docs for performance
+;; (setq gc-cons-threshold 100000000)
+;; (setq lsp-completion-provider :capf)
+;; (setq lsp-idle-delay 0.500)
+;; (setq lsp-log-io nil)
+
+;; ;; Annoying stuff
+;; (setq lsp-enable-links nil)
+;; (setq lsp-signature-render-documentation nil)
+;; (setq lsp-headerline-breadcrumb-enable nil)
+;; (setq lsp-ui-doc-enable nil)
+;; (setq lsp-completion-enable-additional-text-edit nil)
 
 ;; (use-package dumb-jump
 ;;   :bind (("M-g o" . dumb-jump-go-other-window)

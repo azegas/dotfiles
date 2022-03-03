@@ -1,3 +1,5 @@
+#+STARTUP: fold
+
 * Interface tweaks
 Build interface to look how I want it to look
 #+BEGIN_SRC emacs-lisp
@@ -96,6 +98,27 @@ White-space
 (setq whitespace-style '(face trailing tabs tab-mark))
 (global-whitespace-mode)
 #+END_SRC
+Backups are more trouble than they are worth.
+#+BEGIN_SRC emacs-lisp
+(setq make-backup-files nil)
+(setq auto-save-list-file-name  nil)
+(setq auto-save-default nil)
+#+END_SRC
+Ask before closing Emacs
+#+BEGIN_SRC emacs-lisp
+(defun ask-before-closing ()
+  "Ask whether or not to close, and then close if y was pressed"
+  (interactive)
+  (if (y-or-n-p (format "Exit Emacs? "))
+      (if (< emacs-major-version 22)
+          (save-buffers-kill-terminal)
+        (save-buffers-kill-emacs))
+    (message "Canceled exit")))
+
+(when window-system
+  (global-set-key (kbd "C-x C-c") 'ask-before-closing))
+#+END_SRC
+
 * Company
 "Company" provides autosuggestion/completion in buffers (writing code,
 pathing to files, etc).  press <f1> to display the documentation for
@@ -265,7 +288,7 @@ any button is pressed.
     :ensure nil
     :config)
     ;; (setq org-habit-show-habits-only-for-today t))
-  (setq org-habit-graph-column 54) ;push little further to the rigth
+  (setq org-habit-graph-column 72) ;push little further to the rigth
 #+END_SRC
 ** Clock
 #+BEGIN_SRC emacs-lisp
@@ -585,58 +608,6 @@ evaluates the content, without storing the file.
 	:ensure t)
 #+END_SRC
 
-* Lsp-mode
-  Insalling language server:
-  in terminal, root dir, run this - pip install python-lsp-server
-  do pyls to know if the installation it worked
-  What I get: when I hover/write on function-explanation window,
-  linting error checking on the right, signatue help(tells what
-  parameters you can put in a function.)
-  INSTALLED: lv, markdown-mode, spinner, lsp-mode
-#+BEGIN_SRC emacs-lisp
-  (use-package python-mode
-    :ensure t
-    :hook (python-mode . lsp-deferred)
-    :custom
-    (python-shell-interpreter "python3"))
-
-  (defun efs/lsp-mode-setup ()
-    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-    (lsp-headerline-breadcrumb-mode))
-
-  (use-package lsp-mode
-    :ensure t
-    :commands (lsp lsp-deferred)
-    :hook (lsp-mode . efs/lsp-mode-setup)
-    :init
-    (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-    :config
-    (lsp-enable-which-key-integration t))
-
-  ;; enable docstring popup, tree at the top and other ui stuff
-  (use-package lsp-ui
-    :ensure t
-    :hook (lsp-mode . lsp-ui-mode)
-    :custom
-    (lsp-ui-doc-enable t)
-    (lsp-ui-doc-position 'at-point)
-    (lsp-ui-doc-show-with-cursor t)
-    (lsp-ui-doc-delay 0.5))
-
-  ;; removed some stuff according to [[https://www.youtube.com/watch?v=Lu5XXoRjKUQ][this video]]
-  ;; Suggestions from official docs for performance
-  (setq gc-cons-threshold 100000000)
-  (setq lsp-completion-provider :capf)
-  (setq lsp-idle-delay 0.500)
-  (setq lsp-log-io nil)
-
-  ;; Annoying stuff
-  (setq lsp-enable-links nil)
-  (setq lsp-signature-render-documentation nil)
-  (setq lsp-headerline-breadcrumb-enable nil)
-  (setq lsp-ui-doc-enable nil)
-  (setq lsp-completion-enable-additional-text-edit nil)
-#+END_SRC
 * Neotree
 "Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a
 sidebar filetree. Toggle on/off with F8.
@@ -710,6 +681,8 @@ INSTALLS: yasnippet, pyenv, hightlight-indentation, elpy
     ;; :custom (elpy-rpc-backend "jedi")
     :init
     (elpy-enable))
+    (setq elpy-rpc-virtualenv-path 'current)
+    (set-language-environment "UTF-8")
 #+END_SRC
 
 No nee, use the regular macro.
@@ -772,10 +745,73 @@ INSTALLS: web-mode
 	   (add-hook 'web-mode 'emmet-mode)
 #+END_SRC
 
+* Multiple cursors
+[[http://emacsrocks.com/e13.html][wow]]
+#+BEGIN_SRC emacs-lisp
+(use-package multiple-cursors
+  :ensure t
+  :bind (("M-." . mc/mark-next-like-this)
+         ("M-," . mc/unmark-next-like-this)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+#+END_SRC
+
 
 
 * TURNED OFF PLUGINS BELOW THIS LINE
 
+
+* OFF Lsp-mode
+  Insalling language server:
+  in terminal, root dir, run this - pip install python-lsp-server
+  do pyls to know if the installation it worked
+  What I get: when I hover/write on function-explanation window,
+  linting error checking on the right, signatue help(tells what
+  parameters you can put in a function.)
+  INSTALLED: lv, markdown-mode, spinner, lsp-mode
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package python-mode
+  ;;   :ensure t
+  ;;   :hook (python-mode . lsp-deferred)
+  ;;   :custom
+  ;;   (python-shell-interpreter "python3"))
+
+  ;; (defun efs/lsp-mode-setup ()
+  ;;   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  ;;   (lsp-headerline-breadcrumb-mode))
+
+  ;; (use-package lsp-mode
+  ;;   :ensure t
+  ;;   :commands (lsp lsp-deferred)
+  ;;   :hook (lsp-mode . efs/lsp-mode-setup)
+  ;;   :init
+  ;;   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  ;;   :config
+  ;;   (lsp-enable-which-key-integration t))
+
+  ;; ;; enable docstring popup, tree at the top and other ui stuff
+  ;; (use-package lsp-ui
+  ;;   :ensure t
+  ;;   :hook (lsp-mode . lsp-ui-mode)
+  ;;   :custom
+  ;;   (lsp-ui-doc-enable t)
+  ;;   (lsp-ui-doc-position 'at-point)
+  ;;   (lsp-ui-doc-show-with-cursor t)
+  ;;   (lsp-ui-doc-delay 0.5))
+
+  ;; ;; removed some stuff according to [[https://www.youtube.com/watch?v=Lu5XXoRjKUQ][this video]]
+  ;; ;; Suggestions from official docs for performance
+  ;; (setq gc-cons-threshold 100000000)
+  ;; (setq lsp-completion-provider :capf)
+  ;; (setq lsp-idle-delay 0.500)
+  ;; (setq lsp-log-io nil)
+
+  ;; ;; Annoying stuff
+  ;; (setq lsp-enable-links nil)
+  ;; (setq lsp-signature-render-documentation nil)
+  ;; (setq lsp-headerline-breadcrumb-enable nil)
+  ;; (setq lsp-ui-doc-enable nil)
+  ;; (setq lsp-completion-enable-additional-text-edit nil)
+#+END_SRC
 
 * OFF Dumb jump
 UPDATE 2022-02-09 Kind of not needed anymore since using Elpy and it has the same function, even more convieniently placed.
