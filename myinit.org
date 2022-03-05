@@ -1,11 +1,11 @@
 #+STARTUP: fold
 
 * Interface tweaks
-Build interface to look how I want it to look
 #+BEGIN_SRC emacs-lisp
 ;;;============================================================================
 ;;;
-;;; Tas ir anas by "Arvydas"
+;;; Build interface to look how I want it to look
+;;; what about a new line
 ;;;
 ;;;============================================================================
 (menu-bar-mode -1)
