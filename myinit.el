@@ -88,12 +88,15 @@ gcs-done))
   (interactive)
   (if (y-or-n-p (format "Exit Emacs? "))
       (if (< emacs-major-version 22)
-          (save-buffers-kill-terminal)
-        (save-buffers-kill-emacs))
+	  (save-buffers-kill-terminal)
+	(save-buffers-kill-emacs))
     (message "Canceled exit")))
 
 (when window-system
   (global-set-key (kbd "C-x C-c") 'ask-before-closing))
+
+;; test
+(setq-default indent-tabs-mode nil)
 
 (use-package company
   :ensure t
@@ -113,11 +116,6 @@ gcs-done))
 :after ivy
 :config (counsel-mode))
 
-(use-package swiper
-:after ivy
-:bind (("C-s" . swiper)
-       ("C-r" . swiper)))
-
 (use-package ivy
    :defer 0.1
    :diminish
@@ -133,6 +131,11 @@ gcs-done))
    (use-package ivy-rich
    :ensure t
    :init (ivy-rich-mode 1))
+
+(use-package swiper
+:after ivy
+:bind (("C-s" . swiper)
+       ("C-r" . swiper)))
 
 (use-package which-key
   :ensure t
@@ -493,6 +496,27 @@ gcs-done))
 
 	 (add-hook 'web-mode 'emmet-mode)
 
+(use-package multiple-cursors
+  :ensure t
+  :bind (("M-." . mc/mark-next-like-this)
+         ("M-," . mc/unmark-next-like-this)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+
+(use-package fill-column-indicator
+  :ensure t)
+
+(setq fci-rule-width 1)
+(setq fci-rule-column 80)
+
+(add-hook 'text-mode-hook #'fci-mode)
+(add-hook 'prog-mode-hook #'fci-mode)
+
+(use-package smooth-scroll
+   :ensure t)
+
+;; (use-package smooth-scrolling
+;;   :ensure t)
+
 ;; (use-package python-mode
 ;;   :ensure t
 ;;   :hook (python-mode . lsp-deferred)
@@ -535,6 +559,20 @@ gcs-done))
 ;; (setq lsp-headerline-breadcrumb-enable nil)
 ;; (setq lsp-ui-doc-enable nil)
 ;; (setq lsp-completion-enable-additional-text-edit nil)
+
+;; (use-package doom-themes
+;;   :ensure t
+;;   :config
+;;   ;; Global settings (defaults)
+;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;   (load-theme 'doom-palenight t)
+;;   ;; Corrects (and improves) org-mode's native fontification.
+;;   (doom-themes-org-config))
+
+;; (use-package doom-modeline
+;;   :ensure t
+;;   :init (doom-modeline-mode 1))
 
 ;; (use-package dumb-jump
 ;;   :bind (("M-g o" . dumb-jump-go-other-window)

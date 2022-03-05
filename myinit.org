@@ -1,13 +1,8 @@
 #+STARTUP: fold
 
 * Interface tweaks
+Build interface to look how I want it to look
 #+BEGIN_SRC emacs-lisp
-;;;============================================================================
-;;;
-;;; Build interface to look how I want it to look
-;;; what about a new line
-;;;
-;;;============================================================================
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
@@ -15,6 +10,8 @@
 (setq visible-bell t)
 (blink-cursor-mode 0)
 (global-hl-line-mode 1)
+(add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
+(load-theme 'default-black t)
 ;; Show where buffers end.
 (setq-default indicate-empty-lines t)
 ;; never lose the layout c-c left/right
@@ -111,17 +108,20 @@ Backups are more trouble than they are worth.
 #+END_SRC
 Ask before closing Emacs
 #+BEGIN_SRC emacs-lisp
-(defun ask-before-closing ()
-  "Ask whether or not to close, and then close if y was pressed"
-  (interactive)
-  (if (y-or-n-p (format "Exit Emacs? "))
-      (if (< emacs-major-version 22)
-          (save-buffers-kill-terminal)
-        (save-buffers-kill-emacs))
-    (message "Canceled exit")))
+  (defun ask-before-closing ()
+    "Ask whether or not to close, and then close if y was pressed"
+    (interactive)
+    (if (y-or-n-p (format "Exit Emacs? "))
+	(if (< emacs-major-version 22)
+	    (save-buffers-kill-terminal)
+	  (save-buffers-kill-emacs))
+      (message "Canceled exit")))
 
-(when window-system
-  (global-set-key (kbd "C-x C-c") 'ask-before-closing))
+  (when window-system
+    (global-set-key (kbd "C-x C-c") 'ask-before-closing))
+
+  ;; test
+  (setq-default indent-tabs-mode nil)
 #+END_SRC
 
 * Company
@@ -150,6 +150,26 @@ Click M-o while in C-x C-xf or M-o to get a lot of options!
      :after ivy
      :config (counsel-mode))
 #+end_src
+* Ivy
+"Ivy" is a generic completion mechanism for Emacs.
+C-c f, M-x basically. Other packages use it as well.
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+     :defer 0.1
+     :diminish
+     :bind (("C-c C-r" . ivy-resume)
+     ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+     :custom
+
+     (ivy-count-format "(%d/%d) ")
+     ;; nice if you want before opened buffers to appear after a close
+     (ivy-use-virtual-buffers t)
+     :config (ivy-mode))
+
+     (use-package ivy-rich
+     :ensure t
+     :init (ivy-rich-mode 1))
+#+END_SRC
 * Swiper
 "Swiper" - an Ivy-enhanced alternative to Isearch. Instead of regular
 C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
@@ -158,26 +178,6 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
      :after ivy
      :bind (("C-s" . swiper)
 	    ("C-r" . swiper)))
-#+END_SRC
-* Ivy
-"Ivy" is a generic completion mechanism for Emacs.
-C-c f, M-x basically. Other packages use it as well.
-#+BEGIN_SRC emacs-lisp
-(use-package ivy
-   :defer 0.1
-   :diminish
-   :bind (("C-c C-r" . ivy-resume)
-   ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-   :custom
-
-   (ivy-count-format "(%d/%d) ")
-   ;; nice if you want before opened buffers to appear after a close
-   (ivy-use-virtual-buffers t)
-   :config (ivy-mode))
-
-   (use-package ivy-rich
-   :ensure t
-   :init (ivy-rich-mode 1))
 #+END_SRC
 * Which-key
 "Which-key" states which possible key commbinations can be used after
@@ -339,8 +339,9 @@ any button is pressed.
   ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
 #+END_SRC
 ** Archiving notes
-TUT: more about archiving - http://doc.endlessparentheses.com/Var/org-archive-location.html
-its possible to archive like so:
+TUT: more about archiving -
+http://doc.endlessparentheses.com/Var/org-archive-location.html its
+possible to archive like so:
 
 #+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
 #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
@@ -507,7 +508,7 @@ delete.
   :config
   (global-hungry-delete-mode))
 #+END_SRC
-* Emojify
+n* Emojify
 "Emojify" allows to preview emojis in emacs buffers. Needed for
 facebook auto posting
 #+BEGIN_SRC emacs-lisp
@@ -524,15 +525,6 @@ https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
   (use-package rg
     :ensure t
     :config)
-#+END_SRC
-* Doom-modeline
-"Doom-modeline" converts a basic looking, all cramped modeline into a
-nice and clean one with only the necessary info and icons
-displayed. So far so good, liking it.
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1))
 #+END_SRC
 * Flycheck
 "Flycheck" uses various syntax checking and linting tools to
@@ -565,20 +557,6 @@ saving buffer.
   :config
   (ws-butler-global-mode t))
 #+END_SRC
-* Doom themes
-More about doom themes [[https://github.com/doomemacs/themes][here]].
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :config
-    ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-palenight t)
-    ;; Corrects (and improves) org-mode's native fontification.
-    (doom-themes-org-config))
-#+END_SRC
-
 * Beacon
 "Beacon" - never lose your cursor again. Flashes the cursor location when switching buffers.
 #+BEGIN_SRC emacs-lisp
@@ -752,6 +730,8 @@ INSTALLS: web-mode
 
 * Multiple cursors
 [[http://emacsrocks.com/e13.html][wow]]
+
+INSTALLS : multiple cursors
 #+BEGIN_SRC emacs-lisp
 (use-package multiple-cursors
   :ensure t
@@ -760,10 +740,50 @@ INSTALLS: web-mode
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 #+END_SRC
 
+* Fill-column-indicator
+INSTALLS : fill-column-indicator
+m-x fci-mode
+#+BEGIN_SRC emacs-lisp
+(use-package fill-column-indicator
+  :ensure t)
+
+(setq fci-rule-width 1)
+(setq fci-rule-column 80)
+
+(add-hook 'text-mode-hook #'fci-mode)
+(add-hook 'prog-mode-hook #'fci-mode)
+#+END_SRC
+
+* Smooth-scroll
+#+BEGIN_SRC emacs-lisp
+(use-package smooth-scroll
+   :ensure t)
+(smooth-scroll-mode t)
+(global-set-key [(control  down)]  'scroll-up-1)
+(global-set-key [(control  up)]    'scroll-down-1)
+(global-set-key [(control  left)]  'scroll-right-1)
+(global-set-key [(control  right)] 'scroll-left-1)
+#+END_SRC
 
 
-* TURNED OFF PLUGINS BELOW THIS LINE
+* TURNED OFF PACKAGES BELOW THIS LINE
+#+BEGIN_SRC emacs-lisp
+;;;============================================================================
+;;;
+;;; Build interface to look how I want it to look
+;;; what about a new line
+;;;
+;;;============================================================================
+#+END_SRC
 
+
+* OFF - Smooth-scrolling
+leaves a gap from top and bottom when scrolling. Lags.
+Installs: smooth-scrolling
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package smooth-scrolling
+  ;;   :ensure t)
+#+END_SRC
 
 * OFF Lsp-mode
   Insalling language server:
@@ -816,6 +836,30 @@ INSTALLS: web-mode
   ;; (setq lsp-headerline-breadcrumb-enable nil)
   ;; (setq lsp-ui-doc-enable nil)
   ;; (setq lsp-completion-enable-additional-text-edit nil)
+#+END_SRC
+
+* OFF - Doom themes
+More about doom themes [[https://github.com/doomemacs/themes][here]].
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package doom-themes
+  ;;   :ensure t
+  ;;   :config
+  ;;   ;; Global settings (defaults)
+  ;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+  ;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;;   (load-theme 'doom-palenight t)
+  ;;   ;; Corrects (and improves) org-mode's native fontification.
+  ;;   (doom-themes-org-config))
+#+END_SRC
+
+* OFF - Doom-modeline
+"Doom-modeline" converts a basic looking, all cramped modeline into a
+nice and clean one with only the necessary info and icons
+displayed. So far so good, liking it.
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package doom-modeline
+  ;;   :ensure t
+  ;;   :init (doom-modeline-mode 1))
 #+END_SRC
 
 * OFF Dumb jump
