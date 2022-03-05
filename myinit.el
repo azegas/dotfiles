@@ -5,6 +5,8 @@
 (setq visible-bell t)
 (blink-cursor-mode 0)
 (global-hl-line-mode 1)
+(add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
+(load-theme 'default-black t)
 ;; Show where buffers end.
 (setq-default indicate-empty-lines t)
 ;; never lose the layout c-c left/right
@@ -376,10 +378,6 @@ gcs-done))
   :ensure t
   :config)
 
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
-
 (use-package flycheck
   :ensure t
   :init
@@ -394,16 +392,6 @@ gcs-done))
   :ensure t
   :config
   (ws-butler-global-mode t))
-
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-palenight t)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
 
 (use-package beacon
 :ensure t
