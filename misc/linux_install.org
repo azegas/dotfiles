@@ -1,0 +1,22 @@
+* 2022-03-06
+- [ ] install normal + updates - 3rd party packages
+- [ ] after install - sudo apt upgrade (daug)
+- [ ] website download - chrome.deb
+- [ ] website download - dropbox.deb
+- [ ] wait dropbox to download
+- [ ] sudo apt insall git
+- [ ] sudo apt install emacs
+- [ ] add the initial init.el file to .emacs.d folder
+- [ ] M-x all-the-icons-install-fonts
+- [ ] setxkbmap -option ctrl:swapcaps to bashrc to swap caps and ctrl
+- [ ] sudo apt install pip (installs bunch of packages... apie 30)
+- [ ] sudo apt install elpa-elpy
+- [ ] sudo apt install python3-jedi black python3-autopep8 yapf3 python3-yapf
+- [ ] pip install rope
+- [ ] do elpy-config and see what it writes there. Install all it asks
+- [ ] sudo apt install flake8
+- [ ] pip install yapf
+- [ ] pip install jedi
+- [ ] Kad veiktu FACEBOOK DJANGO - sudo apt install python3-tk
+  python-dev, tuomet sudo apt-get install xclip, sudo apt install scrot
+- [ ] connect to github according to [[https://kbroman.org/github_tutorial/pages/first_time.html][this]] tutorial.
