@@ -33,6 +33,9 @@ Startup. Disable splash screen and startup message.
 (time-subtract after-init-time before-init-time)))
 gcs-done))
 
+;; no more annoying buffer list combinatios
+(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 #+END_SRC
 Parentheses
@@ -86,8 +89,8 @@ Line numbers
 #+END_SRC
 Spell checking
 #+BEGIN_SRC emacs-lisp
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  ;; (add-hook 'text-mode-hook 'flyspell-mode)
+  ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+END_SRC
 Character wrap
 #+BEGIN_SRC emacs-lisp
@@ -195,6 +198,7 @@ any button is pressed.
 * Org-Mode
 ** Agenda
 [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Amazing explanation here]]
+Various org-agenda configurations
 #+BEGIN_SRC emacs-lisp
   ;; M-x org-agenda-file-list. Go there and click "save the changes"
   ;; MANUALLY to save to init.el. Otherwise, emacs wont read it on
@@ -202,9 +206,7 @@ any button is pressed.
   ;; described in the line above and forget about it. Refiling will
   ;; work, agenda will work.  if your org agenda files are not there,
   ;; do C-c C-e on the parentheses below. Evaluate them.
-
   (setq org-agenda-files '("~/Dropbox/documents/org/"))
-
   ;; Stop preparing agenda buffers on startup
   (setq org-agenda-inhibit-startup t)
   ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
@@ -233,7 +235,27 @@ any button is pressed.
   ;; agenda first and only then org-clock-goto.
   ;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
   (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
-
+  ;; heading indentation
+  ;; do M-x revert-buffer if the changes doesn't appear. Should indent then
+  (setq org-startup-indented t)
+  ;; RET to follow links
+  (setq org-return-follows-link t)
+  ;; Prevent setting "done" on he heading if subheadings are not completed
+  (setq org-enforce-todo-dependencies t)
+  ;; Prefix tasks with parent heading Instead of showing the filename
+  ;; where the task resides, I show the first characters of the parent
+  ;; heading. That way I can use short and generic task names and still
+  ;; understand it in the agenda. No need to repeat the context in the
+  ;; task name anymore.
+  (defun getlasthead ()
+  (let ((x (nth 0 (last (org-get-outline-path)))))
+  (if x
+  (if (> (string-width x) 12)
+  (concat "[" (org-format-outline-path (list (substring x 0 12))) "]")
+  (concat "[" (org-format-outline-path (list x)) "]"))
+  "")))
+  (setq org-agenda-prefix-format " %i %-15(getlasthead)%?-12t% s ")
+  ;; keywords for org mode
   (setq org-todo-keywords
   (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
 
@@ -243,48 +265,65 @@ any button is pressed.
 
       ;; to see all the emacs predifined colors - M-x list-colors-display
       (setq org-todo-keyword-faces
-	       (quote (("TODO" :foreground "IndianRed1" :weight bold)
-		       ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
-		       ("IN-PROGRESS" :foreground "gold1" :weight bold)
-		       ("DONE" :foreground "forest green" :weight bold))))
-
-  ;; ;; Bieber agenda STARTS HERE
-
-  ;; dont show habit tasks in "all todos" list.
-    (defun air-org-skip-subtree-if-habit ()
-      "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
-      (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-	(if (string= (org-entry-get nil "STYLE") "habit")
-	    subtree-end
-	  nil)))
-
-	  ;; defining a function to skip the tasks wiht priorities in the "all todo's list"
-      (defun air-org-skip-subtree-if-priority (priority)
-      "Skip an agenda subtree if it has a priority of PRIORITY.
-
-	   PRIORITY may be one of the characters ?A, ?B, or ?C."
-	     (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-		   (pri-value (* 1000 (- org-lowest-priority priority)))
-		   (pri-current (org-get-priority (thing-at-point 'line t))))
-	       (if (= pri-value pri-current)
-		   subtree-end
-		 nil)))
-
-  ;; Final agenda view look
-  (setq org-agenda-custom-commands
-	'(("a" "Daily agenda and all TODOs"
-	   ((tags "PRIORITY=\"A\""
-		  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-		   (org-agenda-overriding-header "High-priority unfinished tasks:")))
-	    (agenda "" ((org-agenda-span 3)))
-	    (alltodo ""
-		     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
-						     (air-org-skip-subtree-if-priority ?A)
-						     (org-agenda-skip-if nil '(scheduled deadline))))
-		      (org-agenda-overriding-header "ALL normal priority tasks:")))))))
-
-  ;; ;; Bieber agenda FINISHES HERE
+               (quote (("TODO" :foreground "IndianRed1" :weight bold)
+                       ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
+                       ("IN-PROGRESS" :foreground "gold1" :weight bold)
+                       ("DONE" :foreground "forest green" :weight bold))))
    #+END_SRC
+Bieber agenda
+#+BEGIN_SRC emacs-lisp
+  ;; ;; dont show habit tasks in "all todos" list.
+  ;;     (defun air-org-skip-subtree-if-habit ()
+  ;;       "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+  ;;       (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+  ;;         (if (string= (org-entry-get nil "STYLE") "habit")
+  ;;             subtree-end
+  ;;           nil)))
+
+  ;; ;; defining a function to skip the tasks with priorities in the "all todo's list"
+  ;;       (defun air-org-skip-subtree-if-priority (priority)
+  ;;       "Skip an agenda subtree if it has a priority of PRIORITY.
+
+  ;;            PRIORITY may be one of the characters ?A, ?B, or ?C."
+  ;;              (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+  ;;                    (pri-value (* 1000 (- org-lowest-priority priority)))
+  ;;                    (pri-current (org-get-priority (thing-at-point 'line t))))
+  ;;                (if (= pri-value pri-current)
+  ;;                    subtree-end
+  ;;                  nil)))
+
+  ;;   ;; Final agenda view look
+  ;;   (setq org-agenda-custom-commands
+  ;;         '(("a" "Daily agenda and all TODOs"
+  ;;            ((tags "PRIORITY=\"A\""
+  ;;                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+  ;;                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
+  ;;             (agenda "" ((org-agenda-span 3)))
+  ;;             (alltodo ""
+  ;;                      ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+  ;;                                                      (air-org-skip-subtree-if-priority ?A)
+  ;;                                                      (org-agenda-skip-if nil '(scheduled deadline))))
+  ;;                       (org-agenda-overriding-header "ALL normal priority tasks:")))))))
+#+END_SRC
+My personal agenda
+#+BEGIN_SRC emacs-lisp
+  ;; Show agenda + started tasks with "waiting" label
+        (setq org-agenda-custom-commands
+              '(("a" "Daily agenda and all TODOs"
+                 ((agenda "" ((org-agenda-span 3)))
+                 (tags-todo "/+WAITING"
+                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                         (org-agenda-overriding-header "Started tasks:")))))))
+
+  ;; Show completed tasks
+    (add-to-list 'org-agenda-custom-commands
+                 '("f" "Finished tasks only DONE tasks"
+                   agenda ""
+                   ((org-agenda-start-on-weekday 1)
+                    (org-agenda-start-with-log-mode '(closed))
+                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\\*\\* DONE ")))))
+  ;; (org-agenda-archives-mode t)
+#+END_SRC
 ** Org habit
 [[https://orgmode.org/manual/Repeated-tasks.html][Docs of Repeated tasks]]
 [[https://orgmode.org/manual/Repeated-tasks.html][Docs of Org Habit]]
@@ -297,17 +336,24 @@ any button is pressed.
 #+END_SRC
 ** Clock
 #+BEGIN_SRC emacs-lisp
-  (setq org-log-note-clock-out t)
-  ;; Clock out when moving task to a done state
-  (setq org-clock-out-when-done t)
-  ;; Resume clocking task when emacs is restarted
-  (org-clock-persistence-insinuate)
-  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-  (setq org-clock-persist t)
-  ;; Resume clocking task on clock-in if the clock is open
-  (setq org-clock-in-resume t)
-  ;; Do not prompt to resume an active clock, just resume it
-  (setq org-clock-persist-query-resume nil)
+    (setq org-log-note-clock-out t)
+    ;; Clock out when moving task to a done state
+    (setq org-clock-out-when-done t)
+    ;; Resume clocking task when emacs is restarted
+    (org-clock-persistence-insinuate)
+    ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+    (setq org-clock-persist t)
+    ;; Resume clocking task on clock-in if the clock is open
+    (setq org-clock-in-resume t)
+    ;; Do not prompt to resume an active clock, just resume it
+    (setq org-clock-persist-query-resume nil)
+
+  ;; clocktable example
+  ;; displays weekdays
+  ;; #+BEGIN: clocktable :maxlevel 3 :scope file :step day :tstart "<-1w>" :tend "<now>" :compact t
+  ;; displays month
+  ;; #+BEGIN: clocktable :maxlevel 5 :compact nil :emphasize t :scope subtree :timestamp t :link t :header "#+NAME: 2022_Vasaris\n"
+
 #+END_SRC
 ** Effort
 #+BEGIN_SRC emacs-lisp
@@ -324,27 +370,29 @@ any button is pressed.
 #+END_SRC
 ** Templates
 #+BEGIN_SRC emacs-lisp
-  ;; useful org-capture document - https://orgmode.org/manual/Template-expansion.html
-  ;; setting up the templates for c-c c
-  (define-key global-map "\C-cc" 'org-capture)
-  (setq org-capture-templates '(
-  ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%U%^{Effort}p")
-  ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%U%^{Effort}p")
-  ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%U%^{Effort}p")
-  ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%U%^{Effort}p")
-  ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%U%^{Effort}p")
-  ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")
-  ("r" "Refile" entry (file+headline "~/Dropbox/documents/org/refile.org" "Refile")"* TODO %?\n%U%^{Effort}p"))) ;; genius. that effort.
-  ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
-  ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
+   ;; useful org-capture document - https://orgmode.org/manual/Template-expansion.html
+   ;; setting up the templates for c-c c
+   ;; genius. that effort.
+   (define-key global-map "\C-cc" 'org-capture)
+   (setq org-capture-templates '(
+   ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
+   ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+   ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+   ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
+   ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
+   ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
+   ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
+   ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
 #+END_SRC
 ** Archiving notes
 TUT: more about archiving -
 http://doc.endlessparentheses.com/Var/org-archive-location.html its
 possible to archive like so:
-
+# archiving example
 #+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
 #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
+#+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::** From %s
+#+archive: ::* Archived Tasks - internal archiving
 * Ace windows
 "Ace windows" helps me to switch windows easily. Main keybind - C-x o
 and then the commands that follow below.
@@ -352,7 +400,7 @@ and then the commands that follow below.
 (use-package ace-window
       :ensure t
       :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
-  ;		aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
+      ;aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
                   aw-dispatch-always t)
       :bind (("C-x o" . ace-window)
              ("M-O" . ace-swap-window)
@@ -534,10 +582,10 @@ corner if you use "Doom-modeline". Can click on the icon - shows all
 the errors. Great!  https://www.flycheck.org/en/latest/# Not to
 confuse with flyspell - checks grammar.
 #+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode t))
+  (use-package flycheck
+    :ensure t
+    :init
+    (global-flycheck-mode t))
 #+END_SRC
 * Volatile Highlights
 "Volatile highlights" - temporarily highlight changes from pasting
@@ -631,13 +679,15 @@ without having to count them yourself.
 TUT: "Elpy" - various python modes for easier python
 programming. Installs various other packages as well.  A few videos to
 help install elpy and
-customize. https://www.youtube.com/watch?v=0kuCeS-mfyc,
-https://www.youtube.com/watch?v=mflvdXKyA_g Helpful blog post -
-https://www.ruiying.online/post/use-emacs-as-python-ide/ Elpy official
-docs - https://elpy.readthedocs.io/en/latest/index.html When using tab
-auto completion, click f1 and get the explanation in another
-buffer. Company doccumentation window.  and of course more amazing
-[[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
+customize.
+
+https://www.youtube.com/watch?v=0kuCeS-mfyc,
+https://www.youtube.com/watch?v=mflvdXKyA_g
+[[https://www.ruiying.online/post/use-emacs-as-python-ide/][Helpful blog post]]
+[[https://elpy.readthedocs.io/en/latest/index.html][Elpy official docs]]
+When using tab auto completion, click f1 and get the explanation in
+another buffer. Company doccumentation window.  and of course more
+amazing [[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
 
 INSTALL:
 1. add export PATH=$PATH:~/.local/bin to your .bashrc file and reload
@@ -656,16 +706,43 @@ INSTALL:
 INSTALLS: yasnippet, pyenv, hightlight-indentation, elpy
 
 #+BEGIN_SRC emacs-lisp
-  (setq elpy-rpc-python-command "python3")
-  (setq python-shell-interpreter "python3")
-  (setq elpy-get-info-from-shell t)
-  (use-package elpy
+    (setq elpy-rpc-python-command "python3")
+    (setq python-shell-interpreter "python3")
+    (setq elpy-get-info-from-shell t)
+    (use-package elpy
+      :ensure t
+      :custom (elpy-rpc-backend "jedi")
+      :init
+      (elpy-enable))
+      ;; :bind (("M-." . elpy-goto-definition)))
+      ;; (setq elpy-rpc-virtualenv-path 'current)
+      (set-language-environment "UTF-8")
+
+  ;; (use-package elpy
+  ;;   :init
+  ;;   (elpy-enable)
+  ;;   :config
+  ;;   (setq python-shell-interpreter "python3"
+  ;;         python-shell-interpreter-args "-i --simple-prompt")
+  ;;   (add-hook 'python-mode-hook 'eldoc-mode)
+  ;;   (setq elpy-rpc-python-command "python3")
+  ;;   (setq elpy-shell-echo-output nil)
+  ;;   (setq python-shell-completion-native-enable nil)
+  ;;   (setq elpy-rpc-backend "jedi")
+  ;;   (setq python-indent-offset 4
+  ;;         python-indent 4))
+
+  (use-package company-quickhelp
     :ensure t
-    ;; :custom (elpy-rpc-backend "jedi")
-    :init
-    (elpy-enable))
-    (setq elpy-rpc-virtualenv-path 'current)
-    (set-language-environment "UTF-8")
+    :config
+    (company-quickhelp-mode 1)
+    (eval-after-load 'company
+    '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
+    (setq company-quickhelp-delay 0)
+
+    ;; (setq pos-tip-foreground-color "#FFFFFF"
+    ;; pos-tip-background-color "#FFF68F")
+
 #+END_SRC
 
 No nee, use the regular macro.
@@ -701,9 +778,10 @@ SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
 #+BEGIN_SRC emacs-lisp
   (use-package emmet-mode
   :ensure t
-  :config
-  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-mode)) ;; enable Emmet's css abbreviation.
+  :config)
+(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 #+END_SRC
 
 * Web-mode
@@ -733,36 +811,72 @@ INSTALLS: web-mode
 
 INSTALLS : multiple cursors
 #+BEGIN_SRC emacs-lisp
-(use-package multiple-cursors
-  :ensure t
-  :bind (("M-." . mc/mark-next-like-this)
-         ("M-," . mc/unmark-next-like-this)
-         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+  (use-package multiple-cursors
+    :ensure t
+    :bind (("C-c m" . mc/mark-next-like-this)
+           ("C-c u" . mc/unmark-next-like-this)))
 #+END_SRC
 
 * Fill-column-indicator
 INSTALLS : fill-column-indicator
 m-x fci-mode
 #+BEGIN_SRC emacs-lisp
-(use-package fill-column-indicator
-  :ensure t)
+  ;; (use-package fill-column-indicator
+  ;;   :ensure t)
 
-(setq fci-rule-width 1)
-(setq fci-rule-column 80)
+  ;; (setq fci-rule-width 1)
+  ;; (setq fci-rule-column 80)
 
-(add-hook 'text-mode-hook #'fci-mode)
-(add-hook 'prog-mode-hook #'fci-mode)
+  ;; (add-hook 'text-mode-hook #'fci-mode)
+  ;; (add-hook 'prog-mode-hook #'fci-mode)
 #+END_SRC
 
-* Smooth-scroll
+* Doom themes
+More about doom themes [[https://github.com/doomemacs/themes][here]].
 #+BEGIN_SRC emacs-lisp
-(use-package smooth-scroll
-   :ensure t)
-(smooth-scroll-mode t)
-(global-set-key [(control  down)]  'scroll-up-1)
-(global-set-key [(control  up)]    'scroll-down-1)
-(global-set-key [(control  left)]  'scroll-right-1)
-(global-set-key [(control  right)] 'scroll-left-1)
+  (use-package doom-themes
+    :ensure t
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (load-theme 'doom-palenight t))
+#+END_SRC
+
+* Doom-modeline
+"Doom-modeline" converts a basic looking, all cramped modeline into a
+nice and clean one with only the necessary info and icons
+displayed. So far so good, liking it.
+#+BEGIN_SRC emacs-lisp
+(use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1))
+
+(set-face-attribute 'mode-line nil
+                    :background "#353644"
+                    :foreground "white"
+                    :box '(:line-width 2 :color "#353644")
+                    :overline nil
+                    :underline nil)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#565063"
+                    :foreground "white"
+                    :box '(:line-width 2 :color "#565063")
+                    :overline nil
+                    :underline nil)
+#+END_SRC
+
+* Goto-chg
+Perfect! Can now cycle through the last changes in the buffer. Very
+useful when doing some C-s in the buffer and then want to come back to
+the last modified location. Great! If trying to use it in org file -
+doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
+#+BEGIN_SRC emacs-lisp
+(use-package goto-chg
+      :ensure t)
+(global-set-key [(control ?.)] 'goto-last-change)
+(global-set-key [(control ?,)] 'goto-last-change-reverse)
 #+END_SRC
 
 
@@ -777,6 +891,18 @@ m-x fci-mode
 #+END_SRC
 
 
+* OFF - Smooth-scroll
+really don't need this. doesn't work the way I need it to.
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package smooth-scroll
+  ;;    :ensure t)
+  ;; (smooth-scroll-mode t)
+  ;; (global-set-key [(control  down)]  'scroll-up-1)
+  ;; (global-set-key [(control  up)]    'scroll-down-1)
+  ;; (global-set-key [(control  left)]  'scroll-right-1)
+  ;; (global-set-key [(control  right)] 'scroll-left-1)
+#+END_SRC
+
 * OFF - Smooth-scrolling
 leaves a gap from top and bottom when scrolling. Lags.
 Installs: smooth-scrolling
@@ -785,7 +911,7 @@ Installs: smooth-scrolling
   ;;   :ensure t)
 #+END_SRC
 
-* OFF Lsp-mode
+* OFF - Lsp-mode
   Insalling language server:
   in terminal, root dir, run this - pip install python-lsp-server
   do pyls to know if the installation it worked
@@ -838,31 +964,7 @@ Installs: smooth-scrolling
   ;; (setq lsp-completion-enable-additional-text-edit nil)
 #+END_SRC
 
-* OFF - Doom themes
-More about doom themes [[https://github.com/doomemacs/themes][here]].
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package doom-themes
-  ;;   :ensure t
-  ;;   :config
-  ;;   ;; Global settings (defaults)
-  ;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-  ;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  ;;   (load-theme 'doom-palenight t)
-  ;;   ;; Corrects (and improves) org-mode's native fontification.
-  ;;   (doom-themes-org-config))
-#+END_SRC
-
-* OFF - Doom-modeline
-"Doom-modeline" converts a basic looking, all cramped modeline into a
-nice and clean one with only the necessary info and icons
-displayed. So far so good, liking it.
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package doom-modeline
-  ;;   :ensure t
-  ;;   :init (doom-modeline-mode 1))
-#+END_SRC
-
-* OFF Dumb jump
+* OFF - Dumb jump
 UPDATE 2022-02-09 Kind of not needed anymore since using Elpy and it has the same function, even more convieniently placed.
 
 "Dumb jump" - jump to definition.
@@ -883,14 +985,14 @@ video of how to use it - https://www.youtube.com/watch?v=wBfZzaff77g
   ;; (dumb-jump-mode)
   ;;   :ensure)
 #+END_SRC
-* OFF Move text
+* OFF - Move text
 "Move text" allows me to click M-up/down arrow key and move the text line by line up and down.
 #+BEGIN_SRC emacs-lisp
   ;; (use-package move-text
   ;;   :ensure t)
   ;; (move-text-default-bindings)
 #+END_SRC
-* OFF Iedit
+* OFF - Iedit
 "Iedit" - a package that allows to edit all the alike strings in the
 buffer. Would have been useful on 02.14 when editing facebook_django
 urls, but was getting an error. More about it [[https://github.com/victorhge/iedit/issues/146][here]].
@@ -899,7 +1001,7 @@ urls, but was getting an error. More about it [[https://github.com/victorhge/ied
   ;; :ensure t
   ;;   :bind (("C-;" . iedit-mode)))
 #+END_SRC
-* OFF Popwin
+* OFF - Popwin
 "Popwin" displays special buffers in a popup window instead of a
 regular buffer. So when I am looking for help - clicking C-h k for
 example, it opens a totally new buffer which is huge and is not
@@ -917,7 +1019,7 @@ Official explanation -
   ;; :config
   ;; (popwin-mode 1))
 #+END_SRC
-* OFF Eww
+* OFF - Eww
 "Eww" is shipped with emacs, so no need to install. Writing some stuff
 here basically only to be able to customize eww itself. Cool to add.
 Shortcuts here - https://www.emacswiki.org/emacs/eww
@@ -942,7 +1044,7 @@ Shortcuts here - https://www.emacswiki.org/emacs/eww
   ;;   (setq browse-url-browser-function 'browse-url-generic
   ;;   browse-url-generic-program "google-chrome")
 #+END_SRC
-* OFF Yasnippet
+* OFF - Yasnippet
 "[[https://www.youtube.com/watch?v=YDuqSwyZvlY][Yasnippet]]" - expand to a switch statement with placeholders. Tab
 between the placeholders & type actual values. like in [[https://www.youtube.com/watch?v=mflvdXKyA_g&list=PL-mFLc7R_MJdX0MxrqXEV4sM87hmVEkRw&index=2&t=67s][this]] video.
 I am kind of too new to programming to be using snippets, but its nice,
@@ -956,7 +1058,7 @@ You can also create your own snippet... possibly even for .org files.
   ;; (use-package yasnippet-snippets         ; Collection of snippets
   ;;   :ensure t)
 #+END_SRC
-* OFF Markdown-mode
+* OFF - Markdown-mode
 "Markdown-mode" - will use it to edit markdown files. Would be nice to
 see how it renders while I edit it.
 #+BEGIN_SRC emacs-lisp
