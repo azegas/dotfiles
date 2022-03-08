@@ -14,4 +14,4 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(org-babel-load-file (expand-file-name "~/Dropbox/emacs/myinit.org"))
+(org-babel-load-file (expand-file-name "~/Dropbox/src/emacs/myinit.org"))
