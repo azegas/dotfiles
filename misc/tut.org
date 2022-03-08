@@ -375,27 +375,28 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 50) C-c C-n  = ELPY Next flake8 error
 51) C-c C-t  = ELPY Start tests
 52) C-c RET  = ELPY (new shortcut) evaluate line
-52) M-x elpy-config  = ELPY config
-53) C-h v kill-ring = Watch your kill ring
-54) C-x o m  = AVY swap windows
-55) M-i      = indent, cool
-56) M-x emacs-lisp-byte-compile = after modifying emacs package file,
+53) M-x comint-clear-buffer = clears elpy terminal (C-c M-o)
+54) M-x elpy-config  = ELPY config
+55) C-h v kill-ring = Watch your kill ring
+56) C-x o m  = AVY swap windows
+57) M-i      = indent, cool
+58) M-x emacs-lisp-byte-compile = after modifying emacs package file,
     run this (while in the opened buffer) to save the changes. Helped
     with iedit.
-57) M-x eww  = EWW browser
-58) C-c C-o  = ORG open linka
-59) A        = ORG agenda append agenda view to buffer
-60) o        = ORG agenda delete other windows
-61) f1 v     = DESCRIBE VARIABLE - super useful. can look for all kind
+59) M-x eww  = EWW browser
+60) C-c C-o  = ORG open linka
+61) A        = ORG agenda append agenda view to buffer
+62) o        = ORG agenda delete other windows
+63) f1 v     = DESCRIBE VARIABLE - super useful. can look for all kind
     of information. Like directories of plugins and so on... try it out.
-62) C-v      = scroll buffer down
-63) M-v      = scroll buffer up
-64) M-! nautilus . = open current dir in nautilus. oh yeah
-65) M-x clone-indirect-buffer = multiple views of same file
-66) M-o      = see council option
-67) C-;      = flyspell auto correct previous word
-68) M-x flyckeck-list-errors = a list of errors in the buffer
-69) C-c C-p p/d = TREEMACS add/remove project to a workspace
-70) M-x lsp-treemacs-symbols = show the structure of the file
-71) m-x lsp-find-references = show where the function is being used
-72) C-c C-d  = when in python doc = gives documentation of chosen topic
+64) C-v      = scroll buffer down
+65) M-v      = scroll buffer up
+66) M-! nautilus . = open current dir in nautilus. oh yeah
+67) M-x clone-indirect-buffer = multiple views of same file
+68) M-o      = see council option
+69) C-;      = flyspell auto correct previous word
+70) M-x flyckeck-list-errors = a list of errors in the buffer
+71) C-c C-p p/d = TREEMACS add/remove project to a workspace
+72) M-x lsp-treemacs-symbols = show the structure of the file
+73) m-x lsp-find-references = show where the function is being used
+74) C-c C-d  = when in python doc = gives documentation of chosen topic
