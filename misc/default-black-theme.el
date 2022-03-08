@@ -14,3 +14,4 @@
  '(show-paren-mismatch ((((class color)) (:background "red")))))
 
 (provide-theme 'default-black)
+;;; default-black-theme.el ends here
