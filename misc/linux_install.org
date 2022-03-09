@@ -19,4 +19,9 @@
 - [ ] pip install jedi
 - [ ] Kad veiktu FACEBOOK DJANGO - sudo apt install python3-tk
   python-dev, tuomet sudo apt-get install xclip, sudo apt install scrot
-- [ ] connect to github according to [[https://kbroman.org/github_tutorial/pages/first_time.html][this]] tutorial.
+- [ ] download github. go to developer settings and create personal
+  access token. This is your password now.
+- [ ] Do 'git config --global credential.helper store' in command line
+  and attempt to make a push (from command line). Enter username and
+  email, later probably a password as well. Then git should work
+  through magit an everyhere else with no password asked.
