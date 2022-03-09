@@ -1,5 +1,4 @@
 #+STARTUP: fold
-# still test
 
 * Interface tweaks
 Build interface to look how I want it to look
