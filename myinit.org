@@ -545,6 +545,18 @@ the selected candidate or C-w to see its source
       (setq company-tooltip-flip-when-above t)
       (global-company-mode))
 #+END_SRC
+* Programming
+** Diff Highlight
+#+BEGIN_SRC emacs-lisp
+(use-package diff-hl
+  :ensure t
+  :init
+  (global-diff-hl-mode)
+  :hook
+  (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh))
+#+END_SRC
+
 * Web stuff
 ** Emmet mode
 "Emmet mode" - HTML completion. Click c-j to autocomplete a tag.

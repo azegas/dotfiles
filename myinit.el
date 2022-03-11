@@ -349,6 +349,14 @@ gcs-done))
   (setq company-tooltip-flip-when-above t)
   (global-company-mode))
 
+(use-package diff-hl
+  :ensure t
+  :init
+  (global-diff-hl-mode)
+  :hook
+  (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh))
+
 (use-package emmet-mode
   :ensure t
   :config)
