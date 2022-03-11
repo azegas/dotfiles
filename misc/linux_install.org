@@ -25,3 +25,7 @@
   and attempt to make a push (from command line). Enter username and
   email, later probably a password as well. Then git should work
   through magit an everyhere else with no password asked.
+- [ ] install lithuanian language on linux (Settings -> Regional & Language)
+- [ ] '(org-level-1 ((t (:inherit outline-1 :height 1.1))))) to make
+  headings larger
+- [ ] sudo apt install ripgrep (kad veiktu rg emacse)
