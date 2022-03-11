@@ -133,6 +133,18 @@ gcs-done))
 (setq vc-make-backup-files t)
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  (setq which-key-idle-delay 0.2)
+  :config
+  (which-key-mode 1))
+
+(use-package try
+	:ensure t)
+
 ;; (use-package fill-column-indicator
 ;;   :ensure t)
 
@@ -256,6 +268,15 @@ gcs-done))
         (?? aw-show-dispatch-help))
         "List of actions for `aw-dispatch-default'.")
 
+(use-package undo-tree
+:ensure t
+:init
+(global-undo-tree-mode))
+
+(use-package rg
+  :ensure t
+  :config)
+
 ;; ace window integration - BUTINA
 (use-package super-save
   :ensure t
@@ -349,6 +370,63 @@ gcs-done))
   (setq company-tooltip-flip-when-above t)
   (global-company-mode))
 
+(setq elpy-rpc-python-command "python3")
+  (setq python-shell-interpreter "python3")
+  (setq elpy-get-info-from-shell t)
+  (use-package elpy
+    :ensure t
+    :custom (elpy-rpc-backend "jedi")
+    :init
+    (elpy-enable))
+    ;; :bind (("M-." . elpy-goto-definition)))
+    ;; (setq elpy-rpc-virtualenv-path 'current)
+    (set-language-environment "UTF-8")
+
+;; (use-package elpy
+;;   :init
+;;   (elpy-enable)
+;;   :config
+;;   (setq python-shell-interpreter "python3"
+;;         python-shell-interpreter-args "-i --simple-prompt")
+;;   (add-hook 'python-mode-hook 'eldoc-mode)
+;;   (setq elpy-rpc-python-command "python3")
+;;   (setq elpy-shell-echo-output nil)
+;;   (setq python-shell-completion-native-enable nil)
+;;   (setq elpy-rpc-backend "jedi")
+;;   (setq python-indent-offset 4
+;;         python-indent 4))
+
+(use-package company-quickhelp
+  :ensure t
+  :config
+  (company-quickhelp-mode 1)
+  (eval-after-load 'company
+  '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
+  (setq company-quickhelp-delay 0)
+
+  ;; (setq pos-tip-foreground-color "#FFFFFF"
+  ;; pos-tip-background-color "#FFF68F")
+
+;; (defun my-python-line ()
+;;  (interactive)
+;;   (save-excursion
+;;   (setq the_script_buffer (format (buffer-name)))
+;;   (end-of-line)
+;;   (kill-region (point) (progn (back-to-indentation) (point)))
+;;   ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
+;;   (setq the_py_buffer "*Python*")
+;;   (switch-to-buffer-other-window  the_py_buffer)
+;;   (goto-char (buffer-end 1))
+;;   (yank)
+;;   (comint-send-input)
+;;   (switch-to-buffer-other-window the_script_buffer)
+;;   (yank)
+;;   )
+;; )
+
+;; (eval-after-load "elpy"
+;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
+
 (use-package diff-hl
   :ensure t
   :init
@@ -356,6 +434,11 @@ gcs-done))
   :hook
   (magit-pre-refresh . diff-hl-magit-pre-refresh)
   (magit-post-refresh . diff-hl-magit-post-refresh))
+
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))
 
 (use-package emmet-mode
   :ensure t
@@ -395,15 +478,6 @@ gcs-done))
 :ensure t
 :after ivy
 :config (counsel-mode))
-
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
-  (setq which-key-idle-delay 0.2)
-  :config
-  (which-key-mode 1))
 
 ;; M-x org-agenda-file-list. Go there and click "save the changes"
 ;; MANUALLY to save to init.el. Otherwise, emacs wont read it on
@@ -596,80 +670,6 @@ gcs-done))
 
 ;; headings, jeigu ka
 ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
-
-(use-package undo-tree
-:ensure t
-:init
-(global-undo-tree-mode))
-
-(use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)
-         ("C-x C-g" . magit-status)))
-
-(use-package rg
-  :ensure t
-  :config)
-
-(use-package try
-	:ensure t)
-
-(setq elpy-rpc-python-command "python3")
-  (setq python-shell-interpreter "python3")
-  (setq elpy-get-info-from-shell t)
-  (use-package elpy
-    :ensure t
-    :custom (elpy-rpc-backend "jedi")
-    :init
-    (elpy-enable))
-    ;; :bind (("M-." . elpy-goto-definition)))
-    ;; (setq elpy-rpc-virtualenv-path 'current)
-    (set-language-environment "UTF-8")
-
-;; (use-package elpy
-;;   :init
-;;   (elpy-enable)
-;;   :config
-;;   (setq python-shell-interpreter "python3"
-;;         python-shell-interpreter-args "-i --simple-prompt")
-;;   (add-hook 'python-mode-hook 'eldoc-mode)
-;;   (setq elpy-rpc-python-command "python3")
-;;   (setq elpy-shell-echo-output nil)
-;;   (setq python-shell-completion-native-enable nil)
-;;   (setq elpy-rpc-backend "jedi")
-;;   (setq python-indent-offset 4
-;;         python-indent 4))
-
-(use-package company-quickhelp
-  :ensure t
-  :config
-  (company-quickhelp-mode 1)
-  (eval-after-load 'company
-  '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
-  (setq company-quickhelp-delay 0)
-
-  ;; (setq pos-tip-foreground-color "#FFFFFF"
-  ;; pos-tip-background-color "#FFF68F")
-
-;; (defun my-python-line ()
-;;  (interactive)
-;;   (save-excursion
-;;   (setq the_script_buffer (format (buffer-name)))
-;;   (end-of-line)
-;;   (kill-region (point) (progn (back-to-indentation) (point)))
-;;   ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
-;;   (setq the_py_buffer "*Python*")
-;;   (switch-to-buffer-other-window  the_py_buffer)
-;;   (goto-char (buffer-end 1))
-;;   (yank)
-;;   (comint-send-input)
-;;   (switch-to-buffer-other-window the_script_buffer)
-;;   (yank)
-;;   )
-;; )
-
-;; (eval-after-load "elpy"
-;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 
 ;;;============================================================================
 ;;;

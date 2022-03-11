@@ -198,6 +198,29 @@ aggressively.
 (setq vc-make-backup-files t)
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+END_SRC
+** Which-key
+"Which-key" states which possible key commbinations can be used after
+any button is pressed.
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  (setq which-key-idle-delay 0.2)
+  :config
+  (which-key-mode 1))
+#+END_SRC
+
+** Try
+Try is a package that allows you to try out Emacs packages without
+installing them. If you pass a URL to a plain text .el-file it
+evaluates the content, without storing the file.
+#+BEGIN_SRC emacs-lisp
+(use-package try
+	:ensure t)
+#+END_SRC
+
 * Appearance
 ** Fill-column-indicator
 INSTALLS : fill-column-indicator
@@ -378,6 +401,26 @@ and then the commands that follow below.
 #+END_SRC
 
 * Jumping around
+** Undo-tree
+"Undo tree" lets me to return to the file stage before any
+modifications were made. Keybind - C-x u.
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+  :ensure t
+  :init
+  (global-undo-tree-mode))
+#+END_SRC
+
+** Rg
+"Rg" - rip grep. Helps to search for a term through many files. Super
+useful when need to change something on many files.  Installation:
+Sudo apt install ripgrep M-x rg and search away Tut: nice video
+https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
+#+BEGIN_SRC emacs-lisp
+  (use-package rg
+    :ensure t
+    :config)
+#+END_SRC
 ** Supersave
 "Supersave" autosaves buffers for me. I am kind of used to clicking
 C-x C-s all the time, but "Supersave" just makes sure that it saves
@@ -546,6 +589,102 @@ the selected candidate or C-w to see its source
       (global-company-mode))
 #+END_SRC
 * Programming
+** Elpy
+TUT: "Elpy" - various python modes for easier python
+programming. Installs various other packages as well.  A few videos to
+help install elpy and
+customize.
+
+https://www.youtube.com/watch?v=0kuCeS-mfyc,
+https://www.youtube.com/watch?v=mflvdXKyA_g
+[[https://www.ruiying.online/post/use-emacs-as-python-ide/][Helpful blog post]]
+[[https://elpy.readthedocs.io/en/latest/index.html][Elpy official docs]]
+When using tab auto completion, click f1 and get the explanation in
+another buffer. Company doccumentation window.  and of course more
+amazing [[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
+
+INSTALL:
+1. add export PATH=$PATH:~/.local/bin to your .bashrc file and reload
+   emacs.
+2. should get a message asking something about RPC, click yes.
+3. then make sure jedi is installed in your system. others use flake8,
+   others use jedi.. idk. zamansky and the guy from he tutorial video
+   use jedi.
+4. do M-x elpy-config to see the config
+5. check your .emacs.d folder. if there is one called "elpy" and it is
+   empty or something, do M-x elpy-rpc-restart. Folders will appear,
+   packages will install. Then do elpy-coppnfig.
+6. pip install flake8 - get to see more syntax checks. M-x elpy-config
+   to confirm its installed
+
+INSTALLS: yasnippet, pyenv, hightlight-indentation, elpy
+
+#+BEGIN_SRC emacs-lisp
+    (setq elpy-rpc-python-command "python3")
+    (setq python-shell-interpreter "python3")
+    (setq elpy-get-info-from-shell t)
+    (use-package elpy
+      :ensure t
+      :custom (elpy-rpc-backend "jedi")
+      :init
+      (elpy-enable))
+      ;; :bind (("M-." . elpy-goto-definition)))
+      ;; (setq elpy-rpc-virtualenv-path 'current)
+      (set-language-environment "UTF-8")
+
+  ;; (use-package elpy
+  ;;   :init
+  ;;   (elpy-enable)
+  ;;   :config
+  ;;   (setq python-shell-interpreter "python3"
+  ;;         python-shell-interpreter-args "-i --simple-prompt")
+  ;;   (add-hook 'python-mode-hook 'eldoc-mode)
+  ;;   (setq elpy-rpc-python-command "python3")
+  ;;   (setq elpy-shell-echo-output nil)
+  ;;   (setq python-shell-completion-native-enable nil)
+  ;;   (setq elpy-rpc-backend "jedi")
+  ;;   (setq python-indent-offset 4
+  ;;         python-indent 4))
+
+  (use-package company-quickhelp
+    :ensure t
+    :config
+    (company-quickhelp-mode 1)
+    (eval-after-load 'company
+    '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
+    (setq company-quickhelp-delay 0)
+
+    ;; (setq pos-tip-foreground-color "#FFFFFF"
+    ;; pos-tip-background-color "#FFF68F")
+
+#+END_SRC
+
+No nee, use the regular macro.
+# Execute python by line, or if you read the tutorial, by block as well.
+# Some geniuses wrote [[https://stackoverflow.com/questions/31957564/emacs-python-elpy-send-code-to-interpreter][this]] - super useful when working with python. Can
+# execute one line at a time. Default elpy has this function, but it says - ups, not working.
+#+BEGIN_SRC emacs-lisp
+  ;; (defun my-python-line ()
+  ;;  (interactive)
+  ;;   (save-excursion
+  ;;   (setq the_script_buffer (format (buffer-name)))
+  ;;   (end-of-line)
+  ;;   (kill-region (point) (progn (back-to-indentation) (point)))
+  ;;   ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
+  ;;   (setq the_py_buffer "*Python*")
+  ;;   (switch-to-buffer-other-window  the_py_buffer)
+  ;;   (goto-char (buffer-end 1))
+  ;;   (yank)
+  ;;   (comint-send-input)
+  ;;   (switch-to-buffer-other-window the_script_buffer)
+  ;;   (yank)
+  ;;   )
+  ;; )
+
+  ;; (eval-after-load "elpy"
+  ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
+#+END_SRC
+
 ** Diff Highlight
 #+BEGIN_SRC emacs-lisp
 (use-package diff-hl
@@ -555,6 +694,26 @@ the selected candidate or C-w to see its source
   :hook
   (magit-pre-refresh . diff-hl-magit-pre-refresh)
   (magit-post-refresh . diff-hl-magit-post-refresh))
+#+END_SRC
+
+** Magit
+"Magit" - can not imagine working with git without it. Instead of
+writing full commands like: "git add ." and then "git commit -m 'bla
+blaa'" then "git push"... I can simply `C-x g` for a git status. Then
+`s` to do git add. And finally `C-c C-c` to invoke git commit and
+simply write a message. Then press `p` and I just pushed the
+changes. Way quickier than the termina, believe me.
+
+Some notes:
+- install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
+- use personal access token
+- add this to terminal to save the token for furher use
+- git config --global credential.helper store
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))
 #+END_SRC
 
 * Web stuff
@@ -622,19 +781,6 @@ Click M-o while in C-x C-xf or M-o to get a lot of options!
      :after ivy
      :config (counsel-mode))
 #+end_src
-* Which-key
-"Which-key" states which possible key commbinations can be used after
-any button is pressed.
-#+BEGIN_SRC emacs-lisp
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
-  (setq which-key-idle-delay 0.2)
-  :config
-  (which-key-mode 1))
-#+END_SRC
 * Org-Mode
 ** Agenda
 [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Amazing explanation here]]
@@ -862,149 +1008,6 @@ possible to archive like so:
   ;; headings, jeigu ka
   ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
 #+END_SRC
-* Undo-tree
-"Undo tree" lets me to return to the file stage before any
-modifications were made. Keybind - C-x u.
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-  :ensure t
-  :init
-  (global-undo-tree-mode))
-#+END_SRC
-* Magit
-"Magit" - can not imagine working with git without it. Instead of
-writing full commands like: "git add ." and then "git commit -m 'bla
-blaa'" then "git push"... I can simply `C-x g` for a git status. Then
-`s` to do git add. And finally `C-c C-c` to invoke git commit and
-simply write a message. Then press `p` and I just pushed the
-changes. Way quickier than the termina, believe me.
-
-Some notes:
-- install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
-- use personal access token
-- add this to terminal to save the token for furher use
-- git config --global credential.helper store
-#+BEGIN_SRC emacs-lisp
-(use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)
-         ("C-x C-g" . magit-status)))
-#+END_SRC
-* Rg
-"Rg" - rip grep. Helps to search for a term through many files. Super
-useful when need to change something on many files.  Installation:
-Sudo apt install ripgrep M-x rg and search away Tut: nice video
-https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
-#+BEGIN_SRC emacs-lisp
-  (use-package rg
-    :ensure t
-    :config)
-#+END_SRC
-* Try
-Try is a package that allows you to try out Emacs packages without
-installing them. If you pass a URL to a plain text .el-file it
-evaluates the content, without storing the file.
-#+BEGIN_SRC emacs-lisp
-(use-package try
-	:ensure t)
-#+END_SRC
-
-* Elpy
-TUT: "Elpy" - various python modes for easier python
-programming. Installs various other packages as well.  A few videos to
-help install elpy and
-customize.
-
-https://www.youtube.com/watch?v=0kuCeS-mfyc,
-https://www.youtube.com/watch?v=mflvdXKyA_g
-[[https://www.ruiying.online/post/use-emacs-as-python-ide/][Helpful blog post]]
-[[https://elpy.readthedocs.io/en/latest/index.html][Elpy official docs]]
-When using tab auto completion, click f1 and get the explanation in
-another buffer. Company doccumentation window.  and of course more
-amazing [[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
-
-INSTALL:
-1. add export PATH=$PATH:~/.local/bin to your .bashrc file and reload
-   emacs.
-2. should get a message asking something about RPC, click yes.
-3. then make sure jedi is installed in your system. others use flake8,
-   others use jedi.. idk. zamansky and the guy from he tutorial video
-   use jedi.
-4. do M-x elpy-config to see the config
-5. check your .emacs.d folder. if there is one called "elpy" and it is
-   empty or something, do M-x elpy-rpc-restart. Folders will appear,
-   packages will install. Then do elpy-coppnfig.
-6. pip install flake8 - get to see more syntax checks. M-x elpy-config
-   to confirm its installed
-
-INSTALLS: yasnippet, pyenv, hightlight-indentation, elpy
-
-#+BEGIN_SRC emacs-lisp
-    (setq elpy-rpc-python-command "python3")
-    (setq python-shell-interpreter "python3")
-    (setq elpy-get-info-from-shell t)
-    (use-package elpy
-      :ensure t
-      :custom (elpy-rpc-backend "jedi")
-      :init
-      (elpy-enable))
-      ;; :bind (("M-." . elpy-goto-definition)))
-      ;; (setq elpy-rpc-virtualenv-path 'current)
-      (set-language-environment "UTF-8")
-
-  ;; (use-package elpy
-  ;;   :init
-  ;;   (elpy-enable)
-  ;;   :config
-  ;;   (setq python-shell-interpreter "python3"
-  ;;         python-shell-interpreter-args "-i --simple-prompt")
-  ;;   (add-hook 'python-mode-hook 'eldoc-mode)
-  ;;   (setq elpy-rpc-python-command "python3")
-  ;;   (setq elpy-shell-echo-output nil)
-  ;;   (setq python-shell-completion-native-enable nil)
-  ;;   (setq elpy-rpc-backend "jedi")
-  ;;   (setq python-indent-offset 4
-  ;;         python-indent 4))
-
-  (use-package company-quickhelp
-    :ensure t
-    :config
-    (company-quickhelp-mode 1)
-    (eval-after-load 'company
-    '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
-    (setq company-quickhelp-delay 0)
-
-    ;; (setq pos-tip-foreground-color "#FFFFFF"
-    ;; pos-tip-background-color "#FFF68F")
-
-#+END_SRC
-
-No nee, use the regular macro.
-# Execute python by line, or if you read the tutorial, by block as well.
-# Some geniuses wrote [[https://stackoverflow.com/questions/31957564/emacs-python-elpy-send-code-to-interpreter][this]] - super useful when working with python. Can
-# execute one line at a time. Default elpy has this function, but it says - ups, not working.
-#+BEGIN_SRC emacs-lisp
-  ;; (defun my-python-line ()
-  ;;  (interactive)
-  ;;   (save-excursion
-  ;;   (setq the_script_buffer (format (buffer-name)))
-  ;;   (end-of-line)
-  ;;   (kill-region (point) (progn (back-to-indentation) (point)))
-  ;;   ;(setq the_py_buffer (format "*Python[%s]*" (buffer-file-name)))
-  ;;   (setq the_py_buffer "*Python*")
-  ;;   (switch-to-buffer-other-window  the_py_buffer)
-  ;;   (goto-char (buffer-end 1))
-  ;;   (yank)
-  ;;   (comint-send-input)
-  ;;   (switch-to-buffer-other-window the_script_buffer)
-  ;;   (yank)
-  ;;   )
-  ;; )
-
-  ;; (eval-after-load "elpy"
-  ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
-#+END_SRC
-
 
 * TURNED OFF PACKAGES BELOW THIS LINE
 #+BEGIN_SRC emacs-lisp
