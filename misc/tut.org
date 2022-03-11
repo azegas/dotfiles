@@ -400,3 +400,4 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 72) M-x lsp-treemacs-symbols = show the structure of the file
 73) m-x lsp-find-references = show where the function is being used
 74) C-c C-d  = when in python doc = gives documentation of chosen topic
+75) C-c /    = sparse tree (org mode look up for things)
