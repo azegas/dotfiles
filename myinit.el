@@ -1,7 +1,6 @@
 ;; Increase the garbage collection threshold to 100MB to reduced startup time.
 ;; See https://www.reddit.com/r/emacs/comments/3kqt6e
 (setq gc-cons-threshold (* 1024 1024 100))
-
 ;; Turn off mouse interface early in startup to avoid momentary display
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -14,8 +13,6 @@
 ;; (load-theme 'default-black t)
 ;; show where buffers end.
 (setq-default indicate-empty-lines t)
-;; never lose the layout c-c left/right
-(winner-mode 1)
 ;; Delete marked region when typing over it. Woooow.
 (delete-selection-mode t)
 
@@ -127,6 +124,218 @@ gcs-done))
 
 ;; (org-babel-load-file (expand-file-name "~/Dropbox/src/emacs/myinit.org"))
 
+;; Save backup files to a dedicated directory.
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq delete-old-versions -1)
+
+;; Make numeric backup versions unconditionally.
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+
+;; (use-package fill-column-indicator
+;;   :ensure t)
+
+;; (setq fci-rule-width 1)
+;; (setq fci-rule-column 80)
+
+;; (add-hook 'text-mode-hook #'fci-mode)
+;; (add-hook 'prog-mode-hook #'fci-mode)
+
+(use-package neotree
+:ensure t
+:init
+(setq neo-smart-open t
+	 neo-autorefresh t
+	 neo-force-change-root t)
+	 (setq neo-theme (if (display-graphic-p) 'icons global))
+	 (setq neo-window-width 35)
+	 (global-set-key [f8] 'neotree-toggle))
+
+;; Launch neotree when opening emacs. First launch, then switch to another window.
+  ;; (defun neotree-startup ()
+  ;;   (interactive)
+  ;;   (neotree-show)
+  ;;   (call-interactively 'other-window))
+
+  ;; (if (daemonp)
+  ;;     (add-hook 'server-switch-hook #'neotree-startup)
+  ;;     (add-hook 'after-init-hook #'neotree-startup))
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-palenight t))
+
+(use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1))
+
+(set-face-attribute 'mode-line nil
+                    :background "#353644"
+                    :foreground "white"
+                    :box '(:line-width 2 :color "#353644")
+                    :overline nil
+                    :underline nil)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#565063"
+                    :foreground "white"
+                    :box '(:line-width 2 :color "#565063")
+                    :overline nil
+                    :underline nil)
+
+(use-package all-the-icons-ivy-rich
+:ensure t
+:init (all-the-icons-ivy-rich-mode 1))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package volatile-highlights
+  :ensure t
+  :config
+  (volatile-highlights-mode t))
+
+(use-package beacon
+:ensure t
+:config
+  (progn
+    (setq beacon-blink-when-point-moves-vertically nil) ; default nil
+    (setq beacon-blink-when-point-moves-horizontally nil) ; default nil
+    (setq beacon-blink-when-buffer-changes t) ; default t
+    (setq beacon-blink-when-window-scrolls t) ; default t
+    (setq beacon-blink-when-window-changes t) ; default t
+    (setq beacon-blink-when-focused nil) ; default nil
+
+    (setq beacon-blink-duration 0.3) ; default 0.3
+    (setq beacon-blink-delay 0.3) ; default 0.3
+    (setq beacon-size 20) ; default 40
+    ;; (setq beacon-color "yellow") ; default 0.5
+    (setq beacon-color 0.5) ; default 0.5
+
+    (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
+
+    (beacon-mode 1)))
+
+(use-package saveplace
+  :ensure t
+  :config
+  ;; activate it for all buffers
+  (setq-default save-place t)
+  (save-place-mode 1))
+
+(winner-mode +1)
+
+(use-package ace-window
+      :ensure t
+      :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
+      ;aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
+                  aw-dispatch-always t)
+      :bind (("C-x o" . ace-window)
+             ("M-O" . ace-swap-window)
+             ("C-x v" . aw-split-window-horz)))
+     (defvar aw-dispatch-alist
+    '((?x aw-delete-window "Delete Window")
+        (?m aw-swap-window "Swap Windows")
+        (?M aw-move-window "Move Window")
+        (?c aw-copy-window "Copy Window")
+        (?f aw-switch-buffer-in-window "Select Buffer")
+        (?n aw-flip-window)
+        (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+        (?c aw-split-window-fair "Split Fair Window")
+        (?h aw-split-window-vert "Split Vert Window")
+        (?v aw-split-window-horz "Split Horz Window")
+        (?o delete-other-windows)
+        ;; (?o delete-other-windows "Delete Other Windows")
+        ;; (?o delete-other-windows " Ace - Maximize Window")
+        (?? aw-show-dispatch-help))
+        "List of actions for `aw-dispatch-default'.")
+
+;; ace window integration - BUTINA
+(use-package super-save
+  :ensure t
+  :config
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
+  ;; add integration with ace-window
+  (add-to-list 'super-save-triggers 'ace-window)
+  (super-save-mode +1))
+
+(use-package avy
+:ensure t
+:bind
+(("M-s" . avy-goto-char-timer)
+("M-p" . avy-goto-word-1)))
+; cool, makes the background darker
+(setq avy-background t)
+
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode)
+  (setq projectile-completion-system 'ivy)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
+(use-package ivy
+   :defer 0.1
+   :diminish
+   :bind (("C-c C-r" . ivy-resume)
+   ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+   :custom
+
+   (ivy-count-format "(%d/%d) ")
+   ;; nice if you want previously opened buffers to appear after an
+   ;; emacs shutdown
+   (ivy-use-virtual-buffers t)
+   :config (ivy-mode))
+
+   (use-package ivy-rich
+   :ensure t
+   :init (ivy-rich-mode 1))
+
+(use-package goto-chg
+      :ensure t)
+(global-set-key [(control ?.)] 'goto-last-change)
+(global-set-key [(control ?,)] 'goto-last-change-reverse)
+
+(use-package swiper
+:after ivy
+:bind (("C-s" . swiper)
+      ("C-r" . swiper)))
+
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+
+(use-package ws-butler
+  :ensure t
+  :config
+  (ws-butler-global-mode t))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-c m" . mc/mark-next-like-this)
+         ("C-c u" . mc/unmark-next-like-this)))
+
+(use-package hungry-delete
+:ensure t
+:config
+(global-hungry-delete-mode))
+
+(use-package emojify
+:ensure t
+:hook (after-init . global-emojify-mode))
+
+(use-package expand-region
+  :ensure t
+  :bind ("C-=" . er/expand-region))
+
 (use-package company
   :ensure t
   :config
@@ -140,31 +349,44 @@ gcs-done))
   (setq company-tooltip-flip-when-above t)
   (global-company-mode))
 
+(use-package emmet-mode
+  :ensure t
+  :config)
+(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+
+(use-package web-mode
+    :ensure t
+    :config
+	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+	   (setq web-mode-engines-alist
+		 '(("django"    . "\\.html\\'")))
+	   (setq web-mode-ac-sources-alist
+	   '(("css" . (ac-source-css-property))
+	 ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+	 (setq web-mode-enable-auto-closing t))
+	 (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
+	 (setq web-mode-enable-current-element-highlight t)
+
+	 (add-hook 'web-mode 'emmet-mode)
+
+(use-package impatient-mode
+:ensure t
+:commands impatient-mode)
+
+  ;; to be able to preview .md files
+  ;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
+  ;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
+  (defun markdown-html (buffer)
+    (princ (with-current-buffer buffer
+      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+    (current-buffer)))
+
 (use-package counsel
 :ensure t
 :after ivy
 :config (counsel-mode))
-
-(use-package ivy
-   :defer 0.1
-   :diminish
-   :bind (("C-c C-r" . ivy-resume)
-   ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-   :custom
-
-   (ivy-count-format "(%d/%d) ")
-   ;; nice if you want before opened buffers to appear after a close
-   (ivy-use-virtual-buffers t)
-   :config (ivy-mode))
-
-   (use-package ivy-rich
-   :ensure t
-   :init (ivy-rich-mode 1))
-
-(use-package swiper
-:after ivy
-:bind (("C-s" . swiper)
-      ("C-r" . swiper)))
 
 (use-package which-key
   :ensure t
@@ -182,6 +404,8 @@ gcs-done))
 ;; work, agenda will work.  if your org agenda files are not there,
 ;; do C-c C-e on the parentheses below. Evaluate them.
 (setq org-agenda-files '("~/Dropbox/documents/org/"))
+;; Use year/month/day
+(setq calendar-date-style 'iso)
 ;; Stop preparing agenda buffers on startup
 (setq org-agenda-inhibit-startup t)
 ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
@@ -365,171 +589,22 @@ gcs-done))
 ;; headings, jeigu ka
 ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
 
-(use-package ace-window
-      :ensure t
-      :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
-      ;aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
-                  aw-dispatch-always t)
-      :bind (("C-x o" . ace-window)
-             ("M-O" . ace-swap-window)
-             ("C-x v" . aw-split-window-horz)))
-     (defvar aw-dispatch-alist
-    '((?x aw-delete-window "Delete Window")
-        (?m aw-swap-window "Swap Windows")
-        (?M aw-move-window "Move Window")
-        (?c aw-copy-window "Copy Window")
-        (?f aw-switch-buffer-in-window "Select Buffer")
-        (?n aw-flip-window)
-        (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-        (?c aw-split-window-fair "Split Fair Window")
-        (?h aw-split-window-vert "Split Vert Window")
-        (?v aw-split-window-horz "Split Horz Window")
-        (?o delete-other-windows)
-        ;; (?o delete-other-windows "Delete Other Windows")
-        ;; (?o delete-other-windows " Ace - Maximize Window")
-        (?? aw-show-dispatch-help))
-        "List of actions for `aw-dispatch-default'.")
-
-(use-package expand-region
-  :ensure t
-  :bind ("C-=" . er/expand-region))
-
-(use-package saveplace
-  :ensure t
-  :config
-  ;; activate it for all buffers
-  (setq-default save-place t)
-  (save-place-mode 1))
-
-;; Automatically generated backups
-;; (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
-
 (use-package undo-tree
 :ensure t
 :init
 (global-undo-tree-mode))
-
-(use-package projectile
-  :ensure t
-  :config
-  (projectile-global-mode)
-  (setq projectile-completion-system 'ivy)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 
-(use-package avy
-:ensure t
-:bind
-(("M-s" . avy-goto-char-timer)
-("M-p" . avy-goto-word-1)))
-; cool, makes the background darker
-(setq avy-background t)
-
-(use-package impatient-mode
-:ensure t
-:commands impatient-mode)
-
-  ;; to be able to preview .md files
-  ;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
-  ;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
-  (defun markdown-html (buffer)
-    (princ (with-current-buffer buffer
-      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
-    (current-buffer)))
-
-;; ace window integration - BUTINA
-(use-package super-save
-  :ensure t
-  :config
-  (setq super-save-auto-save-when-idle t)
-  (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
-  ;; add integration with ace-window
-  (add-to-list 'super-save-triggers 'ace-window)
-  (super-save-mode +1))
-
-(use-package all-the-icons-ivy-rich
-:ensure t
-:init (all-the-icons-ivy-rich-mode 1))
-
-(use-package hungry-delete
-:ensure t
-:config
-(global-hungry-delete-mode))
-
-(use-package emojify
-:ensure t
-:hook (after-init . global-emojify-mode))
-
 (use-package rg
   :ensure t
   :config)
 
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode t))
-
-(use-package volatile-highlights
-  :ensure t
-  :config
-  (volatile-highlights-mode t))
-
-(use-package ws-butler
-  :ensure t
-  :config
-  (ws-butler-global-mode t))
-
-(use-package beacon
-:ensure t
-:config
-  (progn
-    (setq beacon-blink-when-point-moves-vertically nil) ; default nil
-    (setq beacon-blink-when-point-moves-horizontally nil) ; default nil
-    (setq beacon-blink-when-buffer-changes t) ; default t
-    (setq beacon-blink-when-window-scrolls t) ; default t
-    (setq beacon-blink-when-window-changes t) ; default t
-    (setq beacon-blink-when-focused nil) ; default nil
-
-    (setq beacon-blink-duration 0.3) ; default 0.3
-    (setq beacon-blink-delay 0.3) ; default 0.3
-    (setq beacon-size 20) ; default 40
-    ;; (setq beacon-color "yellow") ; default 0.5
-    (setq beacon-color 0.5) ; default 0.5
-
-    (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
-
-    (beacon-mode 1)))
-
 (use-package try
 	:ensure t)
-
-(use-package neotree
-:ensure t
-:init
-(setq neo-smart-open t
-	 neo-autorefresh t
-	 neo-force-change-root t)
-	 (setq neo-theme (if (display-graphic-p) 'icons global))
-	 (setq neo-window-width 35)
-	 (global-set-key [f8] 'neotree-toggle))
-
-;; Launch neotree when opening emacs. First launch, then switch to another window.
-  ;; (defun neotree-startup ()
-  ;;   (interactive)
-  ;;   (neotree-show)
-  ;;   (call-interactively 'other-window))
-
-  ;; (if (daemonp)
-  ;;     (add-hook 'server-switch-hook #'neotree-startup)
-  ;;     (add-hook 'after-init-hook #'neotree-startup))
-
-(use-package rainbow-delimiters
-  :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode))
 
 (setq elpy-rpc-python-command "python3")
   (setq python-shell-interpreter "python3")
@@ -587,73 +662,6 @@ gcs-done))
 
 ;; (eval-after-load "elpy"
 ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
-
-(use-package emmet-mode
-  :ensure t
-  :config)
-(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-
-(use-package web-mode
-    :ensure t
-    :config
-	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-	   (setq web-mode-engines-alist
-		 '(("django"    . "\\.html\\'")))
-	   (setq web-mode-ac-sources-alist
-	   '(("css" . (ac-source-css-property))
-	 ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-	 (setq web-mode-enable-auto-closing t))
-	 (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
-	 (setq web-mode-enable-current-element-highlight t)
-
-	 (add-hook 'web-mode 'emmet-mode)
-
-(use-package multiple-cursors
-  :ensure t
-  :bind (("C-c m" . mc/mark-next-like-this)
-         ("C-c u" . mc/unmark-next-like-this)))
-
-;; (use-package fill-column-indicator
-;;   :ensure t)
-
-;; (setq fci-rule-width 1)
-;; (setq fci-rule-column 80)
-
-;; (add-hook 'text-mode-hook #'fci-mode)
-;; (add-hook 'prog-mode-hook #'fci-mode)
-
-;; (use-package doom-themes
-;;   :ensure t
-;;   :config
-;;   ;; Global settings (defaults)
-;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-;;   (load-theme 'doom-palenight t))
-
-;; (use-package doom-modeline
-;;     :ensure t
-;;     :init (doom-modeline-mode 1))
-
-;; (set-face-attribute 'mode-line nil
-;;                     :background "#353644"
-;;                     :foreground "white"
-;;                     :box '(:line-width 2 :color "#353644")
-;;                     :overline nil
-;;                     :underline nil)
-
-;; (set-face-attribute 'mode-line-inactive nil
-;;                     :background "#565063"
-;;                     :foreground "white"
-;;                     :box '(:line-width 2 :color "#565063")
-;;                     :overline nil
-;;                     :underline nil)
-
-(use-package goto-chg
-      :ensure t)
-(global-set-key [(control ?.)] 'goto-last-change)
-(global-set-key [(control ?,)] 'goto-last-change-reverse)
 
 ;;;============================================================================
 ;;;
