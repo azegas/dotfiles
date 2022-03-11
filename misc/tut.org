@@ -401,3 +401,14 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 73) m-x lsp-find-references = show where the function is being used
 74) C-c C-d  = when in python doc = gives documentation of chosen topic
 75) C-c /    = sparse tree (org mode look up for things)
+76) M-x erc-tls = irc.libera.chat IRC chat!
+77) /join #emacs or #systemcrafters = IRC join channel
+78) /part    = IRC leave channel
+79) /quit bye all! = quit server
+80) /reconnect = reconnect to the server?
+81) /list    = IRC list channels
+82) /whois nick = IRC find out whoe the user is!!
+83) / query nick = IRC write someone a private message!! (new buffer opens
+    up)
+84) /msg nick Hello there = IRC sends a one time message
+85) /nick newname = IRC change nickname
