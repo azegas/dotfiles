@@ -3,21 +3,26 @@
 * Interface tweaks
 Build interface to look how I want it to look
 #+BEGIN_SRC emacs-lisp
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (toggle-scroll-bar -1)
-  (fset 'yes-or-no-p 'y-or-n-p)
-  (setq visible-bell t)
-  (blink-cursor-mode 0)
-  (global-hl-line-mode 1)
-  (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
-  ;; (load-theme 'default-black t)
-  ;; show where buffers end.
-  (setq-default indicate-empty-lines t)
-  ;; never lose the layout c-c left/right
-  (winner-mode 1)
-  ;; Delete marked region when typing over it. Woooow.
-  (delete-selection-mode t)
+;; Increase the garbage collection threshold to 100MB to reduced startup time.
+;; See https://www.reddit.com/r/emacs/comments/3kqt6e
+(setq gc-cons-threshold (* 1024 1024 100))
+
+;; Turn off mouse interface early in startup to avoid momentary display
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(toggle-scroll-bar -1)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq visible-bell t)
+(blink-cursor-mode 0)
+(global-hl-line-mode 1)
+(add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
+;; (load-theme 'default-black t)
+;; show where buffers end.
+(setq-default indicate-empty-lines t)
+;; never lose the layout c-c left/right
+(winner-mode 1)
+;; Delete marked region when typing over it. Woooow.
+(delete-selection-mode t)
 #+END_SRC
 Startup. Disable splash screen and startup message.
 #+BEGIN_SRC emacs-lisp
@@ -37,6 +42,10 @@ gcs-done))
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
+;; Use a persistent "inbox.org" as the initial buffer.
+(setq initial-buffer-choice "~/Dropbox/documents/org/inbox.org")
+
 #+END_SRC
 Parentheses
 #+BEGIN_SRC emacs-lisp
@@ -127,6 +136,53 @@ Ask before closing Emacs
   (setq-default indent-tabs-mode nil)
 #+END_SRC
 
+* Package management
+Inside of my .emacs.d -> init.el file I put this code below. It then
+loads "myinit.org" file from dropbox with all the configurations.
+#+BEGIN_SRC emacs-lisp
+  ;; ;; Initialize package sources
+  ;; (require 'package)
+
+  ;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+  ;;                          ("org" . "https://orgmode.org/elpa/")
+  ;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
+
+  ;; (package-initialize)
+  ;; (unless package-archive-contents
+  ;;  (package-refresh-contents))
+
+
+  ;; (unless (package-installed-p 'use-package)
+  ;;   (package-refresh-contents)
+  ;;   (package-install 'use-package))
+
+  ;; (org-babel-load-file (expand-file-name "~/Dropbox/src/emacs/myinit.org"))
+#+END_SRC
+As a reference, these are the common use-package keywords:
+
+:ensure
+Install package
+:after
+Load after another package
+:init
+Run code before package loads
+:config
+Run code after package loads
+:custom
+Set custom variables with concise syntax
+:defer
+Defer loading until some later point
+:demand
+Ensure loading at startup
+:bind
+Bind keys for modes
+:hook
+Set hooks that will cause package to load
+:commands
+Set autoloaded commands that will cause package to load
+:mode
+Activate mode when particular file types are opened
+Note: this [[https://systemcrafters.net/live-streams/september-24-2021/][System Crafter’s]] note discusses some use-package alternatives.
 * Company
 "Company" provides autosuggestion/completion in buffers (writing code,
 pathing to files, etc).  press <f1> to display the documentation for
@@ -398,11 +454,9 @@ My personal agenda
   (setq org-capture-templates '(
   ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox") "* TODO %?\n%^{Effort}p")
   ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/tickler.org" "Tickler") "* %? \n%^{SCHEDULED}p")
-  ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/gtd.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
-  ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Emacs") "* TODO %?\n%^{Effort}p")
-  ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-  ("f" "Django_facebook" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Django_facebook") "* TODO %?\n%^{Effort}p")
-  ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Personal") "* TODO %?\n%^{Effort}p")
+  ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+  ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/smuti_fruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+  ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/facebook.org" "Facebook") "* TODO %?\n%^{Effort}p")
   ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/references/diary.org" "Diary") "* %U %^{Title}\n%?")))
 
 #+END_SRC

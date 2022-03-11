@@ -1,3 +1,8 @@
+;; Increase the garbage collection threshold to 100MB to reduced startup time.
+;; See https://www.reddit.com/r/emacs/comments/3kqt6e
+(setq gc-cons-threshold (* 1024 1024 100))
+
+;; Turn off mouse interface early in startup to avoid momentary display
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
@@ -30,6 +35,9 @@ gcs-done))
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
+;; Use a persistent "inbox.org" as the initial buffer.
+(setq initial-buffer-choice "~/Dropbox/documents/org/inbox.org")
 
 ;; writes parens automatically for you
 (electric-pair-mode +1)
@@ -331,11 +339,9 @@ gcs-done))
 (setq org-capture-templates '(
 ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox") "* TODO %?\n%^{Effort}p")
 ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/tickler.org" "Tickler") "* %? \n%^{SCHEDULED}p")
-("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/gtd.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
-("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Emacs") "* TODO %?\n%^{Effort}p")
-("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-("f" "Django_facebook" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Django_facebook") "* TODO %?\n%^{Effort}p")
-("p" "Personal" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Personal") "* TODO %?\n%^{Effort}p")
+("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/smuti_fruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/facebook.org" "Facebook") "* TODO %?\n%^{Effort}p")
 ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/references/diary.org" "Diary") "* %U %^{Title}\n%?")))
 
 ;; headings, jeigu ka
