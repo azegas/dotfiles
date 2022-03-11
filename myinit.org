@@ -3,21 +3,21 @@
 * Interface tweaks
 Build interface to look how I want it to look
 #+BEGIN_SRC emacs-lisp
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(toggle-scroll-bar -1)
-(fset 'yes-or-no-p 'y-or-n-p)
-(setq visible-bell t)
-(blink-cursor-mode 0)
-(global-hl-line-mode 1)
-(add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
-(load-theme 'default-black t)
-;; Show where buffers end.
-(setq-default indicate-empty-lines t)
-;; never lose the layout c-c left/right
-(winner-mode 1)
-;; Delete marked region when typing over it. Woooow.
-(delete-selection-mode t)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (toggle-scroll-bar -1)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (setq visible-bell t)
+  (blink-cursor-mode 0)
+  (global-hl-line-mode 1)
+  (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
+  ;; (load-theme 'default-black t)
+  ;; show where buffers end.
+  (setq-default indicate-empty-lines t)
+  ;; never lose the layout c-c left/right
+  (winner-mode 1)
+  ;; Delete marked region when typing over it. Woooow.
+  (delete-selection-mode t)
 #+END_SRC
 Startup. Disable splash screen and startup message.
 #+BEGIN_SRC emacs-lisp
@@ -180,7 +180,7 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
      (use-package swiper
      :after ivy
      :bind (("C-s" . swiper)
-	    ("C-r" . swiper)))
+           ("C-r" . swiper)))
 #+END_SRC
 * Which-key
 "Which-key" states which possible key commbinations can be used after
@@ -198,6 +198,7 @@ any button is pressed.
 * Org-Mode
 ** Agenda
 [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Amazing explanation here]]
+Best org agenda tutorial/explanation - [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][here]]
 Various org-agenda configurations
 #+BEGIN_SRC emacs-lisp
   ;; M-x org-agenda-file-list. Go there and click "save the changes"
@@ -226,7 +227,10 @@ Various org-agenda configurations
   ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
   ;; https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
   ;; sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 4)))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  ;; (setq org-refile-targets '(("~/Dropbox/documents/org/gtd.org" :maxlevel . 1)
+  ;;                            ("~/Dropbox/documents/org/someday.org" :level . 1)
+  ;;                            ("~/Dropbox/documents/org/tickler.org" :maxlevel . 1)))
   ;; quite nice, asks you to write a closing note for a task when it's marked as DONE
   (setq org-log-done 'note)
   ;; This shortcut exists and works already in org files, but I made it
@@ -250,11 +254,11 @@ Various org-agenda configurations
   (defun getlasthead ()
   (let ((x (nth 0 (last (org-get-outline-path)))))
   (if x
-  (if (> (string-width x) 12)
-  (concat "[" (org-format-outline-path (list (substring x 0 12))) "]")
+  (if (> (string-width x) 15)
+  (concat "[" (org-format-outline-path (list (substring x 0 15))) "]")
   (concat "[" (org-format-outline-path (list x)) "]"))
   "")))
-  (setq org-agenda-prefix-format " %i %-15(getlasthead)%?-12t% s ")
+  (setq org-agenda-prefix-format " %i %-20(getlasthead)%?-15t% s ")
   ;; keywords for org mode
   (setq org-todo-keywords
   (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
@@ -310,18 +314,21 @@ My personal agenda
   ;; Show agenda + started tasks with "waiting" label
         (setq org-agenda-custom-commands
               '(("a" "Daily agenda and all TODOs"
-                 ((agenda "" ((org-agenda-span 3)))
+                 ((agenda "" ((org-agenda-span 2)))
                  (tags-todo "/+WAITING"
                         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                         (org-agenda-overriding-header "Started tasks:")))))))
+                         (org-agenda-overriding-header "Started tasks:")))
+                 (tags-todo "/+NEXT"
+                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                         (org-agenda-overriding-header "NEXT actions:")))))))
 
-  ;; Show completed tasks
-    (add-to-list 'org-agenda-custom-commands
-                 '("f" "Finished tasks only DONE tasks"
-                   agenda ""
-                   ((org-agenda-start-on-weekday 1)
-                    (org-agenda-start-with-log-mode '(closed))
-                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\\*\\* DONE ")))))
+  ;; ;; Show completed tasks
+  ;;   (add-to-list 'org-agenda-custom-commands
+  ;;                '("f" "Finished tasks only DONE tasks"
+  ;;                  agenda ""
+  ;;                  ((org-agenda-start-on-weekday 1)
+  ;;                   (org-agenda-start-with-log-mode '(closed))
+  ;;                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\\*\\* DONE ")))))
   ;; (org-agenda-archives-mode t)
 #+END_SRC
 ** Org habit
@@ -351,8 +358,9 @@ My personal agenda
   ;; clocktable example
   ;; displays weekdays
   ;; #+BEGIN: clocktable :maxlevel 3 :scope file :step day :tstart "<-1w>" :tend "<now>" :compact t
-  ;; displays month
   ;; #+BEGIN: clocktable :maxlevel 5 :compact nil :emphasize t :scope subtree :timestamp t :link t :header "#+NAME: 2022_Vasaris\n"
+  ;; #+BEGIN: clocktable :maxlevel 1 :compact t :emphasize t :timestamp t :link t
+  ;; #+BEGIN: clocktable :maxlevel 5 :compact t :sort (1 . ?a) :emphasize t :scope subtree :timestamp t :link t
 
 #+END_SRC
 ** Effort
@@ -370,19 +378,33 @@ My personal agenda
 #+END_SRC
 ** Templates
 #+BEGIN_SRC emacs-lisp
-   ;; useful org-capture document - https://orgmode.org/manual/Template-expansion.html
-   ;; setting up the templates for c-c c
-   ;; genius. that effort.
-   (define-key global-map "\C-cc" 'org-capture)
-   (setq org-capture-templates '(
-   ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
-   ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
-   ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-   ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
-   ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
-   ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
-   ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
-   ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
+  ;; useful org-capture document - https://orgmode.org/manual/Template-expansion.html
+  ;; setting up the templates for c-c c
+  ;; genius. that effort.
+
+  ;; MANY small files below
+  (define-key global-map "\C-cc" 'org-capture)
+  ;; (setq org-capture-templates '(
+  ;; ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
+  ;; ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+  ;; ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+  ;; ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
+  ;; ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
+  ;; ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
+  ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
+  ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
+
+  ;; ONE BIG FILE BELOW
+  (setq org-capture-templates '(
+  ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox") "* TODO %?\n%^{Effort}p")
+  ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/tickler.org" "Tickler") "* %? \n%^{SCHEDULED}p")
+  ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/gtd.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
+  ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Emacs") "* TODO %?\n%^{Effort}p")
+  ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+  ("f" "Django_facebook" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Django_facebook") "* TODO %?\n%^{Effort}p")
+  ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Personal") "* TODO %?\n%^{Effort}p")
+  ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/references/diary.org" "Diary") "* %U %^{Title}\n%?")))
+
 #+END_SRC
 ** Archiving notes
 TUT: more about archiving -
@@ -393,6 +415,13 @@ possible to archive like so:
 #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
 #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::** From %s
 #+archive: ::* Archived Tasks - internal archiving
+#+archive: ::** Arvydas.dev ARCHIVED
+#+archive: ~/Dropbox/documents/org/references/archive.org::* From Blog
+** Other
+#+BEGIN_SRC emacs-lisp
+  ;; headings, jeigu ka
+  ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
+#+END_SRC
 * Ace windows
 "Ace windows" helps me to switch windows easily. Main keybind - C-x o
 and then the commands that follow below.
@@ -443,7 +472,7 @@ brackets by pressing C-=. The more I press it, the more it selects.
 * Directories
 #+BEGIN_SRC emacs-lisp
   ;; Automatically generated backups
-  (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
+  ;; (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
 #+END_SRC
 * Undo-tree
 "Undo tree" lets me to return to the file stage before any
@@ -834,13 +863,13 @@ m-x fci-mode
 * Doom themes
 More about doom themes [[https://github.com/doomemacs/themes][here]].
 #+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :config
-    ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-palenight t))
+  ;; (use-package doom-themes
+  ;;   :ensure t
+  ;;   :config
+  ;;   ;; Global settings (defaults)
+  ;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+  ;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;;   (load-theme 'doom-palenight t))
 #+END_SRC
 
 * Doom-modeline
@@ -848,23 +877,23 @@ More about doom themes [[https://github.com/doomemacs/themes][here]].
 nice and clean one with only the necessary info and icons
 displayed. So far so good, liking it.
 #+BEGIN_SRC emacs-lisp
-(use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1))
+  ;; (use-package doom-modeline
+  ;;     :ensure t
+  ;;     :init (doom-modeline-mode 1))
 
-(set-face-attribute 'mode-line nil
-                    :background "#353644"
-                    :foreground "white"
-                    :box '(:line-width 2 :color "#353644")
-                    :overline nil
-                    :underline nil)
+  ;; (set-face-attribute 'mode-line nil
+  ;;                     :background "#353644"
+  ;;                     :foreground "white"
+  ;;                     :box '(:line-width 2 :color "#353644")
+  ;;                     :overline nil
+  ;;                     :underline nil)
 
-(set-face-attribute 'mode-line-inactive nil
-                    :background "#565063"
-                    :foreground "white"
-                    :box '(:line-width 2 :color "#565063")
-                    :overline nil
-                    :underline nil)
+  ;; (set-face-attribute 'mode-line-inactive nil
+  ;;                     :background "#565063"
+  ;;                     :foreground "white"
+  ;;                     :box '(:line-width 2 :color "#565063")
+  ;;                     :overline nil
+  ;;                     :underline nil)
 #+END_SRC
 
 * Goto-chg

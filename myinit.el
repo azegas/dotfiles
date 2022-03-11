@@ -6,8 +6,8 @@
 (blink-cursor-mode 0)
 (global-hl-line-mode 1)
 (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
-(load-theme 'default-black t)
-;; Show where buffers end.
+;; (load-theme 'default-black t)
+;; show where buffers end.
 (setq-default indicate-empty-lines t)
 ;; never lose the layout c-c left/right
 (winner-mode 1)
@@ -138,7 +138,7 @@ gcs-done))
 (use-package swiper
 :after ivy
 :bind (("C-s" . swiper)
-       ("C-r" . swiper)))
+      ("C-r" . swiper)))
 
 (use-package which-key
   :ensure t
@@ -175,7 +175,10 @@ gcs-done))
 ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
 ;; https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
 ;; sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
-(setq org-refile-targets '((org-agenda-files :maxlevel . 4)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+;; (setq org-refile-targets '(("~/Dropbox/documents/org/gtd.org" :maxlevel . 1)
+;;                            ("~/Dropbox/documents/org/someday.org" :level . 1)
+;;                            ("~/Dropbox/documents/org/tickler.org" :maxlevel . 1)))
 ;; quite nice, asks you to write a closing note for a task when it's marked as DONE
 (setq org-log-done 'note)
 ;; This shortcut exists and works already in org files, but I made it
@@ -199,11 +202,11 @@ gcs-done))
 (defun getlasthead ()
 (let ((x (nth 0 (last (org-get-outline-path)))))
 (if x
-(if (> (string-width x) 12)
-(concat "[" (org-format-outline-path (list (substring x 0 12))) "]")
+(if (> (string-width x) 15)
+(concat "[" (org-format-outline-path (list (substring x 0 15))) "]")
 (concat "[" (org-format-outline-path (list x)) "]"))
 "")))
-(setq org-agenda-prefix-format " %i %-15(getlasthead)%?-12t% s ")
+(setq org-agenda-prefix-format " %i %-20(getlasthead)%?-15t% s ")
 ;; keywords for org mode
 (setq org-todo-keywords
 (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
@@ -255,18 +258,21 @@ gcs-done))
 ;; Show agenda + started tasks with "waiting" label
       (setq org-agenda-custom-commands
             '(("a" "Daily agenda and all TODOs"
-               ((agenda "" ((org-agenda-span 3)))
+               ((agenda "" ((org-agenda-span 2)))
                (tags-todo "/+WAITING"
                       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                       (org-agenda-overriding-header "Started tasks:")))))))
+                       (org-agenda-overriding-header "Started tasks:")))
+               (tags-todo "/+NEXT"
+                      ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                       (org-agenda-overriding-header "NEXT actions:")))))))
 
-;; Show completed tasks
-  (add-to-list 'org-agenda-custom-commands
-               '("f" "Finished tasks only DONE tasks"
-                 agenda ""
-                 ((org-agenda-start-on-weekday 1)
-                  (org-agenda-start-with-log-mode '(closed))
-                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\\*\\* DONE ")))))
+;; ;; Show completed tasks
+;;   (add-to-list 'org-agenda-custom-commands
+;;                '("f" "Finished tasks only DONE tasks"
+;;                  agenda ""
+;;                  ((org-agenda-start-on-weekday 1)
+;;                   (org-agenda-start-with-log-mode '(closed))
+;;                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\\*\\* DONE ")))))
 ;; (org-agenda-archives-mode t)
 
 (use-package org-habit
@@ -290,8 +296,9 @@ gcs-done))
 ;; clocktable example
 ;; displays weekdays
 ;; #+BEGIN: clocktable :maxlevel 3 :scope file :step day :tstart "<-1w>" :tend "<now>" :compact t
-;; displays month
 ;; #+BEGIN: clocktable :maxlevel 5 :compact nil :emphasize t :scope subtree :timestamp t :link t :header "#+NAME: 2022_Vasaris\n"
+;; #+BEGIN: clocktable :maxlevel 1 :compact t :emphasize t :timestamp t :link t
+;; #+BEGIN: clocktable :maxlevel 5 :compact t :sort (1 . ?a) :emphasize t :scope subtree :timestamp t :link t
 
 ;; To create an estimate for a task or subtree start column mode with C-c C-x C-c and collapse the tree with c
 ; Set default column view headings: Task Effort Clock_Summary
@@ -307,16 +314,32 @@ gcs-done))
 ;; useful org-capture document - https://orgmode.org/manual/Template-expansion.html
 ;; setting up the templates for c-c c
 ;; genius. that effort.
+
+;; MANY small files below
 (define-key global-map "\C-cc" 'org-capture)
-(setq org-capture-templates '(
-("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
-("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
-("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
-("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
-("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
+;; (setq org-capture-templates '(
+;; ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
+;; ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+;; ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+;; ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
+;; ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
+;; ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
 ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
 ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
+
+;; ONE BIG FILE BELOW
+(setq org-capture-templates '(
+("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox") "* TODO %?\n%^{Effort}p")
+("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/tickler.org" "Tickler") "* %? \n%^{SCHEDULED}p")
+("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/gtd.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
+("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Emacs") "* TODO %?\n%^{Effort}p")
+("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+("f" "Django_facebook" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Django_facebook") "* TODO %?\n%^{Effort}p")
+("p" "Personal" entry (file+headline "~/Dropbox/documents/org/gtd.org" "Personal") "* TODO %?\n%^{Effort}p")
+("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/references/diary.org" "Diary") "* %U %^{Title}\n%?")))
+
+;; headings, jeigu ka
+;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
 
 (use-package ace-window
       :ensure t
@@ -355,7 +378,7 @@ gcs-done))
   (save-place-mode 1))
 
 ;; Automatically generated backups
-(setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
+;; (setq backup-directory-alist '(("." . "~/Dropbox/documents/org/emacs_backups/emacs_backups/")))
 
 (use-package undo-tree
 :ensure t
@@ -577,31 +600,31 @@ gcs-done))
 ;; (add-hook 'text-mode-hook #'fci-mode)
 ;; (add-hook 'prog-mode-hook #'fci-mode)
 
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-palenight t))
+;; (use-package doom-themes
+;;   :ensure t
+;;   :config
+;;   ;; Global settings (defaults)
+;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;         doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;;   (load-theme 'doom-palenight t))
 
-(use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1))
+;; (use-package doom-modeline
+;;     :ensure t
+;;     :init (doom-modeline-mode 1))
 
-(set-face-attribute 'mode-line nil
-                    :background "#353644"
-                    :foreground "white"
-                    :box '(:line-width 2 :color "#353644")
-                    :overline nil
-                    :underline nil)
+;; (set-face-attribute 'mode-line nil
+;;                     :background "#353644"
+;;                     :foreground "white"
+;;                     :box '(:line-width 2 :color "#353644")
+;;                     :overline nil
+;;                     :underline nil)
 
-(set-face-attribute 'mode-line-inactive nil
-                    :background "#565063"
-                    :foreground "white"
-                    :box '(:line-width 2 :color "#565063")
-                    :overline nil
-                    :underline nil)
+;; (set-face-attribute 'mode-line-inactive nil
+;;                     :background "#565063"
+;;                     :foreground "white"
+;;                     :box '(:line-width 2 :color "#565063")
+;;                     :overline nil
+;;                     :underline nil)
 
 (use-package goto-chg
       :ensure t)
