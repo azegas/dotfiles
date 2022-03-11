@@ -278,7 +278,9 @@ displayed. So far so good, liking it.
 #+BEGIN_SRC emacs-lisp
   (use-package doom-modeline
       :ensure t
-      :init (doom-modeline-mode 1))
+      :init (doom-modeline-mode 1)
+      :custom
+      (doom-modeline-irc nil))
 
   (set-face-attribute 'mode-line nil
                       :background "#353644"
@@ -685,15 +687,16 @@ No nee, use the regular macro.
   ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 #+END_SRC
 
-** Diff Highlight
+** OFF - Diff Highlight
+https://github.com/dgutov/diff-hl
 #+BEGIN_SRC emacs-lisp
-(use-package diff-hl
-  :ensure t
-  :init
-  (global-diff-hl-mode)
-  :hook
-  (magit-pre-refresh . diff-hl-magit-pre-refresh)
-  (magit-post-refresh . diff-hl-magit-post-refresh))
+  ;; (use-package diff-hl
+  ;;   :ensure t
+  ;;   :init
+  ;;   (global-diff-hl-mode)
+  ;;   :hook
+  ;;   (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  ;;   (magit-post-refresh . diff-hl-magit-post-refresh))
 #+END_SRC
 
 ** Magit
@@ -1007,6 +1010,18 @@ possible to archive like so:
 #+BEGIN_SRC emacs-lisp
   ;; headings, jeigu ka
   ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
+#+END_SRC
+
+* ERC
+#+BEGIN_SRC emacs-lisp
+  (setq erc-server "irc.libera.chat"
+        erc-nick "Arvydas"
+        erc-port 6697
+        erc-user-full-name "This and that"
+        erc-track-shorten-start 8
+        erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs")))
+        ;; erc-kill-buffer-on-part t
+        ;;       erc-auto-query 'bury)
 #+END_SRC
 
 * TURNED OFF PACKAGES BELOW THIS LINE

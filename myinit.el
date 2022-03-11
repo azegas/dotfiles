@@ -184,7 +184,9 @@ gcs-done))
 
 (use-package doom-modeline
     :ensure t
-    :init (doom-modeline-mode 1))
+    :init (doom-modeline-mode 1)
+    :custom
+    (doom-modeline-irc nil))
 
 (set-face-attribute 'mode-line nil
                     :background "#353644"
@@ -427,13 +429,13 @@ gcs-done))
 ;; (eval-after-load "elpy"
 ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 
-(use-package diff-hl
-  :ensure t
-  :init
-  (global-diff-hl-mode)
-  :hook
-  (magit-pre-refresh . diff-hl-magit-pre-refresh)
-  (magit-post-refresh . diff-hl-magit-post-refresh))
+;; (use-package diff-hl
+;;   :ensure t
+;;   :init
+;;   (global-diff-hl-mode)
+;;   :hook
+;;   (magit-pre-refresh . diff-hl-magit-pre-refresh)
+;;   (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package magit
   :ensure t
@@ -670,6 +672,15 @@ gcs-done))
 
 ;; headings, jeigu ka
 ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
+
+(setq erc-server "irc.libera.chat"
+      erc-nick "Arvydas"
+      erc-port 6697
+      erc-user-full-name "This and that"
+      erc-track-shorten-start 8
+      erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs")))
+      ;; erc-kill-buffer-on-part t
+      ;;       erc-auto-query 'bury)
 
 ;;;============================================================================
 ;;;
