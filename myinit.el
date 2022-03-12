@@ -246,29 +246,29 @@ gcs-done))
 (winner-mode +1)
 
 (use-package ace-window
-      :ensure t
-      :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
-      ;aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
-                  aw-dispatch-always t)
-      :bind (("C-x o" . ace-window)
-             ("M-O" . ace-swap-window)
-             ("C-x v" . aw-split-window-horz)))
-     (defvar aw-dispatch-alist
-    '((?x aw-delete-window "Delete Window")
-        (?m aw-swap-window "Swap Windows")
-        (?M aw-move-window "Move Window")
-        (?c aw-copy-window "Copy Window")
-        (?f aw-switch-buffer-in-window "Select Buffer")
-        (?n aw-flip-window)
-        (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-        (?c aw-split-window-fair "Split Fair Window")
-        (?h aw-split-window-vert "Split Vert Window")
-        (?v aw-split-window-horz "Split Horz Window")
-        (?o delete-other-windows)
-        ;; (?o delete-other-windows "Delete Other Windows")
-        ;; (?o delete-other-windows " Ace - Maximize Window")
-        (?? aw-show-dispatch-help))
-        "List of actions for `aw-dispatch-default'.")
+  :ensure t
+  :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
+                                        ;aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
+              aw-dispatch-always t)
+  :bind (("C-x o" . ace-window)
+         ("M-O" . ace-swap-window)
+         ("C-x v" . aw-split-window-horz)))
+(defvar aw-dispatch-alist
+  '((?x aw-delete-window "Delete Window")
+    (?m aw-swap-window "Swap Windows")
+    (?M aw-move-window "Move Window")
+    (?c aw-copy-window "Copy Window")
+    (?f aw-switch-buffer-in-window "Select Buffer")
+    (?n aw-flip-window)
+    (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+    (?c aw-split-window-fair "Split Fair Window")
+    (?h aw-split-window-vert "Split Vert Window")
+    (?v aw-split-window-horz "Split Horz Window")
+    (?o delete-other-windows)
+    ;; (?o delete-other-windows "Delete Other Windows")
+    ;; (?o delete-other-windows " Ace - Maximize Window")
+    (?? aw-show-dispatch-help))
+  "List of actions for `aw-dispatch-default'.")
 
 (use-package undo-tree
 :ensure t
@@ -342,9 +342,12 @@ gcs-done))
   (ws-butler-global-mode t))
 
 (use-package multiple-cursors
-  :ensure t
-  :bind (("C-c m" . mc/mark-next-like-this)
-         ("C-c u" . mc/unmark-next-like-this)))
+  :ensure t)
+  ;; :bind (("C-c m" . mc/mark-next-like-this)
+  ;;        ("C-c u" . mc/unmark-next-like-this)))
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (use-package hungry-delete
 :ensure t
@@ -373,16 +376,16 @@ gcs-done))
   (global-company-mode))
 
 (setq elpy-rpc-python-command "python3")
-  (setq python-shell-interpreter "python3")
-  (setq elpy-get-info-from-shell t)
-  (use-package elpy
-    :ensure t
-    :custom (elpy-rpc-backend "jedi")
-    :init
-    (elpy-enable))
-    ;; :bind (("M-." . elpy-goto-definition)))
-    ;; (setq elpy-rpc-virtualenv-path 'current)
-    (set-language-environment "UTF-8")
+(setq python-shell-interpreter "python3")
+(setq elpy-get-info-from-shell t)
+(use-package elpy
+  :ensure t
+  :custom (elpy-rpc-backend "jedi")
+  :init
+  (elpy-enable))
+;; :bind (("M-." . elpy-goto-definition)))
+;; (setq elpy-rpc-virtualenv-path 'current)
+(set-language-environment "UTF-8")
 
 ;; (use-package elpy
 ;;   :init
@@ -403,11 +406,11 @@ gcs-done))
   :config
   (company-quickhelp-mode 1)
   (eval-after-load 'company
-  '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
-  (setq company-quickhelp-delay 0)
+    '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
+(setq company-quickhelp-delay 0)
 
-  ;; (setq pos-tip-foreground-color "#FFFFFF"
-  ;; pos-tip-background-color "#FFF68F")
+;; (setq pos-tip-foreground-color "#FFFFFF"
+;; pos-tip-background-color "#FFF68F")
 
 ;; (defun my-python-line ()
 ;;  (interactive)
@@ -450,31 +453,31 @@ gcs-done))
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 (use-package web-mode
-    :ensure t
-    :config
-	   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-	   (setq web-mode-engines-alist
-		 '(("django"    . "\\.html\\'")))
-	   (setq web-mode-ac-sources-alist
-	   '(("css" . (ac-source-css-property))
-	 ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-	 (setq web-mode-enable-auto-closing t))
-	 (setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
-	 (setq web-mode-enable-current-element-highlight t)
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (setq web-mode-engines-alist
+        '(("django"    . "\\.html\\'")))
+  (setq web-mode-ac-sources-alist
+        '(("css" . (ac-source-css-property))
+          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+  (setq web-mode-enable-auto-closing t))
+(setq web-mode-enable-auto-quoting t) ; this fixes the quote problem I mentioned
+(setq web-mode-enable-current-element-highlight t)
 
-	 (add-hook 'web-mode 'emmet-mode)
+(add-hook 'web-mode 'emmet-mode)
 
 (use-package impatient-mode
-:ensure t
-:commands impatient-mode)
+  :ensure t
+  :commands impatient-mode)
 
-  ;; to be able to preview .md files
-  ;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
-  ;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
-  (defun markdown-html (buffer)
-    (princ (with-current-buffer buffer
-      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
-    (current-buffer)))
+;; to be able to preview .md files
+;; from here - https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
+;; But Wait... with markdown-mode installed I can already see the markdown live in my emacs...
+(defun markdown-html (buffer)
+  (princ (with-current-buffer buffer
+           (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+         (current-buffer)))
 
 (use-package counsel
 :ensure t
@@ -612,7 +615,7 @@ gcs-done))
 (use-package org-habit
   :ensure nil
   :config)
-  ;; (setq org-habit-show-habits-only-for-today t))
+;; (setq org-habit-show-habits-only-for-today t))
 (setq org-habit-graph-column 72) ;push little further to the rigth
 
 (setq org-log-note-clock-out t)
@@ -635,11 +638,11 @@ gcs-done))
 ;; #+BEGIN: clocktable :maxlevel 5 :compact t :sort (1 . ?a) :emphasize t :scope subtree :timestamp t :link t
 
 ;; To create an estimate for a task or subtree start column mode with C-c C-x C-c and collapse the tree with c
-; Set default column view headings: Task Effort Clock_Summary
+                                        ; Set default column view headings: Task Effort Clock_Summary
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
 
-; global Effort estimate values
-; global STYLE property values for completion
+                                        ; global Effort estimate values
+                                        ; global STYLE property values for completion
 (setq org-global-properties (quote (("Effort_ALL" . "0 0:10 0:30 1:00 2:00 3:00 4:00")
                                     ("STYLE_ALL" . "habit"))))
 
@@ -663,15 +666,22 @@ gcs-done))
 
 ;; ONE BIG FILE BELOW
 (setq org-capture-templates '(
-("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox") "* TODO %?\n%^{Effort}p")
-("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/tickler.org" "Tickler") "* %? \n%^{SCHEDULED}p")
-("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
-("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/smuti_fruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/facebook.org" "Facebook") "* TODO %?\n%^{Effort}p")
-("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/references/diary.org" "Diary") "* %U %^{Title}\n%?")))
+                              ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox") "* TODO %?\n%^{Effort}p")
+                              ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/tickler.org" "Tickler") "* %? \n%^{SCHEDULED}p")
+                              ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+                              ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/smuti_fruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+                              ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/facebook.org" "Facebook") "* TODO %?\n%^{Effort}p")
+                              ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/references/diary.org" "Diary") "* %U %^{Title}\n%?")))
 
 ;; headings, jeigu ka
-;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
+      ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
+    ;; when editing code blocks, treat them with proper indentation
+
+  ;; https://orgmode.org/manual/Editing-Source-Code.html
+    (setq org-src-fontify-natively t)
+    (setq org-src-tab-acts-natively t)
+  ;; timer
+(setq org-clock-sound "~/Dropbox/src/emacs/misc/bell.wav")
 
 (setq erc-server "irc.libera.chat"
       erc-nick "Arvydas"
@@ -681,6 +691,9 @@ gcs-done))
       erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs")))
       ;; erc-kill-buffer-on-part t
       ;;       erc-auto-query 'bury)
+
+(setq erc-autojoin-channels-alist
+        '(("irc.libera.chat" "#emacs" "#wiki" "#nethack")))
 
 ;;;============================================================================
 ;;;
@@ -787,11 +800,11 @@ gcs-done))
 ;;   (setq browse-url-browser-function 'browse-url-generic
 ;;   browse-url-generic-program "google-chrome")
 
-;; (use-package yasnippet                  ; Snippets
-;;   :ensure t)
-;;   (yas-global-mode 1)
-;; (use-package yasnippet-snippets         ; Collection of snippets
-;;   :ensure t)
+(use-package yasnippet                  ; Snippets
+  :ensure t)
+  (yas-global-mode 1)
+(use-package yasnippet-snippets         ; Collection of snippets
+  :ensure t)
 
 ;; (use-package markdown-mode
 ;;   :ensure t
