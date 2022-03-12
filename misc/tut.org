@@ -412,3 +412,12 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
     up)
 84) /msg nick Hello there = IRC sends a one time message
 85) /nick newname = IRC change nickname
+86) C-c '    = edit [[https://orgmode.org/manual/Editing-Source-Code.html][code block]] in a separate window (proper
+    indentation and all)
+87) C-c C-x ; = TIMER start
+88) C-c C-x , = TIMER pause/continue
+89) C-c C-x _ = TIMER stop
+90) C-> = multiple cursors - mark next line like this
+91) C-< = multiple cursors - mark previous line like this
+92) C-c C-< = multiple cursors - mark all like this
+93) M-x customize group - customize some stuff
