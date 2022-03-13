@@ -430,3 +430,5 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 96) g-o     = DIRED view buffer(or view in another window)
 97) a       = DIRED - cycle through directories and open files (leaves
     no traces(open buffers))
+98) R       = DIRED rename file
+99) +       = DIRED create directory
