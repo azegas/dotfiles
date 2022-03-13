@@ -5,6 +5,12 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
+or (after trying to install org-roam)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages")
+                         ("elpa" .  "https://elpa.gnu.org/packages/" )))
+
 (package-initialize)
 (unless package-archive-contents
  (package-refresh-contents))
