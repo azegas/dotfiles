@@ -331,6 +331,12 @@ gcs-done))
 :bind (("C-s" . swiper)
       ("C-r" . swiper)))
 
+(use-package dired
+  :ensure nil                         ;no need for t, because dired is built in
+  :custom ((dired-listing-switches "-agho --group-directories-first")))
+(global-set-key (kbd "C-x C-d") 'dired-jump)
+;; (global-set-key (kbd "C-x d") 'dired)
+
 (use-package flycheck
   :ensure t
   :init
@@ -432,13 +438,14 @@ gcs-done))
 ;; (eval-after-load "elpy"
 ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 
-;; (use-package diff-hl
-;;   :ensure t
-;;   :init
-;;   (global-diff-hl-mode)
-;;   :hook
-;;   (magit-pre-refresh . diff-hl-magit-pre-refresh)
-;;   (magit-post-refresh . diff-hl-magit-post-refresh))
+(use-package diff-hl
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook #'diff-hl-mode)
+  (add-hook 'org-mode-hook #'diff-hl-mode)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package magit
   :ensure t
