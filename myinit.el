@@ -154,15 +154,15 @@ gcs-done))
 ;; (add-hook 'text-mode-hook #'fci-mode)
 ;; (add-hook 'prog-mode-hook #'fci-mode)
 
-(use-package neotree
-:ensure t
-:init
-(setq neo-smart-open t
-	 neo-autorefresh t
-	 neo-force-change-root t)
-	 (setq neo-theme (if (display-graphic-p) 'icons global))
-	 (setq neo-window-width 35)
-	 (global-set-key [f8] 'neotree-toggle))
+;; (use-package neotree
+;; :ensure t
+;; :init
+;; (setq neo-smart-open t
+;; 	 neo-autorefresh t
+;; 	 neo-force-change-root t)
+;; 	 (setq neo-theme (if (display-graphic-p) 'icons global))
+;; 	 (setq neo-window-width 35)
+;; 	 (global-set-key [f8] 'neotree-toggle))
 
 ;; Launch neotree when opening emacs. First launch, then switch to another window.
   ;; (defun neotree-startup ()
@@ -336,6 +336,30 @@ gcs-done))
   :custom ((dired-listing-switches "-agho --group-directories-first")))
 (global-set-key (kbd "C-x C-d") 'dired-jump)
 ;; (global-set-key (kbd "C-x d") 'dired)
+
+;; a function to kill dired buffers. Kind of works. Or you can use "a"
+;; to cycle through dired and it leaves no buffers opened
+;; DiredReuseDirectoryBuffer - https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
+;; KillingBuffers - https://www.emacswiki.org/emacs/KillingBuffers
+(defun kill-dired-buffers ()
+  (interactive)
+  (mapc (lambda (buffer)
+          (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+            (kill-buffer buffer)))
+        (buffer-list)))
+
+;; can easily check how many buffers got opened
+(defun kill-all-dired-buffers ()
+  "Kill all dired buffers."
+  (interactive)
+  (save-excursion
+    (let ((count 0))
+      (dolist (buffer (buffer-list))
+        (set-buffer buffer)
+        (when (equal major-mode 'dired-mode)
+          (setq count (1+ count))
+          (kill-buffer buffer)))
+      (message "Killed %i dired buffer(s)." count))))
 
 (use-package flycheck
   :ensure t
