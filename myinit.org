@@ -222,8 +222,8 @@ Try is a package that allows you to try out Emacs packages without
 installing them. If you pass a URL to a plain text .el-file it
 evaluates the content, without storing the file.
 #+BEGIN_SRC emacs-lisp
-(use-package try
-	:ensure t)
+  (use-package try
+    :ensure t)
 #+END_SRC
 
 * Appearance
