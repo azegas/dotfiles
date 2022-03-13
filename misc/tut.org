@@ -424,3 +424,6 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 94) M-x ielm RET package-archives RET = gives some values out
 95) C-c '   = edit source code buffer (useful when need code
     completion when editint a src code in ORG file)
+96) g-o     = DIRED view buffer(or view in another window)
+97) a       = DIRED - cycle through directories and open files (leaves
+    no traces(open buffers))
