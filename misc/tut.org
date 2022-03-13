@@ -322,6 +322,9 @@ add this to the .emacs file. right under use-package installation
 (org-babel-load-file (expand-file-name "C:\\Users\\Arvydas\\Dropbox\\temp_emacs\\myinit.org"))
 
 imesk theme i .emacs.d, jokiu folderiu. turetu veikti
+* Git
+- git rm --cached <path to file> = [[https://betterprogramming.pub/how-to-remove-committed-files-from-git-version-control-b6533b8f9044][removes git file from repo]], keeps
+  it in folder
 * Shortcuts
 1) M-g j     = Dumb jump
 2) M-%       = Query replace
