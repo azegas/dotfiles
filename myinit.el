@@ -492,7 +492,7 @@ gcs-done))
 ;; do C-c C-e on the parentheses below. Evaluate them.
 (setq org-agenda-files '("~/Dropbox/documents/org/"))
 ;; Use year/month/day
-(setq calendar-date-style 'iso)
+;; (setq calendar-date-style 'iso)
 ;; Stop preparing agenda buffers on startup
 (setq org-agenda-inhibit-startup t)
 ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.

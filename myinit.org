@@ -9,23 +9,23 @@
 ** Interface tweaks
 Build interface to look how I want it to look
 #+BEGIN_SRC emacs-lisp
-;; Increase the garbage collection threshold to 100MB to reduced startup time.
-;; See https://www.reddit.com/r/emacs/comments/3kqt6e
-(setq gc-cons-threshold (* 1024 1024 100))
-;; Turn off mouse interface early in startup to avoid momentary display
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(toggle-scroll-bar -1)
-(fset 'yes-or-no-p 'y-or-n-p)
-(setq visible-bell t)
-(blink-cursor-mode 0)
-(global-hl-line-mode 1)
-(add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
-;; (load-theme 'default-black t)
-;; show where buffers end.
-(setq-default indicate-empty-lines t)
-;; Delete marked region when typing over it. Woooow.
-(delete-selection-mode t)
+    ;; Increase the garbage collection threshold to 100MB to reduced startup time.
+    ;; See https://www.reddit.com/r/emacs/comments/3kqt6e
+    (setq gc-cons-threshold (* 1024 1024 100))
+    ;; Turn off mouse interface early in startup to avoid momentary display
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (toggle-scroll-bar -1)
+    (fset 'yes-or-no-p 'y-or-n-p)
+    (setq visible-bell t)
+    (blink-cursor-mode 0)
+    (global-hl-line-mode 1)
+    (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
+    ;; (load-theme 'default-black t)
+    ;; show where buffers end.
+    (setq-default indicate-empty-lines t)
+    ;; Delete marked region when typing over it. Woooow.
+    (delete-selection-mode t)
 #+END_SRC
 Startup. Disable splash screen and startup message.
 #+BEGIN_SRC emacs-lisp
@@ -805,7 +805,7 @@ Various org-agenda configurations
   ;; do C-c C-e on the parentheses below. Evaluate them.
   (setq org-agenda-files '("~/Dropbox/documents/org/"))
   ;; Use year/month/day
-  (setq calendar-date-style 'iso)
+  ;; (setq calendar-date-style 'iso)
   ;; Stop preparing agenda buffers on startup
   (setq org-agenda-inhibit-startup t)
   ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
