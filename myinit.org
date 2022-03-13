@@ -697,13 +697,14 @@ No nee, use the regular macro.
 ** OFF - Diff Highlight
 https://github.com/dgutov/diff-hl
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package diff-hl
-  ;;   :ensure t
-  ;;   :init
-  ;;   (global-diff-hl-mode)
-  ;;   :hook
-  ;;   (magit-pre-refresh . diff-hl-magit-pre-refresh)
-  ;;   (magit-post-refresh . diff-hl-magit-post-refresh))
+  (use-package diff-hl
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook #'diff-hl-mode)
+    (add-hook 'org-mode-hook #'diff-hl-mode)
+    (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+    (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-post-refresh))
 #+END_SRC
 
 ** Magit
