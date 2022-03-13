@@ -29,3 +29,6 @@
 - [ ] '(org-level-1 ((t (:inherit outline-1 :height 1.1))))) to make
   headings larger
 - [ ] sudo apt install ripgrep (kad veiktu rg emacse)
+# Installed, but dont use, because couldnt install org roam
+# - [ ] ORG ROAM - sudo apt install sqlite (database)
+# - [ ] ORG ROAM - sudo apt isntall clang (big one, C compiler?)
