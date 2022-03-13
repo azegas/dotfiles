@@ -244,15 +244,15 @@ m-x fci-mode
 "Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a
 sidebar filetree. Toggle on/off with F8.
 #+BEGIN_SRC emacs-lisp
-  (use-package neotree
-  :ensure t
-  :init
-  (setq neo-smart-open t
-	   neo-autorefresh t
-	   neo-force-change-root t)
-	   (setq neo-theme (if (display-graphic-p) 'icons global))
-	   (setq neo-window-width 35)
-	   (global-set-key [f8] 'neotree-toggle))
+  ;; (use-package neotree
+  ;; :ensure t
+  ;; :init
+  ;; (setq neo-smart-open t
+  ;; 	 neo-autorefresh t
+  ;; 	 neo-force-change-root t)
+  ;; 	 (setq neo-theme (if (display-graphic-p) 'icons global))
+  ;; 	 (setq neo-window-width 35)
+  ;; 	 (global-set-key [f8] 'neotree-toggle))
 
   ;; Launch neotree when opening emacs. First launch, then switch to another window.
     ;; (defun neotree-startup ()
