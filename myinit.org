@@ -406,148 +406,6 @@ and then the commands that follow below.
       (?? aw-show-dispatch-help))
     "List of actions for `aw-dispatch-default'.")
 #+END_SRC
-
-* Jumping around
-** Undo-tree
-"Undo tree" lets me to return to the file stage before any
-modifications were made. Keybind - C-x u.
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-  :ensure t
-  :init
-  (global-undo-tree-mode))
-#+END_SRC
-
-** Rg
-"Rg" - rip grep. Helps to search for a term through many files. Super
-useful when need to change something on many files.  Installation:
-Sudo apt install ripgrep M-x rg and search away Tut: nice video
-https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
-#+BEGIN_SRC emacs-lisp
-  (use-package rg
-    :ensure t
-    :config)
-#+END_SRC
-** Supersave
-"Supersave" autosaves buffers for me. I am kind of used to clicking
-C-x C-s all the time, but "Supersave" just makes sure that it saves
-all the buffers when I switch windows and so on. So if I ever want to
-close my emacs - I can be sure that all the buffers are saved.
-#+BEGIN_SRC emacs-lisp
-;; ace window integration - BUTINA
-(use-package super-save
-  :ensure t
-  :config
-  (setq super-save-auto-save-when-idle t)
-  (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
-  ;; add integration with ace-window
-  (add-to-list 'super-save-triggers 'ace-window)
-  (super-save-mode +1))
-#+END_SRC
-
-** Avy
-"Avy" lets me jump to to a specific letter or a word quickly. M-s and
-I can type a word, it will immeaditely jump to it on any opened and
-visible buffer.  See https://github.com/abo-abo/avy for more info.
-  #+begin_src emacs-lisp
-  (use-package avy
-  :ensure t
-  :bind
-  (("M-s" . avy-goto-char-timer)
-  ("M-p" . avy-goto-word-1)))
-  ; cool, makes the background darker
-  (setq avy-background t)
-  #+end_src
-
-** Projectile
-"Projectile" allows me to have a list of my projects under one
-keybind - C-c p p. I can then open a project and my working directory
-will remain to that project that I opened. With a shortcut C-c p f I
-can look thrugh ALL the files of that particular project
-directory. Super useful, makes the buffers way tidier.
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :ensure t
-    :config
-    (projectile-global-mode)
-    (setq projectile-completion-system 'ivy)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-#+END_SRC
-** Ivy
-"Ivy" is a generic completion mechanism for Emacs.
-C-c f, M-x basically. Other packages use it as well.
-#+BEGIN_SRC emacs-lisp
-  (use-package ivy
-     :defer 0.1
-     :diminish
-     :bind (("C-c C-r" . ivy-resume)
-     ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-     :custom
-
-     (ivy-count-format "(%d/%d) ")
-     ;; nice if you want previously opened buffers to appear after an
-     ;; emacs shutdown
-     (ivy-use-virtual-buffers t)
-     :config (ivy-mode))
-
-     (use-package ivy-rich
-     :ensure t
-     :init (ivy-rich-mode 1))
-#+END_SRC
-
-** Goto-chg
-Perfect! Can now cycle through the last changes in the buffer. Very
-useful when doing some C-s in the buffer and then want to come back to
-the last modified location. Great! If trying to use it in org file -
-doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
-#+BEGIN_SRC emacs-lisp
-(use-package goto-chg
-      :ensure t)
-(global-set-key [(control ?.)] 'goto-last-change)
-(global-set-key [(control ?,)] 'goto-last-change-reverse)
-#+END_SRC
-** Swiper
-"Swiper" - an Ivy-enhanced alternative to Isearch. Instead of regular
-C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
-#+BEGIN_SRC emacs-lisp
-     (use-package swiper
-     :after ivy
-     :bind (("C-s" . swiper)
-           ("C-r" . swiper)))
-#+END_SRC
-
-** Dired
-#+BEGIN_SRC emacs-lisp
-  (use-package dired
-    :ensure nil                         ;no need for t, because dired is built in
-    :custom ((dired-listing-switches "-agho --group-directories-first")))
-  (global-set-key (kbd "C-x C-d") 'dired-jump)
-  ;; (global-set-key (kbd "C-x d") 'dired)
-
-  ;; a function to kill dired buffers. Kind of works. Or you can use "a"
-  ;; to cycle through dired and it leaves no buffers opened
-  ;; DiredReuseDirectoryBuffer - https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
-  ;; KillingBuffers - https://www.emacswiki.org/emacs/KillingBuffers
-  (defun kill-dired-buffers ()
-    (interactive)
-    (mapc (lambda (buffer)
-            (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
-              (kill-buffer buffer)))
-          (buffer-list)))
-
-  ;; can easily check how many buffers got opened
-  (defun kill-all-dired-buffers ()
-    "Kill all dired buffers."
-    (interactive)
-    (save-excursion
-      (let ((count 0))
-        (dolist (buffer (buffer-list))
-          (set-buffer buffer)
-          (when (equal major-mode 'dired-mode)
-            (setq count (1+ count))
-            (kill-buffer buffer)))
-        (message "Killed %i dired buffer(s)." count))))
-#+END_SRC
 * Writing
 ** Flycheck
 "Flycheck" uses various syntax checking and linting tools to
@@ -758,7 +616,6 @@ Some notes:
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 #+END_SRC
-
 * Web stuff
 ** Emmet mode
 "Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
@@ -815,7 +672,6 @@ https://github.com/skeeto/impatient-mode.
              (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
            (current-buffer)))
 #+END_SRC
-
 * Counsel
 Click M-o while in C-x C-xf or M-o to get a lot of options!
 #+begin_src emacs-lisp
@@ -1058,7 +914,6 @@ possible to archive like so:
   ;; timer
 (setq org-clock-sound "~/Dropbox/src/emacs/misc/bell.wav")
 #+END_SRC
-
 * ERC
 #+BEGIN_SRC emacs-lisp
     (setq erc-server "irc.libera.chat"
@@ -1072,6 +927,149 @@ possible to archive like so:
 
     (setq erc-autojoin-channels-alist
             '(("irc.libera.chat" "#emacs" "#wiki" "#nethack")))
+#+END_SRC
+
+* Jumping around
+** Undo-tree
+"Undo tree" lets me to return to the file stage before any
+modifications were made. Keybind - C-x u.
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+  :ensure t
+  :init
+  (global-undo-tree-mode))
+#+END_SRC
+
+** Rg
+"Rg" - rip grep. Helps to search for a term through many files. Super
+useful when need to change something on many files.  Installation:
+Sudo apt install ripgrep M-x rg and search away Tut: nice video
+https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
+#+BEGIN_SRC emacs-lisp
+  (use-package rg
+    :ensure t
+    :config)
+#+END_SRC
+** Supersave
+"Supersave" autosaves buffers for me. I am kind of used to clicking
+C-x C-s all the time, but "Supersave" just makes sure that it saves
+all the buffers when I switch windows and so on. So if I ever want to
+close my emacs - I can be sure that all the buffers are saved.
+#+BEGIN_SRC emacs-lisp
+;; ace window integration - BUTINA
+(use-package super-save
+  :ensure t
+  :config
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
+  ;; add integration with ace-window
+  (add-to-list 'super-save-triggers 'ace-window)
+  (super-save-mode +1))
+#+END_SRC
+
+** Avy
+"Avy" lets me jump to to a specific letter or a word quickly. M-s and
+I can type a word, it will immeaditely jump to it on any opened and
+visible buffer.  See https://github.com/abo-abo/avy for more info.
+  #+begin_src emacs-lisp
+  (use-package avy
+  :ensure t
+  :bind
+  (("M-s" . avy-goto-char-timer)
+  ("M-p" . avy-goto-word-1)))
+  ; cool, makes the background darker
+  (setq avy-background t)
+  #+end_src
+
+** Projectile
+"Projectile" allows me to have a list of my projects under one
+keybind - C-c p p. I can then open a project and my working directory
+will remain to that project that I opened. With a shortcut C-c p f I
+can look thrugh ALL the files of that particular project
+directory. Super useful, makes the buffers way tidier.
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+#+END_SRC
+** Ivy
+"Ivy" is a generic completion mechanism for Emacs.
+C-c f, M-x basically. Other packages use it as well.
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+     :defer 0.1
+     :diminish
+     :bind (("C-c C-r" . ivy-resume)
+     ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+     :custom
+
+     (ivy-count-format "(%d/%d) ")
+     ;; nice if you want previously opened buffers to appear after an
+     ;; emacs shutdown
+     (ivy-use-virtual-buffers t)
+     :config (ivy-mode))
+
+     (use-package ivy-rich
+     :ensure t
+     :init (ivy-rich-mode 1))
+#+END_SRC
+
+** Goto-chg
+Perfect! Can now cycle through the last changes in the buffer. Very
+useful when doing some C-s in the buffer and then want to come back to
+the last modified location. Great! If trying to use it in org file -
+doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
+#+BEGIN_SRC emacs-lisp
+(use-package goto-chg
+      :ensure t)
+(global-set-key [(control ?.)] 'goto-last-change)
+(global-set-key [(control ?,)] 'goto-last-change-reverse)
+#+END_SRC
+** Swiper
+"Swiper" - an Ivy-enhanced alternative to Isearch. Instead of regular
+C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
+#+BEGIN_SRC emacs-lisp
+     (use-package swiper
+     :after ivy
+     :bind (("C-s" . swiper)
+           ("C-r" . swiper)))
+#+END_SRC
+
+** Dired
+#+BEGIN_SRC emacs-lisp
+    (use-package dired
+      :ensure nil                         ;no need for t, because dired is built in
+      :custom ((dired-listing-switches "-agho --group-directories-first")))
+    (global-set-key (kbd "C-x C-d") 'dired-jump) ;open dired buffer in current location
+    (define-key dired-mode-map (kbd "f") 'dired-find-alternate-file)
+  ;; (global-set-key (kbd "C-x d") 'dired)
+
+    ;; a function to kill dired buffers. Kind of works. Or you can use "a"
+    ;; to cycle through dired and it leaves no buffers opened
+    ;; DiredReuseDirectoryBuffer - https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
+    ;; KillingBuffers - https://www.emacswiki.org/emacs/KillingBuffers
+    (defun kill-dired-buffers ()
+      (interactive)
+      (mapc (lambda (buffer)
+              (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+                (kill-buffer buffer)))
+            (buffer-list)))
+
+    ;; can easily check how many buffers got opened
+    (defun kill-all-dired-buffers ()
+      "Kill all dired buffers."
+      (interactive)
+      (save-excursion
+        (let ((count 0))
+          (dolist (buffer (buffer-list))
+            (set-buffer buffer)
+            (when (equal major-mode 'dired-mode)
+              (setq count (1+ count))
+              (kill-buffer buffer)))
+          (message "Killed %i dired buffer(s)." count))))
 #+END_SRC
 
 
