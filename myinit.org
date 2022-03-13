@@ -516,6 +516,38 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
            ("C-r" . swiper)))
 #+END_SRC
 
+** Dired
+#+BEGIN_SRC emacs-lisp
+  (use-package dired
+    :ensure nil                         ;no need for t, because dired is built in
+    :custom ((dired-listing-switches "-agho --group-directories-first")))
+  (global-set-key (kbd "C-x C-d") 'dired-jump)
+  ;; (global-set-key (kbd "C-x d") 'dired)
+
+  ;; a function to kill dired buffers. Kind of works. Or you can use "a"
+  ;; to cycle through dired and it leaves no buffers opened
+  ;; DiredReuseDirectoryBuffer - https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
+  ;; KillingBuffers - https://www.emacswiki.org/emacs/KillingBuffers
+  (defun kill-dired-buffers ()
+    (interactive)
+    (mapc (lambda (buffer)
+            (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+              (kill-buffer buffer)))
+          (buffer-list)))
+
+  ;; can easily check how many buffers got opened
+  (defun kill-all-dired-buffers ()
+    "Kill all dired buffers."
+    (interactive)
+    (save-excursion
+      (let ((count 0))
+        (dolist (buffer (buffer-list))
+          (set-buffer buffer)
+          (when (equal major-mode 'dired-mode)
+            (setq count (1+ count))
+            (kill-buffer buffer)))
+        (message "Killed %i dired buffer(s)." count))))
+#+END_SRC
 * Writing
 ** Flycheck
 "Flycheck" uses various syntax checking and linting tools to
