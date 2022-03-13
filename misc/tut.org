@@ -421,3 +421,6 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 91) C-< = multiple cursors - mark previous line like this
 92) C-c C-< = multiple cursors - mark all like this
 93) M-x customize group - customize some stuff
+94) M-x ielm RET package-archives RET = gives some values out
+95) C-c '   = edit source code buffer (useful when need code
+    completion when editint a src code in ORG file)
