@@ -9,46 +9,52 @@
 ** Interface tweaks
 Build interface to look how I want it to look
 #+BEGIN_SRC emacs-lisp
-    ;; Increase the garbage collection threshold to 100MB to reduced startup time.
-    ;; See https://www.reddit.com/r/emacs/comments/3kqt6e
-    (setq gc-cons-threshold (* 1024 1024 100))
-    ;; Turn off mouse interface early in startup to avoid momentary display
-    (menu-bar-mode -1)
-    (tool-bar-mode -1)
-    (toggle-scroll-bar -1)
-    (fset 'yes-or-no-p 'y-or-n-p)
-    (setq visible-bell t)
-    (blink-cursor-mode 0)
-    (global-hl-line-mode 1)
-    (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
-    ;; (load-theme 'default-black t)
-    ;; show where buffers end.
-    (setq-default indicate-empty-lines t)
-    ;; Delete marked region when typing over it. Woooow.
-    (delete-selection-mode t)
+  ;; Increase the garbage collection threshold to 100MB to reduced startup time.
+  ;; See https://www.reddit.com/r/emacs/comments/3kqt6e
+  (setq gc-cons-threshold 80000000)
+  (setq gc-cons-threshold (* 1024 1024 100))
+  ;; Turn off mouse interface early in startup to avoid momentary display
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (toggle-scroll-bar -1)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (setq visible-bell t)
+  (blink-cursor-mode 0)
+  (global-hl-line-mode 1)
+  (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
+  ;; (load-theme 'default-black t)
+  ;; show where buffers end.
+  (setq-default indicate-empty-lines t)
+  ;; Delete marked region when typing over it. Woooow.
+  (delete-selection-mode t)
 #+END_SRC
 Startup. Disable splash screen and startup message.
 #+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-;; turn off the error message at emacs launch
-(setq ad-redefinition-action 'accept)
-;; Show startup time on emacs-load
-(defun efs/display-startup-time ()
-(message "Emacs loaded in %s with %d garbage collections."
-(format "%.2f seconds"
-(float-time
-(time-subtract after-init-time before-init-time)))
-gcs-done))
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message nil)
+  ;; turn off the error message at emacs launch
+  (setq ad-redefinition-action 'accept)
+  ;; Show startup time on emacs-load
+  (defun efs/display-startup-time ()
+    (message "Emacs loaded in %s with %d garbage collections."
+             (format "%.2f seconds"
+                     (float-time
+                      (time-subtract after-init-time before-init-time)))
+             gcs-done))
 
-;; no more annoying buffer list combinatios
-(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+  (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+  ;; Transparency
+  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
 
-;; Use a persistent "inbox.org" as the initial buffer.
-(setq initial-buffer-choice "~/Dropbox/documents/org/inbox.org")
+  ;; no more annoying buffer list combinatios
+  (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 
+  ;; Use a persistent "inbox.org" as the initial buffer.
+  (setq initial-buffer-choice "~/Dropbox/documents/org/inbox.org")
+  ;; Hide mouse cursor while typing
+  (setq make-pointer-invisible t)
 #+END_SRC
 Parentheses
 #+BEGIN_SRC emacs-lisp
@@ -61,32 +67,32 @@ Parentheses
 #+END_SRC
 Show me my config's and documentation
 #+BEGIN_SRC emacs-lisp
-;; Easily jump to my main org file
-(defun aga-find-current nil
-"Find the myinit.org file."
-(interactive)
-(find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
-;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
-(delete-other-windows))
-;; Find my NEW init file
-(global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
+  ;; Easily jump to my main org file
+  (defun aga-find-current nil
+    "Find the myinit.org file."
+    (interactive)
+    (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
+    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
+    (delete-other-windows))
+  ;; Find my NEW init file
+  (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
 
-;; Easily jump to my main org file
-(defun aga-find-old nil
-"Find the myinit.org file."
-(interactive)
-(find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
-;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
-(delete-other-windows))
-;; Find OLD init file
-(global-set-key (kbd "C-x <C-home>") 'aga-find-old)
+  ;; Easily jump to my main org file
+  (defun aga-find-old nil
+    "Find the myinit.org file."
+    (interactive)
+    (find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
+    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
+    (delete-other-windows))
+  ;; Find OLD init file
+  (global-set-key (kbd "C-x <C-home>") 'aga-find-old)
 
-;; open my django docs
-(defun django-docs nil
-"Find the myinit.org file."
-(interactive)
-(find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
-(global-set-key [f5] 'django-docs)
+  ;; ;; open my django docs
+  ;; (defun django-docs nil
+  ;; "Find the myinit.org file."
+  ;; (interactive)
+  ;; (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
+  ;; (global-set-key [f5] 'django-docs)
 #+END_SRC
 Modeline. file size indication in mode-line. column-number in mode-line.
 #+BEGIN_SRC emacs-lisp
@@ -95,14 +101,9 @@ Modeline. file size indication in mode-line. column-number in mode-line.
 #+END_SRC
 Line numbers
 #+BEGIN_SRC emacs-lisp
-;; (global-display-line-numbers-mode 1)
-(add-hook 'text-mode-hook #'display-line-numbers-mode)
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-#+END_SRC
-Spell checking
-#+BEGIN_SRC emacs-lisp
-  ;; (add-hook 'text-mode-hook 'flyspell-mode)
-  ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  ;; (global-display-line-numbers-mode 1)
+  (add-hook 'text-mode-hook #'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 #+END_SRC
 Character wrap
 #+BEGIN_SRC emacs-lisp
@@ -204,8 +205,13 @@ aggressively.
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+END_SRC
 ** Which-key
-"Which-key" states which possible key commbinations can be used after
-any button is pressed.
+A package that displays the available keybindings in a popup. The
+package is pretty useful, as Emacs seems to have more keybindings than
+I can remember at any given point.
+
+References:
+
+[[https://github.com/justbur/emacs-which-key][which-key repo]]
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
   :ensure t
@@ -226,6 +232,28 @@ evaluates the content, without storing the file.
     :ensure t)
 #+END_SRC
 
+** helpful
+Improves *help* buffer. Way more info than with regular help.
+INSTALLS: elisp-refs, helpful
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :ensure t
+    :bind
+    (("C-h f" . helpful-callable)
+     ("C-h v" . helpful-variable)
+     ("C-h k" . helpful-key)
+     ("C-c C-d" . helpful-at-point)
+     ("C-h F" . helpful-function)
+     ("C-h C" . helpful-command)))
+
+  ;; ;; Note that the built-in `describe-function' includes both functions
+  ;; ;; and macros. `helpful-function' is functions only, so we provide
+  ;; ;; `helpful-callable' as a drop-in replacement.
+  ;; (global-set-key (kbd "C-h f") #'helpful-callable)
+
+  ;; (global-set-key (kbd "C-h v") #'helpful-variable)
+  ;; (global-set-key (kbd "C-h k") #'helpful-key)
+#+END_SRC
 * Appearance
 ** Fill-column-indicator
 INSTALLS : fill-column-indicator
@@ -281,25 +309,37 @@ More about doom themes [[https://github.com/doomemacs/themes][here]].
 nice and clean one with only the necessary info and icons
 displayed. So far so good, liking it.
 #+BEGIN_SRC emacs-lisp
-    (use-package doom-modeline
-        :ensure t
-        :init (doom-modeline-mode 1)
-        :custom
-        (doom-modeline-irc nil))
+  (use-package doom-modeline
+    :ensure t
+    :init
+    (setq doom-modeline-env-enable-python t)
+    (setq doom-modeline-env-enable-go nil)
+    (setq doom-modeline-buffer-encoding 'nondefault)
+    (setq doom-modeline-hud t)
+    (setq doom-modeline-persp-icon nil)
+    (setq doom-modeline-persp-name nil)
+    :config
+    (setq doom-modeline-minor-modes nil)
+    (setq doom-modeline-buffer-state-icon nil)
+    (doom-modeline-mode 1)
+    :custom
+    (doom-modeline-irc t))
 
-    (set-face-attribute 'mode-line nil
-                        :background "#353644"
-                        :foreground "white"
-                        :box '(:line-width 2 :color "#353644")
-                        :overline nil
-                        :underline nil)
+  ;; active/inactive modeline colors? in other themes than doom I guess.
 
-    (set-face-attribute 'mode-line-inactive nil
-                        :background "#565063"
-                        :foreground "white"
-                        :box '(:line-width 2 :color "#565063")
-                        :overline nil
-                        :underline nil)
+  ;; (set-face-attribute 'mode-line nil
+  ;;                     :background "#353644"
+  ;;                     :foreground "white"
+  ;;                     :box '(:line-width 2 :color "#353644")
+  ;;                     :overline nil
+  ;;                     :underline nil)
+
+  ;; (set-face-attribute 'mode-line-inactive nil
+  ;;                     :background "#565063"
+  ;;                     :foreground "white"
+  ;;                     :box '(:line-width 2 :color "#565063")
+  ;;                     :overline nil
+  ;;                     :underline nil)
 #+END_SRC
 ** All the icons
 "All the icons" - icons visible on buffer window as well as sidebar
@@ -358,6 +398,18 @@ etc.
       (beacon-mode 1)))
 #+END_SRC
 
+** Auto-dim-other-buffers
+Its just too strange, turning off.
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package auto-dim-other-buffers
+  ;;   :ensure t
+  ;;   :if (display-graphic-p)
+  ;;   :config
+  ;;   (auto-dim-other-buffers-mode t)
+  ;;   (my/use-doom-colors
+  ;;    (auto-dim-other-buffers-face
+  ;;     :background (color-darken-name (doom-color 'bg) 3))))
+#+END_SRC
 * Window management
 ** Saveplace
 "Saveplace" remembers your location in a file when saving files
@@ -421,6 +473,18 @@ confuse with flyspell - checks grammar.
     (global-flycheck-mode t))
 #+END_SRC
 
+Spell checking
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'org-mode-hook 'flyspell-mode)
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  ;; (global-set-key (kbd "C-1") 'flyspell-auto-correct-previous-word)
+  ;; (global-set-key (kbd "C-2") 'flyspell-auto-correct-word)
+  ;; (global-set-key (kbd "C-3") 'flyspell-goto-next-error)
+  ;; (global-set-key (kbd "C-4") 'flyspell-buffer)
+  (global-set-key (kbd "<f5>") 'flyspell-mode)
+#+END_SRC
+
 ** Ws-butler
 "Ws-butler" - whitespace butler - clean up whitespace automatically on
 saving buffer.
@@ -474,19 +538,27 @@ brackets by pressing C-=. The more I press it, the more it selects.
 "Company" provides autosuggestion/completion in buffers (writing code,
 pathing to files, etc).  press <f1> to display the documentation for
 the selected candidate or C-w to see its source
+
+Installs: frame-local, company-box
 #+BEGIN_SRC emacs-lisp
-    (use-package company
-      :ensure t
-      :config
-      (setq company-idle-delay 0) ; lb svarbu, instant suggestion
-      ;; (setq company-show-numbers t)
-      (setq company-tooltip-limit 10)
-      ;; (setq company-minimum-prefix-length 2)
-      (setq company-tooltip-align-annotations t)
-      ;; invert the navigation direction if the the completion popup-isearch-match
-      ;; is displayed on top (happens near the bottom of windows)
-      (setq company-tooltip-flip-when-above t)
-      (global-company-mode))
+  (use-package company
+    :ensure t
+    :config
+    (setq company-idle-delay 0) ; lb svarbu, instant suggestion
+    ;; (setq company-show-numbers t)
+    (setq company-tooltip-limit 10)
+    ;; (setq company-minimum-prefix-length 2)
+    (setq company-tooltip-align-annotations t)
+    ;; invert the navigation direction if the the completion popup-isearch-match
+    ;; is displayed on top (happens near the bottom of windows)
+    (setq company-tooltip-flip-when-above t)
+    (global-company-mode))
+
+  ;; lags a bit, quite slow and not really useful. Impression of 3min of usage.
+  ;; (use-package company-box
+  ;;   :ensure t
+  ;;   :after (company)
+  ;;   :hook (company-mode . company-box-mode))
 #+END_SRC
 * Programming
 ** Elpy
@@ -587,14 +659,19 @@ No nee, use the regular macro.
 ** OFF - Diff Highlight
 https://github.com/dgutov/diff-hl
 #+BEGIN_SRC emacs-lisp
-  (use-package diff-hl
-    :ensure t
-    :init
-    (add-hook 'prog-mode-hook #'diff-hl-mode)
-    (add-hook 'org-mode-hook #'diff-hl-mode)
-    (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-    (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-post-refresh))
+    (use-package diff-hl
+      :ensure t
+      :init
+      (add-hook 'prog-mode-hook #'diff-hl-mode)
+      (add-hook 'org-mode-hook #'diff-hl-mode)
+      (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+      (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+      (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-post-refresh)
+
+      (add-hook 'prog-mode-hook #'diff-hl-margin-mode)
+      (add-hook 'org-mode-hook #'diff-hl-margin-mode)
+      (add-hook 'dired-mode-hook 'diff-hl-margin-mode)
+  )
 #+END_SRC
 
 ** Magit
@@ -616,6 +693,27 @@ Some notes:
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 #+END_SRC
+** Yasnippet
+"[[https://www.youtube.com/watch?v=YDuqSwyZvlY][Yasnippet]]" - expand to a switch statement with placeholders. Tab
+between the placeholders & type actual values. like in [[https://www.youtube.com/watch?v=mflvdXKyA_g&list=PL-mFLc7R_MJdX0MxrqXEV4sM87hmVEkRw&index=2&t=67s][this]] video.
+I am kind of too new to programming to be using snippets, but its nice,
+keeping this plugin for now.  It installs kind of many
+snippets... hope that doesn't slow emacs down. Shouldnt...
+You can also create your own snippet... possibly even for .org files.
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet-snippets         ; Collection of snippets
+    :ensure t)
+  (use-package yasnippet                  ; Snippets
+    :ensure t)
+  (yas-global-mode 1)
+#+END_SRC
+
+** Csv mode
+#+BEGIN_SRC emacs-lisp
+  (use-package csv-mode
+    :ensure t
+    :mode "\\.csv\\'")
+#+END_SRC
 * Web stuff
 ** Emmet mode
 "Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
@@ -625,10 +723,11 @@ SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
 #+BEGIN_SRC emacs-lisp
   (use-package emmet-mode
     :ensure t
-    :config)
-  (add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+    :config
+    :hook ((web-mode . emmet-mode)
+           (html-mode . emmet-mode)
+           (css-mode . emmet-mode)
+           (sgml-mode . emmet-mode)))
 #+END_SRC
 ** Web-mode
 "Web mode" - Got it basically only for maching tags highlighting
@@ -671,6 +770,17 @@ https://github.com/skeeto/impatient-mode.
     (princ (with-current-buffer buffer
              (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
            (current-buffer)))
+#+END_SRC
+** Prettier
+Formats code for me. If my html or css is messed up and not aligned, I
+don't have to worry about it anymore, prettier will make it
+pretty. This is quite amazing, prettifies on save.
+INSTALLS: nvm, iter2, prettier
+REQUIRES: sudo apt install npm, sudo apt install -g prettier
+#+BEGIN_SRC emacs-lisp
+(use-package prettier
+  :ensure t
+  :hook ((mhtml-mode css-mode scss-mode rjsx-mode js2-mode web-mode ) . prettier-mode))
 #+END_SRC
 * Counsel
 Click M-o while in C-x C-xf or M-o to get a lot of options!
@@ -858,7 +968,7 @@ My personal agenda
 
                                           ; global Effort estimate values
                                           ; global STYLE property values for completion
-  (setq org-global-properties (quote (("Effort_ALL" . "0 0:10 0:30 1:00 2:00 3:00 4:00")
+  (setq org-global-properties (quote (("Effort_ALL" . "0 0:05 0:10 0:30 1:00 2:00 3:00 4:00")
                                       ("STYLE_ALL" . "habit"))))
 
   (global-set-key [f9] 'org-agenda-filter-by-effort)
@@ -902,31 +1012,69 @@ possible to archive like so:
 #+archive: ::* Archived Tasks - internal archiving
 #+archive: ::** Arvydas.dev ARCHIVED
 #+archive: ~/Dropbox/documents/org/references/archive.org::* From Blog
+** Org-bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC
 ** Other
 #+BEGIN_SRC emacs-lisp
-      ;; headings, jeigu ka
-      ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
-    ;; when editing code blocks, treat them with proper indentation
+  ;; headings, jeigu ka
+  ;; '(org-level-1 ((t (:inherit outline-1 :height 1.1)
+  ;; when editing code blocks, treat them with proper indentation
 
   ;; https://orgmode.org/manual/Editing-Source-Code.html
-    (setq org-src-fontify-natively t)
-    (setq org-src-tab-acts-natively t)
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+
   ;; timer
-(setq org-clock-sound "~/Dropbox/src/emacs/misc/bell.wav")
+  (setq org-clock-sound "~/Dropbox/src/emacs/misc/bell.wav")
+
+  (defun ndk/org-mark-headline-for-note ()
+    (let ((tags (org-get-tags)))
+      (unless (seq-contains tags "note")
+        (progn
+          (outline-back-to-heading)
+          (org-set-tags (cons "note" tags))))))
+
+  (defun my/org-add-note ()
+    (interactive)
+    (org-add-note)                    ; call the original function
+    (ndk/org-mark-headline-for-note)) ; then call the function above to add the tag
+
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-c C-z") #'my/org-add-note))
 #+END_SRC
 * ERC
 #+BEGIN_SRC emacs-lisp
-    (setq erc-server "irc.libera.chat"
-          erc-nick "Arvydas"
-          erc-port 6697
-          erc-user-full-name "This and that"
-          erc-track-shorten-start 8
-          erc-autojoin-channels-alist '(("irc.libera.chat" "#systemcrafters" "#emacs")))
-          ;; erc-kill-buffer-on-part t
-          ;;       erc-auto-query 'bury)
+  (use-package erc
+    :ensure t
+    :commands (erc erc-tls)
+    :config
+    (setq erc-log-channels-directory "~/.emacs.d/erc")
+    (setq erc-save-buffer-on-part t)
+    (add-to-list 'erc-modules 'autojoin)
+    (add-to-list 'erc-modules 'log)
+    (erc-update-modules)
+    (setq erc-kill-buffer-on-part t)
+    (setq erc-track-shorten-start 8))
 
-    (setq erc-autojoin-channels-alist
-            '(("irc.libera.chat" "#emacs" "#wiki" "#nethack")))
+  (setq erc-server "irc.libera.chat"
+        erc-nick "Arvydas"
+        ;; erc-user-full-name "Emacs User"
+        erc-autojoin-channels-alist '(("libera.chat" "#systemcrafters" "#emacs")))
+
+  (setq erc-track-exclude-types '("NICK" "JOIN" "LEAVE" "QUIT" "PART"
+                                  "301"   ; away notice
+                                  "305"   ; return from awayness
+                                  "306"   ; set awayness
+                                  "324"   ; modes
+                                  "329"   ; channel creation date
+                                  "332"   ; topic notice
+                                  "333"   ; who set the topic
+                                  "353"   ; Names notice
+                                  ))
 #+END_SRC
 
 * Jumping around
@@ -983,17 +1131,18 @@ visible buffer.  See https://github.com/abo-abo/avy for more info.
 
 ** Projectile
 "Projectile" allows me to have a list of my projects under one
-keybind - C-c p p. I can then open a project and my working directory
+pkeybind - C-c p p. I can then open a project and my working directory
 will remain to that project that I opened. With a shortcut C-c p f I
 can look thrugh ALL the files of that particular project
 directory. Super useful, makes the buffers way tidier.
 #+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :ensure t
-    :config
-    (projectile-global-mode)
-    (setq projectile-completion-system 'ivy)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+    (use-package projectile
+      :ensure t
+      :config
+      (projectile-global-mode)
+      (setq projectile-completion-system 'ivy)
+      (setq projectile-project-search-path '("~/Dropbox/src/"))
+      (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 #+END_SRC
 ** Ivy
 "Ivy" is a generic completion mechanism for Emacs.
@@ -1025,8 +1174,8 @@ doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
 #+BEGIN_SRC emacs-lisp
 (use-package goto-chg
       :ensure t)
-(global-set-key [(control ?.)] 'goto-last-change)
-(global-set-key [(control ?,)] 'goto-last-change-reverse)
+(global-set-key (kbd "M-[") 'goto-last-change)
+(global-set-key (kbd "M-]") 'goto-last-change-reverse)
 #+END_SRC
 ** Swiper
 "Swiper" - an Ivy-enhanced alternative to Isearch. Instead of regular
@@ -1042,7 +1191,7 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
 #+BEGIN_SRC emacs-lisp
     (use-package dired
       :ensure nil                         ;no need for t, because dired is built in
-      :custom ((dired-listing-switches "-agho --group-directories-first")))
+      :custom ((dired-listing-switches "-agho --group-directories-first"))) ;sort directories first
     (global-set-key (kbd "C-x C-d") 'dired-jump) ;open dired buffer in current location
     (define-key dired-mode-map (kbd "f") 'dired-find-alternate-file)
   ;; (global-set-key (kbd "C-x d") 'dired)
@@ -1072,7 +1221,57 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
           (message "Killed %i dired buffer(s)." count))))
 #+END_SRC
 
+** Diredfl
+Adding more colors to dired buffers
+#+BEGIN_SRC emacs-lisp
+(use-package diredfl
+  :ensure t
+  :after (dired)
+  :config
+  (diredfl-global-mode 1))
+#+END_SRC
+** Dired-subtree
+Dired-subtree is a package that enables managing Dired buffers in a
+tree-like manner.
+INSTALLS: dired-hacks-utils, dired-subtree
 
+kaybinding - 'i' to open dired folder as subtree
+#+BEGIN_SRC emacs-lisp
+(use-package dired-subtree
+  :after (dired)
+  :ensure t)
+#+END_SRC
+** Dired-git-info
+[[https://github.com/clemera/dired-git-info][dired-git-info]]. This Emacs packages provides a minor mode which shows
+git information inside the dired buffer.
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-git-info
+    :ensure t
+    :after dired)
+  ;; Bind the minor mode command in dired
+  (with-eval-after-load 'dired
+    (define-key dired-mode-map ")" 'dired-git-info-mode))
+  ;; Don’t hide normal Dired file info
+  (setq dgi-auto-hide-details-p nil)
+  ;; Enable automatically in every Dired buffer (if in Git repository)
+  (add-hook 'dired-after-readin-hook 'dired-git-info-auto-enable)
+#+END_SRC
+* Macros
+#+BEGIN_SRC emacs-lisp
+  (fset 'irc_emacs
+        (lambda (&optional arg) "Keyboard
+   macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217848
+                                                             114 backspace 101 114 99 32 116 108 return return return
+                                                             return return 106 111 backspace backspace 47 106 111 105 110
+                                                             32 35 101 109 97 99 115 return 72 101 108 108 111 32 101 118
+                                                             101 114 121 111 110 101 33 return] 0 "%d")) arg)))
+#+END_SRC
+5 min tasks taken from all my agenda files.
+First open agenda, then list all the tasks, then click f9, then choose 5min.
+#+BEGIN_SRC emacs-lisp
+(fset '5minTasks
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([3 97 116 f9 61 50] 0 "%d")) arg)))
+#+END_SRC
 * TURNED OFF PACKAGES BELOW THIS LINE
 #+BEGIN_SRC emacs-lisp
 ;;;============================================================================
@@ -1082,7 +1281,6 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
 ;;;
 ;;;============================================================================
 #+END_SRC
-
 
 * OFF - Smooth-scroll
 really don't need this. doesn't work the way I need it to.
@@ -1109,7 +1307,7 @@ Installs: smooth-scrolling
   in terminal, root dir, run this - pip install python-lsp-server
   do pyls to know if the installation it worked
   What I get: when I hover/write on function-explanation window,
-  linting error checking on the right, signatue help(tells what
+  linting error checking on the right, signature help(tells what
   parameters you can put in a function.)
   INSTALLED: lv, markdown-mode, spinner, lsp-mode
 #+BEGIN_SRC emacs-lisp
@@ -1236,20 +1434,6 @@ Shortcuts here - https://www.emacswiki.org/emacs/eww
   ;;   ;; Eww is cool, but pls open links in chrome. ty
   ;;   (setq browse-url-browser-function 'browse-url-generic
   ;;   browse-url-generic-program "google-chrome")
-#+END_SRC
-* OFF - Yasnippet
-"[[https://www.youtube.com/watch?v=YDuqSwyZvlY][Yasnippet]]" - expand to a switch statement with placeholders. Tab
-between the placeholders & type actual values. like in [[https://www.youtube.com/watch?v=mflvdXKyA_g&list=PL-mFLc7R_MJdX0MxrqXEV4sM87hmVEkRw&index=2&t=67s][this]] video.
-I am kind of too new to programming to be using snippets, but its nice,
-keeping this plugin for now.  It installs kind of many
-snippets... hope that doesn't slow emacs down. Shouldnt...
-You can also create your own snippet... possibly even for .org files.
-#+BEGIN_SRC emacs-lisp
-  (use-package yasnippet                  ; Snippets
-    :ensure t)
-    (yas-global-mode 1)
-  (use-package yasnippet-snippets         ; Collection of snippets
-    :ensure t)
 #+END_SRC
 * OFF - Markdown-mode
 "Markdown-mode" - will use it to edit markdown files. Would be nice to
