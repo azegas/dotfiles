@@ -32,3 +32,9 @@
 # Installed, but dont use, because couldnt install org roam
 # - [ ] ORG ROAM - sudo apt install sqlite (database)
 # - [ ] ORG ROAM - sudo apt isntall clang (big one, C compiler?)
+- [ ]  <2022-03-13 Sk>
+- [ ] sudo apt install npm (for prettier to work on emacs)
+- [ ] sudo npm install -g prettier (for emacs prettier)
+- [ ] sudo apt install cmake and libtool and libvterm-dev (for vterm) and [[https://linuxize.com/post/how-to-install-gcc-compiler-on-ubuntu-18-04/][this]]
+- [ ] <2022-03-15 An>
+- [ ] sudo apt install python3.8-venv (del django)
