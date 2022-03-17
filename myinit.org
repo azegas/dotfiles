@@ -23,6 +23,7 @@ Build interface to look how I want it to look
   (global-hl-line-mode 1)
   (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
   ;; (load-theme 'default-black t)
+  (load-theme 'zenburn t)
   ;; show where buffers end.
   (setq-default indicate-empty-lines t)
   ;; Delete marked region when typing over it. Woooow.
@@ -34,7 +35,17 @@ Startup. Disable splash screen and startup message.
   (setq initial-scratch-message nil)
   ;; turn off the error message at emacs launch
   (setq ad-redefinition-action 'accept)
-  ;; Show startup time on emacs-load
+  ;; no more annoying buffer list combinatios
+  (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+
+  ;; Use a persistent "inbox.org" as the initial buffer.
+  (setq initial-buffer-choice "~/Dropbox/documents/org/inbox.org")
+  ;; Hide mouse cursor while typing
+  (setq make-pointer-invisible t)
+#+END_SRC
+<2022-03-17 Kt> Disabled it, because now I have 'dashboard'. Does the
+same thing and more. Show startup time on emacs-load
+#+BEGIN_SRC emacs-lisp
   (defun efs/display-startup-time ()
     (message "Emacs loaded in %s with %d garbage collections."
              (format "%.2f seconds"
@@ -43,18 +54,23 @@ Startup. Disable splash screen and startup message.
              gcs-done))
 
   (add-hook 'emacs-startup-hook #'efs/display-startup-time)
-
-  ;; Transparency
-  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-
-  ;; no more annoying buffer list combinatios
-  (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
-
-  ;; Use a persistent "inbox.org" as the initial buffer.
-  (setq initial-buffer-choice "~/Dropbox/documents/org/inbox.org")
-  ;; Hide mouse cursor while typing
-  (setq make-pointer-invisible t)
+#+END_SRC
+<2022-03-14 Pr> Transparency
+#+BEGIN_SRC emacs-lisp
+  ;; (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+  ;; (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+#+END_SRC
+<2022-03-17 Kt> [[elisp - Emacs truncate lines in all buffers - Stack Overflow][ elisp - Emacs truncate lines in all buffers - Stack Overflow]]
+#+BEGIN_SRC emacs-lisp
+(setq-default global-visual-line-mode t)
+#+END_SRC
+<2022-03-17 Kt> Do not add double space after periods
+#+BEGIN_SRC emacs-lisp
+(setq-default sentence-end-double-space nil)
+#+END_SRC
+<2022-03-17 Kt> set warning of opening large files to 100MB
+#+BEGIN_SRC emacs-lisp
+(setq-default large-file-warning-threshold 100000000)
 #+END_SRC
 Parentheses
 #+BEGIN_SRC emacs-lisp
@@ -255,6 +271,43 @@ INSTALLS: elisp-refs, helpful
   ;; (global-set-key (kbd "C-h k") #'helpful-key)
 #+END_SRC
 * Appearance
+** Dashboard
+<2022-03-17 Kt> Following [[https://www.youtube.com/watch?v=SfyJtenKd2A&t=505s][this]] video.
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :diminish dashboard-mode
+    :init
+    (progn
+      (setq dashboard-items '((recents  . 10)
+                              (projects . 5)
+                              (bookmarks . 10)))
+      (setq dashboard-center-content nil)
+      (setq dashboard-set-heading-icons t)
+      (setq dashboard-set-file-icons t)
+      (setq dashboard-startup-banner "/home/arvydas/Dropbox/src/portfolio/p_porfolio/static/images/arvydas500.png")
+      (dashboard-setup-startup-hook)))
+
+  ;; setup that always work - a place to fall back to
+
+  ;; (use-package dashboard
+  ;;   :ensure t
+  ;;   :diminish dashboard-mode
+  ;;   :config
+  ;;   (setq dashboard-banner-logo-title "your custom text")
+  ;;   (setq dashboard-startup-banner "/path/to/image")
+  ;;   (setq dashboard-items '((recents  . 10)
+  ;;                           (bookmarks . 10)))
+  ;;   (dashboard-setup-startup-hook))
+#+END_SRC
+** Page-break-lines
+<2022-03-17 Kt> Needed for Dashboard?
+#+BEGIN_SRC emacs-lisp
+  (use-package page-break-lines
+    :ensure t
+    :config
+    (global-page-break-lines-mode t))
+#+END_SRC
 ** Fill-column-indicator
 INSTALLS : fill-column-indicator
 m-x fci-mode
@@ -294,15 +347,19 @@ sidebar filetree. Toggle on/off with F8.
 #+END_SRC
 
 ** Doom themes
+<2022-03-17 Kt> Disabled it. Less bloat, keep it simple with Zenburn
+theme.
+
 More about doom themes [[https://github.com/doomemacs/themes][here]].
 #+BEGIN_SRC emacs-lisp
-  (use-package doom-themes
-    :ensure t
-    :config
-    ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-palenight t))
+    (use-package doom-themes
+      :ensure t
+      :disabled t
+      :config
+      ;; Global settings (defaults)
+      (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+            doom-themes-enable-italic t) ; if nil, italics is universally disabled
+      (load-theme 'doom-palenight t))
 #+END_SRC
 ** Doom-modeline
 "Doom-modeline" converts a basic looking, all cramped modeline into a
@@ -571,6 +628,7 @@ https://www.youtube.com/watch?v=0kuCeS-mfyc,
 https://www.youtube.com/watch?v=mflvdXKyA_g
 [[https://www.ruiying.online/post/use-emacs-as-python-ide/][Helpful blog post]]
 [[https://elpy.readthedocs.io/en/latest/index.html][Elpy official docs]]
+[[https://elpy.readthedocs.io/_/downloads/en/stable/pdf/][Elpy docs pdf]]
 When using tab auto completion, click f1 and get the explanation in
 another buffer. Company doccumentation window.  and of course more
 amazing [[https://gist.github.com/mahyaret/a64d209d482fc0f5eca707f12ccce146][shortcuts]] Here.
@@ -585,7 +643,7 @@ INSTALL:
 4. do M-x elpy-config to see the config
 5. check your .emacs.d folder. if there is one called "elpy" and it is
    empty or something, do M-x elpy-rpc-restart. Folders will appear,
-   packages will install. Then do elpy-coppnfig.
+   packages will install. Then do elpy-coppnfig.q
 6. pip install flake8 - get to see more syntax checks. M-x elpy-config
    to confirm its installed
 
@@ -601,7 +659,7 @@ INSTALLS: yasnippet, pyenv, hightlight-indentation, elpy
     :init
     (elpy-enable))
   ;; :bind (("M-." . elpy-goto-definition)))
-  ;; (setq elpy-rpc-virtualenv-path 'current)
+  (setq elpy-rpc-virtualenv-path 'current)
   (set-language-environment "UTF-8")
 
   ;; (use-package elpy
@@ -714,6 +772,26 @@ You can also create your own snippet... possibly even for .org files.
     :ensure t
     :mode "\\.csv\\'")
 #+END_SRC
+** Terminal pop
+2022-03-16 [[https://github.com/stanhe/pop-eshell][This]] is the source code. Git clone to .emacsd/elpa then add the config
+you see below. With a shortcut of C-c C-e C-e I can now invoke an
+eshell buffer at the bottom at the screen. Click the shortcut once
+more and it will close. Super convenient!
+
+I use it for django development. I first do M-x pyvenv-activate and
+choose a env dir. Then I can open the shell and run python manage.py
+runserver. Works like a charm and stays in the background.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/elpa/pop-eshell")
+(require 'pop-eshell-mode)
+(setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
+(pop-eshell-mode 1)
+
+  ;; Double click to turn on turn off
+
+  ;; full screen - (define-key map (kbd "C-c C-e C-f") 'fast-eshell-pop)
+  ;; bottom buffer -  (define-key map (kbd "C-c C-e C-e") 'eshell-pop-toggle)
+#+END_SRC
 * Web stuff
 ** Emmet mode
 "Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
@@ -772,15 +850,18 @@ https://github.com/skeeto/impatient-mode.
            (current-buffer)))
 #+END_SRC
 ** Prettier
+<2022-03-17 Kt> Disabled it. Formatting is good, but not always as I want it.
+
 Formats code for me. If my html or css is messed up and not aligned, I
 don't have to worry about it anymore, prettier will make it
 pretty. This is quite amazing, prettifies on save.
 INSTALLS: nvm, iter2, prettier
 REQUIRES: sudo apt install npm, sudo apt install -g prettier
 #+BEGIN_SRC emacs-lisp
-(use-package prettier
-  :ensure t
-  :hook ((mhtml-mode css-mode scss-mode rjsx-mode js2-mode web-mode ) . prettier-mode))
+  (use-package prettier
+    :disabled t
+    :ensure t
+    :hook ((mhtml-mode css-mode scss-mode rjsx-mode js2-mode web-mode ) . prettier-mode))
 #+END_SRC
 * Counsel
 Click M-o while in C-x C-xf or M-o to get a lot of options!
@@ -1257,20 +1338,16 @@ git information inside the dired buffer.
   (add-hook 'dired-after-readin-hook 'dired-git-info-auto-enable)
 #+END_SRC
 * Macros
-#+BEGIN_SRC emacs-lisp
-  (fset 'irc_emacs
-        (lambda (&optional arg) "Keyboard
-   macro." (interactive "p") (kmacro-exec-ring-item (quote ([134217848
-                                                             114 backspace 101 114 99 32 116 108 return return return
-                                                             return return 106 111 backspace backspace 47 106 111 105 110
-                                                             32 35 101 109 97 99 115 return 72 101 108 108 111 32 101 118
-                                                             101 114 121 111 110 101 33 return] 0 "%d")) arg)))
-#+END_SRC
-5 min tasks taken from all my agenda files.
+<2022-03-12 Št> 5 min tasks taken from all my agenda files.
 First open agenda, then list all the tasks, then click f9, then choose 5min.
 #+BEGIN_SRC emacs-lisp
 (fset '5minTasks
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([3 97 116 f9 61 50] 0 "%d")) arg)))
+#+END_SRC
+<2022-03-17 Kt> Macro for adding emacs-lisp code block called
+#+BEGIN_SRC emacs-lisp
+(fset 'hack
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([60 115 tab 101 109 97 99 115 45 108 105 115 112 14 3 39] 0 "%d")) arg)))
 #+END_SRC
 * TURNED OFF PACKAGES BELOW THIS LINE
 #+BEGIN_SRC emacs-lisp
