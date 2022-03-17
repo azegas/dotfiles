@@ -388,66 +388,69 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 58) C-h v kill-ring = Watch your kill ring
 59) C-x o m  = AVY swap windows
 60) M-i      = indent, cool
-61) M-x emacs-lisp-byte
--compile = after modifying emacs package file,
+61) M-x emacs-lisp-byte -compile = after modifying emacs package file,
     run this (while in the opened buffer) to save the changes. Helped
     with iedit.
-1) M-x eww  = EWW browser
-2) C-c C-o  = ORG open linka
-3) A        = ORG agenda append agenda view to buffer
-4) o        = ORG agenda delete other windows
-5) f1 v     = DESCRIBE VARIABLE - super useful. can look for all kind
-   of information. Like directories of plugins and so on... try it out.
-6) C-v      = scroll buffer down
-7) M-v      = scroll buffer up
-8) M-! nautilus . = open current dir in nautilus. oh yeah
-9) M-x clone-indirect-buffer = multiple views of same file
-10) M-o      = see council option
-11) M-x flyckeck-list-errors = a list of errors in the buffer
-12) C-c C-p p/d = TREEMACS add/remove project to a workspace
-13) M-x lsp-treemacs-symbols = show the structure of the file
-14) m-x lsp-find-references = show where the function is being used
-15) C-c C-d  = when in python doc = gives documentation of chosen topic
-16) C-c /    = sparse tree (org mode look up for things)
-17) M-x erc-tls = irc.libera.chat IRC chat!
-18) /join #emacs or #systemcrafters = IRC join channel
-19) /part    = IRC leave channel
-20) /quit bye all! = quit server
-21) /reconnect = reconnect to the server?
-22) /list    = IRC list channels
-23) /whois nick = IRC find out whoe the user is!!
-24) / query nick = IRC write someone a private message!! (new buffer opens
+62) M-x eww  = EWW browser
+63) C-c C-o  = ORG open linka
+64) A        = ORG agenda append agenda view to buffer
+65) o        = ORG agenda delete other windows
+66) f1 v     = DESCRIBE VARIABLE - super useful. can look for all kind
+    of information. Like directories of plugins and so on... try it out.
+67) C-v      = scroll buffer down
+68) M-v      = scroll buffer up
+69) M-! nautilus . = open current dir in nautilus. oh yeah
+70) M-x clone-indirect-buffer = multiple views of same file
+71) M-o      = see council option
+72) M-x flyckeck-list-errors = a list of errors in the buffer
+73) C-c C-p p/d = TREEMACS add/remove project to a workspace
+74) M-x lsp-treemacs-symbols = show the structure of the file
+75) m-x lsp-find-references = show where the function is being used
+76) C-c C-d  = when in python doc = gives documentation of chosen topic
+77) C-c /    = sparse tree (org mode look up for things)
+78) M-x erc-tls = irc.libera.chat IRC chat!
+79) /join #emacs or #systemcrafters = IRC join channel
+80) /part    = IRC leave channel
+81) /quit bye all! = quit server
+82) /reconnect = reconnect to the server?
+83) /list    = IRC list channels
+84) /whois nick = IRC find out whoe the user is!!
+85) / query nick = IRC write someone a private message!! (new buffer opens
     up)
-25) /msg nick Hello there = IRC sends a one time message
-26) /nick newname = IRC change nickname
-27) C-c '    = edit [[https://orgmode.org/manual/Editing-Source-Code.html][code block]] in a separate window (proper
+86) /msg nick Hello there = IRC sends a one time message
+87) /nick newname = IRC change nickname
+88) C-c '    = edit [[https://orgmode.org/manual/Editing-Source-Code.html][code block]] in a separate window (proper
     indentation and all)
-28) C-c C-x ; = TIMER start
-29) C-c C-x , = TIMER pause/continue
-30) C-c C-x _ = TIMER stop
-31) C-> = multiple cursors - mark next line like this
-32) C-< = multiple cursors - mark previous line like this
-33) C-c C-< = multiple cursors - mark all like this
-34) M-x customize group - customize some stuff
-35) M-x ielm RET package-archives RET = gives some values out
-36) C-c '   = edit source code buffer (useful when need code
+89) C-c C-x ; = TIMER start
+90) C-c C-x , = TIMER pause/continue
+91) C-c C-x _ = TIMER stop
+92) C-> = multiple cursors - mark next line like this
+93) C-< = multiple cursors - mark previous line like this
+94) C-c C-< = multiple cursors - mark all like this
+95) M-x customize group - customize some stuff
+96) M-x ielm RET package-archives RET = gives some values out
+97) C-c '   = edit source code buffer (useful when need code
     completion when editint a src code in ORG file)
-37) g-o     = DIRED view buffer(or view in another window)
-38) a       = DIRED - cycle through directories and open files (leaves
+98) g-o     = DIRED view buffer(or view in another window)
+99) a       = DIRED - cycle through directories and open files (leaves
     no traces(open buffers))
-39) R       = DIRED rename file
-40) +       = DIRED create directory
-41) m      = DIRED mark file
-42) u/U      = DIRED un mark file/s
-43) (      = DIRED close/open information
-44) t      = DIRED invert marked file selection
-45) % m    = DIRED mark all files according to your needs fx. .org \.org$
-46) *      = DIRED more options
-47) c      = DIRED copy marked files
-48) D      = DIRED delete marked files
-49) d      = DIRED mark files for deletion
-50) x      = DIRED execute the deletion
-51) M-[    = goto last change(previous)
-52) M-]    = goto last change reverse(next)
-53) C-a C  = configure org agenda (the simple way)
-54) C-'    = cycle through agenda files
+100) R       = DIRED rename file
+101) +       = DIRED create directory
+102) m      = DIRED mark file
+103) u/U      = DIRED un mark file/s
+104) (      = DIRED close/open information
+105) t      = DIRED invert marked file selection
+106) % m    = DIRED mark all files according to your needs fx. .org \.org$
+107) *      = DIRED more options
+108) c      = DIRED copy marked files
+109) D      = DIRED delete marked files
+110) d      = DIRED mark files for deletion
+111) x      = DIRED execute the deletion
+112) M-[    = goto last change(previous)
+113) M-]    = goto last change reverse(next)
+114) C-a C  = configure org agenda (the simple way)
+115) C-'    = cycle through agenda files
+116) emacs -q test.el foo.org = debug lisp code this way
+117) C-D    = PYTHON mode - PY DOCS
+118) *buffer name* = creates a buffer
+119) M-x highlight-regexp = highlight search results
