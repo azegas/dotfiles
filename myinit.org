@@ -806,6 +806,18 @@ runserver. Works like a charm and stays in the background.
   ;; full screen - (define-key map (kbd "C-c C-e C-f") 'fast-eshell-pop)
   ;; bottom buffer -  (define-key map (kbd "C-c C-e C-e") 'eshell-pop-toggle)
 #+END_SRC
+** MiniMap
+<2022-03-18 Pn> «[[https://github.com/dengste/minimap][Minimap]] is a feature provided by the Sublime editor. It shows a
+smaller, “minibar”, display of the current buffer alongside the main
+editing window.»
+#+BEGIN_SRC emacs-lisp
+  (use-package minimap
+     :ensure t
+     :config ;; executed after loading package
+    (setq minimap-window-location 'right)
+     (global-set-key (kbd "S-<f10>") 'minimap-mode)
+  )
+#+END_SRC
 * Web stuff
 ** Emmet mode
 "Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
