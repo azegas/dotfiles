@@ -19,7 +19,8 @@ Build interface to look how I want it to look
   (toggle-scroll-bar -1)
   (fset 'yes-or-no-p 'y-or-n-p)
   (setq visible-bell t)
-  (blink-cursor-mode 0)
+  (blink-cursor-mode t)
+  (set-cursor-color "IndianRed")
   (global-hl-line-mode 1)
   (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
   ;; (load-theme 'default-black t)
@@ -327,7 +328,9 @@ INSTALLS : fill-column-indicator
 m-x fci-mode
 #+BEGIN_SRC emacs-lisp
   ;; (use-package fill-column-indicator
-  ;;   :ensure t)
+  ;;   :ensure t
+  ;;   :disabled t
+  ;;   )
 
   ;; (setq fci-rule-width 1)
   ;; (setq fci-rule-column 80)
@@ -340,24 +343,25 @@ m-x fci-mode
 sidebar filetree. Toggle on/off with F8.
 #+BEGIN_SRC emacs-lisp
   ;; (use-package neotree
-  ;; :ensure t
-  ;; :init
-  ;; (setq neo-smart-open t
-  ;; 	 neo-autorefresh t
-  ;; 	 neo-force-change-root t)
-  ;; 	 (setq neo-theme (if (display-graphic-p) 'icons global))
-  ;; 	 (setq neo-window-width 35)
-  ;; 	 (global-set-key [f8] 'neotree-toggle))
+  ;;   :ensure t
+  ;;   :disabled t
+  ;;   :init
+  ;;   (setq neo-smart-open t
+  ;;         neo-autorefresh t
+  ;;         neo-force-change-root t)
+  ;;   (setq neo-theme (if (display-graphic-p) 'icons global))
+  ;;   (setq neo-window-width 35)
+  ;;   (global-set-key [f8] 'neotree-toggle))
 
-  ;; Launch neotree when opening emacs. First launch, then switch to another window.
-    ;; (defun neotree-startup ()
-    ;;   (interactive)
-    ;;   (neotree-show)
-    ;;   (call-interactively 'other-window))
+  ;; ;; Launch neotree when opening emacs. First launch, then switch to another window.
+  ;; (defun neotree-startup ()
+  ;;   (interactive)
+  ;;   (neotree-show)
+  ;;   (call-interactively 'other-window))
 
-    ;; (if (daemonp)
-    ;;     (add-hook 'server-switch-hook #'neotree-startup)
-    ;;     (add-hook 'after-init-hook #'neotree-startup))
+  ;; (if (daemonp)
+  ;;     (add-hook 'server-switch-hook #'neotree-startup)
+  ;;   (add-hook 'after-init-hook #'neotree-startup))
 #+END_SRC
 
 ** Doom themes
@@ -374,43 +378,6 @@ More about doom themes [[https://github.com/doomemacs/themes][here]].
       (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
             doom-themes-enable-italic t) ; if nil, italics is universally disabled
       (load-theme 'doom-palenight t))
-#+END_SRC
-** Doom-modeline
-"Doom-modeline" converts a basic looking, all cramped modeline into a
-nice and clean one with only the necessary info and icons
-displayed. So far so good, liking it.
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :init
-    (setq doom-modeline-env-enable-python t)
-    (setq doom-modeline-env-enable-go nil)
-    (setq doom-modeline-buffer-encoding 'nondefault)
-    (setq doom-modeline-hud t)
-    (setq doom-modeline-persp-icon nil)
-    (setq doom-modeline-persp-name nil)
-    :config
-    (setq doom-modeline-minor-modes nil)
-    (setq doom-modeline-buffer-state-icon nil)
-    (doom-modeline-mode 1)
-    :custom
-    (doom-modeline-irc t))
-
-  ;; active/inactive modeline colors? in other themes than doom I guess.
-
-  ;; (set-face-attribute 'mode-line nil
-  ;;                     :background "#353644"
-  ;;                     :foreground "white"
-  ;;                     :box '(:line-width 2 :color "#353644")
-  ;;                     :overline nil
-  ;;                     :underline nil)
-
-  ;; (set-face-attribute 'mode-line-inactive nil
-  ;;                     :background "#565063"
-  ;;                     :foreground "white"
-  ;;                     :box '(:line-width 2 :color "#565063")
-  ;;                     :overline nil
-  ;;                     :underline nil)
 #+END_SRC
 ** All the icons
 "All the icons" - icons visible on buffer window as well as sidebar
@@ -480,6 +447,86 @@ Its just too strange, turning off.
   ;;   (my/use-doom-colors
   ;;    (auto-dim-other-buffers-face
   ;;     :background (color-darken-name (doom-color 'bg) 3))))
+#+END_SRC
+** Modelines
+*** Nyan-mode
+<2022-03-18 Pn> [[https://github.com/TeMPOraL/nyan-mode/][Nyan Mode]] is an analog indicator of your position in the buffer. The
+Cat should go from left to right in your mode-line, as you move your
+point from 0% to 100%.
+
+If you do find Nyan too childish, [[https://github.com/jdtsmith/mlscroll][mlscroll]] is an interactive neutral alternative.
+#+BEGIN_SRC emacs-lisp
+  (use-package nyan-mode
+    :ensure t
+    :config
+    (setq nyan-bar-length 15)
+    (nyan-mode t)
+    )
+#+END_SRC
+
+*** Doom-modeline
+<2022-03-18 Pn> so far There is nothing better and cleaner than -
+"Doom-modeline". It converts a basic looking, all cramped modeline into a
+nice and clean one with only the necessary info and icons displayed.
+So far so good, liking it.
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    ;; :disabled t
+    :init
+    (setq doom-modeline-env-enable-python t)
+    (setq doom-modeline-env-enable-go nil)
+    (setq doom-modeline-buffer-encoding 'nondefault)
+    (setq doom-modeline-hud t)
+    (setq doom-modeline-persp-icon nil)
+    (setq doom-modeline-persp-name nil)
+    :config
+    (setq doom-modeline-minor-modes nil)
+    (setq doom-modeline-buffer-state-icon nil)
+    (doom-modeline-mode 1)
+    :custom
+    (doom-modeline-irc t))
+
+  ;; active/inactive modeline colors? in other themes than doom I guess.
+
+  ;; (set-face-attribute 'mode-line nil
+  ;;                     :background "#353644"
+  ;;                     :foreground "white"
+  ;;                     :box '(:line-width 2 :color "#353644")
+  ;;                     :noverline nil
+  ;;                     :underline nil)
+
+  ;; (set-face-attribute 'mode-line-inactive nil
+  ;;                     :background "#565063"
+  ;;                     :foreground "white"
+  ;;                     :box '(:line-width 2 :color "#565063")
+  ;;                     :overline nil
+  ;;                     :underline nil)
+#+END_SRC
+*** Telephone-line
+<2022-03-18 Pn> Tried this package because nyan cat thingy didn't fit
+in doom-modeline. Will try to keep it for now.
+#+BEGIN_SRC emacs-lisp
+  (use-package telephone-line
+    :ensure t
+    :disabled t
+    :config
+    (telephone-line-mode 1))
+#+END_SRC
+
+*** Powerline
+#+BEGIN_SRC emacs-lisp
+  (use-package powerline
+    :ensure t
+    :disabled t)
+#+END_SRC
+*** Spaceline
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline-all-the-icons
+    :disabled t
+    :ensure t
+    :after spaceline
+    :config (spaceline-all-the-icons-theme))
 #+END_SRC
 * Window management
 ** Saveplace
@@ -555,7 +602,6 @@ Spell checking
   ;; (global-set-key (kbd "C-4") 'flyspell-buffer)
   (global-set-key (kbd "<f5>") 'flyspell-mode)
 #+END_SRC
-
 ** Ws-butler
 "Ws-butler" - whitespace butler - clean up whitespace automatically on
 saving buffer.
@@ -631,6 +677,40 @@ Installs: frame-local, company-box
   ;;   :after (company)
   ;;   :hook (company-mode . company-box-mode))
 #+END_SRC
+** My-comment-box
+<2022-03-18 Pn> I got this code from pragmaticemacs:
+#+BEGIN_SRC emacs-lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; example:                                                                ;;
+  ;; from http://irreal.org/blog/?p=374                                      ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun my-comment-box (b e)
+  "Draw a box comment around the region but arrange for the region to extend to at least the fill column. Place the point after the comment box."
+
+  (interactive "r")
+
+  (let ((e (copy-marker e t)))
+    (goto-char b)
+    (end-of-line)
+    (insert-char ?  (- fill-column (current-column)))
+    (comment-box b e 1)
+    (goto-char e)
+    (set-marker e nil)))
+#+END_SRC
+** Browse-kill-ring
+<2022-03-18 Pn> Are you tired of using the endless keystrokes of C-y M-y M-y M-y … to
+get at that bit of text you killed thirty-seven kills ago? Ever wish
+you could just look through everything you’ve killed recently to find
+out if you killed that piece of text that you think you killed, but
+you’re not quite sure? If so, then browse-kill-ring is the Emacs
+extension for you.
+#+BEGIN_SRC emacs-lisp
+  (use-package browse-kill-ring
+    :ensure t
+    :config
+    (browse-kill-ring-default-keybindings); map M-y to browse-kill-ring
+    )
+#+END_SRC
 * Programming
 ** Elpy
 TUT: "Elpy" - various python modes for easier python
@@ -675,6 +755,9 @@ INSTALLS: yasnippet, pyenv, hightlight-indentation, elpy
   ;; :bind (("M-." . elpy-goto-definition)))
   (setq elpy-rpc-virtualenv-path 'current)
   (set-language-environment "UTF-8")
+
+  ;; <2022-03-18 Pn> Turned it off, doesn't look nice
+  (add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 
   ;; (use-package elpy
   ;;   :init
@@ -728,7 +811,7 @@ No nee, use the regular macro.
   ;;  '(define-key elpy-mode-map (kbd "C-c <C-return>") 'my-python-line))
 #+END_SRC
 
-** OFF - Diff Highlight
+** Diff Highlight
 https://github.com/dgutov/diff-hl
 #+BEGIN_SRC emacs-lisp
     (use-package diff-hl
@@ -787,7 +870,7 @@ You can also create your own snippet... possibly even for .org files.
     :mode "\\.csv\\'")
 #+END_SRC
 ** Terminal pop
-2022-03-16 [[https://github.com/stanhe/pop-eshell][This]] is the source code. Git clone to .emacsd/elpa then add the config
+<2022-03-16 Tr> [[https://github.com/stanhe/pop-eshell][This]] is the source code. Git clone to .emacsd/elpa then add the config
 you see below. With a shortcut of C-c C-e C-e I can now invoke an
 eshell buffer at the bottom at the screen. Click the shortcut once
 more and it will close. Super convenient!
@@ -901,83 +984,107 @@ Click M-o while in C-x C-xf or M-o to get a lot of options!
 ** Agenda
 [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][Amazing explanation here]]
 Best org agenda tutorial/explanation - [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][here]]
+
 Various org-agenda configurations
+
+M-x org-agenda-file-list. Go there and click "save the changes"
+MANUALLY to save to init.el. Otherwise, emacs wont read it on
+every boot.  Write all org-agenda-files ONCE, do the procedure
+described in the line above and forget about it. Refiling will
+work, agenda will work.  if your org agenda files are not there,
+do C-c C-e on the parentheses below. Evaluate them.
 #+BEGIN_SRC emacs-lisp
-  ;; M-x org-agenda-file-list. Go there and click "save the changes"
-  ;; MANUALLY to save to init.el. Otherwise, emacs wont read it on
-  ;; every boot.  Write all org-agenda-files ONCE, do the procedure
-  ;; described in the line above and forget about it. Refiling will
-  ;; work, agenda will work.  if your org agenda files are not there,
-  ;; do C-c C-e on the parentheses below. Evaluate them.
   (setq org-agenda-files '("~/Dropbox/documents/org/"))
-  ;; Use year/month/day
-  ;; (setq calendar-date-style 'iso)
-  ;; Stop preparing agenda buffers on startup
-  (setq org-agenda-inhibit-startup t)
-  ;; when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
-  ;; C-c C-z - tiesiog make note under a heading
-  ;; to log into drawer with c-c c-z, reikia:
-  ;; m-x customise-variable RET org-log-into-drawer - select LOGBOOK save and apply.
-  (setq org-log-into-drawer "LOGBOOK")
-  ;; No need to have two places to make notes. "clock" and "Logbook"
-  ;; Put clock and logbook notes into one
+#+END_SRC
+when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
+C-c C-z - tiesiog make note under a heading
+to log into drawer with c-c c-z, reikia:
+m-x customise-variable RET org-log-into-drawer - select LOGBOOK save
+and apply.
+#+BEGIN_SRC emacs-lisp
+    (setq org-log-into-drawer "LOGBOOK")
+#+END_SRC
+No need to have two places to make notes. "clock" and "Logbook"
+Put clock and logbook notes into one
+#+BEGIN_SRC emacs-lisp
   (setq org-clock-into-drawer "LOGBOOK")
-  ;; shortcut for opening agenda view
+#+END_SRC
+shortcut for opening agenda view
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c a") 'org-agenda)
-  ;; hide any scheduled tasks that are already completed.
-  ;; if I hide, i will forget to archive them.. not good
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-restore-windows-after-quit t)
-  ;; (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
-  ;; https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
-  ;; sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
-  ;; (setq org-refile-targets '(("~/Dropbox/documents/org/gtd.org" :maxlevel . 1)
-  ;;                            ("~/Dropbox/documents/org/someday.org" :level . 1)
-  ;;                            ("~/Dropbox/documents/org/tickler.org" :maxlevel . 1)))
-  ;; quite nice, asks you to write a closing note for a task when it's marked as DONE
+#+END_SRC
+hide any scheduled tasks that are already completed.
+if I hide, i will forget to archive them.. not good
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-restore-windows-after-quit t)
+#+END_SRC
+(setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
+https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
+sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+#+END_SRC
+quite nice, asks you to write a closing note for a task when it's
+marked as DONE
+#+BEGIN_SRC emacs-lisp
   (setq org-log-done 'note)
-  ;; This shortcut exists and works already in org files, but I made it
-  ;; available from any buffer!! Useful when editing other type of files
-  ;; and want to jump to your clocked task. Otherwise would have to open
-  ;; agenda first and only then org-clock-goto.
-  ;; C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
+#+END_SRC
+This shortcut exists and works already in org files, but I made it
+available from any buffer!! Useful when editing other type of files
+and want to jump to your clocked task. Otherwise would have to open
+agenda first and only then org-clock-goto.
+C-h k - and writing C-c C-x C-j was very useful. Got name of the key.
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
-  ;; heading indentation
-  ;; do M-x revert-buffer if the changes doesn't appear. Should indent then
+#+END_SRC
+heading indentation
+do M-x revert-buffer if the changes doesn't appear. Should indent then
+#+BEGIN_SRC emacs-lisp
   (setq org-startup-indented t)
-  ;; RET to follow links
+#+END_SRC
+RET to follow links
+#+BEGIN_SRC emacs-lisp
   (setq org-return-follows-link t)
-  ;; Prevent setting "done" on he heading if subheadings are not completed
+#+END_SRC
+Prevent setting "done" on he heading if subheadings are not completed
+#+BEGIN_SRC emacs-lisp
   (setq org-enforce-todo-dependencies t)
-  ;; Prefix tasks with parent heading Instead of showing the filename
-  ;; where the task resides, I show the first characters of the parent
-  ;; heading. That way I can use short and generic task names and still
-  ;; understand it in the agenda. No need to repeat the context in the
-  ;; task name anymore.
+#+END_SRC
+Prefix tasks with parent heading Instead of showing the filename
+where the task resides, I show the first characters of the parent
+heading. That way I can use short and generic task names and still
+understand it in the agenda. No need to repeat the context in the
+task name anymore.
+#+BEGIN_SRC emacs-lisp
   (defun getlasthead ()
-  (let ((x (nth 0 (last (org-get-outline-path)))))
-  (if x
-  (if (> (string-width x) 15)
-  (concat "[" (org-format-outline-path (list (substring x 0 15))) "]")
-  (concat "[" (org-format-outline-path (list x)) "]"))
-  "")))
+    (let ((x (nth 0 (last (org-get-outline-path)))))
+      (if x
+          (if (> (string-width x) 15)
+              (concat "[" (org-format-outline-path (list (substring x 0 15))) "]")
+            (concat "[" (org-format-outline-path (list x)) "]"))
+        "")))
   (setq org-agenda-prefix-format " %i %-20(getlasthead)%?-15t% s ")
-  ;; keywords for org mode
-  (setq org-todo-keywords
-  (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
-
-  ;; When clocking in, change the state to "in progress", then when clocking out change state to "waiting".
-      (setq org-clock-in-switch-to-state "IN-PROGRESS")
-      (setq org-clock-out-switch-to-state "WAITING")
-
-      ;; to see all the emacs predifined colors - M-x list-colors-display
-      (setq org-todo-keyword-faces
-               (quote (("TODO" :foreground "IndianRed1" :weight bold)
-                       ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
-                       ("IN-PROGRESS" :foreground "gold1" :weight bold)
-                       ("DONE" :foreground "forest green" :weight bold))))
    #+END_SRC
+keywords for org mode
+#+BEGIN_SRC emacs-lisp
+    (setq org-todo-keywords
+          (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
+#+END_SRC
+When clocking in, change the state to "in progress", then when
+clocking out change state to "waiting".
+#+BEGIN_SRC emacs-lisp
+(setq org-clock-in-switch-to-state "IN-PROGRESS")
+(setq org-clock-out-switch-to-state "WAITING")
+#+END_SRC
+to see all the emacs predifined colors - M-x list-colors-display
+#+BEGIN_SRC emacs-lisp
+    (setq org-todo-keyword-faces
+          (quote (("TODO" :foreground "IndianRed1" :weight bold)
+                  ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
+                  ("IN-PROGRESS" :foreground "gold1" :weight bold)
+                  ("DONE" :foreground "forest green" :weight bold))))
+#+END_SRC
 Bieber agenda
 #+BEGIN_SRC emacs-lisp
   ;; ;; dont show habit tasks in "all todos" list.
@@ -1016,15 +1123,15 @@ Bieber agenda
 My personal agenda
 #+BEGIN_SRC emacs-lisp
   ;; Show agenda + started tasks with "waiting" label
-        (setq org-agenda-custom-commands
-              '(("a" "Daily agenda and all TODOs"
-                 ((agenda "" ((org-agenda-span 2)))
-                 (tags-todo "/+WAITING"
-                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                         (org-agenda-overriding-header "Started tasks:")))
-                 (tags-todo "/+NEXT"
-                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                         (org-agenda-overriding-header "NEXT actions:")))))))
+  (setq org-agenda-custom-commands
+        '(("a" "Daily agenda and all TODOs"
+           ((agenda "" ((org-agenda-span 2)))
+            (tags-todo "/+WAITING"
+                       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                        (org-agenda-overriding-header "Started tasks:")))
+            (tags-todo "/+NEXT"
+                       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                        (org-agenda-overriding-header "NEXT actions:")))))))
 
   ;; ;; Show completed tasks
   ;;   (add-to-list 'org-agenda-custom-commands
@@ -1034,6 +1141,14 @@ My personal agenda
   ;;                   (org-agenda-start-with-log-mode '(closed))
   ;;                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "^\\*\\* DONE ")))))
   ;; (org-agenda-archives-mode t)
+#+END_SRC
+Always highlight the current agenda line:
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
+#+END_SRC
+Stop preparing agenda buffers on startup
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-inhibit-startup t)
 #+END_SRC
 ** Org habit
 [[https://orgmode.org/manual/Repeated-tasks.html][Docs of Repeated tasks]]
@@ -1103,7 +1218,7 @@ My personal agenda
                                 ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/inbox.org" "Inbox") "* TODO %?\n%^{Effort}p")
                                 ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/tickler.org" "Tickler") "* %? \n%^{SCHEDULED}p")
                                 ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
-                                ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/smuti_fruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+                                ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/smuti_fruti.org" "Smuti_Fruti") "* TODO %?\n%^{Effort}p")
                                 ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/facebook.org" "Facebook") "* TODO %?\n%^{Effort}p")
                                 ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/references/diary.org" "Diary") "* %U %^{Title}\n%?")))
 
@@ -1385,6 +1500,86 @@ First open agenda, then list all the tasks, then click f9, then choose 5min.
 #+BEGIN_SRC emacs-lisp
 (fset 'hack
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([60 115 tab 101 109 97 99 115 45 108 105 115 112 14 3 39] 0 "%d")) arg)))
+#+END_SRC
+<2022-03-19 Št> Open nautilus
+#+BEGIN_SRC emacs-lisp
+(fset 'nautilus
+   [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s return])
+  (global-set-key [f1] 'nautilus)
+#+END_SRC
+<2022-03-19 Št> Open nautilus current buffer
+#+BEGIN_SRC emacs-lisp
+(fset 'nautilus_current
+   [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s ?  ?. return])
+  (global-set-key [f2] 'nautilus_current)
+#+END_SRC
+* Examples
+
+Here are some examples for future reference:
+
+A very simple example for installing a package via package management
+and ensure it is installed when Emacs launches:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package dumb-jump
+  :ensure t
+  :defer 110
+)
+#+END_SRC
+
+An example of loading a /local/ package (not from Melpa or other
+package service):
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package define-word
+   :if (my-system-type-is-gnu)
+   :load-path  (lambda () (expand-file-name (concat my-user-emacs-directory "contrib/mypackage/")))
+   :after org
+)
+#+END_SRC
+
+Key binding example from [[https://github.com/jwiegley/use-package#key-binding][docu]]:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package helm
+  :bind (("M-x" . helm-M-x)
+         ("M-<f5>" . helm-find-files)
+         ([f10] . helm-buffers-list)
+         ([S-f10] . helm-recentf)))
+#+END_SRC
+
+more keybinding examples:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  :bind (:map my-map ("SPC" . yankpad-insert))
+
+  :bind (("M-f" . sp-forward-sexp)
+         ("M-b" . sp-backward-sexp)
+         )
+
+OR:
+
+(bind-keys :map pdf-view-mode-map
+        ("f9" . hydra-pdftools/body)
+        ("<s-spc>" .  pdf-view-scroll-down-or-next-page)
+        ("g"  . pdf-view-first-page)
+        ("G"  . pdf-view-last-page)
+        ("l"  . image-forward-hscroll)
+        ("h"  . image-backward-hscroll)
+        ("j"  . pdf-view-next-page)
+        ("k"  . pdf-view-previous-page)
+        ("e"  . pdf-view-goto-page)
+        ("u"  . pdf-view-revert-buffer)
+        ("al" . pdf-annot-list-annotations)
+        ("ad" . pdf-annot-delete)
+        ("aa" . pdf-annot-attachment-dired)
+        ("am" . pdf-annot-add-markup-annotation)
+        ("at" . pdf-annot-add-text-annotation)
+        ("y"  . pdf-view-kill-ring-save)
+        ("i"  . pdf-misc-display-metadata)
+        ("s"  . pdf-occur)
+        ("b"  . pdf-view-set-slice-from-bounding-box)
+        ("r"  . pdf-view-reset-slice))
 #+END_SRC
 * TURNED OFF PACKAGES BELOW THIS LINE
 #+BEGIN_SRC emacs-lisp
