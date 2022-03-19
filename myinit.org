@@ -270,6 +270,20 @@ INSTALLS: elisp-refs, helpful
   ;; (global-set-key (kbd "C-h v") #'helpful-variable)
   ;; (global-set-key (kbd "C-h k") #'helpful-key)
 #+END_SRC
+** keyfreq
+<2022-03-18 Pn> It logs the used commands and their keyboard shortcuts and gives you
+an overview. Most frequently used commands should be mapped to easy to
+type shortcuts.
+
+You can see the current result by calling keyfreq-show.
+#+BEGIN_SRC emacs-lisp
+  (use-package keyfreq
+  :ensure t
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
+  )
+#+END_SRC
 * Appearance
 ** Dashboard
 <2022-03-17 Kt> Following [[https://www.youtube.com/watch?v=SfyJtenKd2A&t=505s][this]] video.
