@@ -1184,6 +1184,17 @@ possible to archive like so:
                                   ))
 #+END_SRC
 
+* Elfeed
+<2022-03-18 Pn> [[https://github.com/skeeto/elfeed][Elfeed]] is an extensible web feed reader for Emacs,
+supporting both Atom and RSS.
+#+BEGIN_SRC emacs-lisp
+  (use-package elfeed
+    :ensure t)
+  (setq elfeed-feeds
+        '("http://nullprogram.com/feed/"
+          "https://lukesmith.xyz/rss.xml"
+          "https://planet.emacslife.com/atom.xml"))
+#+END_SRC
 * Jumping around
 ** Undo-tree
 "Undo tree" lets me to return to the file stage before any
