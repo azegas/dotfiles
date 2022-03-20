@@ -711,6 +711,14 @@ extension for you.
     (browse-kill-ring-default-keybindings); map M-y to browse-kill-ring
     )
 #+END_SRC
+** Move-lines
+#+BEGIN_SRC emacs-lisp
+  (use-package move-text
+    :ensure t
+    :config
+    (move-text-default-bindings))
+#+END_SRC
+#+END_SRC
 * Programming
 ** Elpy
 TUT: "Elpy" - various python modes for easier python
