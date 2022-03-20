@@ -1518,6 +1518,18 @@ First open agenda, then list all the tasks, then click f9, then choose 5min.
 (fset 'hack
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([60 115 tab 101 109 97 99 115 45 108 105 115 112 14 3 39] 0 "%d")) arg)))
 #+END_SRC
+<2022-03-19 Št> Open nautilus
+#+BEGIN_SRC emacs-lisp
+(fset 'nautilus
+   [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s return])
+  (global-set-key [f1] 'nautilus)
+#+END_SRC
+<2022-03-19 Št> Open nautilus current buffer
+#+BEGIN_SRC emacs-lisp
+(fset 'nautilus_current
+   [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s ?  ?. return])
+  (global-set-key [f2] 'nautilus_current)
+#+END_SRC
 * Examples
 
 Here are some examples for future reference:
