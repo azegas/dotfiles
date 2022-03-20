@@ -972,6 +972,11 @@ REQUIRES: sudo apt install npm, sudo apt install -g prettier
     :ensure t
     :hook ((mhtml-mode css-mode scss-mode rjsx-mode js2-mode web-mode ) . prettier-mode))
 #+END_SRC
+** Lorem ipsum
+#+BEGIN_SRC emacs-lisp
+  (use-package lorem-ipsum
+    :ensure t)
+#+END_SRC
 * Counsel
 Click M-o while in C-x C-xf or M-o to get a lot of options!
 #+begin_src emacs-lisp
