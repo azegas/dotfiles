@@ -222,7 +222,7 @@ aggressively.
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+END_SRC
 ** Which-key
-A package that displays the available keybindings in a popup. The
+<2021-07-01> A package that displays the available keybindings in a popup. The
 package is pretty useful, as Emacs seems to have more keybindings than
 I can remember at any given point.
 
@@ -241,7 +241,7 @@ References:
 #+END_SRC
 
 ** Try
-Try is a package that allows you to try out Emacs packages without
+<2022-03-01 An> Try is a package that allows you to try out Emacs packages without
 installing them. If you pass a URL to a plain text .el-file it
 evaluates the content, without storing the file.
 #+BEGIN_SRC emacs-lisp
@@ -250,7 +250,7 @@ evaluates the content, without storing the file.
 #+END_SRC
 
 ** helpful
-Improves *help* buffer. Way more info than with regular help.
+<2022-03-15 An> Improves *help* buffer. Way more info than with regular help.
 INSTALLS: elisp-refs, helpful
 #+BEGIN_SRC emacs-lisp
   (use-package helpful
@@ -339,7 +339,7 @@ m-x fci-mode
   ;; (add-hook 'prog-mode-hook #'fci-mode)
 #+END_SRC
 ** Neotree
-"Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a
+<2021-07-01> "Neotree" - A Emacs tree plugin like NerdTree for Vim. Basically a
 sidebar filetree. Toggle on/off with F8.
 #+BEGIN_SRC emacs-lisp
   ;; (use-package neotree
@@ -380,7 +380,7 @@ More about doom themes [[https://github.com/doomemacs/themes][here]].
       (load-theme 'doom-palenight t))
 #+END_SRC
 ** All the icons
-"All the icons" - icons visible on buffer window as well as sidebar
+<2022-03-17 Kt> "All the icons" - icons visible on buffer window as well as sidebar
 filetree.  neveikia icons on fresh Linux os install? Prasau -
 [[https://github.com/seagle0128/all-the-icons-ivy-rich][paaiskinimas]].  Do M-x all-the-icons-install-fonts to install the
 necessary fonts.  Then check your ~/.local/share/fonts/ if the icons
@@ -392,7 +392,7 @@ appeared there or not.
 #+END_SRC
 
 ** Rainbow-delimiters
-rainbow-delimiters is useful in programming modes because it colorizes
+<2022-03-01 An> Rainbow-delimiters is useful in programming modes because it colorizes
 nested parentheses and brackets according to their nesting depth. This
 makes it a lot easier to visually match parentheses in Emacs Lisp code
 without having to count them yourself.
@@ -402,7 +402,7 @@ without having to count them yourself.
   :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
 ** Volatile Highlights
-"Volatile highlights" - temporarily highlight changes from pasting
+<2022-03-01 An> "Volatile highlights" - temporarily highlight changes from pasting
 etc.
 #+BEGIN_SRC emacs-lisp
 (use-package volatile-highlights
@@ -411,8 +411,8 @@ etc.
   (volatile-highlights-mode t))
 #+END_SRC
 
-** Beacon
-"Beacon" - never lose your cursor again. Flashes the cursor location when switching buffers.
+**p Beacon
+<2021-07-01> "Beacon" - never lose your cursor again. Flashes the cursor location when switching buffers.
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
   :ensure t
@@ -530,7 +530,7 @@ in doom-modeline. Will try to keep it for now.
 #+END_SRC
 * Window management
 ** Saveplace
-"Saveplace" remembers your location in a file when saving files
+<2021-07-01> "Saveplace" remembers your location in a file when saving files
 #+BEGIN_SRC emacs-lisp
 (use-package saveplace
   :ensure t
@@ -541,14 +541,14 @@ in doom-modeline. Will try to keep it for now.
 #+END_SRC
 
 ** Winner mode
-Winner Mode is a global minor mode. When activated, it allows you to
+<2021-07-01> Winner Mode is a global minor mode. When activated, it allows you to
 “undo” (and “redo”) changes in the window configuration with the key
 commands C-c left and C-c right.
 #+BEGIN_SRC emacs-lisp
  (winner-mode +1)
 #+END_SRC
 ** Ace windows
-"Ace windows" helps me to switch windows easily. Main keybind - C-x o
+<2021-07-01> "Ace windows" helps me to switch windows easily. Main keybind - C-x o
 and then the commands that follow below.
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
@@ -578,7 +578,7 @@ and then the commands that follow below.
 #+END_SRC
 * Writing
 ** Flycheck
-"Flycheck" uses various syntax checking and linting tools to
+<2021-07-01> "Flycheck" uses various syntax checking and linting tools to
 automatically check the contents of buffers while you type, and
 reports warnings and errors directly in the buffer. Or in the right
 corner if you use "Doom-modeline". Can click on the icon - shows all
@@ -603,7 +603,7 @@ Spell checking
   (global-set-key (kbd "<f5>") 'flyspell-mode)
 #+END_SRC
 ** Ws-butler
-"Ws-butler" - whitespace butler - clean up whitespace automatically on
+<2022-01-01 Št> "Ws-butler" - whitespace butler - clean up whitespace automatically on
 saving buffer.
 #+BEGIN_SRC emacs-lisp
 (use-package ws-butler
@@ -611,10 +611,9 @@ saving buffer.
   :config
   (ws-butler-global-mode t))
 #+END_SRC
-
 ** Multiple cursors
 [[http://emacsrocks.com/e13.html][wow]]
-
+<2022-01-01 Št>
 INSTALLS : multiple cursors
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
@@ -625,9 +624,8 @@ INSTALLS : multiple cursors
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+END_SRC
-
 ** Hungry delete
-"Hungry delete" - deletes all the whitespace when you hit backspace or
+<2022-01-01 Št> "Hungry delete" - deletes all the whitespace when you hit backspace or
 delete.
 #+BEGIN_SRC emacs-lisp
   (use-package hungry-delete
@@ -644,15 +642,16 @@ facebook auto posting
   :hook (after-init . global-emojify-mode))
 #+END_SRC
 ** Expand region
-"Expand region" allows me to select everything in between any kind of
+<2022-01-01 Št> "Expand region" allows me to select everything in between any kind of
 brackets by pressing C-=. The more I press it, the more it selects.
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
-    :bind ("C-=" . er/expand-region))
+    :bind ("C-=" . er/expand-region)
+    :config)
 #+END_SRC
 ** Company
-"Company" provides autosuggestion/completion in buffers (writing code,
+<2021-07-01> "Company" provides autosuggestion/completion in buffers (writing code,
 pathing to files, etc).  press <f1> to display the documentation for
 the selected candidate or C-w to see its source
 
@@ -712,6 +711,7 @@ extension for you.
     )
 #+END_SRC
 ** Move-lines
+<2022-03-20 Sk>
 #+BEGIN_SRC emacs-lisp
   (use-package move-text
     :ensure t
@@ -721,7 +721,7 @@ extension for you.
 #+END_SRC
 * Programming
 ** Elpy
-TUT: "Elpy" - various python modes for easier python
+<2022-02-20 Sk> TUT: "Elpy" - various python modes for easier python
 programming. Installs various other packages as well.  A few videos to
 help install elpy and
 customize.
@@ -820,7 +820,7 @@ No nee, use the regular macro.
 #+END_SRC
 
 ** Diff Highlight
-https://github.com/dgutov/diff-hl
+<2022-03-08 An> https://github.com/dgutov/diff-hl
 #+BEGIN_SRC emacs-lisp
     (use-package diff-hl
       :ensure t
@@ -838,7 +838,7 @@ https://github.com/dgutov/diff-hl
 #+END_SRC
 
 ** Magit
-"Magit" - can not imagine working with git without it. Instead of
+<2021-07-01> "Magit" - can not imagine working with git without it. Instead of
 writing full commands like: "git add ." and then "git commit -m 'bla
 blaa'" then "git push"... I can simply `C-x g` for a git status. Then
 `s` to do git add. And finally `C-c C-c` to invoke git commit and
@@ -857,7 +857,7 @@ Some notes:
          ("C-x C-g" . magit-status)))
 #+END_SRC
 ** Yasnippet
-"[[https://www.youtube.com/watch?v=YDuqSwyZvlY][Yasnippet]]" - expand to a switch statement with placeholders. Tab
+<2022-02-13 Sk> "[[https://www.youtube.com/watch?v=YDuqSwyZvlY][Yasnippet]]" - expand to a switch statement with placeholders. Tab
 between the placeholders & type actual values. like in [[https://www.youtube.com/watch?v=mflvdXKyA_g&list=PL-mFLc7R_MJdX0MxrqXEV4sM87hmVEkRw&index=2&t=67s][this]] video.
 I am kind of too new to programming to be using snippets, but its nice,
 keeping this plugin for now.  It installs kind of many
@@ -872,6 +872,7 @@ You can also create your own snippet... possibly even for .org files.
 #+END_SRC
 
 ** Csv mode
+<2022-03-13 Sk>
 #+BEGIN_SRC emacs-lisp
   (use-package csv-mode
     :ensure t
@@ -911,7 +912,7 @@ editing window.»
 #+END_SRC
 * Web stuff
 ** Emmet mode
-"Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
+<2021-07-01> "Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
 Cheat sheet - https://docs.emmet.io/cheat-sheet/
 note:
 SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
@@ -925,7 +926,7 @@ SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
            (sgml-mode . emmet-mode)))
 #+END_SRC
 ** Web-mode
-"Web mode" - Got it basically only for maching tags highlighting
+<2021-07-01> "Web mode" - Got it basically only for maching tags highlighting
 feature. I am sure it has wayyy more cool features. But more about
 those - later.
 INSTALLS: web-mode
@@ -947,7 +948,7 @@ INSTALLS: web-mode
 #+END_SRC
 
 ** Impatient mode
-"Impatient mode" lets you to have a browser window with LIVE HTML
+<2021-07-01> "Impatient mode" lets you to have a browser window with LIVE HTML
 preview. Add files by 'M-x httpd-start'. Then do `M-x
 impatient-mode` - on EACH and EVERY file (css, js and hmtl). And then
 go to this link http://localhost:8080/imp/
@@ -981,12 +982,13 @@ REQUIRES: sudo apt install npm, sudo apt install -g prettier
     :hook ((mhtml-mode css-mode scss-mode rjsx-mode js2-mode web-mode ) . prettier-mode))
 #+END_SRC
 ** Lorem ipsum
+<2022-03-20 Sk>
 #+BEGIN_SRC emacs-lisp
   (use-package lorem-ipsum
     :ensure t)
 #+END_SRC
 * Counsel
-Click M-o while in C-x C-xf or M-o to get a lot of options!
+<2021-07-01> Click M-o while in C-x C-xf or M-o to get a lot of options!
 #+begin_src emacs-lisp
      (use-package counsel
      :ensure t
@@ -1248,6 +1250,7 @@ possible to archive like so:
 #+archive: ::** Arvydas.dev ARCHIVED
 #+archive: ~/Dropbox/documents/org/references/archive.org::* From Blog
 ** Org-bullets
+<2021-07-01>
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure)
@@ -1282,6 +1285,7 @@ possible to archive like so:
     (define-key org-mode-map (kbd "C-c C-z") #'my/org-add-note))
 #+END_SRC
 * ERC
+<2022-03-10 Kt>
 #+BEGIN_SRC emacs-lisp
   (use-package erc
     :ensure t
@@ -1325,7 +1329,7 @@ supporting both Atom and RSS.
 #+END_SRC
 * Jumping around
 ** Undo-tree
-"Undo tree" lets me to return to the file stage before any
+<2021-07-01>"Undo tree" lets me to return to the file stage before any
 modifications were made. Keybind - C-x u.
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
@@ -1333,9 +1337,8 @@ modifications were made. Keybind - C-x u.
   :init
   (global-undo-tree-mode))
 #+END_SRC
-
 ** Rg
-"Rg" - rip grep. Helps to search for a term through many files. Super
+<2021-07-01> "Rg" - rip grep. Helps to search for a term through many files. Super
 useful when need to change something on many files.  Installation:
 Sudo apt install ripgrep M-x rg and search away Tut: nice video
 https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
@@ -1345,7 +1348,7 @@ https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
     :config)
 #+END_SRC
 ** Supersave
-"Supersave" autosaves buffers for me. I am kind of used to clicking
+<2021-07-01> "Supersave" autosaves buffers for me. I am kind of used to clicking
 C-x C-s all the time, but "Supersave" just makes sure that it saves
 all the buffers when I switch windows and so on. So if I ever want to
 close my emacs - I can be sure that all the buffers are saved.
@@ -1362,7 +1365,7 @@ close my emacs - I can be sure that all the buffers are saved.
 #+END_SRC
 
 ** Avy
-"Avy" lets me jump to to a specific letter or a word quickly. M-s and
+<2021-07-01> "Avy" lets me jump to to a specific letter or a word quickly. M-s and
 I can type a word, it will immeaditely jump to it on any opened and
 visible buffer.  See https://github.com/abo-abo/avy for more info.
   #+begin_src emacs-lisp
@@ -1376,7 +1379,7 @@ visible buffer.  See https://github.com/abo-abo/avy for more info.
   #+end_src
 
 ** Projectile
-"Projectile" allows me to have a list of my projects under one
+<2021-07-01> "Projectile" allows me to have a list of my projects under one
 pkeybind - C-c p p. I can then open a project and my working directory
 will remain to that project that I opened. With a shortcut C-c p f I
 can look thrugh ALL the files of that particular project
@@ -1391,7 +1394,7 @@ directory. Super useful, makes the buffers way tidier.
       (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 #+END_SRC
 ** Ivy
-"Ivy" is a generic completion mechanism for Emacs.
+<2021-07-01> "Ivy" is a generic completion mechanism for Emacs.
 C-c f, M-x basically. Other packages use it as well.
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
@@ -1413,7 +1416,7 @@ C-c f, M-x basically. Other packages use it as well.
 #+END_SRC
 
 ** Goto-chg
-Perfect! Can now cycle through the last changes in the buffer. Very
+<2022-02-24 Kt> Perfect! Can now cycle through the last changes in the buffer. Very
 useful when doing some C-s in the buffer and then want to come back to
 the last modified location. Great! If trying to use it in org file -
 doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
@@ -1424,7 +1427,7 @@ doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
 (global-set-key (kbd "M-]") 'goto-last-change-reverse)
 #+END_SRC
 ** Swiper
-"Swiper" - an Ivy-enhanced alternative to Isearch. Instead of regular
+<2021-07-01> "Swiper" - an Ivy-enhanced alternative to Isearch. Instead of regular
 C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
 #+BEGIN_SRC emacs-lisp
      (use-package swiper
@@ -1434,6 +1437,7 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
 #+END_SRC
 
 ** Dired
+<2022-03-11 Pn>
 #+BEGIN_SRC emacs-lisp
     (use-package dired
       :ensure nil                         ;no need for t, because dired is built in
@@ -1468,7 +1472,7 @@ C-s C-r. Relies on Ivy, but Ivy doens't rely on Swiper.
 #+END_SRC
 
 ** Diredfl
-Adding more colors to dired buffers
+<2022-03-11 Pn> Adding more colors to dired buffers
 #+BEGIN_SRC emacs-lisp
 (use-package diredfl
   :ensure t
@@ -1477,7 +1481,7 @@ Adding more colors to dired buffers
   (diredfl-global-mode 1))
 #+END_SRC
 ** Dired-subtree
-Dired-subtree is a package that enables managing Dired buffers in a
+<2022-03-11 Pn> Dired-subtree is a package that enables managing Dired buffers in a
 tree-like manner.
 INSTALLS: dired-hacks-utils, dired-subtree
 
@@ -1488,7 +1492,7 @@ kaybinding - 'i' to open dired folder as subtree
   :ensure t)
 #+END_SRC
 ** Dired-git-info
-[[https://github.com/clemera/dired-git-info][dired-git-info]]. This Emacs packages provides a minor mode which shows
+<2022-03-11 Pn> [[https://github.com/clemera/dired-git-info][dired-git-info]]. This Emacs packages provides a minor mode which shows
 git information inside the dired buffer.
 #+BEGIN_SRC emacs-lisp
   (use-package dired-git-info
