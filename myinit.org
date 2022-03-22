@@ -596,11 +596,24 @@ Spell checking
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
   ;; (global-set-key (kbd "C-1") 'flyspell-auto-correct-previous-word)
   ;; (global-set-key (kbd "C-2") 'flyspell-auto-correct-word)
   ;; (global-set-key (kbd "C-3") 'flyspell-goto-next-error)
   ;; (global-set-key (kbd "C-4") 'flyspell-buffer)
+
   (global-set-key (kbd "<f5>") 'flyspell-mode)
+
+  ;; <2022-03-20 Sk> removing C-M-i "auto-correct word" because it
+  ;; wouldn't let me to bind org-roam "insert link automatically
+  ;; thingy". Now, as I unbind it (it's not gone, I can still auto
+  ;; correct words with C-.m) I can use C-M-i to org-roam insert link. I
+  ;; am tired, right, repeating myself. Going to sleep. Glad org-roam
+  ;; works and I am finding solutions to make it work according to this
+  ;; https://www.youtube.com/watch?v=AyhPmypHDEw tutorial.
+
+  (with-eval-after-load "flyspell"
+    (define-key flyspell-mode-map (kbd "C-M-i") nil))
 #+END_SRC
 ** Ws-butler
 <2022-01-01 Št> "Ws-butler" - whitespace butler - clean up whitespace automatically on
@@ -1283,6 +1296,35 @@ possible to archive like so:
 
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-c C-z") #'my/org-add-note))
+#+END_SRC
+** Org-roam
+<2022-03-20 Sk> Finally managed to make it work. Ignored some steps
+from the tutorial and it just works. Let's see what the hype is all about.
+#+BEGIN_SRC emacs-lisp
+  (use-package org-roam
+    :ensure t
+    :init
+    (setq org-roam-v2-ack t)
+    :custom
+    (org-roam-directory "~/Dropbox/documents/org/roam")
+    (org-roam-dailies-directory "~/Dropbox/documents/org/roam/daily/")
+    (org-roam-completion-everywhere t)
+    (org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %<%H:%M %p>: %?"
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+    :bind (("C-c n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n i" . org-roam-node-insert)
+           :map org-mode-map
+           ("C-M-i" . completion-at-point)
+           :map org-roam-dailies-map
+           ("Y" . org-roam-dailies-capture-yesterday)
+           ("T" . org-roam-dailies-capture-tomorrow))
+    :bind-keymap
+    ("C-c n d" . org-roam-dailies-map)
+    :config
+    (require 'org-roam-dailies) ;; Ensure the keymap is available
+    (org-roam-db-autosync-mode))
 #+END_SRC
 * ERC
 <2022-03-10 Kt>
