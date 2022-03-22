@@ -469,3 +469,21 @@ imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 132) s:     = ELFEED update the search filter (see tags)
 133) c:     = ELFEED clear the search filter
 134) s-F10  = show minimap
+135) C-c n l = ORG-ROAM-buffer-toggle
+136) C-c n f = ORG-ROAM-node-find
+137) C-c n i = ORG-ROAM-node-insert
+138) C-M-i   = ORG-ROAM completion at point
+139) org-id-get-create = ORG-ROAM create an IF for a heading
+140) org-roam-alias-add = ORG-ROAM add another name for a node
+141) C-c n d n = ORG-ROAM-dailies-capture-today
+142) C-c n d d = ORG-ROAM-dailies-goto-today
+143) C-c n d Y = ORG-ROAM-dailies-capture-yesterday
+144) C-c n d T = ORG-ROAM-dailies-capture-tomorrow
+145) C-c n d y = ORG-ROAM-dailies-goto-yesterday
+146) C-c n d t = ORG-ROAM-dailies-goto-tomorrow
+147) C-c n d d = ORG-ROAM-dailies-goto-today
+148) C-c n d v = ORG-ROAM-dailies-capture-date
+149) C-c n d c = ORG-ROAM-dailies-goto-date
+150) C-c n d b = ORG-ROAM-dailies-goto-next-note
+151) C-c n d f = ORG-ROAM-dailies-goto-previous-note
+152)
