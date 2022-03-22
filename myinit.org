@@ -288,9 +288,11 @@ You can see the current result by calling keyfreq-show.
  * Appearance
 ** Dashboard
 <2022-03-17 Kt> Following [[https://www.youtube.com/watch?v=SfyJtenKd2A&t=505s][this]] video.
+<2022-03-22 An> Disabled - haven't used it once.
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
     :ensure t
+    :disabled t
     :diminish dashboard-mode
     :init
     (progn
