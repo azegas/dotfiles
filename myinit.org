@@ -24,7 +24,7 @@ Build interface to look how I want it to look
   (global-hl-line-mode 1)
   (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
   ;; (load-theme 'default-black t)
-  (load-theme 'zenburn t)
+  ;; (load-theme 'zenburn t)
   ;; show where buffers end.
   (setq-default indicate-empty-lines t)
   ;; Delete marked region when typing over it. Woooow.
@@ -285,7 +285,7 @@ You can see the current result by calling keyfreq-show.
   (keyfreq-autosave-mode 1)
   )
 #+END_SRC
-* Appearance
+ * Appearance
 ** Dashboard
 <2022-03-17 Kt> Following [[https://www.youtube.com/watch?v=SfyJtenKd2A&t=505s][this]] video.
 #+BEGIN_SRC emacs-lisp
@@ -370,14 +370,14 @@ theme.
 
 More about doom themes [[https://github.com/doomemacs/themes][here]].
 #+BEGIN_SRC emacs-lisp
-    (use-package doom-themes
-      :ensure t
-      :disabled t
-      :config
-      ;; Global settings (defaults)
-      (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-            doom-themes-enable-italic t) ; if nil, italics is universally disabled
-      (load-theme 'doom-palenight t))
+  (use-package doom-themes
+    :ensure t
+    ;; :disabled t
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (load-theme 'doom-palenight t))
 #+END_SRC
 ** All the icons
 <2022-03-17 Kt> "All the icons" - icons visible on buffer window as well as sidebar
