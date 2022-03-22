@@ -450,14 +450,17 @@ Its just too strange, turning off.
 #+END_SRC
 ** Modelines
 *** Nyan-mode
+Disabled <2022-03-21 Pr> - no need, just clutters the modeline.
 <2022-03-18 Pn> [[https://github.com/TeMPOraL/nyan-mode/][Nyan Mode]] is an analog indicator of your position in the buffer. The
 Cat should go from left to right in your mode-line, as you move your
 point from 0% to 100%.
 
-If you do find Nyan too childish, [[https://github.com/jdtsmith/mlscroll][mlscroll]] is an interactive neutral alternative.
+If you do find Nyan too childish, [[https://github.com/jdtsmith/mlscroll][mlscroll]] is an interactive neutral
+alternative.
 #+BEGIN_SRC emacs-lisp
   (use-package nyan-mode
     :ensure t
+    :disabled t
     :config
     (setq nyan-bar-length 15)
     (nyan-mode t)
@@ -523,8 +526,8 @@ in doom-modeline. Will try to keep it for now.
 *** Spaceline
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline-all-the-icons
-    :disabled t
     :ensure t
+    :disabled t
     :after spaceline
     :config (spaceline-all-the-icons-theme))
 #+END_SRC
