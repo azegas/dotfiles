@@ -1,3 +1,4 @@
+#+PROPERTY: header-args:emacs-lisp :lexical t
 #+STARTUP: fold
 
 # Emacs outshines all other editing software in approximately the same
@@ -1027,7 +1028,7 @@ described in the line above and forget about it. Refiling will
 work, agenda will work.  if your org agenda files are not there,
 do C-c C-e on the parentheses below. Evaluate them.
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/Dropbox/documents/org/"))
+  ;; (setq org-agenda-files '("~/Dropbox/documents/org/"))
 #+END_SRC
 when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
 C-c C-z - tiesiog make note under a heading
@@ -1058,10 +1059,12 @@ sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
 #+BEGIN_SRC emacs-lisp
 (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 #+END_SRC
+<2022-03-23 Tr> Removed after installing org-roam. Note doesn't get
+copied to daily file.
 quite nice, asks you to write a closing note for a task when it's
 marked as DONE
 #+BEGIN_SRC emacs-lisp
-  (setq org-log-done 'note)
+  ;; (setq org-log-done 'note)
 #+END_SRC
 This shortcut exists and works already in org files, but I made it
 available from any buffer!! Useful when editing other type of files
@@ -1084,20 +1087,21 @@ Prevent setting "done" on he heading if subheadings are not completed
 #+BEGIN_SRC emacs-lisp
   (setq org-enforce-todo-dependencies t)
 #+END_SRC
+<2022-03-23 Tr> Turned it off after installing org-roam.
 Prefix tasks with parent heading Instead of showing the filename
 where the task resides, I show the first characters of the parent
 heading. That way I can use short and generic task names and still
 understand it in the agenda. No need to repeat the context in the
 task name anymore.
 #+BEGIN_SRC emacs-lisp
-  (defun getlasthead ()
-    (let ((x (nth 0 (last (org-get-outline-path)))))
-      (if x
-          (if (> (string-width x) 15)
-              (concat "[" (org-format-outline-path (list (substring x 0 15))) "]")
-            (concat "[" (org-format-outline-path (list x)) "]"))
-        "")))
-  (setq org-agenda-prefix-format " %i %-20(getlasthead)%?-15t% s ")
+  ;; (defun getlasthead ()
+  ;;   (let ((x (nth 0 (last (org-get-outline-path)))))
+  ;;     (if x
+  ;;         (if (> (string-width x) 15)
+  ;;             (concat "[" (org-format-outline-path (list (substring x 0 15))) "]")
+  ;;           (concat "[" (org-format-outline-path (list x)) "]"))
+  ;;       "")))
+  ;; (setq org-agenda-prefix-format " %i %-20(getlasthead)%?-15t% s ")
    #+END_SRC
 keywords for org mode
 #+BEGIN_SRC emacs-lisp
@@ -1271,8 +1275,9 @@ possible to archive like so:
 <2021-07-01>
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
-    :ensure)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    :ensure
+    :disabled t)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC
 ** Other
 #+BEGIN_SRC emacs-lisp
@@ -1304,19 +1309,31 @@ possible to archive like so:
 #+END_SRC
 ** Org-roam
 <2022-03-20 Sk> Finally managed to make it work. Ignored some steps
-from the tutorial and it just works. Let's see what the hype is all about.
+from the tutorial and it just works. Let's see what the hype is all
+about.
+
 #+BEGIN_SRC emacs-lisp
   (use-package org-roam
     :ensure t
+    :demand t  ;; Ensure org-roam is loaded by default
     :init
     (setq org-roam-v2-ack t)
     :custom
     (org-roam-directory "~/Dropbox/documents/org/roam")
     (org-roam-dailies-directory "~/Dropbox/documents/org/roam/daily/")
+    (org-roam-node-display-template "${tags:10} ${title:100}")
     (org-roam-completion-everywhere t)
+    (org-roam-capture-templates
+     '(("d" "default" plain
+        "%?"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U\n")
+        :unnarrowed t)
+       ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+        :unnarrowed t)))
     (org-roam-dailies-capture-templates
-        '(("d" "default" entry "* %<%H:%M %p>: %?"
-           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+     '(("d" "default" entry "* %<%H:%M %p>: %?"
+        :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
     :bind (("C-c n l" . org-roam-buffer-toggle)
            ("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert)
@@ -1330,6 +1347,66 @@ from the tutorial and it just works. Let's see what the hype is all about.
     :config
     (require 'org-roam-dailies) ;; Ensure the keymap is available
     (org-roam-db-autosync-mode))
+
+  ;; Build your Org agenda from Org Roam notes
+
+  (defun my/org-roam-filter-by-tag (tag-name)
+    (lambda (node)
+      (member tag-name (org-roam-node-tags node))))
+
+  (defun my/org-roam-list-notes-by-tag (tag-name)
+    (mapcar #'org-roam-node-file
+            (seq-filter
+             (my/org-roam-filter-by-tag tag-name)
+             (org-roam-node-list))))
+
+  (defun my/org-roam-refresh-agenda-list ()
+    (interactive)
+    (setq org-agenda-files (my/org-roam-list-notes-by-tag "Project")))
+
+  (my/org-roam-refresh-agenda-list) ;; Build the agenda list the first time for the session
+
+  ;; Automatically copy (or move) completed tasks to dailies from here -
+  ;; https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
+  ;; This might be nice, BUT then it also copies my habits, which are
+  ;; files with loads of info under them... don't really want to clutter
+  ;; my org-roam files with that unnecessary information. Should I get
+  ;; rid of org-habits to accommodate THIS feature? Is it even that
+  ;; good? How it is more beneficial to store notes in archive, nice and
+  ;; tidy AS WELL AS in org-roam daily files? Daily file overview sounds
+  ;; very nice. See what and how much time I have spend on activities
+  ;; that day. And then also if I want to see how much time I have spend
+  ;; on "project x", I can just go to archive and sum the time there.
+  ;; And about the habits.. I guess I have to get rid of them. Not
+  ;; really a big deal, I think I should rid some habits, since I have
+  ;; been repeating them for a long time already. So.. at the end, it's
+  ;; good that I discovered this method below, I get a chance to clean
+  ;; up my org-habis :)
+
+
+  (defun my/org-roam-copy-todo-to-today ()
+    (interactive)
+    (let ((org-refile-keep t) ;; Set this to nil to delete the original!
+          (org-roam-dailies-capture-templates
+           '(("t" "tasks" entry "%?"
+              :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+          (org-after-refile-insert-hook #'save-buffer)
+          today-file
+          pos)
+      (save-window-excursion
+        (org-roam-dailies--capture (current-time) t)
+        (setq today-file (buffer-file-name))
+        (setq pos (point)))
+
+      ;; Only refile if the target file is different than the current file
+      (unless (equal (file-truename today-file)
+                     (file-truename (buffer-file-name)))
+        (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+  (add-to-list 'org-after-todo-state-change-hook
+               (lambda ()
+                 (when (equal org-state "DONE")
+                   (my/org-roam-copy-todo-to-today))))
 #+END_SRC
 * ERC
 <2022-03-10 Kt>
