@@ -1339,7 +1339,7 @@ about.
      '(("d" "default" entry
         "* %<%H:%M %p>: %?"
         :if-new (file+head "%<%Y-%m-%d>.org"
-                           "#+title: %<%Y-%m-%d>\n#+STARTUP: content\n* Dailies [/]\n\n- [ ] Check the weather for today\n- [ ] Duo + letra + what you remember\n- [ ] Morning1 Anki python\n- [ ] Morning pages\n- [ ] Clean up room before sitting at the computer\n- [ ] Zero days\n- [ ] Empty Google Keep"))))
+                           "#+title: %<%Y-%m-%d>\n#+STARTUP: content\n* Dailies [/]\n\n- [ ] Check the weather for today\n- [ ] Duo + letra + what you remember\n- [ ] Morning1 Anki python\n- [ ] Morning pages\n- [ ] Clean up room before sitting at the computer\n- [ ] Zero days gratitude\n- [ ] Empty Google Keep\n- [ ] Push emacs"))))
     :bind (("C-c n l" . org-roam-buffer-toggle)
            ("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert)
