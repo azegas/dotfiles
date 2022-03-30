@@ -1834,6 +1834,6 @@ original task (so it wouldn't show in agenda view anymore and would be
 marked as done), I will mark as "repeating" and I will not include
 'repeating' tasks in 'auto copy tasks to dailies' list. Iz pz.
 #+BEGIN_SRC emacs-lisp
-  (fset 'duplicate_clock_in
-        [tab ?\C-n ?\C-n ?\C-a ?\C-k ?\C-k ?\C-k ?\C-k ?\C-p ?\C-p tab ?\C-e ?\C-a ?\C-  ?\C-e ?\C-f ?\M-w return ?\C-a ?\C-a ?\C-y ?\C-p ?\C-p ?\C-c ?\C-t ?r tab ?\C-n tab ?\C-n ?\C-k ?\C-k ?\C-p ?\C-x ?\C-s ?\C-c ?\C-x ?\C-i])
+(fset 'duplicate_clock_in
+   [?\M-x ?m ?a ?r ?k ?  ?e ?n ?d ?  return ?\M-w ?\C-o ?\C-y ?\C-c ?\C-t ?r ?\C-p ?\C-c ?\C-x ?\C-i tab])
 #+END_SRC
