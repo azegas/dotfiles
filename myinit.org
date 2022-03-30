@@ -1370,15 +1370,15 @@ about.
          ("j" "journal" entry
           "* %U: %?"
           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
-         ("t" "Do Today" item
-          "[ ] %a %?"
+         ("t" "Do Today" entry
+          "** %a %?"
           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Do Today"))
           :immediate-finish t))))
 
     :bind (("C-c n l" . org-roam-buffer-toggle)
            ("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert)
-           ("C-c n B" . my/org-roam-capture-inbox)
+           ;; ("C-c n B" . my/org-roam-capture-inbox)
            ("C-c n b" . my/org-roam-capture-inbox-plain)
            ("C-c n I" . org-roam-node-insert-immediate)
            ("C-c n p" . my/org-roam-find-project)
@@ -1491,20 +1491,22 @@ before. Leaving it here for reference.
 [2022-03-27 Sk] Yes I need it. using roam features instead of regular
 org templates.
 [2022-03-28 Pr] One with timestamps and everything, another without
+[2022-03-30 Tr] Turned off inbox stuff, because changed
+org-roam-capture-template. Now inbox will be in individual daily files.
 
 #+BEGIN_SRC emacs-lisp
-  (defun my/org-roam-capture-inbox ()
-    (interactive)
-    (org-roam-capture- :node (org-roam-node-create)
-                       :templates '(("i" "inbox" plain "** TODO %u %? %^G\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:END:\n"
-                                     :if-new (file+head "Inbox.org"
-                                                        "#+title: Inbox\n")))))
-    (defun my/org-roam-capture-inbox-plain ()
-    (interactive)
-    (org-roam-capture- :node (org-roam-node-create)
-                       :templates '(("i" "inbox" plain "** TODO %u %?"
-                                     :if-new (file+head "Inbox.org"
-                                                        "#+title: Inbox\n")))))
+  ;; (defun my/org-roam-capture-inbox ()
+  ;;   (interactive)
+  ;;   (org-roam-capture- :node (org-roam-node-create)
+  ;;                      :templates '(("i" "inbox" plain "** TODO %u %? %^G\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:END:\n"
+  ;;                                    :if-new (file+head "Inbox.org"
+  ;;                                                       "#+title: Inbox\n")))))
+  ;;   (defun my/org-roam-capture-inbox-plain ()
+  ;;   (interactive)
+  ;;   (org-roam-capture- :node (org-roam-node-create)
+  ;;                      :templates '(("i" "inbox" plain "** TODO %u %?"
+  ;;                                    :if-new (file+head "Inbox.org"
+  ;;                                                       "#+title: Inbox\n")))))
 #+END_SRC
 *** Open a list of projects
 [2022-03-26 Št] yes, yes, yes it works! Lexical binding on, p instead
