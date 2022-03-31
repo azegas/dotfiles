@@ -43,7 +43,8 @@ Startup. Disable splash screen and startup message.
   (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 
   ;; Use a persistent "inbox.org" as the initial buffer.
-  (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
+  ;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
+  (setq initial-buffer-choice (lambda () (org-roam-dailies-goto-today "d") (current-buffer)))
   ;; Hide mouse cursor while typing
   (setq make-pointer-invisible t)
 #+END_SRC
