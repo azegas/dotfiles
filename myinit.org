@@ -1799,6 +1799,14 @@ git information inside the dired buffer.
   ;; Enable automatically in every Dired buffer (if in Git repository)
   (add-hook 'dired-after-readin-hook 'dired-git-info-auto-enable)
 #+END_SRC
+** Amx
+amx: An alternative M-x interface for Emacs. Sort by most recent commands.
+https://github.com/DarwinAwardWinner/amx
+#+BEGIN_SRC emacs-lisp
+  (use-package amx
+    :defer 0.5
+    :config (amx-mode))
+#+END_SRC
 * Macros
 [2022-03-12 Št] 5 min tasks taken from all my agenda files.
 First open agenda, then list all the tasks, then click f9, then choose 5min.
