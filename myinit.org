@@ -1362,8 +1362,8 @@ about.
     (org-roam-dailies-capture-templates
      (let ((head
             (concat
-             "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* Inbox\n* Log\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Check the weather for today\n- [ ] Duo + letra + what you remember\n- [ ] Go through inbox\n- [ ] Git push config\n- [ ] Anki\n"
-             "* [/] Do Today\n")))
+             "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* Inbox\n* Log\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Check the weather for today\n- [ ] Duo + letra + what you remember\n- [ ] Go through inbox\n- [ ] Git push config\n- [ ] Anki\n- [ ] Check agenda\n"
+             "* Do Today\n")))
        `(("d" "default" entry
           "* %?"
           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Inbox"))
