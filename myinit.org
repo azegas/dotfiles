@@ -1620,6 +1620,65 @@ supporting both Atom and RSS.
           "https://lukesmith.xyz/rss.xml"
           "https://planet.emacslife.com/atom.xml"))
 #+END_SRC
+* Mu4e
+[2022-03-31 Kt] Managing mail with Mu4e. Check daily notes of this day for more info.
+[[https://www.youtube.com/watch?v=yZRyEhi4y44][Tutoria video by Systemcrafters]]
+#+BEGIN_SRC emacs-lisp
+  (use-package mu4e
+    :ensure nil
+    :defer 20
+    :load-path "/usr/share/emacs/site-lisp/mu4e/"
+    ;; :defer 20 ; Wait until 20 seconds after startup
+    :config
+
+    ;; Configure the function to use for sending mail
+    (setq message-send-mail-function 'smtpmail-send-it)
+
+    ;; This is set to 't' to avoid mail syncing issues when using mbsync
+    (setq mu4e-change-filenames-when-moving t)
+
+    ;; Make sure plain text mails flow correctly for recipients
+    (setq mu4e-compose-format-flowed t)
+
+    ;; (setq mu4e-compose-signature (concat
+    ;;                                "Arvydas,\n\n"
+    ;;                                "Geros dienos!"))
+
+    (setq mu4e-compose-signature (concat
+                                   "Arvydas"))
+
+    ;; Refresh mail using isync every 10 minutes
+    (setq mu4e-update-interval (* 10 60))
+    (setq mu4e-get-mail-command "mbsync -a")
+    (setq mu4e-maildir "~/Mail")
+
+    (setq mu4e-drafts-folder "/[Gmail]/Drafts")
+    (setq mu4e-sent-folder   "/[Gmail]/Sent Mail")
+    (setq mu4e-refile-folder "/[Gmail]/All Mail")
+    (setq mu4e-trash-folder  "/[Gmail]/Trash")
+
+    (setq mu4e-maildir-shortcuts
+          '(("/Inbox"             . ?i)
+            ("/[Gmail]/Sent Mail" . ?s)
+            ("/[Gmail]/Trash"     . ?t)
+            ("/[Gmail]/Drafts"    . ?d)
+            ("/[Gmail]/All Mail"  . ?a))))
+
+  (setq mu4e-bookmarks
+        '(("flag:unread AND NOT flag:trashed" "Unread messages"      ?i)
+          ("date:today..now"                  "Today's messages"     ?t)
+          ("from:Torstein"                    "The Boss"             ?s)
+          ("date:7d..now"                     "Last 7 days"          ?w)
+          ("mime:image/*"                     "Messages with images" ?p)))
+
+  ;; Stuff for composing and sending email
+  (setq smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 465
+        smtpmail-stream-type  'ssl)
+
+  ;; Run mu4e in the background to sync mail periodically
+  (mu4e t)
+#+END_SRC
 * Jumping around
 ** Undo-tree
 [2021-07-01]"Undo tree" lets me to return to the file stage before any
