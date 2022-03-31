@@ -1202,9 +1202,16 @@ Basic config
 files. I can then do C-c C-x C-r and make clock-report with all the
 completed tasks which are now in daily files and not in archives
 #+BEGIN_SRC emacs-lisp
+
+  ;; only looking through one folder
+  ;; (defun add-dailies ()
+  ;;   (append org-agenda-files
+  ;;           (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/kovo/*.org")))
+
+  ;; looking through all the folders inside 2020, great!
   (defun add-dailies ()
     (append org-agenda-files
-            (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/*.org")))
+            (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/**/*.org")))
 #+END_SRC
 ** Effort
 #+BEGIN_SRC emacs-lisp
