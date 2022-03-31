@@ -1071,6 +1071,7 @@ quite nice, asks you to write a closing note for a task when it's
 marked as DONE
 #+BEGIN_SRC emacs-lisp
   ;; (setq org-log-done 'note)
+  (setq org-log-done 'time)
 #+END_SRC
 This shortcut exists and works already in org files, but I made it
 available from any buffer!! Useful when editing other type of files
