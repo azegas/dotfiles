@@ -1450,7 +1450,7 @@ much time I have spend on that day.
     (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
           (org-roam-dailies-capture-templates
            '(("t" "tasks" entry "%?"
-              :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+              :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Completed Tasks")))))
           (org-after-refile-insert-hook #'save-buffer)
           today-file
           pos)
