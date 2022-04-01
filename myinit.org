@@ -1687,6 +1687,17 @@ supporting both Atom and RSS.
   ;; Run mu4e in the background to sync mail periodically
   (mu4e t)
 #+END_SRC
+* Wttr
+[2022-04-01 Pn] Good for seeing the weather in the morning :)
+In case getting an output of raw html - [[https://github.com/bcbcarl/emacs-wttrin/issues/16][this is the fix]].
+#+BEGIN_SRC emacs-lisp
+  (use-package wttrin
+    :ensure t
+    :init
+    (setq wttrin-default-cities '("Panevezys"
+                                  "Vilnius")))
+
+#+END_SRC
 * Jumping around
 ** Undo-tree
 [2021-07-01]"Undo tree" lets me to return to the file stage before any
