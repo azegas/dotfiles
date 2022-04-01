@@ -1062,8 +1062,20 @@ if I hide, i will forget to archive them.. not good
 (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
 https://github.com/jezcope/dotfiles/blob/master/emacs.d/init-org.org - solved my refile problem
 sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
+[2022-04-01 Fri] Oh shit, I turned off all the refile thingies and now
+I can refile away INSIDE a file headlines only. EXACTLY what I needed
+for refiling my dailies. Great!!
 #+BEGIN_SRC emacs-lisp
-(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+
+  ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+
+  ;; (setq org-refile-targets '(("~/Dropbox/documents/org/roam/*.org" :maxlevel . 1)))
+
+
+  ;; (defun ndk/org-refile-candidates ()
+  ;;    (directory-files "~/Dropbox/documents/org/roam/" t ".*\\.org$"))
+  ;; (add-to-list 'org-refile-targets '(ndk/org-refile-candidates :maxlevel . 3))
+
 #+END_SRC
 [2022-03-23 Tr] Removed after installing org-roam. Note doesn't get
 copied to daily file.
