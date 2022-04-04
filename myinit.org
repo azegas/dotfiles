@@ -1603,6 +1603,9 @@ effort automatically.
 
   ;; timer
   (setq org-clock-sound "~/Dropbox/src/emacs/misc/bell.wav")
+
+  (use-package org-tempo
+  :after org)
 #+END_SRC
 * ERC
 [2022-03-10 Kt]
