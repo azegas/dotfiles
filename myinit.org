@@ -1911,12 +1911,13 @@ First open agenda, then list all the tasks, then click f9, then choose 5min.
 (fset '5minTasks
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([3 97 116 f9 61 50] 0 "%d")) arg)))
 #+END_SRC
-[2022-03-17 Kt] Macro for adding emacs-lisp code block called hack
+[2022-03-17 Kt] Macro for adding code block called hack
 [2022-03-29 An] Or add [[https://orgmode.org/manual/Structure-Templates.html][(require 'org-tempo)]] for <s to work again.
+[2022-04-04 Mon] Removed this macro, next time make one that leaves
+cursor on language input
 #+BEGIN_SRC emacs-lisp
-(fset 'hack
-   [?# kp-add ?B ?E ?I ?N backspace backspace ?G ?I ?N ?_ ?S ?R ?C ?  ?e ?m ?c ?s ?- backspace backspace backspace ?a ?c ?s ?- ?l ?i ?s ?p return return ?# kp-9 backspace kp-add ?E ?N ?D ?_ ?R ?C backspace backspace ?S ?R ?C ?\C-p ?\C-c ?\'])
-  #+END_SRC
+
+#+END_SRC
 #+END_SRC
 [2022-03-19 Št] Open nautilus
 #+BEGIN_SRC emacs-lisp
