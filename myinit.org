@@ -1904,7 +1904,7 @@ git information inside the dired buffer.
   (add-hook 'dired-after-readin-hook 'dired-git-info-auto-enable)
 #+END_SRC
 ** Amx
-amx: An alternative M-x interface for Emacs. Sort by most recent commands.
+[2022-04-01 Fri] amx: An alternative M-x interface for Emacs. Sort by most recent commands.
 https://github.com/DarwinAwardWinner/amx
 #+BEGIN_SRC emacs-lisp
   (use-package amx
