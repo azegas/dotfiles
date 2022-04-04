@@ -493,7 +493,12 @@ So far so good, liking it.
     (setq doom-modeline-buffer-state-icon nil)
     (doom-modeline-mode 1)
     :custom
-    (doom-modeline-irc t))
+    (doom-modeline-irc t)
+
+    (after! doom-modeline
+            (setq doom-modeline-mu4e t)))
+
+
 
   ;; active/inactive modeline colors? in other themes than doom I guess.
 
@@ -1713,6 +1718,24 @@ supporting both Atom and RSS.
   ;; Run mu4e in the background to sync mail periodically
   (mu4e t)
 #+END_SRC
+[2022-04-04 Mon] show notifications when e-mail comes in.
+#+begin_src emacs-lisp
+
+  (use-package mu4e-alert
+    :ensure t
+    :after mu4e
+    :config
+    ;; Show notifications for mails already notified
+    (setq mu4e-alert-notify-repeated-mails nil)
+
+    (mu4e-alert-enable-notifications))
+
+  (mu4e-alert-set-default-style 'libnotify)
+  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+
+#+end_src
 * Wttr
 [2022-04-01 Pn] Good for seeing the weather in the morning :)
 In case getting an output of raw html - [[https://github.com/bcbcarl/emacs-wttrin/issues/16][this is the fix]].
