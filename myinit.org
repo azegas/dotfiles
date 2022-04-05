@@ -132,6 +132,20 @@ Character wrap
 (setq fill-column 80)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+END_SRC
+[2022-04-05 Tue] Un-fill region. Needed for when wanting to put text
+content to a website.
+#+begin_src emacs-lisp
+  (defun unfill-region (beg end)
+    "Unfill the region, joining text paragraphs into a single
+      logical line.  This is useful, e.g., for use with
+      `visual-line-mode'."
+    (interactive "*r")
+    (let ((fill-column (point-max)))
+      (fill-region beg end)))
+
+  ;; Handy key definition
+  (define-key global-map "\C-\M-Q" 'unfill-region)
+#+end_src
 White-space
 #+BEGIN_SRC emacs-lisp
 (setq whitespace-style '(face trailing tabs tab-mark))
