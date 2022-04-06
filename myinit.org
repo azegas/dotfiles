@@ -657,13 +657,15 @@ saving buffer.
 [2022-01-01 Št]
 INSTALLS : multiple cursors
 #+BEGIN_SRC emacs-lisp
-  (use-package multiple-cursors
-    :ensure t)
-    ;; :bind (("C-c m" . mc/mark-next-like-this)
-    ;;        ("C-c u" . mc/unmark-next-like-this)))
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+    (use-package multiple-cursors
+      :ensure t
+      :commands multiple-cursors
+      :bind (("C->" . mc/mark-next-like-this)
+             ("C-<" . mc/unmark-next-like-this)
+             ("C-c C-<" . mc/mark-all-like-this)))
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+    (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+END_SRC
 ** Hungry delete
 [2022-01-01 Št] "Hungry delete" - deletes all the whitespace when you hit backspace or
