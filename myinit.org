@@ -1617,14 +1617,38 @@ effort automatically.
                                                             ("${title}"))))))
 #+END_SRC
 ** Org-pomodoro
+[2022-04-05 Tue] Installed org-pomodoro
+[2022-04-06 Wed] Found a way [[https://www.reddit.com/r/emacs/comments/bka4ek/automating_the_pomodoro_technique_dealing_with/][simplier alternative]], turning this plugin off
 #+begin_src emacs-lisp
-  (use-package org-pomodoro
-    :ensure t
-    :config
-    (setq
-   org-pomodoro-length 10
-   org-pomodoro-short-break-length 2)
-   (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
+  ;; (use-package org-pomodoro
+  ;;   ;; :ensure t
+  ;;   :disabled
+  ;;   :config
+  ;;   (setq
+  ;;    org-pomodoro-length 10
+  ;;    org-pomodoro-short-break-length 2)
+  ;;   (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
+#+end_src
+[2022-04-05 Tue] Way simplier org-pomodoro solution
+[2022-04-06 Wed] Found Workrave app, not going to need pomodoros
+anymore. Nice, it stops whenever I am done typing or moving my mouse.
+Very niiice.
+#+begin_src emacs-lisp
+  ;; ;; Tasks get a 25 minute count down timer
+  ;; (setq org-timer-default-timer 25)
+
+  ;; ;; Use the timer we set when clocking in happens.
+  ;; (add-hook 'org-clock-in-hook
+  ;;           (lambda () (org-timer-set-timer '(16))))
+
+  ;; ;; unless we clocked-out with less than a minute left,
+  ;; ;; show disappointment message.
+  ;; (add-hook 'org-clock-out-hook
+  ;;           (lambda ()
+  ;;             (unless (s-prefix? "0:00" (org-timer-value-string))
+  ;;               (message-box "The basic 25 minutes on this dreadful task are not up; it's a shame to see you leave."))
+  ;;             (org-timer-stop)
+  ;;             ))
 #+end_src
 ** Other
 #+BEGIN_SRC emacs-lisp
