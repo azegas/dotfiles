@@ -27,7 +27,7 @@ Build interface to look how I want it to look
   (global-hl-line-mode 1)
   (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
   ;; (load-theme 'default-black t)
-  ;; (load-theme 'zenburn t)
+  (load-theme 'zenburn t)
   ;; show where buffers end.
   (setq-default indicate-empty-lines t)
   ;; Delete marked region when typing over it. Woooow.
@@ -393,6 +393,7 @@ More about doom themes [[https://github.com/doomemacs/themes][here]].
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :ensure t
+    :disabled t
     :config
     ;; Global settings (defaults)
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -912,10 +913,10 @@ snippets... hope that doesn't slow emacs down. Shouldnt...
 You can also create your own snippet... possibly even for .org files.
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet-snippets         ; Collection of snippets
-    :ensure t)
+    :disabled t)
   (use-package yasnippet                  ; Snippets
-    :ensure t)
-  (yas-global-mode 1)
+    :disabled t)
+  ;; (yas-global-mode 1)
 #+END_SRC
 
 ** Csv mode
@@ -1833,13 +1834,13 @@ will remain to that project that I opened. With a shortcut C-c p f I
 can look thrugh ALL the files of that particular project
 directory. Super useful, makes the buffers way tidier.
 #+BEGIN_SRC emacs-lisp
-    (use-package projectile
-      :ensure t
-      :config
-      (projectile-global-mode)
-      (setq projectile-completion-system 'ivy)
-      (setq projectile-project-search-path '("~/Dropbox/src/"))
-      (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  (use-package projectile
+    :ensure t
+    :bind (("C-c p" . projectile-command-map)) ;trying to load this after the command gets invoked the first time, but for some reasons it works only I press it the second time
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-project-search-path '("~/Dropbox/src/")))
 #+END_SRC
 ** Ivy
 [2021-07-01] "Ivy" is a generic completion mechanism for Emacs.
