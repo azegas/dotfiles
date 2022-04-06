@@ -196,6 +196,7 @@ loads "myinit.org" file from dropbox with all the configurations.
   ;;   (package-install 'use-package))
 
   ;; (org-babel-load-file (expand-file-name "~/Dropbox/src/emacs/myinit.org"))
+  (setq use-package-compute-statistics t)
 #+END_SRC
 As a reference, these are the common use-package keywords:
 
