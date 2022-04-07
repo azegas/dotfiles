@@ -338,9 +338,11 @@ You can see the current result by calling keyfreq-show.
 #+END_SRC
 ** Page-break-lines
 [2022-03-17 Kt] Needed for Dashboard?
+[2022-04-07 Thu] wtf is this, don't need, disabling
 #+BEGIN_SRC emacs-lisp
   (use-package page-break-lines
     :ensure t
+    :disabled t
     :config
     (global-page-break-lines-mode t))
 #+END_SRC
