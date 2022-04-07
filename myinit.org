@@ -1867,6 +1867,7 @@ directory. Super useful, makes the buffers way tidier.
     :config
     (projectile-global-mode)
     (setq projectile-completion-system 'ivy)
+    (setq projectile-sort-order 'recently-active)
     (setq projectile-project-search-path '("~/Dropbox/src/")))
 #+END_SRC
 ** Ivy
