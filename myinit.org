@@ -987,9 +987,11 @@ INSTALLS: web-mode
 #+BEGIN_SRC emacs-lisp
   (use-package web-mode
     :ensure t
-    :commands web-mode
+    :commands (web-mode)
+    :mode (("\\.html" . web-mode)
+           ("\\.htm" . web-mode)
+           ("\\.sgml\\'" . web-mode))
     :config
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
     (setq web-mode-engines-alist
           '(("django"    . "\\.html\\'")))
     (setq web-mode-ac-sources-alist
