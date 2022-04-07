@@ -1432,7 +1432,7 @@ about.
           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
          ("t" "Do Today" entry
           "** %a %?"
-          :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Do Today"))
+          :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Inbox"))
           :immediate-finish t))))
 
     :bind (("C-c n l" . org-roam-buffer-toggle)
