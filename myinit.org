@@ -1241,8 +1241,31 @@ Basic config
   ;; Keybind dissapeared after new org install? When roam.
   (define-key org-mode-map (kbd "C-c C-x C-r") 'org-clock-report)
 
-  ;; clock report example
-  ;; displays weekdays
+  ;; [2022-04-10 Sun] If idle for more than 15 minutes, resolve the things by asking what to do
+  ;; with the clock time
+  (setq org-clock-idle-time 15)
+
+  ;; [2022-04-10 Sun] Show lot of clocking history so it's easy to pick items off the `C-c I` list
+  (setq org-clock-history-length 23)
+
+  (defun eos/org-clock-in ()
+    (interactive)
+    (org-clock-in '(4)))
+
+  (global-set-key (kbd "C-c i") #'eos/org-clock-in)
+  (global-set-key (kbd "C-c C-x C-o") #'org-clock-out)
+
+  ;; [2022-04-10 Sun] use pretty things for the clocktable
+  (setq org-pretty-entities t)
+
+  ;; CLOCK REPORT EXAMPLE
+
+  ;; [2022-04-10 Sun] Daily org-diary file report BY TAG
+  ;; #+BEGIN: clocktable :maxlevel 3 :scope file :tags t :sort (1 . ?a) :emphasize t :narrow 100! :match "emacs"
+
+  ;; [2022-04-10 Sun] Daily org-diary file report without tag, show all tasks
+  ;; #+BEGIN: clocktable :maxlevel 3 :scope file :tags t :sort (1 . ?a) :emphasize t :narrow 100!
+
   ;; #+BEGIN: clocktable :maxlevel 3 :scope add-dailies :tags t
   ;; #+BEGIN: clocktable :maxlevel 3 :scope file :step day :tstart "<-1w>" :tend "<now>" :compact t
   ;; #+BEGIN: clocktable :maxlevel 5 :compact nil :emphasize t :scope subtree :timestamp t :link t :header "#+NAME: 2022_Vasaris\n"
