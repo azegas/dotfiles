@@ -964,6 +964,15 @@ editing window.»
      (global-set-key (kbd "S-<f10>") 'minimap-mode)
   )
 #+END_SRC
+** shell-other-window
+#+begin_src emacs-lisp
+  (defun eshell-other-window ()
+    "Open a `shell' in a new window."
+    (interactive)
+    (let ((buf (eshell)))
+      (switch-to-buffer (other-buffer buf))
+      (switch-to-buffer-other-frame buf)))
+#+end_src
 * Web stuff
 ** Emmet mode
 [2021-07-01] "Emmet mode" - HTML completion. Click c-j to autocomplete a tag.
