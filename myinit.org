@@ -1476,6 +1476,7 @@ about.
     ("C-c n d" . org-roam-dailies-map)
     :config
     (require 'org-roam-dailies) ;; Ensure the keymap is available
+    (message "Org-roam got loaded!")
     (org-roam-db-autosync-mode))
     #+END_SRC
 *** Copy completed to dailies
