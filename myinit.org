@@ -22,12 +22,12 @@ Build interface to look how I want it to look
   (toggle-scroll-bar -1)
   (fset 'yes-or-no-p 'y-or-n-p)
   (setq visible-bell t)
-  (blink-cursor-mode t)
+  (blink-cursor-mode -1)
   (set-cursor-color "IndianRed")
   (global-hl-line-mode 1)
   (add-to-list 'custom-theme-load-path "/home/arvydas/Dropbox/src/emacs/misc/")
   ;; (load-theme 'default-black t)
-  (load-theme 'zenburn t)
+  ;; (load-theme 'zenburn t)
   ;; show where buffers end.
   (setq-default indicate-empty-lines t)
   ;; Delete marked region when typing over it. Woooow.
@@ -45,11 +45,13 @@ Startup. Disable splash screen and startup message.
   ;; Use a persistent "inbox.org" as the initial buffer.
   ;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
   (setq initial-buffer-choice (lambda () (org-roam-dailies-goto-today "d") (current-buffer)))
-  ;; Hide mouse cursor while typing
+  ;; hide mouse cursor while typing
   (setq make-pointer-invisible t)
 #+END_SRC
 [2022-03-17 Kt] Disabled it, because now I have 'dashboard'. Does the
-same thing and more. Show startup time on emacs-load
+same thing and more.
+
+Show startup time on emacs-load
 #+BEGIN_SRC emacs-lisp
   (defun efs/display-startup-time ()
     (message "Emacs loaded in %s with %d garbage collections."
@@ -196,35 +198,10 @@ loads "myinit.org" file from dropbox with all the configurations.
   ;;   (package-install 'use-package))
 
   ;; (org-babel-load-file (expand-file-name "~/Dropbox/src/emacs/myinit.org"))
+
+  ;; [2022-04-10 Sun] allows to invoke and use use-package-report
   (setq use-package-compute-statistics t)
 #+END_SRC
-As a reference, these are the common use-package keywords:
-
-:ensure - Install package
-
-:after - Load after another package
-
-:init - Run code before package loads
-
-:config - Run code after package loads
-
-:custom - Set custom variables with concise syntax
-
-:defer - Defer loading until some later point
-
-:demand - Ensure loading at startup
-
-:bind - Bind keys for modes
-
-:hook - Set hooks that will cause package to load
-
-:commands - Set autoloaded commands that will cause package to load
-
-:mode - Activate mode when particular file types are opened
-
-Note: this
-[[https://systemcrafters.net/live-streams/september-24-2021/][System
-Crafter’s]] note discusses some use-package alternatives.
 ** Backups
 I don’t use backup files often as I use git to manage most of my org
 files. However, I still feel safer when having a backup. I follow the
@@ -395,7 +372,7 @@ More about doom themes [[https://github.com/doomemacs/themes][here]].
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes
     :ensure t
-    :disabled t
+    ;; :disabled t
     :config
     ;; Global settings (defaults)
     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -1264,9 +1241,6 @@ Basic config
   (global-set-key (kbd "C-c i") #'eos/org-clock-in)
   (global-set-key (kbd "C-c C-x C-o") #'org-clock-out)
 
-  ;; [2022-04-10 Sun] use pretty things for the clocktable
-  (setq org-pretty-entities t)
-
   ;; CLOCK REPORT EXAMPLE
 
   ;; [2022-04-10 Sun] Daily org-diary file report BY TAG
@@ -1913,21 +1887,22 @@ directory. Super useful, makes the buffers way tidier.
 C-c f, M-x basically. Other packages use it as well.
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
-     :defer 0.1
-     :diminish
-     :bind (("C-c C-r" . ivy-resume)
-     ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-     :custom
+    :defer 0.1
+    :diminish
+    :bind (("C-c C-r" . ivy-resume)
+           ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+    :custom
 
-     (ivy-count-format "(%d/%d) ")
-     ;; nice if you want previously opened buffers to appear after an
-     ;; emacs shutdown
-     (ivy-use-virtual-buffers t)
-     :config (ivy-mode))
+    (ivy-count-format "(%d/%d) ")
+    ;; nice if you want previously opened buffers to appear after an
+    ;; emacs shutdown
+    (ivy-use-virtual-buffers t)
+    :config (ivy-mode))
 
-     (use-package ivy-rich
-     :ensure t
-     :init (ivy-rich-mode 1))
+  (use-package ivy-rich
+    :after ivy
+    :ensure t
+    :init (ivy-rich-mode 1))
 #+END_SRC
 
 ** Goto-chg
