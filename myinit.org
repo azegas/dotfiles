@@ -488,12 +488,7 @@ So far so good, liking it.
     (setq doom-modeline-buffer-state-icon nil)
     (doom-modeline-mode 1)
     :custom
-    (doom-modeline-irc t)
-
-    (after! doom-modeline
-            (setq doom-modeline-mu4e t)))
-
-
+    (doom-modeline-irc t))
 
   ;; active/inactive modeline colors? in other themes than doom I guess.
 
@@ -1728,82 +1723,6 @@ supporting both Atom and RSS.
           "https://lukesmith.xyz/rss.xml"
           "https://planet.emacslife.com/atom.xml"))
 #+END_SRC
-* Mu4e
-[2022-03-31 Kt] Managing mail with Mu4e. Check daily notes of this day for more info.
-[[https://www.youtube.com/watch?v=yZRyEhi4y44][Tutoria video by Systemcrafters]]
-#+BEGIN_SRC emacs-lisp
-  (use-package mu4e
-    :ensure nil
-    :defer 30
-    :load-path "/usr/share/emacs/site-lisp/mu4e/"
-    :config
-
-    ;; Configure the function to use for sending mail
-    (setq message-send-mail-function 'smtpmail-send-it)
-
-    ;; This is set to 't' to avoid mail syncing issues when using mbsync
-    (setq mu4e-change-filenames-when-moving t)
-
-    ;; Make sure plain text mails flow correctly for recipients
-    (setq mu4e-compose-format-flowed t)
-
-    ;; (setq mu4e-compose-signature (concat
-    ;;                                "Arvydas,\n\n"
-    ;;                                "Geros dienos!"))
-
-    (setq mu4e-compose-signature (concat
-                                   "Arvydas"))
-
-    ;; Refresh mail using isync every 10 minutes
-    (setq mu4e-update-interval (* 10 60))
-    (setq mu4e-get-mail-command "mbsync -a")
-    (setq mu4e-maildir "~/Mail")
-
-    (setq mu4e-drafts-folder "/[Gmail]/Drafts")
-    (setq mu4e-sent-folder   "/[Gmail]/Sent Mail")
-    (setq mu4e-refile-folder "/[Gmail]/All Mail")
-    (setq mu4e-trash-folder  "/[Gmail]/Trash")
-
-    (setq mu4e-maildir-shortcuts
-          '(("/Inbox"             . ?i)
-            ("/[Gmail]/Sent Mail" . ?s)
-            ("/[Gmail]/Trash"     . ?t)
-            ("/[Gmail]/Drafts"    . ?d)
-            ("/[Gmail]/All Mail"  . ?a))))
-
-  (setq mu4e-bookmarks
-        '(("flag:unread AND NOT flag:trashed" "Unread messages"      ?i)
-          ("date:today..now"                  "Today's messages"     ?t)
-          ("from:Torstein"                    "The Boss"             ?s)
-          ("date:7d..now"                     "Last 7 days"          ?w)
-          ("mime:image/*"                     "Messages with images" ?p)))
-
-  ;; Stuff for composing and sending email
-  (setq smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 465
-        smtpmail-stream-type  'ssl)
-
-  ;; Run mu4e in the background to sync mail periodically
-  (mu4e t)
-#+END_SRC
-[2022-04-04 Mon] show notifications when e-mail comes in.
-#+begin_src emacs-lisp
-
-  (use-package mu4e-alert
-    :ensure t
-    :after mu4e
-    :config
-    ;; Show notifications for mails already notified
-    (setq mu4e-alert-notify-repeated-mails nil)
-
-    (mu4e-alert-enable-notifications))
-
-  (mu4e-alert-set-default-style 'libnotify)
-  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
-
-  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
-
-#+end_src
 * Wttr
 [2022-04-01 Pn] Good for seeing the weather in the morning :)
 In case getting an output of raw html - [[https://github.com/bcbcarl/emacs-wttrin/issues/16][this is the fix]].
