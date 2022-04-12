@@ -1048,6 +1048,7 @@ work, agenda will work.  if your org agenda files are not there,
 do C-c C-e on the parentheses below. Evaluate them.
 #+BEGIN_SRC emacs-lisp
   ;; (setq org-agenda-files '("~/Dropbox/documents/org/"))
+  ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
 #+END_SRC
 when you press C-c C-z on a headline, it makes a note. Specifying the name of that drawyer.
 C-c C-z - tiesiog make note under a heading
@@ -1079,8 +1080,6 @@ sitas geriausias ir paprasciausias krc. veikia puikiai su ivy.
 I can refile away INSIDE a file headlines only. EXACTLY what I needed
 for refiling my dailies. Great!!
 #+BEGIN_SRC emacs-lisp
-
-  ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
   ;; (setq org-refile-targets '(("~/Dropbox/documents/org/roam/*.org" :maxlevel . 1)))
 
@@ -1962,4 +1961,12 @@ marked as done), I will mark as "repeating" and I will not include
 #+BEGIN_SRC emacs-lisp
   (fset 'duplicate\ and\ clock_in
      [?\C-c ?\C-t ?r ?\C-  ?\M-x return ?\M-w return ?\C-y ?\C-p ?\C-x ?n ?s tab ?\C-n ?\C-k ?\C-k ?\C-k ?\C-k ?\C-k ?\C-p ?\C-x ?n ?w ?\C-l ?\C-n ?\C-k ?\C-p ?\C-c ?\C-x ?\C-i ?\C-x ?\C-s])
+#+END_SRC
+
+* org-agenda-file-list
+# keeping it here, so it would load last and so this is the last place
+# it loads agenda files from
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 #+END_SRC
