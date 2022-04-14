@@ -1968,7 +1968,9 @@ marked as done), I will mark as "repeating" and I will not include
 # keeping it here, so it would load last and so this is the last place
 # it loads agenda files from.
 # Labukas cia tik testukas for git from lenovo.
+[2022-04-14 Thu] commenting the code below, leaving the files to be
+only the ones that have "project" tag
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
+  ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 #+END_SRC
