@@ -1142,7 +1142,7 @@ task name anymore.
 keywords for org mode
 #+BEGIN_SRC emacs-lisp
     (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "REPEATING(r)" "CANCELLED(c)"))))
+          (quote ((sequence "TODO(t)" "NEXT(n)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "SUTVARKYTA(s)" "REPEATING(r)" "CANCELLED(c)"))))
 #+END_SRC
 When clocking in, change the state to "in progress", then when
 clocking out change state to "waiting".
