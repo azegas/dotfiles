@@ -1742,6 +1742,7 @@ modifications were made. Keybind - C-x u.
   :ensure t
   :init
   (global-undo-tree-mode))
+  (setq undo-tree-auto-save-history nil)
 #+END_SRC
 ** Rg
 [2021-07-01] "Rg" - rip grep. Helps to search for a term through many files. Super
