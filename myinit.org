@@ -42,11 +42,24 @@ Startup. Disable splash screen and startup message.
   ;; no more annoying buffer list combinatios
   (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 
-  ;; Use a persistent "inbox.org" as the initial buffer.
+  ;; simply opening files below
+  ;; Use a persistent "inbox.org" as the initial buffer. Startup.
   ;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
-  (setq initial-buffer-choice (lambda () (org-roam-dailies-goto-today "d") (current-buffer)))
-  ;; hide mouse cursor while typing
-  (setq make-pointer-invisible t)
+  ;; (setq initial-buffer-choice (lambda () (org-roam-dailies-goto-today "d") (current-buffer)))
+  (setq initial-buffer-choice (lambda () (org-agenda nil "a") (current-buffer)))
+
+  ;; ;; [2022-04-15 Fri] opening a file AND agenda on the right side
+  ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  ;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/20220323162258-girls.org")
+
+  ;; (defun my-init-hook ()
+  ;;   (split-window-right)
+  ;;   (let ((org-agenda-window-setup 'other-window))
+  ;;     (org-agenda nil "a")))
+
+  ;; (add-hook 'window-setup-hook #'my-init-hook)
+  ;; ;; hide mouse cursor while typing
+  ;; (setq make-pointer-invisible t)
 #+END_SRC
 [2022-03-17 Kt] Disabled it, because now I have 'dashboard'. Does the
 same thing and more.
