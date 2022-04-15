@@ -1632,7 +1632,7 @@ effort automatically.
                                      :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                             "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                             ("${title}")))
-                                    ("t" "task" plain "** BLET %? :${title}:\n\n:PROPERTIES:\n:Created: %u\n:END:\n"
+                                    ("t" "task" plain "** %? :${title}:\n\n:PROPERTIES:\n:Created: %u\n:END:\n"
                                      :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                             "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                             ("${title}")))
