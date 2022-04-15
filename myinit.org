@@ -1930,6 +1930,7 @@ git information inside the dired buffer.
 https://github.com/DarwinAwardWinner/amx
 #+BEGIN_SRC emacs-lisp
   (use-package amx
+    :ensure t
     :defer 0.5
     :config (amx-mode))
 #+END_SRC
