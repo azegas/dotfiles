@@ -1,1 +1,2 @@
-*.el
+myinit.el
+wininit.el

@@ -17,5 +17,4 @@
 	(mapcar (lambda (buffer)
 		  (buffer-file-name buffer))
 		(org-buffer-list 'files t))))
-
-(org-babel-load-file (expand-file-name "C:\\Users\\arvga\\AppData\\Roaming\\.emacs.d\\myinit.org"))
+(org-babel-load-file (expand-file-name "C:\\Users\\arvga\\AppData\\Roaming\\.emacs.d\\wininit.org"))
