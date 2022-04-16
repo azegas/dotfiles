@@ -1,0 +1,21 @@
+* testukas
+# ##+begin_src emacs-lisp
+#   (menu-bar-mode -1)
+#   (tool-bar-mode -1)
+#   (toggle-scroll-bar -1)
+#   (fset 'yes-or-no-p 'y-or-n-p)
+#   (setq visible-bell t)
+#   (load-theme 'zenburn t)
+# #+end_src
+
+#+BEGIN_SRC emacs-lisp
+  ;; Easily jump to my main org file
+  (defun aga-find-current nil
+    "Find the myinit.org file."
+    (interactive)
+    (find-file "~/Dropbox/src/emacs/windowsmyinit.org") ;; Ubuntu
+    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
+    (delete-other-windows))
+  ;; Find my NEW init file
+  (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
+#+END_SRC
