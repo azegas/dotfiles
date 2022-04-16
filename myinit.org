@@ -110,18 +110,16 @@ Show me my config's and documentation
     (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
     ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
     (delete-other-windows))
-  ;; Find my NEW init file
+  ;; Find myinit.org  file
   (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
 
-  ;; Easily jump to my main org file
-  (defun aga-find-old nil
-    "Find the myinit.org file."
+  (defun aga-find-init.el nil
+    "Find the init.el file."
     (interactive)
-    (find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
-    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
+    (find-file "~/.emacs.d/init.el") ;; Ubuntu
     (delete-other-windows))
-  ;; Find OLD init file
-  (global-set-key (kbd "C-x <C-home>") 'aga-find-old)
+  ;; Find init.el file
+  (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
 
   ;; ;; open my django docs
   ;; (defun django-docs nil

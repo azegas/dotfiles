@@ -8,14 +8,32 @@
 #   (load-theme 'zenburn t)
 # #+end_src
 
+Show me my config's and documentation
 #+BEGIN_SRC emacs-lisp
   ;; Easily jump to my main org file
   (defun aga-find-current nil
     "Find the myinit.org file."
     (interactive)
-    (find-file "~/Dropbox/src/emacs/windowsmyinit.org") ;; Ubuntu
+    (find-file "~/Dropbox/src/emacs/myinit.org") ;; Ubuntu
     ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\usable_emacs\\myinit.org") ;; windows
     (delete-other-windows))
   ;; Find my NEW init file
   (global-set-key (kbd "C-x <C-backspace>") 'aga-find-current)
+
+  ;; Easily jump to my main org file
+  (defun aga-find-old nil
+    "Find the myinit.org file."
+    (interactive)
+    (find-file "~/Dropbox/src/random_dotfiles/emacs + org (summer)/myinit.org") ;; ubuntu
+    ;; (find-file "C:\\Users\\Arvydas\\Dropbox\\7.dotfiles\\emacs + org (summer)\\myinit.org") ;; windows
+    (delete-other-windows))
+  ;; Find OLD init file
+  (global-set-key (kbd "C-x <C-home>") 'aga-find-old)
+
+  ;; ;; open my django docs
+  ;; (defun django-docs nil
+  ;; "Find the myinit.org file."
+  ;; (interactive)
+  ;; (find-file "~/Dropbox/documents/org/notes/django_notes.org")) ;; ubuntu
+  ;; (global-set-key [f5] 'django-docs)
 #+END_SRC
