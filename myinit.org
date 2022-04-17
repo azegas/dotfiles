@@ -925,10 +925,10 @@ I use it for django development. I first do M-x pyvenv-activate and
 choose a env dir. Then I can open the shell and run python manage.py
 runserver. Works like a charm and stays in the background.
 #+BEGIN_SRC emacs-lisp
-  ;; (add-to-list 'load-path "~/.emacs.d/elpa/pop-eshell")
-  ;; (require 'pop-eshell-mode)
-  ;; (setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
-  ;; (pop-eshell-mode 1)
+  (add-to-list 'load-path "~/.emacs.d/elpa/pop-eshell")
+  (require 'pop-eshell-mode)
+  (setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
+  (pop-eshell-mode 1)
 
     ;; Double click to turn on turn off
 
