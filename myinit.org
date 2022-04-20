@@ -486,7 +486,7 @@ So far so good, liking it.
 #+BEGIN_SRC emacs-lisp
   (use-package doom-modeline
     :ensure t
-    ;; :disabled t
+    :disabled t
     :init
     (setq doom-modeline-env-enable-python t)
     (setq doom-modeline-env-enable-go nil)
