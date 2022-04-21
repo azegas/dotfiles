@@ -1173,11 +1173,11 @@ My personal agenda
   ;; Show agenda + started tasks with "waiting" label
   (setq org-agenda-custom-commands
         '(("z" todo ""
-                  ((org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'regexp "tickler"))))
+           ((org-agenda-skip-function
+             '(org-agenda-skip-entry-if 'regexp "tickler"))))
           ("l" agenda ""
-                  ((org-agenda-tag-filter-by-preset
-                    '("+iskvietimai:"))))
+           ((org-agenda-tag-filter-by-preset
+             '("+iskvietimai:"))))
           ("x" todo "/+iskvietimai")
           ("b" todo "VELIAU"
            ((org-agenda-max-entries 2)))
