@@ -1185,10 +1185,7 @@ My personal agenda
            ((agenda "" ((org-agenda-span 7)))
             (tags-todo "/+WAITING"
                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                        (org-agenda-overriding-header "Started tasks:")))
-            (tags-todo "/+VELIAU"
-                       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                        (org-agenda-overriding-header "PKC uzduotys laukia:")))))))
+                        (org-agenda-overriding-header "Started tasks:")))))))
 #+END_SRC
 Always highlight the current agenda line:
 #+BEGIN_SRC emacs-lisp
