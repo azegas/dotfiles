@@ -1153,7 +1153,7 @@ task name anymore.
 keywords for org mode
 #+BEGIN_SRC emacs-lisp
     (setq org-todo-keywords
-          (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "SUTVARKYTA(s)" "NESUTVARKYTA(n)" "REPEATING(r)" "CANCELLED(c)"))))
+          (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "VELIAU(v)" "|" "DONE(d)" "SUTVARKYTA(s)" "NESUTVARKYTA(n)" "REPEATING(r)" "CANCELLED(c)"))))
 #+END_SRC
 When clocking in, change the state to "in progress", then when
 clocking out change state to "waiting".
@@ -1173,18 +1173,23 @@ My personal agenda
 #+BEGIN_SRC emacs-lisp
   ;; Show agenda + started tasks with "waiting" label
   (setq org-agenda-custom-commands
-        '(("a" "Daily agenda and all TODOs"
+        '(("z" todo ""
+                  ((org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'regexp "tickler"))))
+          ("l" agenda ""
+                  ((org-agenda-tag-filter-by-preset
+                    '("+iskvietimai:"))))
+          ("x" todo "/+iskvietimai")
+          ("b" todo "VELIAU"
+           ((org-agenda-max-entries 2)))
+          ("a" "Daily agenda and all TODOs"
            ((agenda "" ((org-agenda-span 7)))
             (tags-todo "/+WAITING"
                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                        (org-agenda-overriding-header "Started tasks:")))))))
-
-  ;; <2022-03-27 Sk> turned off next actions. No need to know them of
-  ;; all the projects all thetime
-
-            ;; (tags-todo "/+NEXT"
-            ;;            ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-            ;;             (org-agenda-overriding-header "NEXT actions:")))))))
+                        (org-agenda-overriding-header "Started tasks:")))
+            (tags-todo "/+VELIAU"
+                       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                        (org-agenda-overriding-header "PKC uzduotys laukia:")))))))
 #+END_SRC
 Always highlight the current agenda line:
 #+BEGIN_SRC emacs-lisp
