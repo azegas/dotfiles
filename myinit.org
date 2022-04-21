@@ -1638,6 +1638,10 @@ effort automatically.
                                      :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                             "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                             ("${title}")))
+                                    ("p" "pkc tickler" plain "** %? :pkc:\n\n:PROPERTIES:\n:Created: %u\n:END:\n"
+                                     :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                            "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
+                                                            ("pkc tickler")))
                                     ("i" "iskvietimas" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
                                      :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                             "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
