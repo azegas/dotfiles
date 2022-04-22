@@ -1175,12 +1175,8 @@ My personal agenda
         '(("z" todo ""
            ((org-agenda-skip-function
              '(org-agenda-skip-entry-if 'regexp "tickler"))))
-          ("l" agenda ""
-           ((org-agenda-tag-filter-by-preset
-             '("+iskvietimai:"))))
-          ("x" todo "/+iskvietimai")
-          ("b" todo "VELIAU"
-           ((org-agenda-max-entries 2)))
+          ("b" todo "VELIAU")
+          ("n" tags "pkc")
           ("a" "Daily agenda and all TODOs"
            ((agenda "" ((org-agenda-span 7)))
             (tags-todo "/+WAITING"
