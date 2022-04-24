@@ -9,16 +9,32 @@
 ;;; Code:
 
 (setq org-agenda-custom-commands
-      '(("z" todo ""
-         ((org-agenda-skip-function
-           '(org-agenda-skip-entry-if 'regexp "tickler"))))
-        ("b" todo "VELIAU")
-        ("n" tags "pkc")
-        ("a" "Daily agenda and all TODOs"
-         ((agenda "" ((org-agenda-span 7)))
-          (tags-todo "/+WAITING"
-                     ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                      (org-agenda-overriding-header "Started tasks:")))))))
+      '(("a" "Daily personal agenda"
+         ((agenda "" ((org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("-pkc"))))))
+        ("pw" "pkc-week"
+          ((agenda "" ((org-agenda-span 7)
+                       (org-agenda-tag-filter-preset '("+pkc"))))
+           (todo "WAITING"
+                 ((org-agenda-overriding-header "Waiting for something")))))
+        ("pd" "pkc-today"
+          ((agenda "" ((org-agenda-span 1)
+                       (org-agenda-tag-filter-preset '("+pkc"))))
+           (todo "WAITING"
+                ((org-agenda-overriding-header "Waiting for something")))))))
+
+
+;; (setq org-agenda-custom-commands
+;;       '(("z" todo ""
+;;          ((org-agenda-skip-function
+;;            '(org-agenda-skip-entry-if 'regexp "tickler"))))
+;;         ("b" todo "VELIAU")
+;;         ("n" tags "pkc")
+;;         ("a" "Daily agenda and all TODOs"
+;;          ((agenda "" ((org-agenda-span 7)))
+;;           (tags-todo "/+WAITING"
+;;                      ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+;;                       (org-agenda-overriding-header "Started tasks:")))))))
 
 ;; System locale to use for formatting time values. Show 2022-02-02 instead of 02/02/22
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
