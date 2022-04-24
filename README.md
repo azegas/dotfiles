@@ -1,9 +1,9 @@
 # My personal Emacs configuration
 
-;; Emacs outshines all other editing software in approximately the
-;; same way that the noonday sun does the stars. It is not just bigger
-;; and brighter: it simply makes everything else vanish. – Neal Stephenson,
-;; In the Beginning was the Command Line (1998)
+Emacs outshines all other editing software in approximately the same
+way that the noonday sun does the stars. It is not just bigger and
+brighter: it simply makes everything else vanish. – Neal Stephenson,
+In the Beginning was the Command Line (1998)
 
 ## [2022-04-24 Sun] feat: MAJOR CHANGE - from one org to many .el files!
 
