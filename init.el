@@ -6,8 +6,6 @@
 ;; In the Beginning was the Command Line (1998)
 ;;; Code:
 
-;; -*- lexical-binding: t; -*-
-
 ;; Initialize package sources
 (require 'package)
 
