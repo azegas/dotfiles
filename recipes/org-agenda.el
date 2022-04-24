@@ -8,13 +8,6 @@
 ;; do C-c C-e on the parentheses below. Evaluate them.
 ;;; Code:
 
-(add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1))) ; Always highlight the current agenda line:
-(setq org-agenda-inhibit-startup t)     ; Stop preparing agenda buffers on startup
-(global-set-key [f9] 'org-agenda-filter-by-effort)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-restore-windows-after-quit t)
-
 (setq org-agenda-custom-commands
       '(("z" todo ""
          ((org-agenda-skip-function
@@ -30,7 +23,13 @@
 ;; System locale to use for formatting time values. Show 2022-02-02 instead of 02/02/22
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
                                       ; time stamps of your Org mode files and
-                                      ; in the agenda appear in English.
+                                        ; in the agenda appear in English.
+
+(setq org-agenda-inhibit-startup t)     ; Stop preparing agenda buffers on startup
+(global-set-key [f9] 'org-agenda-filter-by-effort)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-restore-windows-after-quit t)
 
 ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
