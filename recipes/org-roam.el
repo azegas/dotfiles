@@ -217,4 +217,8 @@
                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                           ("${title}"))))))
 
+;; allow org-add-note to have org-roam "auto completion" solved in Github
+;; here - https://github.com/org-roam/org-roam/issues/2167
+(add-hook 'org-log-buffer-setup-hook #'org-roam--register-completion-functions-h)
+
 ;;; org_roam.el ends here
