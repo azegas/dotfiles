@@ -8,6 +8,23 @@
 ;; about.
 ;;; Code:
 
+; ------------------------------------------------------
+
+;; lexical binding MUST be at the top of the file. TOP TOP TOP!!
+
+;; (defun lex-p ()
+;;   "Return t if lexical binding is in effect."
+;;   (let (lex
+;;         _lex-p)
+;;     (let ((lex t))
+;;       (setq _lex-p
+;;             (lambda ()
+;;               lex)))
+;;     (funcall _lex-p)))
+;; (message (if (lex-p) "Yes" "No"))
+
+; ------------------------------------------------------
+
 (use-package org-roam
   :ensure t
   :demand t  ;; Ensure org-roam is loaded by default
