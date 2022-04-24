@@ -37,6 +37,7 @@
 (setq org-agenda-inhibit-startup t)     ; Stop preparing agenda buffers on startup
 (global-set-key [f9] 'org-agenda-filter-by-effort)
 (global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-agenda-start-with-log-mode t) ;shows all CLOSED: tasks in agenda view. kinda cool
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-show-future-repeats nil) ;don't show repeating tasks in the future
