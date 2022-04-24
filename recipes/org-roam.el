@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;;; org_roam.el --- org_roam stuff
 ;;; Commentary:
 ;; magical org_roam stuff
