@@ -89,6 +89,9 @@
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(org-agenda-files
+   (quote
+    ("/home/arvydas/Dropbox/documents/org/roam/20220323164015-know_your_area.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163644-cs.org" "/home/arvydas/Dropbox/documents/org/roam/20220417171832-org_site.org" "/home/arvydas/Dropbox/documents/org/roam/20220416072754-tolearn.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163522-citatos.org" "/home/arvydas/Dropbox/documents/org/roam/20220415070807-someday.org" "/home/arvydas/Dropbox/documents/org/roam/20220323162627-emacs.org" "/home/arvydas/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163743-dpd.org" "/home/arvydas/Dropbox/documents/org/roam/20220403094017-facebook.org" "/home/arvydas/Dropbox/documents/org/roam/20220328183135-python.org" "/home/arvydas/Dropbox/documents/org/roam/20220323164133-arvydasglt.org" "/home/arvydas/Dropbox/documents/org/roam/20220323172208-tickler.org")))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
