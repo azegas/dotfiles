@@ -12,17 +12,10 @@
       '(("a" "Daily personal agenda"
          ((agenda "" ((org-agenda-span 7)
                       (org-agenda-tag-filter-preset '("-pkc"))))))
-        ("pw" "pkc-week"
+        ("p" "pkc"
           ((agenda "" ((org-agenda-span 7)
-                       (org-agenda-tag-filter-preset '("+pkc"))))
-           (todo "WAITING"
-                 ((org-agenda-overriding-header "Waiting for something")))))
-        ("pd" "pkc-today"
-          ((agenda "" ((org-agenda-span 1)
-                       (org-agenda-tag-filter-preset '("+pkc"))))
-           (todo "WAITING"
-                ((org-agenda-overriding-header "Waiting for something")))))))
-
+                       (org-agenda-tag-filter-preset '("+pkc"))))))
+        ("t" "pkc tasks" tags-todo "+pkc")))
 
 ;; (setq org-agenda-custom-commands
 ;;       '(("z" todo ""
