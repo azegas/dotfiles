@@ -30,6 +30,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-restore-windows-after-quit t)
+(setq org-agenda-show-future-repeats nil) ;don't show repeating tasks in the future
 
 ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
