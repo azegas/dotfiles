@@ -2,8 +2,8 @@
 ;;; Commentary:
 ;; Emacs outshines all other editing software in approximately the
 ;; same way that the noonday sun does the stars. It is not just bigger
-;; andbrighter: it simply makes everything else vanish. – Neal
-;; Stephenson, In the Beginning was the Command Line (1998)
+;; and brighter: it simply makes everything else vanish. – Neal Stephenson,
+;; In the Beginning was the Command Line (1998)
 ;;; Code:
 
 ;; -*- lexical-binding: t; -*-
