@@ -90,27 +90,6 @@
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
 
-;; Copy completed to dailies
-;; [2022-03-23 Tr] Automatically copy (or move) completed tasks to dailies from here -
-;; https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
-;; This might be nice, BUT then it also copies my habits, which are files
-;; with loads of info under them... don't really want to clutter my
-;; org-roam files with that unnecessary information. Should I get rid of
-;; org-habits to accommodate THIS feature? Is it even that good? How it
-;; is more beneficial to store notes in archive, nice and tidy AS WELL AS
-;; in org-roam daily files? Daily file overview sounds very nice. See
-;; what and how much time I have spend on activities that day. And then
-;; also if I want to see how much time I have spend on "project x", I can
-;; just go to archive and sum the time there. And about the habits.. I
-;; guess I have to get rid of them. Not really a big deal, I think I
-;; should rid some habits, since I have been repeating them for a long
-;; time already. So.. at the end, it's good that I discovered this method
-;; below, I get a chance to clean up my org-habits :)
-
-;; It sucks that I can not add habits like so. It simply copies the whole
-;; task, with ALL timestamps... not helpful for when I want to check how
-;; much time I have spend on that day.
-
 (defun my/org-roam-copy-todo-to-today ()
   (interactive)
   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
@@ -169,7 +148,6 @@
 ;; Build the agenda list the first time for the session
 (my/org-roam-refresh-agenda-list)
 
-;; Org-roam-insert-immediate
 (defun org-roam-node-insert-immediate (arg &rest args)
   (interactive "P")
   (let ((args (push arg args))
@@ -177,33 +155,10 @@
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 
-;; Capture to inbox
-;; [2022-03-23 Tr] Create inbox function, keybinding above.
-;; Do I actually need it? I can simply use the capture templates as
-;; before. Leaving it here for reference.
-;; [2022-03-27 Sk] Yes I need it. using roam features instead of regular
-;; org templates.
-;; [2022-03-28 Pr] One with timestamps and everything, another without
-;; [2022-03-30 Tr] Turned off inbox stuff, because changed
-;; org-roam-capture-template. Now inbox will be in individual daily files.
-
-;; (defun my/org-roam-capture-inbox ()
-;;   (interactive)
-;;   (org-roam-capture- :node (org-roam-node-create)
-;;                      :templates '(("i" "inbox" plain "** TODO %u %? %^G\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:END:\n"
-;;                                    :if-new (file+head "Inbox.org"
-;;                                                       "#+title: Inbox\n")))))
-;;   (defun my/org-roam-capture-inbox-plain ()
-;;   (interactive)
-;;   (org-roam-capture- :node (org-roam-node-create)
-;;                      :templates '(("i" "inbox" plain "** TODO %u %?"
-;;                                    :if-new (file+head "Inbox.org"
-;;                                                       "#+title: Inbox\n")))))
-
-;; Open a list of projects
 ;; [2022-03-26 Št] yes, yes, yes it works! Lexical binding on, p instead
 ;; of P in tags = works!! C-c p p = projectile project, then C-c n p =
 ;; org mode notes, great!
+
 (defun my/org-roam-project-finalize-hook ()
   "Adds the captured project file to `org-agenda-files' if the
   capture was not aborted."
