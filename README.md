@@ -13,6 +13,6 @@ Thanks to jump.el I will be able to jump thought these fiels quick and
 easy, the debug process will be easier I think as well and changes
 tracking with git will be more clear.
 
-Biggest inspiration was [this guy's config](https://github.com/Crandel/home/tree/master/.config/emacs).
+Biggest inspiration for this change was [this guy's config](https://github.com/Crandel/home/tree/master/.config/emacs).
 
 Overall, I am very happy with this change.
