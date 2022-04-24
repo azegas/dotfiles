@@ -1,14 +1,7 @@
-;;; communications.el --- communications stuff
+;;; erc.el --- irc client for Emacs
 ;;; Commentary:
-;; no comments
+;; chat
 ;;; Code:
-
-(use-package elfeed
-  :ensure t)
-(setq elfeed-feeds
-      '("http://nullprogram.com/feed/"
-	"https://lukesmith.xyz/rss.xml"
-	"https://planet.emacslife.com/atom.xml"))
 
 (use-package erc
   :ensure t
@@ -38,4 +31,4 @@
                                 "353"   ; Names notice
                                 ))
 
-;;; communications.el ends here
+;;; erc.el ends here

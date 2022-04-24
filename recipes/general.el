@@ -21,6 +21,10 @@
 (setq gc-cons-threshold (* 1024 1024 100))
 (setq gc-cons-threshold 80000000)
 
+;; [2021-07-01] Winner Mode is a global minor mode. When activated, it allows you to
+;; “undo” (and “redo”) changes in the window configuration with the key
+;; commands C-c left and C-c right.
+(winner-mode +1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (delete-selection-mode t)               ; Delete marked region when typing over it
 (setq ad-redefinition-action 'accept)   ; turn off the error message at emacs launch
@@ -137,6 +141,13 @@
   :config
   (which-key-mode 1))
 
+;; [2022-04-01 Fri] amx: An alternative M-x interface for Emacs. Sort by most recent commands.
+;; https://github.com/DarwinAwardWinner/amx
+(use-package amx
+  :ensure t
+  :defer 0.5
+  :config (amx-mode))
+
 ;; [2022-03-15 An] Improves *help* buffer. Way more info than with
 ;; regular help.
 (use-package helpful
@@ -149,12 +160,17 @@
    ("C-h F" . helpful-function)
    ("C-h C" . helpful-command)))
 
-;; [2022-04-01 Pn] Good for seeing the weather in the morning :)
-;; In case getting an output of raw html - [[https://github.com/bcbcarl/emacs-wttrin/issues/16][this is the fix]].
-(use-package wttrin
+;; [2022-03-13 Sk]
+(use-package csv-mode
   :ensure t
-  :init
-  (setq wttrin-default-cities '("Panevezys"
-                                "Vilnius")))
+  :mode "\\.csv\\'")
+
+;; shell-other-window
+(defun eshell-other-window ()
+  "Open a `shell' in a new window."
+  (interactive)
+  (let ((buf (eshell)))
+    (switch-to-buffer (other-buffer buf))
+    (switch-to-buffer-other-frame buf)))
 
 ;;; general.el ends here

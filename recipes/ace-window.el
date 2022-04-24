@@ -1,25 +1,9 @@
-;;; windows.el --- windows stuff
+;;; ace-window.el --- jump/create/swap buffers
 ;;; Commentary:
-;; windows
-;;; Code:
-
-;; Saveplace
-;; [2021-07-01] "Saveplace" remembers your location in a file when saving files
-(use-package saveplace
-  :ensure t
-  :config
-  ;; activate it for all buffers
-  (setq-default save-place t)
-  (save-place-mode 1))
-
-;; [2021-07-01] Winner Mode is a global minor mode. When activated, it allows you to
-;; “undo” (and “redo”) changes in the window configuration with the key
-;; commands C-c left and C-c right.
-(winner-mode +1)
-
-;; Ace windows
 ;; [2021-07-01] "Ace windows" helps me to switch windows easily. Main keybind - C-x o
 ;; and then the commands that follow below.
+;;; Code:
+
 (use-package ace-window
   :ensure t
   :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
@@ -45,4 +29,4 @@
     (?? aw-show-dispatch-help))
   "List of actions for `aw-dispatch-default'.")
 
-;;; windows.el ends here
+;;; ace-window.el ends here

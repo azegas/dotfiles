@@ -1,11 +1,10 @@
 ;;; org_roam.el --- org_roam stuff
 ;;; Commentary:
 ;; magical org_roam stuff
-;;; Code:
-
 ;; [2022-03-20 Sk] Finally managed to make it work. Ignored some steps
 ;; from the tutorial and it just works. Let's see what the hype is all
 ;; about.
+;;; Code:
 
 (use-package org-roam
   :ensure t

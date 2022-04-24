@@ -30,13 +30,6 @@
 (setq org-global-properties (quote (("Effort_ALL" . "1:00 0:00 0:05 0:10 0:30 2:00 3:00 4:00")
                                     ("STYLE_ALL" . "habit"))))
 
-;; Org-download
-;; [2022-03-25 Pn>
-(use-package org-download
-  :ensure t
-  :commands org-download)
-(setq-default org-download-image-dir "~/Dropbox/documents/org/images")
-
 ;; https://orgmode.org/manual/Editing-Source-Code.html
 (setq org-src-fontify-natively t)
 (setq org-src-tab-acts-natively t)

@@ -27,9 +27,7 @@
                      ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                       (org-agenda-overriding-header "Started tasks:")))))))
 
-;; [2022-04-01 Fri] Show 2022-02-02 instead of 02/02/22
-
-;; System locale to use for formatting time values.
+;; System locale to use for formatting time values. Show 2022-02-02 instead of 02/02/22
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
                                       ; time stamps of your Org mode files and
                                       ; in the agenda appear in English.
