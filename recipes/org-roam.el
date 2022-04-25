@@ -200,11 +200,11 @@
   (org-roam-capture- :node (org-roam-node-read
                             nil
                             (my/org-roam-filter-by-tag "project"))
-                     :templates '(("c" "clocked-task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %u\n:END:\n"
+                     :templates '(("e" "effort task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %u\n:END:\n"
                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                           ("${title}")))
-                                  ("t" "task" plain "** %? :${title}:\n\n:PROPERTIES:\n:Created: %u\n:END:\n"
+                                  ("t" "simple task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Created: %u\n:END:\n"
                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                           ("${title}")))
