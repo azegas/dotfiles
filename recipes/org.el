@@ -17,7 +17,7 @@
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "VELIAU(v)" "|" "DONE(d)" "SUTVARKYTA(s)" "NESUTVARKYTA(n)" "REPEATING(r)" "CANCELLED(c)"))))
+      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "REPEATING(r)" "CANCELLED(c)"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "IndianRed1" :weight bold)
