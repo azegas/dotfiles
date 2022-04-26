@@ -43,6 +43,11 @@
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
                          "#+title: ${title}\n#+date: %U\n\n")
       :unnarrowed t)
+     ("p" "pkc" plain
+      "* ${title}\n\n%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                         "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
+      :unnarrowed t)
      ("b" "book notes" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
       :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
                          "#+title: ${title}\n")
