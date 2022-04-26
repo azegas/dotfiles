@@ -19,8 +19,9 @@
                        (org-agenda-tag-filter-preset '("+pkc"))))))
         ("k" "pkc tasks" tags-todo "+pkc")
         ("n" "namai" tags-todo "+namai")
-        ("b" "buy" tags-todo "+pirk")
+        ("r" "buy" tags-todo "+pirk")
         ("i" "iseik" tags-todo "+iseik")
+        ("b" "bugs" tags-todo "+bug")
         ("z" "effort stuff" tags-todo "Effort=0:10")))
 
 ;; System locale to use for formatting time values. Show 2022-02-02 instead of 02/02/22
