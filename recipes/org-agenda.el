@@ -53,10 +53,6 @@
                                           ;tag manually to each task
                                           ;instead
 
-
-
-
-
 ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
