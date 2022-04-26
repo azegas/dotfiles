@@ -45,7 +45,7 @@
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-sticky nil)            ;if t - must refresh agenda to see the changes
 (setq org-agenda-show-future-repeats nil) ;don't show repeating tasks in the future
-(setq org-agenda-tags-column 150)
+(setq org-agenda-tags-column 80)
 (setq org-agenda-use-tag-inheritance nil) ;good, shows in agenda if t,
                                           ;but doesn't add an actual
                                           ;tag, in case want to track
