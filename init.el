@@ -72,21 +72,4 @@
 (load "~/.emacs.d/recipes/yasnippet.el")
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("/home/arvydas/Dropbox/documents/org/roam/20220323164015-know_your_area.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163644-cs.org" "/home/arvydas/Dropbox/documents/org/roam/20220417171832-org_site.org" "/home/arvydas/Dropbox/documents/org/roam/20220416072754-tolearn.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163522-citatos.org" "/home/arvydas/Dropbox/documents/org/roam/20220415070807-someday.org" "/home/arvydas/Dropbox/documents/org/roam/20220323162627-emacs.org" "/home/arvydas/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163743-dpd.org" "/home/arvydas/Dropbox/documents/org/roam/20220403094017-facebook.org" "/home/arvydas/Dropbox/documents/org/roam/20220328183135-python.org" "/home/arvydas/Dropbox/documents/org/roam/20220414190538-pkc.org" "/home/arvydas/Dropbox/documents/org/roam/20220323164133-portfolio.org" "/home/arvydas/Dropbox/documents/org/roam/20220323172208-tickler.org" "/home/arvydas/Dropbox/documents/org/roam/20220426071354-alpine.org")))
- '(package-selected-packages
-   (quote
-    (ws-butler web-mode volatile-highlights undo-tree rg rainbow-delimiters projectile org-download org-roam multiple-cursors move-text magit lorem-ipsum all-the-icons-ivy-rich ivy-rich impatient-mode hungry-delete goto-chg csv-mode helpful amx which-key use-package flycheck expand-region emojify emmet-mode elpy elfeed doom-themes doom-modeline diredfl dired-git-info diff-hl counsel company-quickhelp browse-kill-ring beacon ace-window))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(put 'dired-find-alternate-file 'disabled nil)
+
