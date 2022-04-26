@@ -11,7 +11,7 @@
 (setq use-package-compute-statistics t) ; M-x use-package-report
 ;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
 ;; (setq initial-buffer-choice (lambda () (org-roam-dailies-goto-today "d") (current-buffer)))
-(setq initial-buffer-choice (lambda () (org-agenda nil "a") (current-buffer)))
+;; (setq initial-buffer-choice (lambda () (org-agenda nil "a") (current-buffer)))
 
 ;;; ---------------------------------------
 
