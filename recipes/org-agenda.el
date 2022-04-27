@@ -35,7 +35,9 @@
 (setq org-agenda-start-with-log-mode t) ;shows all CLOSED: tasks in agenda view. kinda cool
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-restore-windows-after-quit t)
-(setq org-agenda-sticky nil)            ;if t - must refresh agenda to see the changes
+(setq org-agenda-sticky t)                ;allows to open multiple
+                                          ;agenda views at once, but
+                                          ;need a refresh
 (setq org-agenda-show-future-repeats nil) ;don't show repeating tasks in the future
 (setq org-agenda-tags-column 80)
 (setq org-agenda-use-tag-inheritance nil) ;good, shows in agenda if t,
