@@ -14,15 +14,18 @@
       '(("a" "Daily personal agenda"
          ((agenda "" ((org-agenda-span 7)
                       (org-agenda-tag-filter-preset '("-pkc"))))))
-        ("p" "pkc"
-          ((agenda "" ((org-agenda-span 7)
-                       (org-agenda-tag-filter-preset '("+pkc"))))))
-        ("k" "pkc tasks" tags-todo "+pkc")
-        ("n" "namai" tags-todo "+namai")
-        ("r" "buy" tags-todo "+pirk")
-        ("i" "iseik" tags-todo "+iseik")
-        ("b" "bugs" tags-todo "+bug")
-        ("z" "effort stuff" tags-todo "Effort=0:10")))
+        ("p" "pkc agenda"
+         ((agenda "" ((org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("+pkc"))))))
+        ("P" "pkc unscheduled "tags-todo "+pkc"
+         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+        ("1" "namai" tags-todo "+namai")
+        ("2" "buy" tags-todo "+pirk")
+        ("3" "baba" tags-todo "+baba")
+        ("4" "iseik" tags-todo "+iseik")
+        ("B" "bugs" tags-todo "+bug")
+        ("z" "effort stuff" tags-todo "Effort=0:10") ;doesn't work by minutes :/
+        ("Z" "effort stuff" tags-todo "Effort=1"))) ;works by hours
 
 ;; System locale to use for formatting time values. Show 2022-02-02 instead of 02/02/22
 (setq system-time-locale "C")         ; Make sure that the weekdays in the
