@@ -6,8 +6,8 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
 
 ;; [2022-03-14 Pr] Transparency
-(set-frame-parameter (selected-frame) 'alpha '(95 . 95))
-(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+;; (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+;; (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
