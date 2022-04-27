@@ -10,6 +10,7 @@
 (setq org-return-follows-link t)        ; RET to follow links
 (setq org-enforce-todo-dependencies t)  ; no done if mid
 (setq org-startup-with-inline-images t)
+(setq org-image-actual-width nil)
 (setq org-clock-sound "~/.emacs.d/misc/bell.wav")
 
 ; rebind active to inactive
