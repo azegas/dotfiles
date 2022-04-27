@@ -1,0 +1,307 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Wed Apr 27 10:21:20 2022
+;; Desktop file format version 208
+;; Emacs version 26.3
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (25192 61168 765402 413000) (desktop . "208") "arvydas@arvydas-VirtualBox" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font-backend xft x) (font . "-DAMA-Ubuntu Mono-normal-normal-normal-*-17-*-*-*-m-0-iso10646-1") (font-parameter . "Ubuntu Mono 13") (border-width . 0) (internal-border-width . 0) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars) (horizontal-scroll-bars) (foreground-color . "#EEFFFF") (background-color . "#292D3E") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground) (scroll-bar-background) (menu-bar-lines . 0) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 0) (scroll-bar-height . 0) (alpha) (no-focus-on-map) (no-accept-focus) (fullscreen . fullboth) (visibility . t) (skip-taskbar) (z-group) (display-type . color) (background-mode . dark) (cursor-color . "#c792ea") (sticky) (environment) (fullscreen-restore . maximized) (frameset--id . "824F-AE96-37D0-4C32") (frameset--mini t . t) (height . 66) (width . 211) (modeline . t) (unsplittable) (left . 0) (top . 0) (icon-name) (display . ":0") (explicit-name)) ((min-height . 8) (min-width . 20) (min-height-ignore . 6) (min-width-ignore . 9) (min-height-safe . 2) (min-width-safe . 4) (min-pixel-height . 144) (min-pixel-width . 180) (min-pixel-height-ignore . 108) (min-pixel-width-ignore . 81) (min-pixel-height-safe . 36) (min-pixel-width-safe . 36)) hc (pixel-width . 1920) (pixel-height . 1182) (total-width . 213) (total-height . 66) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (vc (pixel-width . 957) (pixel-height . 1182) (total-width . 106) (total-height . 66) (normal-height . 1.0) (normal-width . 0.5) (combination-limit) (leaf (pixel-width . 957) (pixel-height . 588) (total-width . 106) (total-height . 33) (normal-height . 0.5) (normal-width . 1.0) (buffer "*Org Agenda(k:+pkc)*" (selected) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars nil 0 t nil 0 t) (vscroll . 0) (dedicated) (point . 1) (start . 1))) (leaf (last . t) (pixel-width . 957) (pixel-height . 594) (total-width . 106) (total-height . 33) (normal-height . 0.5) (normal-width . 1.0) (buffer "*Org Agenda(p)*" (selected) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars nil 0 t nil 0 t) (vscroll . 0) (dedicated) (point . 1) (start . 1)))) (leaf (last . t) (pixel-width . 963) (pixel-height . 1182) (total-width . 107) (total-height . 66) (normal-height . 1.0) (normal-width . 0.5) (buffer "20220426151049-toneriu_uzsakymas.org" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins 1) (scroll-bars nil 0 t nil 0 t) (vscroll . 0) (dedicated) (point . 216) (start . 1)))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring nil)
+(setq regexp-search-ring '("agend"))
+(setq register-alist nil)
+(setq file-name-history '("/home/arvydas/.emacs.d/sessions/" "/home/arvydas/.emacs.d/sessions"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220426151049-toneriu_uzsakymas.org"
+  "20220426151049-toneriu_uzsakymas.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode org-indent-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  216
+  '(1055 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 25192 61165 614253 70000) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t))
+  '((mark-ring (1 913 488 488 913 913))))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220427101347-multiple_agenda_views_at_once.org"
+  "20220427101347-multiple_agenda_views_at_once.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode org-indent-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  599
+  '(600 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 25192 61125 896059 437000) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t))
+  '((mark-ring (600 599))))
+
+(desktop-create-buffer 208
+  "/home/arvydas/.emacs.d/recipes/org-agenda.el"
+  "org-agenda.el"
+  'emacs-lisp-mode
+  '(eldoc-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode rainbow-delimiters-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode flycheck-mode)
+  1320
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 25192 60888 764218 531000) (buffer-file-coding-system . prefer-utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323164015-know_your_area.org"
+  "20220323164015-know_your_area.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323163644-cs.org"
+  "20220323163644-cs.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220417171832-org_site.org"
+  "20220417171832-org_site.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220416072754-tolearn.org"
+  "20220416072754-tolearn.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org"
+  "20220323163825-facebook_group_automatization.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323163522-citatos.org"
+  "20220323163522-citatos.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220415070807-someday.org"
+  "20220415070807-someday.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323162627-emacs.org"
+  "20220323162627-emacs.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org"
+  "20220323164321-smuti_fruti.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/inbox.org"
+  "inbox.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  103
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323163909-obelsdumas.org"
+  "20220323163909-obelsdumas.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220426212731-pkc.org"
+  "20220426212731-pkc.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323163743-dpd.org"
+  "20220323163743-dpd.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220403094017-facebook.org"
+  "20220403094017-facebook.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220328183135-python.org"
+  "20220328183135-python.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323164133-portfolio.org"
+  "20220323164133-portfolio.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220323172208-tickler.org"
+  "20220323172208-tickler.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  155
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220426071354-alpine.org"
+  "20220426071354-alpine.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/Dropbox/documents/org/roam/20220427101315-multiple_agenda_buffers.org"
+  "20220427101315-multiple_agenda_buffers.org"
+  'org-mode
+  '(auto-fill-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode org-indent-mode volatile-highlights-mode ws-butler-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  133
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time) (truncate-lines . t))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/arvydas/.emacs.d/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(eldoc-mode override-global-mode beacon-mode company-mode diff-hl-mode yas-minor-mode global-whitespace-mode which-key-mode undo-tree-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode rainbow-delimiters-mode flyspell-mode diff-hl-margin-mode diff-hl-margin-local-mode flycheck-mode)
+  2828
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  nil
+  ".emacs.d"
+  'dired-mode
+  '(override-global-mode beacon-mode company-mode dired-git-info-mode yas-minor-mode global-whitespace-mode which-key-mode hungry-delete-mode ivy-mode counsel-mode volatile-highlights-mode ws-butler-mode diff-hl-dired-mode diff-hl-margin-mode diff-hl-margin-local-mode)
+  644
+  '(nil nil)
+  t
+  '("/home/arvydas/.emacs.d/")
+  '((buffer-display-time 25192 61155 913138 528000))
+  '((mark-ring nil)))
+
