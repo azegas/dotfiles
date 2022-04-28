@@ -22,7 +22,7 @@
         ("P" "Pkc unscheduled tasks "tags-todo "+pkc"
          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
         ("1" "namai" tags-todo "+namai")
-        ("2" "buy" tags-todo "+pirk")
+        ("2" "pirk" tags-todo "+pirk")
         ("3" "baba" tags-todo "+baba")
         ("4" "iseik" tags-todo "+iseik")
         ("B" "bugs" tags-todo "+bug")))
