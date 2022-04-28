@@ -149,6 +149,12 @@
   (org-roam-capture- :node (org-roam-node-create)
                      :templates '(("i" "inbox" plain "* TODO %? %^G \n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+                                  ("p" "pkc" plain "* TODO %? :pkc: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
+                                  ("e" "emacs" plain "* TODO %? :emacs: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
+                                  ("n" "namai" plain "* TODO %? :namai: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
                                   ("s" "scheduled" plain "* TODO %? %^G \n SCHEDULED: %^t\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
                                    :if-new (file+head "inbox.org" "#+title: inbox\n")))))
 
