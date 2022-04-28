@@ -13,7 +13,7 @@
   (ivy-count-format "(%d/%d) ")
   ;; nice if you want previously opened buffers to appear after an
   ;; emacs shutdown
-  (ivy-use-virtual-buffers nil)           ; dont know about that... off for now
+  (ivy-use-virtual-buffers t)           ;saves buffers from last session
   :config (ivy-mode))
 
 (use-package ivy-rich
