@@ -11,10 +11,12 @@
 ;;; Code:
 
 (setq org-agenda-custom-commands
-      '(("a" "Personal agenda"
+      '(("`" "Siandien all tasks"
+         ((agenda "" ((org-agenda-span 1)))))
+        ("a" "Personal agenda"
          ((agenda "" ((org-agenda-span 7)
                       (org-agenda-tag-filter-preset '("-pkc"))))))
-        ("A" "Personal unscheduled tasks" todo "TODO"
+                ("A" "Personal unscheduled tasks" todo "TODO"
          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
         ("p" "Pkc agenda"
          ((agenda "" ((org-agenda-span 7)
