@@ -25,6 +25,10 @@
 ;; “undo” (and “redo”) changes in the window configuration with the key
 ;; commands C-c left and C-c right.
 (winner-mode +1)
+;; C-k kills line including its newline
+(setq kill-whole-line t)
+;; Mouse avoidance. becomes visible again when typing.
+(setq make-pointer-invisible t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (delete-selection-mode t)               ; Delete marked region when typing over it
 (setq ad-redefinition-action 'accept)   ; turn off the error message at emacs launch
