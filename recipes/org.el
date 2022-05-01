@@ -18,7 +18,7 @@
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "REPEATING(r)" "CANCELLED(c)"))))
+      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "JOURNAL(j)" "REPEATING(r)" "CANCELLED(c)"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "IndianRed1" :weight bold)
@@ -43,10 +43,11 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python ")))
 
+
 ;; Archiving notes
 ;; TUT: more about archiving -
-;; http://doc.endlessparentheses.com/Var/org-archive-location.html its
-;; possible to archive like so:
+;; http://doc.endlessparentheses.com/Var/org-archive-location.html
+;; its possible to archive like so:
 ;; # archiving example
 ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
 ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
@@ -54,5 +55,10 @@
 ;; #+archive: ::* Archived Tasks - internal archiving
 ;; #+archive: ::** Arvydas.dev ARCHIVED
 ;; #+archive: ~/Dropbox/documents/org/references/archive.org::* From Blog
+
+;; archiving with a help of refile into one big archive.org file -
+;; dont need all those archive labels in properties tag. too many date
+;; inputs to sort through
+(setq org-archive-location "~/Dropbox/documents/org/roam/20220429211036-archive.org::* archive")
 
 ;;; org.el ends here
