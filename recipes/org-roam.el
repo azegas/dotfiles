@@ -92,8 +92,8 @@
 (defun my/org-roam-capture-inbox ()
   (interactive)
   (org-roam-capture- :node (org-roam-node-create)
-                     :templates '(("d" "Diary" entry "** JOURNAL %^{Title}\nCLOSED:%U\n%?"
-                                   :if-new (file+head "diary.org" "#+title: diary\n"))
+                     :templates '(("j" "journal" entry "** JOURNAL %^{Title}\nCLOSED:%U\n%?"
+                                   :if-new (file+head "20220502071757-diary.org" "#+title: diary\n"))
                                   ("i" "inbox" plain "** TODO %? %^G \n:PROPERTIES:\n:Created: %U\n:END:\n"
                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
                                   ("p" "pkc" plain "* TODO %? :pkc: \n:PROPERTIES:\n:Created: %U\n:END:\n"
