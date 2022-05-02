@@ -74,17 +74,3 @@
 ;;; init.el ends here
 
 (put 'dired-find-alternate-file 'disabled nil)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("/home/arvydas/Dropbox/documents/org/roam/20220323164015-know_your_area.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163644-cs.org" "/home/arvydas/Dropbox/documents/org/roam/20220417171832-org_site.org" "/home/arvydas/Dropbox/documents/org/roam/20220416072754-tolearn.org" "/home/arvydas/Dropbox/documents/org/roam/20220502071757-diary.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163522-citatos.org" "/home/arvydas/Dropbox/documents/org/roam/20220323162627-emacs.org" "/home/arvydas/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "/home/arvydas/Dropbox/documents/org/roam/inbox.org" "/home/arvydas/Dropbox/documents/org/roam/20220429211036-archive.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "/home/arvydas/Dropbox/documents/org/roam/20220426212731-pkc.org" "/home/arvydas/Dropbox/documents/org/roam/20220323163743-dpd.org" "/home/arvydas/Dropbox/documents/org/roam/20220403094017-facebook.org" "/home/arvydas/Dropbox/documents/org/roam/20220328183135-python.org" "/home/arvydas/Dropbox/documents/org/roam/20220323164133-portfolio.org" "/home/arvydas/Dropbox/documents/org/roam/20220323172208-tickler.org" "/home/arvydas/Dropbox/documents/org/roam/20220426071354-alpine.org"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
