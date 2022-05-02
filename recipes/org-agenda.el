@@ -62,7 +62,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                         ; in the agenda appear in English.
 
 (setq org-agenda-inhibit-startup t)     ; Stop preparing agenda buffers on startup
-(global-set-key [f9] 'org-agenda-filter-by-effort)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-start-with-log-mode nil) ;shows all CLOSED: tasks in agenda view. kinda cool
 (setq org-agenda-skip-scheduled-if-done t)
@@ -71,7 +70,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                           ;agenda views at once, but
                                           ;need a refresh
 (setq org-agenda-show-future-repeats nil) ;don't show repeating tasks in the future
-(setq org-agenda-tags-column 80)
+(setq org-agenda-tags-column 90)
 (setq org-agenda-use-tag-inheritance nil) ;good, shows in agenda if t,
                                           ;but doesn't add an actual
                                           ;tag, in case want to track
