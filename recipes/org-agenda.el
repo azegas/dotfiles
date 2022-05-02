@@ -7,22 +7,40 @@
 ;; work, agenda will work.  if your org agenda files are not there,
 ;; do C-c C-e on the parentheses below. Evaluate them.
 
-;; advanced searching - https://orgmode.org/worg/org-tutorials/advanced-searching.html
 ;;; Code:
 
 (setq org-agenda-custom-commands
-      '(("a" "Agenda"
-         ((tags "PRIORITY=\"A\""
+      '(("a" "Agenda asmenine"
+         ((agenda ""
+                  ((org-agenda-span 1)))
+          (tags "PRIORITY=\"A\""
                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (agenda ""
-                  ((org-agenda-span 1)))
           (alltodo ""
                     ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
-                   (;; (org-agenda-tag-filter-preset '("+pkc"))
+                   (;; (org-agenda-tag-filter-preset '("-pkc"))
                     (org-agenda-skip-function
                      '(or (air-org-skip-subtree-if-priority ?A)
-                          (org-agenda-skip-if nil '(scheduled deadline))))))))))
+                          (org-agenda-skip-if nil '(scheduled deadline))))))))
+        ("p" "pkc"
+         ((agenda ""
+                  ((org-agenda-span 1)))
+          (tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+          (alltodo "-ISMOK"
+                    ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
+                   ((org-agenda-tag-filter-preset '("+pkc"))
+                    (org-agenda-skip-function
+                     '(or (air-org-skip-subtree-if-priority ?A)
+                          (org-agenda-skip-if nil '(scheduled deadline))
+                          (org-agenda-skip-entry-if 'todo '("ISMOK"))))))
+          (todo "ISMOK"
+                ((org-agenda-tag-filter-preset '("+pkc"))
+                 (org-agenda-skip-function
+                     '(or (air-org-skip-subtree-if-priority ?A)
+                          (org-agenda-skip-if nil '(scheduled deadline))))))))
+        ("c" "Calls" tags-todo "namai/!WAITING")))
 
         ;; ("x" "Personal agenda"
         ;;  ((agenda "" ((org-agenda-span 7)
