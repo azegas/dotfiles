@@ -65,6 +65,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-start-with-log-mode nil) ;shows all CLOSED: tasks in agenda view. kinda cool
 (setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-prefix-format "%t %s")
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-sticky nil)                ;allows to open multiple
                                           ;agenda views at once, but
