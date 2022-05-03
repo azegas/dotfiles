@@ -10,26 +10,22 @@
 ;;; Code:
 
 (setq org-agenda-custom-commands
-      '(("a" "Agenda asmenine"
-         ((agenda ""
-                  ((org-agenda-span 1)))
-          (tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (alltodo ""
-                    ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
-                   (;; (org-agenda-tag-filter-preset '("-pkc"))
-                    (org-agenda-skip-function
-                     '(or (air-org-skip-subtree-if-priority ?A)
-                          (org-agenda-skip-if nil '(scheduled deadline))))))))
-        ("p" "pkc"
+      '(("c" "Calls" tags-todo "@call-somedaymaybe/!TODO")
+        ("p" "Projects" tags-todo "project-somedaymaybe/!TODO")
+        ("l" "Checklists" tags "@checklist-somedaymaybe")
+        ("k" "Someday/maybe" tags-todo "somedaymaybe+LEVEL=2"
+         ((org-agenda-dim-blocked-tasks nil)))
+        ("v" "Vilnius" tags-todo "@vilnius-somedaymaybe/!TODO")
+        ("n" "Non-project tasks" tags-todo "-project-@waitingfor-somedaymaybe/!TODO"
+         ((org-use-tag-inheritance '("project" "somedaymaybe"))))
+        ("P" "pkc"
          ((agenda ""
                   ((org-agenda-span 1)))
           (tags "PRIORITY=\"A\""
                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
           (alltodo "-ISMOK"
-                    ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
+                                        ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
                    ((org-agenda-tag-filter-preset '("+pkc"))
                     (org-agenda-skip-function
                      '(or (air-org-skip-subtree-if-priority ?A)
@@ -38,9 +34,73 @@
           (todo "ISMOK"
                 ((org-agenda-tag-filter-preset '("+pkc"))
                  (org-agenda-skip-function
-                     '(or (air-org-skip-subtree-if-priority ?A)
-                          (org-agenda-skip-if nil '(scheduled deadline))))))))
-        ("c" "Calls" tags-todo "namai/!WAITING")))
+                  '(or (air-org-skip-subtree-if-priority ?A)
+                       (org-agenda-skip-if nil '(scheduled deadline))))))))
+        ("A" "Agenda"
+         ((agenda "" nil)
+          (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@computer-somedaymaybe/!TODO"
+                     ((org-agenda-overriding-header "Common next actions")
+                      (org-agenda-dim-blocked-tasks 'invisible)))
+          (tags-todo "@agenda-somedaymaybe/!TODO"
+                     ((org-agenda-overriding-header "Agendas")
+                      (org-agenda-dim-blocked-tasks 'invisible)))
+          (tags-todo "@home-somedaymaybe/!TODO"
+                     ((org-agenda-overriding-header "Home actions")
+                      (org-agenda-dim-blocked-tasks 'invisible)))
+          (tags-todo "@waitingfor-somedaymaybe/!TODO"
+                     ((org-agenda-overriding-header "Waiting for")
+                      (org-agenda-dim-blocked-tasks 'invisible)))
+          (tags-todo "@vilnius-somedaymaybe/!TODO"
+                     ((org-agenda-overriding-header "Errands")
+                      (org-agenda-dim-blocked-tasks 'invisible)))
+          (tags-todo "@readreview-somedaymaybe/!TODO"
+                     ((org-agenda-overriding-header "Read/review")
+                      (org-agenda-dim-blocked-tasks 'invisible)))
+          (todo "LOGTIME"
+                ((org-agenda-overriding-header "Time log actions")
+                 (org-agenda-dim-blocked-tasks 'invisible)))
+          (tags "-project/+DONE|+CANCELLED"
+                ((org-agenda-overriding-header "Archivable tasks")
+                 (org-use-tag-inheritance '("project"))))
+          (todo "-@agenda-@anywhere-@call-@internet-@computer-@home-@readreview-@vilnius-@waitingfor-@checklist-project-somedaymaybe"
+                ((org-agenda-overriding-header "Contextless tasks")))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (setq org-agenda-custom-commands
+;;       '(("a" "Agenda asmenine"
+;;          ((agenda ""
+;;                   ((org-agenda-span 1)))
+;;           (tags "PRIORITY=\"A\""
+;;                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+;;                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
+;;           (alltodo ""
+;;                     ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
+;;                    (;; (org-agenda-tag-filter-preset '("-pkc"))
+;;                     (org-agenda-skip-function
+;;                      '(or (air-org-skip-subtree-if-priority ?A)
+;;                           (org-agenda-skip-if nil '(scheduled deadline))))))))
+;;         ("p" "pkc"
+;;          ((agenda ""
+;;                   ((org-agenda-span 1)))
+;;           (tags "PRIORITY=\"A\""
+;;                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+;;                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
+;;           (alltodo "-ISMOK"
+;;                     ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
+;;                    ((org-agenda-tag-filter-preset '("+pkc"))
+;;                     (org-agenda-skip-function
+;;                      '(or (air-org-skip-subtree-if-priority ?A)
+;;                           (org-agenda-skip-if nil '(scheduled deadline))
+;;                           (org-agenda-skip-entry-if 'todo '("ISMOK"))))))
+;;           (todo "ISMOK"
+;;                 ((org-agenda-tag-filter-preset '("+pkc"))
+;;                  (org-agenda-skip-function
+;;                      '(or (air-org-skip-subtree-if-priority ?A)
+;;                           (org-agenda-skip-if nil '(scheduled deadline))))))))
+;;         ("c" "Calls" tags-todo "namai/!WAITING")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
         ;; ("x" "Personal agenda"
         ;;  ((agenda "" ((org-agenda-span 7)
@@ -83,7 +143,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-start-with-log-mode nil) ;shows all CLOSED: tasks in agenda view. kinda cool
 (setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-prefix-format "%t %s")
+;; (setq org-agenda-prefix-format "%t %s")
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-sticky nil)                ;allows to open multiple
                                           ;agenda views at once, but

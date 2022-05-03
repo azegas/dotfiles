@@ -40,7 +40,7 @@
          ("C-c n i" . org-roam-node-insert)
          ("C-c n I" . org-roam-node-insert-immediate)
          ("C-c n p" . my/org-roam-find-project)
-         ;; ("C-c n t" . my/org-roam-capture-task)
+         ("C-c n t" . my/org-roam-capture-task)
          ;; ("C-c n b" . my/org-roam-capture-inbox)
          :map org-mode-map
          ("C-M-i" . completion-at-point)
@@ -89,9 +89,11 @@
       (let ((head
              (concat
               "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* inbox\n* log\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
-        `(("d" "default" plain "** %?"
+        `(("t" "todo" plain "** TODO %?"
            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
-          ("j" "journal entry" entry
+          ("d" "default" plain "** %?"
+           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
+          ("j" "journal entry" plain
            "* %<%H:%M>: %?"          ;format-time-string
            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
 
@@ -110,19 +112,19 @@
 ;; ----------------------------------------------------------------
 
 ;; ADD A TASK STRAIGHT TO A SPECIFIC PROJECT
-;; (defun my/org-roam-capture-task ()
-;;   (interactive)
-;;   ;; Add the project file to the agenda after capture is finished
-;;   (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+(defun my/org-roam-capture-task ()
+  (interactive)
+  ;; Add the project file to the agenda after capture is finished
+  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
 
-;;   ;; Capture the new task, creating the project file if necessary
-;;   (org-roam-capture- :node (org-roam-node-read
-;;                             nil
-;;                             (my/org-roam-filter-by-tag "project"))
-;;                      :templates '(("t" "task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-;;                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
-;;                                                           ("${title}"))))))
+  ;; Capture the new task, creating the project file if necessary
+  (org-roam-capture- :node (org-roam-node-read
+                            nil
+                            (my/org-roam-filter-by-tag "project"))
+                     :templates '(("t" "task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
+                                   :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                          "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
+                                                          ("${title}"))))))
 
 ;; ----------------------------------------------------------------
 
