@@ -1,4 +1,4 @@
-;;; doom.el --- doom theme + modeline
+;;; doom-themes.el --- doom theme
 ;;; Commentary:
 ;; [2022-03-18 Pn] so far There is nothing better and cleaner than -
 ;; "Doom-modeline". It converts a basic looking, all cramped modeline into a
@@ -14,20 +14,4 @@
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   (load-theme 'doom-palenight t))
 
-(use-package doom-modeline
-  :ensure t
-  :init
-  (setq doom-modeline-env-enable-python t)
-  (setq doom-modeline-env-enable-go nil)
-  (setq doom-modeline-buffer-encoding 'nondefault)
-  (setq doom-modeline-hud t)
-  (setq doom-modeline-persp-icon nil)
-  (setq doom-modeline-persp-name nil)
-  :config
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-buffer-state-icon nil)
-  (doom-modeline-mode 1)
-  :custom
-  (doom-modeline-irc t))
-
-;;; doom.el ends here
+;;; doom-themes.el ends here
