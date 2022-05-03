@@ -41,7 +41,7 @@
          ("C-c n I" . org-roam-node-insert-immediate)
          ("C-c n p" . my/org-roam-find-project)
          ;; ("C-c n t" . my/org-roam-capture-task)
-         ("C-c n b" . my/org-roam-capture-inbox)
+         ;; ("C-c n b" . my/org-roam-capture-inbox)
          :map org-mode-map
          ("C-M-i" . completion-at-point)
          :map org-roam-dailies-map
@@ -84,57 +84,32 @@
 
 ;; ----------------------------------------------------------------
 
-;;           ("j" "journal" entry
-;;            "* %U: %?"
-;;            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
-
-;; INBOX STUFF
-(defun my/org-roam-capture-inbox ()
-  (interactive)
-  (org-roam-capture- :node (org-roam-node-create)
-                     :templates '(("j" "journal" entry "** JOURNAL %^{Title}\nCLOSED:%U\n%?"
-                                   :if-new (file+head "20220502071757-diary.org" "#+title: diary\n"))
-                                  ("i" "inbox" plain "** TODO %? %^G \n:PROPERTIES:\n:Created: %U\n:END:\n"
-                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  ("p" "pkc" plain "* TODO %? :pkc: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  ("e" "emacs" plain "* TODO %? :emacs: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  ("1" "namai" plain "* TODO %? :namai: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  ("2" "pirk" plain "* TODO %? :pirk: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  ("3" "iseik" plain "* TODO %? :iseik: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  ("4" "seima" plain "* TODO %? :seima: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-                                   :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  ;; ("s" "scheduled" plain "* TODO %? %^G \n SCHEDULED: %^t\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
-                                  ;;  :if-new (file+head "inbox.org" "#+title: inbox\n"))
-                                  )))
-
-;; ----------------------------------------------------------------
-
 ;; ORG-ROAM-DAILIES
-;; (setq org-roam-dailies-capture-templates
-;;       (let ((head
-;;              (concat
-;;               "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* Log\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
-;;         `(("d" "default" entry
-;;            "* %?"
-;;            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Inbox"))
-;;            :unnarrowed t)
-;;           ("j" "journal" entry
-;;            "* %U: %?"
-;;            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
-;;           ("t" "Do Today" entry         ;cool feature, allows to take the thing cursor is on and add to dailies
-;;            "** %a %?"
-;;            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Inbox"))
-;;            :immediate-finish t)
-;;           )))
+(setq org-roam-dailies-capture-templates
+      (let ((head
+             (concat
+              "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* inbox\n* log\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
+        `(("d" "default" plain "** %?"
+           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
+          ("j" "journal entry" entry
+           "* %<%H:%M>: %?"          ;format-time-string
+           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
+
+          ;; ("i" "add any task" plain "** TODO %? %^G \n:PROPERTIES:\n:Created: %U\n:END:\n"
+          ;;  :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
+
+          ;; ("p" "add pkc task" plain "** TODO %? :pkc: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+          ;;  :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
+
+          ;; ("t" "Add antry from here" entry         ;cool feature, allows to take the thing cursor is on and add to dailies
+          ;;  "** %a %?"
+          ;;  :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Inbox"))
+          ;;  :immediate-finish t)
+          )))
 
 ;; ----------------------------------------------------------------
 
-;; ADD TASK TO A SPECIFIC PROJECT
+;; ADD A TASK STRAIGHT TO A SPECIFIC PROJECT
 ;; (defun my/org-roam-capture-task ()
 ;;   (interactive)
 ;;   ;; Add the project file to the agenda after capture is finished
@@ -144,30 +119,35 @@
 ;;   (org-roam-capture- :node (org-roam-node-read
 ;;                             nil
 ;;                             (my/org-roam-filter-by-tag "project"))
-;;                      :templates '(("t" "task" plain "** TODO %? %^G\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
+;;                      :templates '(("t" "task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
 ;;                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
 ;;                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
-;;                                                           ("${title}")))
-;;                                   ("s" "scheduled" plain "** TODO %? %^G\nSCHEDULED: %^t\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-;;                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
-;;                                                           ("${title}")))
-;;                                   ("b" "bug" plain "** TODO %? :${title}:bug:\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-;;                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
-;;                                                           ("bugs")))
-;;                                   ("t" "task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-;;                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
-;;                                                           ("${title}")))
-;;                                   ("p" "pkc tickler" plain "** TODO %? :pkc:\n\n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-;;                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project\n"
-;;                                                           ("pkc tickler")))
-;;                                   ("i" "iskvietimas" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
-;;                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-;;                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
-;;                                                           ("${title}")))
+;;                                                           ("${title}"))))))
+
+;; ----------------------------------------------------------------
+
+;; ;; INBOX STUFF
+;; (defun my/org-roam-capture-inbox ()
+;;   (interactive)
+;;   (org-roam-capture- :node (org-roam-node-create)
+;;                      :templates '(("j" "journal" entry "** JOURNAL %^{Title}\nCLOSED:%U\n%?"
+;;                                    :if-new (file+head "20220502071757-diary.org" "#+title: diary\n"))
+;;                                   ("i" "inbox" plain "** TODO %? %^G \n:PROPERTIES:\n:Created: %U\n:END:\n"
+;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+;;                                   ("p" "pkc" plain "* TODO %? :pkc: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+;;                                   ("e" "emacs" plain "* TODO %? :emacs: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+;;                                   ("1" "namai" plain "* TODO %? :namai: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+;;                                   ("2" "pirk" plain "* TODO %? :pirk: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+;;                                   ("3" "iseik" plain "* TODO %? :iseik: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+;;                                   ("4" "seima" plain "* TODO %? :seima: \n:PROPERTIES:\n:Created: %U\n:END:\n"
+;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
+;;                                   ;; ("s" "scheduled" plain "* TODO %? %^G \n SCHEDULED: %^t\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
+;;                                   ;;  :if-new (file+head "inbox.org" "#+title: inbox\n"))
 ;;                                   )))
 
 ;; ----------------------------------------------------------------
@@ -176,35 +156,38 @@
 ;; tasks way quicker in agenda itself. will try to utilize build in
 ;; agenda and org features in general more
 
+;; 05-02 vakaras - ijungiau atgal, lengviau blet taip negu but po
+;; visur issidrabscius, fak that completed task list in agenda
+
 ;; COPY COMPLETED TASKS TO DAILIES
-;; (defun my/org-roam-copy-todo-to-today ()
-;;   (interactive)
-;;   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
-;;         (org-roam-dailies-capture-templates
-;;          '(("t" "tasks" entry "%?"
-;;             :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Completed Tasks")))))
-;;         (org-after-refile-insert-hook #'save-buffer)
-;;         today-file
-;;         pos)
-;;     (save-window-excursion
-;;       (org-roam-dailies--capture (current-time) t)
-;;       (setq today-file (buffer-file-name))
-;;       (setq pos (point)))
+(defun my/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
+        (org-roam-dailies-capture-templates
+         '(("t" "tasks" entry "%?"
+            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Completed Tasks")))))
+        (org-after-refile-insert-hook #'save-buffer)
+        today-file
+        pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
 
-;;     ;; Only refile if the target file is different than the current file
-;;     (unless (equal (file-truename today-file)
-;;                    (file-truename (buffer-file-name)))
-;;       (org-refile nil nil (list "Tasks" today-file nil pos)))))
+    ;; Only refile if the target file is different than the current file
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
 
-;; (add-to-list 'org-after-todo-state-change-hook
-;;              (lambda ()
-;;                (when (equal org-state "DONE")
-;;                  (my/org-roam-copy-todo-to-today))))
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "DONE")
+                 (my/org-roam-copy-todo-to-today))))
 
-;; (add-to-list 'org-after-todo-state-change-hook
-;;              (lambda ()
-;;                (when (equal org-state "CANCELLED")
-;;                  (my/org-roam-copy-todo-to-today))))
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "CANCELLED")
+                 (my/org-roam-copy-todo-to-today))))
 
 ;; ----------------------------------------------------------------
 
