@@ -20,6 +20,26 @@
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "ISMOK(i)" "|" "DONE(d)" "JOURNAL(j)" "REPEATING(r)" "CANCELLED(c)"))))
 
+(setq org-tag-alist '((:startgroup . nil)
+                      ("@anywhere" . ?w)
+                      ("@call" . ?t)
+                      ("@internet" . ?i)
+                      ("@computer" . ?c)
+                      ("@home" . ?h)
+                      ("@pkc" . ?p)
+                      ("@readreview" . ?r)
+                      ("@vilnius" . ?v)
+                      ("@waitingfor" . ?f)
+                      ("@checklist" . ?l)
+                      (:endgroup . nil)
+                      ("project" . ?p)
+                      ("somedaymaybe" . ?s)
+                      ("crypt" . ?k)))
+
+(add-hook 'org-capture-mode-hook
+          (lambda ()
+            (setq-local org-tag-alist (org-global-tags-completion-table))))
+
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "IndianRed1" :weight bold)
               ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
