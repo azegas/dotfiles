@@ -15,6 +15,15 @@
 ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
 ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
 
+
+(setq org-capture-templates
+      '(("t" "TODO" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Tasks")
+         "** TODO %?\n  %i\n  %a")
+        ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Inbox")
+         "** %?\n  %i\n  %a")
+        ("c" "Current" plain (clock) "" :clock-in :clock-keep)))
+
+
 ;; ONE BIG FILE BELOW
 (setq org-capture-templates '(
                               ("i" "Inbox No Timesamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox No Timestamp") "* TODO %?\n %^{Effort}p")

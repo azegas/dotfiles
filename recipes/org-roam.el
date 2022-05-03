@@ -162,34 +162,34 @@
 ;; visur issidrabscius, fak that completed task list in agenda
 
 ;; COPY COMPLETED TASKS TO DAILIES
-(defun my/org-roam-copy-todo-to-today ()
-  (interactive)
-  (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
-        (org-roam-dailies-capture-templates
-         '(("t" "tasks" entry "%?"
-            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Completed Tasks")))))
-        (org-after-refile-insert-hook #'save-buffer)
-        today-file
-        pos)
-    (save-window-excursion
-      (org-roam-dailies--capture (current-time) t)
-      (setq today-file (buffer-file-name))
-      (setq pos (point)))
+;; (defun my/org-roam-copy-todo-to-today ()
+;;   (interactive)
+;;   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
+;;         (org-roam-dailies-capture-templates
+;;          '(("t" "tasks" entry "%?"
+;;             :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Completed Tasks")))))
+;;         (org-after-refile-insert-hook #'save-buffer)
+;;         today-file
+;;         pos)
+;;     (save-window-excursion
+;;       (org-roam-dailies--capture (current-time) t)
+;;       (setq today-file (buffer-file-name))
+;;       (setq pos (point)))
 
-    ;; Only refile if the target file is different than the current file
-    (unless (equal (file-truename today-file)
-                   (file-truename (buffer-file-name)))
-      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+;;     ;; Only refile if the target file is different than the current file
+;;     (unless (equal (file-truename today-file)
+;;                    (file-truename (buffer-file-name)))
+;;       (org-refile nil nil (list "Tasks" today-file nil pos)))))
 
-(add-to-list 'org-after-todo-state-change-hook
-             (lambda ()
-               (when (equal org-state "DONE")
-                 (my/org-roam-copy-todo-to-today))))
+;; (add-to-list 'org-after-todo-state-change-hook
+;;              (lambda ()
+;;                (when (equal org-state "DONE")
+;;                  (my/org-roam-copy-todo-to-today))))
 
-(add-to-list 'org-after-todo-state-change-hook
-             (lambda ()
-               (when (equal org-state "CANCELLED")
-                 (my/org-roam-copy-todo-to-today))))
+;; (add-to-list 'org-after-todo-state-change-hook
+;;              (lambda ()
+;;                (when (equal org-state "CANCELLED")
+;;                  (my/org-roam-copy-todo-to-today))))
 
 ;; ----------------------------------------------------------------
 
