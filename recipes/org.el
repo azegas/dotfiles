@@ -21,18 +21,19 @@
       (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "ISMOK(i)" "|" "DONE(d)" "JOURNAL(j)" "REPEATING(r)" "CANCELLED(c)"))))
 
 (setq org-tag-alist '((:startgroup . nil)
+                      ("@waitingfor" . ?w)
                       ("@anywhere" . ?a)
                       ("@call" . ?c)
                       ("@internet" . ?i)
                       ("@komputer" . ?k)
-                      ("@home" . ?h)
-                      ("@pnvz" . ?z)
-                      ("@family" . ?f)
                       ("@readreview" . ?r)
-                      ("@waitingfor" . ?w)
+                      ("@home" . ?h)
+                      ("@buy" . ?b)
+                      ("@family" . ?f)
+                      ("@pnvz" . ?z)
                       (:endgroup . nil)
-                      ("pkc" . ?p)
                       ("somedaymaybe" . ?s)))
+
 (setq org-use-tag-inheritance '("somedaymaybe" "@readreview"))
 (setq org-agenda-tags-todo-honor-ignore-options t)
 (setq org-fast-tag-selection-single-key 'expert)
@@ -80,6 +81,6 @@
 ;; archiving with a help of refile into one big archive.org file -
 ;; dont need all those archive labels in properties tag. too many date
 ;; inputs to sort through
-(setq org-archive-location "~/Dropbox/documents/org/roam/20220429211036-archive.org::* archive")
+(setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
 
 ;;; org.el ends here
