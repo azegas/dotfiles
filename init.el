@@ -55,7 +55,7 @@
 (load "~/.emacs.d/recipes/multiple-cursors.el")
 (load "~/.emacs.d/recipes/org.el")
 (load "~/.emacs.d/recipes/org-agenda.el")
-;; (load "~/.emacs.d/recipes/org-capture.el")
+(load "~/.emacs.d/recipes/org-capture.el")
 (load "~/.emacs.d/recipes/org-roam.el")
 (load "~/.emacs.d/recipes/org-clock.el")
 (load "~/.emacs.d/recipes/org-download.el")
@@ -73,3 +73,17 @@
 (load "~/.emacs.d/recipes/yasnippet.el")
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("/home/arvydas/Dropbox/documents/org/roam/20220323172208-tickler.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -1,3 +1,5 @@
+
+
 ;;; agenda.el --- agenda stuff
 ;;; Commentary:
 ;; M-x org-agenda-file-list. Go there and click "save the changes"
@@ -44,7 +46,7 @@
           (tags "/+DONE|+CANCELLED"
                 ((org-agenda-overriding-header "Archivable tasks")
                  (org-use-tag-inheritance '("project"))))
-          (todo "-@agenda-@anywhere-@call-@internet-@computer-@home-@readreview-@vilnius-@waitingfor-@checklist-project-somedaymaybe"
+          (todo "-@anywhere-@call-@internet-@computer-@home-@readreview-@waitingfor-@checklist-project-somedaymaybe/!TODO"
                 ((org-agenda-overriding-header "Contextless tasks")))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
