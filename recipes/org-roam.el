@@ -39,8 +39,8 @@
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n I" . org-roam-node-insert-immediate)
-         ("C-c n p" . my/org-roam-find-project)
-         ("C-c n t" . my/org-roam-capture-task)
+         ;; ("C-c n p" . my/org-roam-find-project)
+         ;; ("C-c n t" . my/org-roam-capture-task)
          ;; ("C-c n b" . my/org-roam-capture-inbox)
          :map org-mode-map
          ("C-M-i" . completion-at-point)
@@ -61,25 +61,19 @@
 
 ;; ORG-ROAM-CAPTURE-TEMPLATES - new files
 (setq org-roam-capture-templates
-      '(("d" "default" plain
+      '(("d" "default roam file" plain
          "* ${title}\n\n%?"
          :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n#+date: %U\n\n")
          :unnarrowed t)
-        ("p" "pkc" plain
+        ("p" "pkc roam file" plain
          "\n* ${title}\n%?"
          :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
          :unnarrowed t)
-        ("b" "book notes" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
+        ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
          :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n")
-         :unnarrowed t)
-        ("P" "project" plain
-         "* Goals\n\n%?\n\n* ${title}\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-         :if-new (file+head
-                  "%<%Y%m%d%H%M%S>-${slug}.org"
-                  "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
          :unnarrowed t)))
 
 ;; ----------------------------------------------------------------
@@ -255,7 +249,7 @@
    nil
    (my/org-roam-filter-by-tag "project")
    :templates
-   '(("p" "project" plain "* Goals\n\n%?\n\n* ${title}\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+   '(("p" "project" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n"
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
       :unnarrowed t))))
 

@@ -80,10 +80,11 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("/home/arvydas/Dropbox/documents/org/roam/20220323172208-tickler.org"))))
+    ("/home/arvydas/Dropbox/documents/org/roam/20220504202624-smuti_fruti.org" "/home/arvydas/Dropbox/documents/org/roam/20220504180110-pkc.org" "/home/arvydas/Dropbox/documents/org/roam/20220504202102-know_your_area.org" "/home/arvydas/Dropbox/documents/org/roam/20220504192051-emacs.org" "/home/arvydas/Dropbox/documents/org/roam/20220504192335-inbox.org" "/home/arvydas/Dropbox/documents/org/roam/20220504191201-personal.org" "/home/arvydas/Dropbox/documents/org/roam/20220504201142-project_ideas.org" "/home/arvydas/Dropbox/documents/org/roam/20220504200737-citatos.org" "/home/arvydas/Dropbox/documents/org/roam/20220504203435-arvydasg_github_io.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'dired-find-alternate-file 'disabled nil)

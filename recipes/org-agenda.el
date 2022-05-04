@@ -1,5 +1,3 @@
-
-
 ;;; agenda.el --- agenda stuff
 ;;; Commentary:
 ;; M-x org-agenda-file-list. Go there and click "save the changes"
@@ -13,19 +11,15 @@
 
 (setq org-agenda-custom-commands
       '(("c" "Calls" tags-todo "@call-somedaymaybe/!TODO")
-        ("p" "Projects" tags-todo "project-somedaymaybe/!TODO")
         ("h" "Home" tags-todo "@home-somedaymaybe/!TODO")
-        ("f" "Family" tags-todo "@home-somedaymaybe/!TODO")
-        ("l" "Checklists" tags "@checklist-somedaymaybe")
-        ("k" "Someday/maybe" tags-todo "somedaymaybe+LEVEL=2"
+        ("f" "Family" tags-todo "@family-somedaymaybe/!TODO")
+        ("k" "Someday/maybe" tags-todo "somedaymaybe+LEVEL=2" ;show ONLY level 2 heading
          ((org-agenda-dim-blocked-tasks nil)))
-        ("v" "Vilnius" tags-todo "@vilnius-somedaymaybe/!TODO")
-        ("n" "Non-project tasks" tags-todo "-project-@waitingfor-somedaymaybe/!TODO"
-         ((org-use-tag-inheritance '("project" "somedaymaybe"))))
-        ("A" "Agenda"
+        ("z" "Panevezys" tags-todo "@pnvz-somedaymaybe/!TODO")
+        ("a" "Agenda"
          ((agenda ""
                   ((org-agenda-span 1)))
-          (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@computer-somedaymaybe/!TODO"
+          (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@komputer-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Common next actions")
                       (org-agenda-dim-blocked-tasks 'invisible)))
           (tags-todo "@pkc-somedaymaybe/!TODO"
@@ -38,7 +32,7 @@
                      ((org-agenda-overriding-header "Waiting for")
                       (org-agenda-dim-blocked-tasks 'invisible)))
           (tags-todo "@pnvz-somedaymaybe/!TODO"
-                     ((org-agenda-overriding-header "Errands")
+                     ((org-agenda-overriding-header "Errands Pnvz")
                       (org-agenda-dim-blocked-tasks 'invisible)))
           (tags-todo "@readreview-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Read/review")
@@ -46,7 +40,7 @@
           (tags "/+DONE|+CANCELLED"
                 ((org-agenda-overriding-header "Archivable tasks")
                  (org-use-tag-inheritance '("project"))))
-          (todo "-@anywhere-@call-@internet-@computer-@home-@readreview-@waitingfor-@checklist-project-somedaymaybe/!TODO"
+          (todo "-@anywhere-@call-@internet-@komputer-@home-@readreview-@waitingfor-@checklist-project-somedaymaybe/!TODO"
                 ((org-agenda-overriding-header "Contextless tasks")))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -142,6 +136,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                           ;instead
 
 ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
 
 ;;; agenda.el ends here

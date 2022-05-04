@@ -17,10 +17,10 @@
 
 
 (setq org-capture-templates
-      '(("t" "TODO" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Tasks")
-         "** TODO %?\n  %i\n  %a")
-        ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Inbox")
-         "** %?\n  %i\n  %a")
+      '(("t" "TODO" entry (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Tasks")
+         "** TODO %?")
+        ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+         "** %?")
         ("c" "Current" plain (clock) "" :clock-in :clock-keep)))
 
 
