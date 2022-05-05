@@ -51,23 +51,6 @@
 
 ;; ----------------------------------------------------------------
 
-;; ADD A TASK STRAIGHT TO A SPECIFIC PROJECT
-(defun my/org-roam-capture-task ()
-  (interactive)
-  ;; Add the project file to the agenda after capture is finished
-  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
-
-  ;; Capture the new task, creating the project file if necessary
-  (org-roam-capture- :node (org-roam-node-read
-                            nil
-                            (my/org-roam-filter-by-tag "project"))
-                     :templates '(("t" "task" plain "** TODO %? :${title}:\n\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
-                                   :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-                                                          "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
-                                                          ("${title}"))))))
-
-;; ----------------------------------------------------------------
-
 ;; "PROJECT" FILES INTO AGENDA
 ;; [2022-03-23 Tr] Read Org-roam files and put the ones that have tag Project into
 ;; org-agenda-files
