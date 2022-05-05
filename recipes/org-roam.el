@@ -46,6 +46,25 @@
 
 ; ------------------------------------------------------
 
+;; ORG-ROAM-CAPTURE-TEMPLATES - new roam files
+(setq org-roam-capture-templates
+      '(("d" "default roam file" plain
+         "* ${title}\n\n%?"
+         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+date: %U\n\n")
+         :unnarrowed t)
+        ("p" "pkc roam file" plain
+         "\n* ${title}\n%?"
+         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
+         :unnarrowed t)
+        ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
+         :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n")
+         :unnarrowed t)))
+
+;; ----------------------------------------------------------------
+
 ;; find/create project
 (defun my/org-roam-filter-by-tag (tag-name)
   (lambda (node)
@@ -53,8 +72,6 @@
 
 (defun my/org-roam-find-project ()
   (interactive)
-  ;; Add the project file to the agenda after capture is finished
-  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
 
   ;; Select a project file to open, creating it if necessary
   (org-roam-node-find
