@@ -18,10 +18,11 @@
         ("z" "Panevezys" tags-todo "@pnvz-somedaymaybe/!TODO")
         ("a" "Agenda"
          ((agenda ""
-                  ((org-agenda-span 1)))
+                  ((org-agenda-span 5)))
           (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@komputer-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Common next actions")
-                      (org-agenda-dim-blocked-tasks 'invisible)))
+                      (org-agenda-dim-blocked-tasks 'invisible)
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
           (tags-todo "@pkc-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Pkc actions")
                       (org-agenda-dim-blocked-tasks 'invisible)))
