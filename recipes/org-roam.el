@@ -41,7 +41,6 @@
          ("C-c n I" . org-roam-node-insert-immediate)
          ;; ("C-c n p" . my/org-roam-find-project)
          ;; ("C-c n t" . my/org-roam-capture-task)
-         ;; ("C-c n b" . my/org-roam-capture-inbox)
          :map org-mode-map
          ("C-M-i" . completion-at-point)
          :map org-roam-dailies-map
@@ -119,32 +118,6 @@
                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                           ("${title}"))))))
-
-;; ----------------------------------------------------------------
-
-;; ;; INBOX STUFF
-;; (defun my/org-roam-capture-inbox ()
-;;   (interactive)
-;;   (org-roam-capture- :node (org-roam-node-create)
-;;                      :templates '(("j" "journal" entry "** JOURNAL %^{Title}\nCLOSED:%U\n%?"
-;;                                    :if-new (file+head "20220502071757-diary.org" "#+title: diary\n"))
-;;                                   ("i" "inbox" plain "** TODO %? %^G \n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   ("p" "pkc" plain "* TODO %? :pkc: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   ("e" "emacs" plain "* TODO %? :emacs: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   ("1" "namai" plain "* TODO %? :namai: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   ("2" "pirk" plain "* TODO %? :pirk: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   ("3" "iseik" plain "* TODO %? :iseik: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   ("4" "seima" plain "* TODO %? :seima: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-;;                                    :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   ;; ("s" "scheduled" plain "* TODO %? %^G \n SCHEDULED: %^t\n:PROPERTIES:\n:Effort: %^{effort|1:00|0:00|0:05|0:10|0:30|2:00|4:00}\n:Created: %U\n:END:\n"
-;;                                   ;;  :if-new (file+head "inbox.org" "#+title: inbox\n"))
-;;                                   )))
 
 ;; ----------------------------------------------------------------
 
