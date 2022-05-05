@@ -32,7 +32,6 @@
   (setq org-roam-v2-ack t)
   :custom
   (org-roam-directory "~/Dropbox/documents/org/roam")
-  ;; (org-roam-dailies-directory "~/Dropbox/documents/org/roam/daily/")
   (org-roam-node-display-template "${tags:10} ${title:100}")
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -42,14 +41,8 @@
          ;; ("C-c n p" . my/org-roam-find-project)
          ;; ("C-c n t" . my/org-roam-capture-task)
          :map org-mode-map
-         ("C-M-i" . completion-at-point)
-         :map org-roam-dailies-map
-         ("T" . org-roam-dailies-capture-tomorrow)
-         ("Y" . org-roam-dailies-capture-yesterday))
-  :bind-keymap
-  ("C-c n d" . org-roam-dailies-map)
+         ("C-M-i" . completion-at-point))
   :config
-  (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
 
 ;; allow org-add-note to have org-roam "auto completion" solved in Github
@@ -58,30 +51,22 @@
 
 ;; ----------------------------------------------------------------
 
-;; ORG-ROAM-DAILIES
-(setq org-roam-dailies-capture-templates
-      (let ((head
-             (concat
-              "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* inbox\n* log\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
-        `(("t" "todo" plain "** TODO %?"
-           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
-          ("d" "default" plain "** %?"
-           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
-          ("j" "journal entry" plain
-           "* %<%H:%M>: %?"          ;format-time-string
-           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
-
-          ;; ("i" "add any task" plain "** TODO %? %^G \n:PROPERTIES:\n:Created: %U\n:END:\n"
-          ;;  :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
-
-          ;; ("p" "add pkc task" plain "** TODO %? :pkc: \n:PROPERTIES:\n:Created: %U\n:END:\n"
-          ;;  :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
-
-          ;; ("t" "Add antry from here" entry         ;cool feature, allows to take the thing cursor is on and add to dailies
-          ;;  "** %a %?"
-          ;;  :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Inbox"))
-          ;;  :immediate-finish t)
-          )))
+;; ORG-ROAM-CAPTURE-TEMPLATES - new files
+(setq org-roam-capture-templates
+      '(("d" "default roam file" plain
+         "* ${title}\n\n%?"
+         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+date: %U\n\n")
+         :unnarrowed t)
+        ("p" "pkc roam file" plain
+         "\n* ${title}\n%?"
+         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
+         :unnarrowed t)
+        ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
+         :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n")
+         :unnarrowed t)))
 
 ;; ----------------------------------------------------------------
 
@@ -99,45 +84,6 @@
                                    :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
                                                           "#+title: ${title}\n#+category: ${title}\n#+filetags: project"
                                                           ("${title}"))))))
-
-;; ----------------------------------------------------------------
-
-;; 04-29 turning this feature off, realized I could see my completed
-;; tasks way quicker in agenda itself. will try to utilize build in
-;; agenda and org features in general more
-
-;; 05-02 vakaras - ijungiau atgal, lengviau blet taip negu but po
-;; visur issidrabscius, fak that completed task list in agenda
-
-;; COPY COMPLETED TASKS TO DAILIES
-;; (defun my/org-roam-copy-todo-to-today ()
-;;   (interactive)
-;;   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
-;;         (org-roam-dailies-capture-templates
-;;          '(("t" "tasks" entry "%?"
-;;             :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Completed Tasks")))))
-;;         (org-after-refile-insert-hook #'save-buffer)
-;;         today-file
-;;         pos)
-;;     (save-window-excursion
-;;       (org-roam-dailies--capture (current-time) t)
-;;       (setq today-file (buffer-file-name))
-;;       (setq pos (point)))
-
-;;     ;; Only refile if the target file is different than the current file
-;;     (unless (equal (file-truename today-file)
-;;                    (file-truename (buffer-file-name)))
-;;       (org-refile nil nil (list "Tasks" today-file nil pos)))))
-
-;; (add-to-list 'org-after-todo-state-change-hook
-;;              (lambda ()
-;;                (when (equal org-state "DONE")
-;;                  (my/org-roam-copy-todo-to-today))))
-
-;; (add-to-list 'org-after-todo-state-change-hook
-;;              (lambda ()
-;;                (when (equal org-state "CANCELLED")
-;;                  (my/org-roam-copy-todo-to-today))))
 
 ;; ----------------------------------------------------------------
 
