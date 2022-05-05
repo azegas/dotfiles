@@ -17,9 +17,9 @@
 
 
 (setq org-capture-templates
-      '(("t" "TODO" entry (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Tasks")
+      '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Tasks")
          "** TODO %?")
-        ("i" "Inbox" entry (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+        ("i" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
          "** %?")
         ("c" "Current" plain (clock) "" :clock-in :clock-keep)))
 
