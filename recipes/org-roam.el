@@ -51,25 +51,6 @@
 
 ;; ----------------------------------------------------------------
 
-;; ORG-ROAM-CAPTURE-TEMPLATES - new files
-(setq org-roam-capture-templates
-      '(("d" "default roam file" plain
-         "* ${title}\n\n%?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                            "#+title: ${title}\n#+date: %U\n\n")
-         :unnarrowed t)
-        ("p" "pkc roam file" plain
-         "\n* ${title}\n%?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                            "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
-         :unnarrowed t)
-        ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
-         :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
-                            "#+title: ${title}\n")
-         :unnarrowed t)))
-
-;; ----------------------------------------------------------------
-
 ;; ADD A TASK STRAIGHT TO A SPECIFIC PROJECT
 (defun my/org-roam-capture-task ()
   (interactive)
