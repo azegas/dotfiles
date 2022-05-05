@@ -5,25 +5,9 @@
 ;; magical org_roam stuff
 ;; [2022-03-20 Sk] Finally managed to make it work. Ignored some steps
 ;; from the tutorial and it just works. Let's see what the hype is all
+;; lexical binding MUST be at the top of the file. TOP TOP TOP!!
 ;; about.
 ;;; Code:
-
-; ------------------------------------------------------
-
-;; lexical binding MUST be at the top of the file. TOP TOP TOP!!
-
-;; (defun lex-p ()
-;;   "Return t if lexical binding is in effect."
-;;   (let (lex
-;;         _lex-p)
-;;     (let ((lex t))
-;;       (setq _lex-p
-;;             (lambda ()
-;;               lex)))
-;;     (funcall _lex-p)))
-;; (message (if (lex-p) "Yes" "No"))
-
-; ------------------------------------------------------
 
 (use-package org-roam
   :ensure t
@@ -44,6 +28,8 @@
   :config
   (org-roam-db-autosync-mode))
 
+; ------------------------------------------------------
+
 ;; insert immediate
 (defun org-roam-node-insert-immediate (arg &rest args)
   (interactive "P")
@@ -52,9 +38,13 @@
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 
+; ------------------------------------------------------
+
 ;; allow org-add-note to have org-roam "auto completion" solved in Github
 ;; here - https://github.com/org-roam/org-roam/issues/2167
 (add-hook 'org-log-buffer-setup-hook #'org-roam--register-completion-functions-h)
+
+; ------------------------------------------------------
 
 ;; find/create project
 (defun my/org-roam-filter-by-tag (tag-name)
