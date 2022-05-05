@@ -38,48 +38,13 @@
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n I" . org-roam-node-insert-immediate)
-         ;; ("C-c n p" . my/org-roam-find-project)
-         ;; ("C-c n t" . my/org-roam-capture-task)
+         ("C-c n p" . my/org-roam-find-project)
          :map org-mode-map
          ("C-M-i" . completion-at-point))
   :config
   (org-roam-db-autosync-mode))
 
-;; allow org-add-note to have org-roam "auto completion" solved in Github
-;; here - https://github.com/org-roam/org-roam/issues/2167
-(add-hook 'org-log-buffer-setup-hook #'org-roam--register-completion-functions-h)
-
-;; ----------------------------------------------------------------
-
-;; "PROJECT" FILES INTO AGENDA
-;; [2022-03-23 Tr] Read Org-roam files and put the ones that have tag Project into
-;; org-agenda-files
-
-;; For the first time, do C-h v 'org-agenda-files', click customize and
-;; save changes. This will make it permanent. I guess as new projects
-;; files get added, should repeat this.
-;; #+BEGIN_SRC emacs-lisp
-
-;; Add everything that has "Project" tag to org-roam-agenda
-;; so the files are used to generate the agenda.
-
-(defun my/org-roam-filter-by-tag (tag-name)
-  (lambda (node)
-    (member tag-name (org-roam-node-tags node))))
-
-(defun my/org-roam-list-notes-by-tag (tag-name)
-  (mapcar #'org-roam-node-file
-          (seq-filter
-           (my/org-roam-filter-by-tag tag-name)
-           (org-roam-node-list))))
-
-(defun my/org-roam-refresh-agenda-list ()
-  (interactive)
-  (setq org-agenda-files (my/org-roam-list-notes-by-tag "project")))
-
-;; Build the agenda list the first time for the session
-(my/org-roam-refresh-agenda-list)
-
+;; insert immediate
 (defun org-roam-node-insert-immediate (arg &rest args)
   (interactive "P")
   (let ((args (push arg args))
@@ -87,20 +52,14 @@
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 
-;; [2022-03-26 Št] yes, yes, yes it works! Lexical binding on, p instead
-;; of P in tags = works!! C-c p p = projectile project, then C-c n p =
-;; org mode notes, great!
+;; allow org-add-note to have org-roam "auto completion" solved in Github
+;; here - https://github.com/org-roam/org-roam/issues/2167
+(add-hook 'org-log-buffer-setup-hook #'org-roam--register-completion-functions-h)
 
-(defun my/org-roam-project-finalize-hook ()
-  "Adds the captured project file to `org-agenda-files' if the
-  capture was not aborted."
-  ;; Remove the hook since it was added temporarily
-  (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
-
-  ;; Add project file to the agenda list if the capture was confirmed
-  (unless org-note-abort
-    (with-current-buffer (org-capture-get :buffer)
-      (add-to-list 'org-agenda-files (buffer-file-name)))))
+;; find/create project
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
 
 (defun my/org-roam-find-project ()
   (interactive)
@@ -116,9 +75,5 @@
    '(("p" "project" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n"
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
       :unnarrowed t))))
-
-(global-set-key (kbd "C-c n p") #'my/org-roam-find-project)
-
-;; ----------------------------------------------------------------
 
 ;;; org_roam.el ends here
