@@ -72,3 +72,4 @@
 ;; (load "~/.emacs.d/recipes/ws-butler.el")
 (load "~/.emacs.d/recipes/yasnippet.el")
 (load "~/.emacs.d/recipes/secrets.el")
+(put 'dired-find-alternate-file 'disabled nil)
