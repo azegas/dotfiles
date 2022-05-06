@@ -18,14 +18,11 @@
         ("z" "Panevezys" tags-todo "@pnvz-somedaymaybe/!TODO")
         ("a" "Agenda"
          ((agenda ""
-                  ((org-agenda-span 5)))
+                  ((org-agenda-span 2)))
           (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@komputer-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Common next actions")
                       (org-agenda-dim-blocked-tasks 'invisible)
                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
-          (tags-todo "@pkc-somedaymaybe/!TODO"
-                     ((org-agenda-overriding-header "Pkc actions")
-                      (org-agenda-dim-blocked-tasks 'invisible)))
           (tags-todo "@home-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Home actions")
                       (org-agenda-dim-blocked-tasks 'invisible)))
@@ -41,7 +38,7 @@
           (tags "/+DONE|+CANCELLED"
                 ((org-agenda-overriding-header "Archivable tasks")
                  (org-use-tag-inheritance '("project"))))
-          (todo "-@anywhere-@call-@internet-@komputer-@home-@readreview-@waitingfor-@checklist-project-somedaymaybe/!TODO"
+          (todo "-@anywhere-@call-@internet-@komputer-@home-@readreview-@waitingfor-somedaymaybe/!TODO"
                 ((org-agenda-overriding-header "Contextless tasks")))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
