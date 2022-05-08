@@ -15,14 +15,14 @@
 ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
 ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
 
-
 (setq org-capture-templates
-      '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Tasks")
+      '(("i" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
          "** TODO %?")
-        ("i" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-         "** %?")
-        ("c" "Current" plain (clock) "" :clock-in :clock-keep)))
+        ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary") "* %<%H:%M>: %?")))
 
+;; jeigu nori keybindint directly to a key
+;; (define-key global-map (kbd "C-c c")
+;;   (lambda () (interactive) (org-capture nil "i")))
 
 ;; ONE BIG FILE BELOW
 ;; (setq org-capture-templates '(
