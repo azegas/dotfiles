@@ -10,15 +10,23 @@
 ;;; Code:
 
 (setq org-agenda-custom-commands
-      '(("c" "Calls" tags-todo "@call-somedaymaybe/!TODO")
-        ("h" "Home" tags-todo "@home-somedaymaybe/!TODO")
-        ("f" "Family" tags-todo "@family-somedaymaybe/!TODO")
-        ("k" "Someday/maybe" tags-todo "somedaymaybe+LEVEL=2" ;show ONLY level 2 heading
+      '(("ta" "Anywhere" tags-todo "@anywhere-somedaymaybe/!TODO")
+        ("tb" "Buy" tags-todo "@buy-somedaymaybe/!TODO")
+        ("tc" "Calls/asks" tags-todo "@call-somedaymaybe-@repeating/!TODO")
+        ("th" "Home" tags-todo "@home-somedaymaybe-@repeating/!TODO")
+        ("tk" "Komputer" tags-todo "@komputer-somedaymaybe-@repeating/!TODO")
+        ("tr" "Readreview" tags-todo "@readreview-somedaymaybe-@repeating/!TODO")
+        ("tt" "Travel" tags-todo "@travel-somedaymaybe-@repeating/!TODO")
+        ("tp" "Pkc" tags-todo "pkc-@repeating/!TODO"
+         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline)))
+         )
+        ("tz" "Panevezys" tags-todo "@pnvz-somedaymaybe-@repeating/!TODO")
+        ("tw" "Waitingfor" tags-todo "@waitingfor-somedaymaybe-@repeating/!TODO")
+        ("ts" "Someday/maybe" tags-todo "-@repeating+somedaymaybe+LEVEL=2" ;show ONLY level 2 heading
          ((org-agenda-dim-blocked-tasks nil)))
-        ("z" "Panevezys" tags-todo "@pnvz-somedaymaybe/!TODO")
         ("a" "Agenda"
          ((agenda ""
-                  ((org-agenda-span 2)))
+                  ((org-agenda-span 1)))
           (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@komputer-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Common next actions")
                       (org-agenda-dim-blocked-tasks 'invisible)
@@ -38,7 +46,7 @@
           (tags "/+DONE|+CANCELLED"
                 ((org-agenda-overriding-header "Archivable tasks")
                  (org-use-tag-inheritance '("project"))))
-          (todo "-@anywhere-@call-@internet-@komputer-@home-@readreview-@waitingfor-somedaymaybe/!TODO"
+          (tags-todo "-@repeating-pkc-@buy-@travel-@anywhere-@call-@internet-@komputer-@home-@readreview-@waitingfor-somedaymaybe/!TODO"
                 ((org-agenda-overriding-header "Contextless tasks")))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -134,6 +142,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                           ;instead
 
 ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
 ;;; agenda.el ends here
