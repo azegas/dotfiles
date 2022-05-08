@@ -22,7 +22,6 @@
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n I" . org-roam-node-insert-immediate)
-         ("C-c n p" . my/org-roam-find-project)
          :map org-mode-map
          ("C-M-i" . completion-at-point))
   :config
@@ -61,26 +60,11 @@
         ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
          :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n")
+         :unnarrowed t)
+        ("P" "project" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n"
+         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
          :unnarrowed t)))
 
 ;; ----------------------------------------------------------------
-
-;; find/create project
-(defun my/org-roam-filter-by-tag (tag-name)
-  (lambda (node)
-    (member tag-name (org-roam-node-tags node))))
-
-(defun my/org-roam-find-project ()
-  (interactive)
-
-  ;; Select a project file to open, creating it if necessary
-  (org-roam-node-find
-   nil
-   nil
-   (my/org-roam-filter-by-tag "project")
-   :templates
-   '(("p" "project" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
-      :unnarrowed t))))
 
 ;;; org_roam.el ends here
