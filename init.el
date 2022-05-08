@@ -59,7 +59,7 @@
 (load "~/.emacs.d/recipes/org-roam.el")
 (load "~/.emacs.d/recipes/org-clock.el")
 (load "~/.emacs.d/recipes/org-download.el")
-;; (load "~/.emacs.d/recipes/pop-eshell.el")
+(load "~/.emacs.d/recipes/pop-eshell.el")
 (load "~/.emacs.d/recipes/projectile.el")
 (load "~/.emacs.d/recipes/rainbow-delimiters.el")
 (load "~/.emacs.d/recipes/rg.el")
