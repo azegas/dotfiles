@@ -7,6 +7,7 @@
   :ensure t
   :defer t
   :commands org-download)
-;; (setq-default org-download-image-dir "~/Dropbox/documents/org/images")
+
+(setq-default org-download-image-dir "~/Dropbox/documents/org/images")
 
 ;;; org_download.el ends here
