@@ -18,7 +18,10 @@
 (setq org-capture-templates
       '(("i" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
          "** TODO %?")
-        ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary") "* %<%H:%M>: %?")))
+        ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary")
+         "* %<%H:%M>: %?")
+        ("l" "location" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+         "** TODO %?\n  %i\n  %a")))
 
 ;; jeigu nori keybindint directly to a key
 ;; (define-key global-map (kbd "C-c c")
