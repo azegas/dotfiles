@@ -17,7 +17,7 @@
         ("tk" "Komputer" tags-todo "@komputer-somedaymaybe-@repeating/!TODO")
         ("tr" "Readreview" tags-todo "@readreview-somedaymaybe-@repeating/!TODO")
         ("tt" "Travel" tags-todo "@travel-somedaymaybe-@repeating/!TODO")
-        ("tp" "Pkc" tags-todo "pkc-@repeating/!TODO"
+        ("tp" "Pkc" tags-todo "pkc-@repeating-somedaymaybe/!TODO"
          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline)))
          )
         ("tz" "Panevezys" tags-todo "@pnvz-somedaymaybe-@repeating/!TODO")
@@ -26,7 +26,7 @@
          ((org-agenda-dim-blocked-tasks nil)))
         ("a" "Agenda"
          ((agenda ""
-                  ((org-agenda-span 1)))
+                  ((org-agenda-span 2)))
           (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@komputer-somedaymaybe/!TODO"
                      ((org-agenda-overriding-header "Common next actions")
                       (org-agenda-dim-blocked-tasks 'invisible)
@@ -47,7 +47,8 @@
                 ((org-agenda-overriding-header "Archivable tasks")
                  (org-use-tag-inheritance '("project"))))
           (tags-todo "-@repeating-pkc-@buy-@travel-@anywhere-@call-@internet-@komputer-@home-@readreview-@waitingfor-somedaymaybe/!TODO"
-                ((org-agenda-overriding-header "Contextless tasks")))))))
+                ((org-agenda-overriding-header "Contextless tasks")))
+          ))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
