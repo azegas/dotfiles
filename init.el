@@ -63,6 +63,7 @@
 (load "~/.emacs.d/recipes/projectile.el")
 (load "~/.emacs.d/recipes/rainbow-delimiters.el")
 (load "~/.emacs.d/recipes/rg.el")
+(load "~/.emacs.d/recipes/super-save.el")
 ;; (load "~/.emacs.d/recipes/saveplace.el")
 (load "~/.emacs.d/recipes/swiper.el")
 (load "~/.emacs.d/recipes/undo-tree.el")
@@ -73,3 +74,17 @@
 (load "~/.emacs.d/recipes/yasnippet.el")
 (load "~/.emacs.d/recipes/secrets.el")
 (put 'dired-find-alternate-file 'disabled nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("/home/arvydas/Dropbox/documents/org/roam/20220504202624-smuti_fruti.org" "/home/arvydas/Dropbox/documents/org/roam/20220504180110-pkc.org" "/home/arvydas/Dropbox/documents/org/roam/20220504202102-know_your_area.org" "/home/arvydas/Dropbox/documents/org/roam/20220504192051-emacs.org" "/home/arvydas/Dropbox/documents/org/roam/20220504192335-inbox.org" "/home/arvydas/Dropbox/documents/org/roam/20220504191201-personal.org" "/home/arvydas/Dropbox/documents/org/roam/20220504200737-citatos.org" "/home/arvydas/Dropbox/documents/org/roam/20220504203435-arvydasg_github_io.org" "/home/arvydas/Dropbox/documents/org/roam/20220508123624-cs.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
