@@ -55,14 +55,16 @@
 (setq org-roam-dailies-capture-templates
       (let ((head
              (concat
-              "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* inbox\n* log\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
-        `(("t" "todo" plain "** TODO %?"
-           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
-          ("d" "default" plain "** %?"
-           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
+              "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* journal\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
+        `(("d" "default" plain
+           "** %?"
+           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("notes")))
           ("j" "journal entry" plain
            "** %<%H:%M>: %?"          ;format-time-string
-           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("Log")))
+           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("journal")))
+          ("c" "completed task" plain
+           "** DONE %?\nCLOSED: %U"          ;format-time-string
+           :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("completed tasks")))
 
           ;; ("i" "add any task" plain "** TODO %? %^G \n:PROPERTIES:\n:Created: %U\n:END:\n"
           ;;  :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("inbox")))
@@ -84,7 +86,7 @@
   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
         (org-roam-dailies-capture-templates
          '(("t" "tasks" entry "%?"
-            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Completed Tasks")))))
+            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("completed Tasks")))))
         (org-after-refile-insert-hook #'save-buffer)
         today-file
         pos)
