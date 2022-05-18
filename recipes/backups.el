@@ -7,13 +7,13 @@
 ;; Save backup files to a dedicated directory.
 ;;; Code:
 
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq backup-directory-alist '(("." . "~/Dropbox/src/emacs/backups")))
 (setq delete-old-versions -1)
 
 ;; Make numeric backup versions unconditionally.
 (setq version-control t)
 (setq vc-make-backup-files t)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+(setq auto-save-file-name-transforms '((".*" "~/Dropbox/src/emacs/auto-save-list/" t)))
 
 ;; (setq make-backup-files nil)
 ;; (setq auto-save-list-file-name  nil)

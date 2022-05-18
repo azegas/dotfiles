@@ -3,7 +3,7 @@
 ;; visual
 ;;; Code:
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
+(add-to-list 'custom-theme-load-path "~/Dropbox/src/emacs/misc/themes/")
 
 ;; [2022-03-14 Pr] Transparency
 ;; (set-frame-parameter (selected-frame) 'alpha '(95 . 95))

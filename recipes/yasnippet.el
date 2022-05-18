@@ -12,7 +12,7 @@
 (use-package yasnippet
   :ensure t
   :config
-  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (setq yas-snippet-dirs '("~/Dropbox/src/emacs/snippets"))
   (yas-global-mode 1))
 
 (use-package yasnippet-snippets

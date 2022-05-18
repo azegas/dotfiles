@@ -11,14 +11,14 @@
 (setq org-enforce-todo-dependencies t)  ; no done if mid
 (setq org-startup-with-inline-images t)
 (setq org-image-actual-width nil)
-(setq org-clock-sound "~/.emacs.d/misc/bell.wav")
+(setq org-clock-sound "~/Dropbox/src/emacs/misc/bell.wav")
 
 ; rebind active to inactive
 (with-eval-after-load 'org
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
+      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "REPEATING(r)"))))
 
 (setq org-tag-alist '((:startgroup . nil)
                       ("@anywhere" . ?a)

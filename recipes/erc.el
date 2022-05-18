@@ -7,7 +7,7 @@
   :ensure t
   :commands (erc erc-tls)
   :config
-  (setq erc-log-channels-directory "~/.emacs.d/erc")
+  (setq erc-log-channels-directory "~/Dropbox/src/emacs/erc")
   (setq erc-save-buffer-on-part t)
   (add-to-list 'erc-modules 'autojoin)
   (add-to-list 'erc-modules 'log)
