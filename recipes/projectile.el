@@ -9,7 +9,10 @@
 
 (use-package projectile
   :ensure t
-  :bind (("C-c p" . projectile-command-map)) ;trying to load this after the command gets invoked the first time, but for some reasons it works only I press it the second time
+  ;; :bind (("C-c p" . projectile-command-map)) ;trying to load this after the command gets invoked the first time, but for some reasons it works only I press it the second time
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+
   :config
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy)
