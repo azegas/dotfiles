@@ -12,23 +12,30 @@
 ;; (global-set-key (kbd "C-x d") 'dired)
 
 ;; [2022-03-11 Pn] Adding more colors to dired buffers
-(use-package diredfl
-  :ensure t
-  :after (dired)
-  :config
-  (diredfl-global-mode 1))
+;; 22-05-19 isjungiau spalvas - maziau lago
+;; (use-package diredfl
+;;   :ensure t
+;;   :after (dired)
+;;   :config
+;;   (diredfl-global-mode 1))
 
 ;; [2022-03-11 Pn] [[https://github.com/clemera/dired-git-info][dired-git-info]]. This Emacs packages provides a minor mode which shows
 ;; git information inside the dired buffer.
+
 (use-package dired-git-info
   :ensure t
   :after dired)
+
 ;; Bind the minor mode command in dired
-(with-eval-after-load 'dired
-  (define-key dired-mode-map ")" 'dired-git-info-mode))
+
+;; (with-eval-after-load 'dired
+;;   (define-key dired-mode-map ")" 'dired-git-info-mode))
+
 ;; Don’t hide normal Dired file info
-(setq dgi-auto-hide-details-p nil)
+
+;; (setq dgi-auto-hide-details-p nil)
+
 ;; Enable automatically in every Dired buffer (if in Git repository)
-(add-hook 'dired-after-readin-hook 'dired-git-info-auto-enable)
+;; (add-hook 'dired-after-readin-hook 'dired-git-info-auto-enable)
 
 ;;; dired.el ends here
