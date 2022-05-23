@@ -32,6 +32,7 @@
   ("C-c n d" . org-roam-dailies-map)
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
+  (require 'org-roam-export)
   (org-roam-db-autosync-mode))
 
 ; ------------------------------------------------------
@@ -55,7 +56,7 @@
 (setq org-roam-dailies-capture-templates
       (let ((head
              (concat
-              "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n\n* journal\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
+              "#+title: %<%Y-%m-%d, %A>\n#+STARTUP: content\n\n* notes\n* journal\n* [/] Dailies\n- [ ] Morning pages\n- [ ] Duo\n- [ ] Inbox, GP, agenda\n- [ ] Git push")))
         `(("d" "default" plain
            "** %?"
            :if-new (file+head+olp "%<%Y>/%<%B>/%<%Y-%m-%d>.org" ,head ("notes")))
@@ -116,12 +117,12 @@
 (setq org-roam-capture-templates
       '(("d" "default roam file" plain
          "* ${title}\n\n%?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+         :if-new (file+head "personal/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n#+date: %U\n\n")
          :unnarrowed t)
         ("p" "pkc roam file" plain
          "\n* ${title}\n%?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+         :if-new (file+head "pkc/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
          :unnarrowed t)
         ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
@@ -129,7 +130,7 @@
                             "#+title: ${title}\n")
          :unnarrowed t)
         ("P" "project" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
+         :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
          :unnarrowed t)))
 
 ;; ----------------------------------------------------------------
