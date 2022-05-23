@@ -17,23 +17,47 @@
 (with-eval-after-load 'org
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
-(setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "REPEATING(r)"))))
+;; (setq org-todo-keywords
+;;       (quote ((sequence "TODO(t)" "ASK(k)" "IN-PROGRESS(p)" "SKAITYK(s)" "WAITING(w)" "IGALIOK(i)" "BUY(b)" "REMINDER(r)" "HOME(h)" "|" "DONE(d)" "CANCELLED(c)"))))
 
-(setq org-tag-alist '((:startgroup . nil)
-                      ("@anywhere" . ?a)
-                      ("@buy" . ?b)
-                      ("@call" . ?c)
-                      ("@home" . ?h)
-                      ("@komputer" . ?k)
-                      ("@readreview" . ?r)
-                      ("@repeating" . ?R)
-                      ("@travel" . ?t)
-                      ("@pnvz" . ?z)
-                      ("@waitingfor" . ?w)
-                      (:endgroup . nil)
-                      ("somedaymaybe" . ?s)
-                      ("pkc" . ?p)))
+(setq org-todo-keywords
+      (quote ((sequence "10min(1)" "2min(2)" "30min(3)" "1val(v)" "PALEK(p)" "|" "DONE(d)" "CANCELLED(c)" "REPEATING(r)"))))
+
+;; list-colors-display
+(setq org-todo-keyword-faces
+      (quote (("2min" :foreground "IndianRed1" :weight bold)
+              ("10min" :foreground "DeepSkyBlue2" :weight bold)
+              ("IN-PROGRESS" :foreground "gold1" :weight bold)
+              ("PALEK" :foreground "dark cyan" :weight bold))))
+
+;; (setq org-todo-keywords
+;;   '((sequence
+;;      "TODO(t!)" ; Initial creation
+;;      "GO(g@)"; Work in progress
+;;      "WAIT(w@)" ; My choice to pause task
+;;      "BLOCKED(b@)" ; Not my choice to pause task
+;;      "REVIEW(r!)" ; Inspect or Share Time
+;;      "|" ; Remaining close task
+;;      "DONE(d)" ; Normal completion
+;;      "CANCELED(c)" ; Not going to od it
+;;      "DUPLICATE(p)" ; Already did it
+;;      )))
+
+;; (setq org-tag-alist '((:startgroup . nil)
+;;                       ("@anywhere" . ?a)
+;;                       ("@buy" . ?b)
+;;                       ("@call" . ?c)
+;;                       ("@home" . ?h)
+;;                       ("@komputer" . ?k)
+;;                       ("@readreview" . ?r)
+;;                       ("@repeating" . ?R)
+;;                       ("@travel" . ?t)
+;;                       ("@pnvz" . ?z)
+;;                       ("@waitingfor" . ?w)
+;;                       (:endgroup . nil)
+;;                       ("emacs" . ?e)
+;;                       ("somedaymaybe" . ?s)
+;;                       ("pkc" . ?p)))
 
 (setq org-use-tag-inheritance '("somedaymaybe" "@readreview"))
 (setq org-agenda-tags-todo-honor-ignore-options t)
@@ -42,12 +66,6 @@
 (add-hook 'org-capture-mode-hook
           (lambda ()
             (setq-local org-tag-alist (org-global-tags-completion-table))))
-
-(setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "IndianRed1" :weight bold)
-              ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
-              ("IN-PROGRESS" :foreground "gold1" :weight bold)
-              ("DONE" :foreground "forest green" :weight bold))))
 
 ;; Effort
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
