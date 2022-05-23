@@ -82,6 +82,7 @@
 ;; archiving with a help of refile into one big archive.org file -
 ;; dont need all those archive labels in properties tag. too many date
 ;; inputs to sort through
-(setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
+;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
+(setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-05.org::* archive may")
 
 ;;; org.el ends here
