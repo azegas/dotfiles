@@ -43,7 +43,7 @@
 
 ;; White-space
 (setq whitespace-style '(face trailing tabs tab-mark))
-(global-whitespace-mode)
+;; (global-whitespace-mode)
 
 ;; Add note tag to C-c C-z
 ;; Upon adding a note to a heading - add a tag automatically
