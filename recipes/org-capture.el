@@ -16,19 +16,21 @@
 ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
 
 (setq org-capture-templates
-      '(("1" "10min" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220504192335-inbox.org" "Inbox")
+      '(("1" "10min" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
          "** 10min %?")
-        ("2" "2min" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220504192335-inbox.org" "Inbox")
+        ("2" "2min" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
          "** 2min %?")
-        ("3" "30min" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220504192335-inbox.org" "Inbox")
+        ("3" "30min" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
          "** 30min %?")
-        ("v" "1val" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220504192335-inbox.org" "Inbox")
+        ("v" "1val" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
          "** 1val %?")
-        ("p" "PALEK" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220504192335-inbox.org" "Inbox")
+        ("p" "PALEK" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
          "** PALEK %?")
-        ("l" "lokacija" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220504192335-inbox.org" "Inbox")
+        ("s" "SKAITYK" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
+         "** SKAITYK %?")
+        ("l" "lokacija" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
          "** TODO %?\n  %i\n  %a")
-        ("d" "diary may" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220508141623-diary.org" "diary may") "** %U %^{Title}\n%?")))
+        ("d" "diary june" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220508141623-diary.org" "diary june") "** %U %^{Title}\n%?")))
 
 ;; (setq org-capture-templates
 ;;       '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")

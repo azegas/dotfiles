@@ -44,12 +44,17 @@
                                           ;instead
 
 ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 (setq org-agenda-custom-commands
       '(("a" "Simple agenda view"
          ((agenda "")
-          (todo "IN-PROGRESS" "")))))
+          (todo "IN-PROGRESS" "")
+           (tags "/+DONE|+CANCELLED"
+                 ((org-agenda-overriding-header "Archivable tasks")
+                  (org-use-tag-inheritance '("project"))))))))
+
+
 
 ;; (setq org-agenda-custom-commands
 ;;       '(("ta" "Anywhere" tags-todo "@anywhere-somedaymaybe/!TODO")

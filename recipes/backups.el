@@ -15,6 +15,8 @@
 (setq vc-make-backup-files t)
 (setq auto-save-file-name-transforms '((".*" "~/Dropbox/src/emacs/auto-save-list/" t)))
 
+(setq make-backup-files nil) ; stop creating ~ files
+
 ;; (setq make-backup-files nil)
 ;; (setq auto-save-list-file-name  nil)
 ;; (setq auto-save-default nil)

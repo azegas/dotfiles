@@ -21,7 +21,7 @@
 ;;       (quote ((sequence "TODO(t)" "ASK(k)" "IN-PROGRESS(p)" "SKAITYK(s)" "WAITING(w)" "IGALIOK(i)" "BUY(b)" "REMINDER(r)" "HOME(h)" "|" "DONE(d)" "CANCELLED(c)"))))
 
 (setq org-todo-keywords
-      (quote ((sequence "10min(1)" "2min(2)" "30min(3)" "1val(v)" "PALEK(p)" "|" "DONE(d)" "CANCELLED(c)" "REPEATING(r)"))))
+      (quote ((sequence "10min(1)" "2min(2)" "30min(3)" "1val(v)" "PALEK(p)" "SKAITYK(s)" "|" "DONE(d)" "CANCELLED(c)" "REPEATING(r)"))))
 
 ;; list-colors-display
 (setq org-todo-keyword-faces
@@ -101,6 +101,31 @@
 ;; dont need all those archive labels in properties tag. too many date
 ;; inputs to sort through
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
-(setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-05.org::* archive may")
+(setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-06.org::* archive june")
+
+;; automatically save files that were refiled to. Taken from here:
+;; https://github.com/rougier/emacs-gtd/issues/9
+
+;; Automatically get the files in "~/Documents/org"
+;; with fullpath
+;; (setq org-agenda-files 
+;;       (mapcar 'file-truename 
+;; 	      (file-expand-wildcards "~/Dropbox/documents/org/roam/projects/* .org")))
+
+;; Save the corresponding buffers
+(defun gtd-save-org-buffers ()
+  "Save `org-agenda-files' buffers without user confirmation.
+See also `org-save-all-org-buffers'"
+  (interactive)
+  (message "Saving org-agenda-files buffers...")
+  (save-some-buffers t (lambda () 
+			 (when (member (buffer-file-name) org-agenda-files) 
+			   t)))
+  (message "Saving org-agenda-files buffers... done"))
+
+;; Add it after refile
+(advice-add 'org-refile :after
+	    (lambda (&rest _)
+	      (gtd-save-org-buffers)))
 
 ;;; org.el ends here

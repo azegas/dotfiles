@@ -54,7 +54,7 @@
                             "#+title: ${title}\n#+date: %U\n\n")
          :unnarrowed t)
         ("p" "pkc roam file" plain
-         "\n* ${title}\n%?"
+         "\n* ${title}\n%?\n* related notes"
          :if-new (file+head "pkc/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
          :unnarrowed t)
