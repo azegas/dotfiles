@@ -53,16 +53,21 @@
          :if-new (file+head "personal/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n#+date: %U\n\n")
          :unnarrowed t)
-        ("p" "pkc roam file" plain
-         "\n* ${title}\n%?\n* related notes"
-         :if-new (file+head "pkc/%<%Y%m%d%H%M%S>-${slug}.org"
-                            "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
+        ("b" "blog file" plain
+         "* ${title}\n\n%?"
+         :if-new (file+head "personal/blog/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+date: %U\n\n")
          :unnarrowed t)
-        ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
-         :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
-                            "#+title: ${title}\n")
-         :unnarrowed t)
-        ("P" "project" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n"
+        ;; ("p" "pkc roam file" plain
+        ;;  "\n* ${title}\n%?\n* related notes"
+        ;;  :if-new (file+head "pkc/%<%Y%m%d%H%M%S>-${slug}.org"
+        ;;                     "#+title: ${title}\n#+date: %U\n#+filetags: pkc\n\n")
+        ;;  :unnarrowed t)
+        ;; ("b" "roam template example" plain (file "~/Dropbox/documents/org/roam/templates/BookTemplate.org")
+        ;;  :if-new (file+head "book/%<%Y%m%d%H%M%S>-${slug}.org"
+        ;;                     "#+title: ${title}\n")
+        ;;  :unnarrowed t)
+        ("P" "project file" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n"
          :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
          :unnarrowed t)))
 

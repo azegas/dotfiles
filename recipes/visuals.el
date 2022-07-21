@@ -30,4 +30,6 @@
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
+;; (set-face-attribute 'default nil :family "Consolas" :height 110)
+
 ;;; visuals.el ends here

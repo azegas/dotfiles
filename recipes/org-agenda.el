@@ -10,7 +10,7 @@
 ;;; Code:
 
 (setq org-agenda-prefix-format '(
-  ;; (agenda  . " %i %-12:c%?-12t% s") ;; file name + org-agenda-entry-type
+  (agenda  . " %i %-12:c%?-12t% s") ;; file name + org-agenda-entry-type
   (agenda  . "  • ")
   ;; (timeline  . "  % s")
   ;; (todo  . " %i %-12:c")
