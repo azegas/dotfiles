@@ -177,4 +177,15 @@
     (switch-to-buffer (other-buffer buf))
     (switch-to-buffer-other-frame buf)))
 
+
+(defun duplicate-line()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (yank)
+  )
+
+(global-set-key (kbd "M-c") 'duplicate-line)
+
 ;;; general.el ends here
