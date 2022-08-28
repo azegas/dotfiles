@@ -73,3 +73,5 @@
 ;; (load "~/Dropbox/src/emacs/recipes/ws-butler.el")
 (load "~/Dropbox/src/emacs/recipes/yasnippet.el")
 (load "~/Dropbox/src/emacs/recipes/secrets.el")
+(load "~/Dropbox/src/emacs/recipes/js-comint.el")
+(load "~/Dropbox/src/emacs/recipes/scss-mode.el")
