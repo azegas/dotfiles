@@ -75,3 +75,5 @@
 (load "~/Dropbox/src/emacs/recipes/secrets.el")
 (load "~/Dropbox/src/emacs/recipes/js-comint.el")
 (load "~/Dropbox/src/emacs/recipes/scss-mode.el")
+(load "~/Dropbox/src/emacs/recipes/js2-mode.el")
+(load "~/Dropbox/src/emacs/recipes/tern.el")
