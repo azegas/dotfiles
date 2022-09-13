@@ -11,7 +11,8 @@
   :config
   :hook ((web-mode . emmet-mode)
          (html-mode . emmet-mode)
-         (css-mode . emmet-mode)
+         ;; turning off dell scss C-c C-c shortcut
+         ;; (css-mode . emmet-mode)
          (sgml-mode . emmet-mode)))
 
 ;;; emmet.el ends here
