@@ -101,7 +101,7 @@
 ;; dont need all those archive labels in properties tag. too many date
 ;; inputs to sort through
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
-(setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-08.org::* archive August")
+(setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
 
 ;; automatically save files that were refiled to. Taken from here:
 ;; https://github.com/rougier/emacs-gtd/issues/9

@@ -30,7 +30,7 @@
          "** SKAITYK %?")
         ("l" "lokacija" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "Inbox")
          "** TODO %?\n  %i\n  %a")
-        ("d" "diary august" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220508141623-diary.org" "diary august") "** %U %^{Title}\n%?")))
+        ("d" "diary august" plain (file+headline "~/Dropbox/documents/org/roam/projects/20220508141623-diary.org" "diary september") "** %U %^{Title}\n%?")))
 
 ;; (setq org-capture-templates
 ;;       '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
