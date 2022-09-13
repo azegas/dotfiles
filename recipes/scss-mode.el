@@ -5,10 +5,7 @@
 
 (use-package scss-mode
   :ensure t
-  ;; :config
-  ;; ;; activate it for all buffers
-  ;; (setq-default save-place t)
-  ;; (save-place-mode 1)
-  )
+  :config
+  (setq scss-compile-at-save t))
 
 ;;; scss-mode.el ends here
