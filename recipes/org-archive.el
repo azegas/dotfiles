@@ -19,6 +19,6 @@
 ;; dont need all those archive labels in properties tag. too many date
 ;; inputs to sort through
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
-(setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
+;; (setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
 
 ;;; org-archive.el ends here
