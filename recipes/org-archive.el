@@ -20,6 +20,7 @@
 ;; TUT: more about archiving -
 ;; http://doc.endlessparentheses.com/Var/org-archive-location.html
 ;; https://orgmode.org/worg/doc.html#org-archive-location
+
 ;; its possible to archive like so:
 ;; # archiving example
 ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
@@ -32,6 +33,8 @@
 ;; archiving with a help of refile into one big archive.org file -
 ;; dont need all those archive labels in properties tag. too many date
 ;; inputs to sort through
+
+(setq org-archive-location "~/Dropbox/documents/org/roam/projects/archive/%s_archive::")
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
 
