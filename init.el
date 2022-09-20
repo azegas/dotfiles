@@ -54,6 +54,7 @@
 (load "~/Dropbox/src/emacs/recipes/move-text.el")
 (load "~/Dropbox/src/emacs/recipes/multiple-cursors.el")
 (load "~/Dropbox/src/emacs/recipes/org.el")
+(load "~/Dropbox/src/emacs/recipes/org-archive.el")
 (load "~/Dropbox/src/emacs/recipes/org-agenda.el")
 (load "~/Dropbox/src/emacs/recipes/org-capture.el")
 (load "~/Dropbox/src/emacs/recipes/org-roam.el")
