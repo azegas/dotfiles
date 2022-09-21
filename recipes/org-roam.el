@@ -68,7 +68,7 @@
         ;;                     "#+title: ${title}\n")
         ;;  :unnarrowed t)
         ("P" "project file" plain "* Goals\n\n%?\n\n* Resources\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Somedaymaybe\n\n\n* nepamirsk pridet i agenda per roam_config (my/org-roam-refresh-agenda-list), tuomet C-h v org-agenda-files and save config with new file\n\n"
-         :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: project")
+         :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
          :unnarrowed t)))
 
 ;; ----------------------------------------------------------------
