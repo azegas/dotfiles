@@ -28,4 +28,13 @@
 ;; Find init.el file
 (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
 
+;; jump to my a random js test file
+(defun aga-jump-test.js nil
+  (interactive)
+  (find-file "~/temp/js/test.js")
+  (erase-buffer))
+  ;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x j") 'aga-jump-test.js)
+
 ;;; jump.el ends here
