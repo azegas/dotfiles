@@ -58,6 +58,11 @@
          :if-new (file+head "personal/blog/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n#+date: %U\n\n")
          :unnarrowed t)
+        ("j" "JS file" plain
+         "* ${title}\n\n%?"
+         :if-new (file+head "personal/javascript/%<%Y%m%d%H%M%S>-${slug}.org"
+                            "#+title: ${title}\n#+date: %U\n\n")
+         :unnarrowed t)
         ;; ("p" "pkc roam file" plain
         ;;  "\n* ${title}\n%?\n* related notes"
         ;;  :if-new (file+head "pkc/%<%Y%m%d%H%M%S>-${slug}.org"
