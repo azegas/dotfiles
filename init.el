@@ -80,5 +80,5 @@
 ;; inspiration for js things "redguardtoo" on github
 ;; (load "~/Dropbox/src/emacs/recipes/js-comint.el")
 (load "~/Dropbox/src/emacs/recipes/js2-mode.el")
-;; (load "~/Dropbox/src/emacs/recipes/tern.el")
+(load "~/Dropbox/src/emacs/recipes/tern.el")
 ;; (load "~/Dropbox/src/emacs/recipes/skewer-mode.el")
