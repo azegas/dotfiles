@@ -19,7 +19,7 @@
 ;; See https://www.reddit.com/r/emacs/comments/3kqt6e
 (setq-default large-file-warning-threshold 100000000) ; set warning of opening large files to 100MB
 (setq gc-cons-threshold (* 1024 1024 100))
-(setq gc-cons-threshold 80000000)
+(setq gc-cons-threshold 100000000)
 
 ;; [2021-07-01] Winner Mode is a global minor mode. When activated, it allows you to
 ;; “undo” (and “redo”) changes in the window configuration with the key
