@@ -1,6 +1,7 @@
 ;;; volatile-highlights.el --- volatilation
 ;;; Commentary:
-;; nope
+;; afte pasting f.x - block that you have pasted will be highlihted until cursor moves
+;; useful to see the boundries of the copied and pasted block
 ;;; Code:
 
 (use-package volatile-highlights
