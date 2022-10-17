@@ -17,6 +17,9 @@
   (setq company-tooltip-flip-when-above nil) ; flip when narrow place
   (global-company-mode))
 
+;turn off company auto-completion in eshell, because it adds annoying spaces after each completion.. like ls, sucks
+(add-hook 'eshell-mode-hook (lambda () (company-mode -1)) 'append)
+
 (use-package company-quickhelp
   :ensure t
   :config
