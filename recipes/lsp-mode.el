@@ -22,6 +22,7 @@
 (use-package lsp-ivy
   :ensure t)
 
+;; good for stuff like C-c l G r
 (use-package lsp-ui
   :ensure t
   :hook (lsp-mode . lsp-ui-mode))
