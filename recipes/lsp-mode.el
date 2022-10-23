@@ -22,6 +22,10 @@
 (use-package lsp-ivy
   :ensure t)
 
+(use-package lsp-ui
+  :ensure t
+  :hook (lsp-mode . lsp-ui-mode))
+
 ;; attempting to make lsp quicker
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 
