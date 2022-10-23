@@ -8,7 +8,7 @@
   :init
   (setq js-basic-indent 2)
   (setq-default js2-basic-indent 2
-                js2-basic-offset 2
+                ;; js2-basic-offset 2
                 js2-auto-indent-p t
                 js2-cleanup-whitespace t
                 js2-enter-indents-newline t
