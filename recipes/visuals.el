@@ -4,6 +4,7 @@
 ;;; Code:
 
 (add-to-list 'custom-theme-load-path "~/Dropbox/src/emacs/misc/themes/")
+;; (load-theme 'zenburn t)
 
 ;; [2022-03-14 Pr] Transparency
 ;; (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
