@@ -1,3 +1,198 @@
+* Emacs installation on LINUX (2022-10-23)
+- dabartinis init.el .emacs.d folderyje yra toks
+  #+begin_src lisp
+    (setq user-emacs-directory "~/Dropbox/src/emacs")
+(load "~/Dropbox/src/emacs/init.el")
+;; (load "/home/arvydas/syncthing/emacs/init.el")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#292D3E" "#ff5370" "#c3e88d" "#ffcb6b" "#82aaff" "#c792ea" "#89DDFF" "#EEFFFF"])
+ '(custom-safe-themes
+   (quote
+    ("ea5822c1b2fb8bb6194a7ee61af3fe2cc7e2c7bab272cbb498a0234984e1b2d9" default)))
+ '(exwm-floating-border-color "#232635")
+ '(fci-rule-color "#676E95")
+ '(highlight-tail-colors ((("#383f45") . 0) (("#323e51") . 20)))
+ '(jdee-db-active-breakpoint-face-colors (cons "#1c1f2b" "#c792ea"))
+ '(jdee-db-requested-breakpoint-face-colors (cons "#1c1f2b" "#c3e88d"))
+ '(jdee-db-spec-breakpoint-face-colors (cons "#1c1f2b" "#676E95"))
+ '(objed-cursor-color "#ff5370")
+ '(org-agenda-files
+   (quote
+    ("/home/arvydas/Dropbox/documents/org/roam/projects/20220504202624-smuti_fruti.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220504180110-pkc.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220504202102-know_your_area.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220921203606-powerappttr.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220918074607-barcode_checker_pkc.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220504192051-emacs.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220719190850-codeacademy.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220504192335-inbox.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220504191201-personal.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20221016203840-cv.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220508123624-cs.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220504200737-citatos.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220529091245-home_network_lab.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220504203435-arvydasdev.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20221016204625-gyvuneliai.org" "/home/arvydas/Dropbox/documents/org/roam/projects/20220524053717-pkcwiki.org")))
+ '(package-selected-packages
+   (quote
+    (lsp-ivy treemacs-projectile treemacs command-log-mode lsp-ui lsp-mode skewer-mode tern js2-mode yaml-mode markdown-mode scss-mode js-comint yasnippet-snippets find-file-in-project wttrin ws-butler which-key web-mode vterm volatile-highlights use-package undo-tree try telephone-line super-save spaceline-all-the-icons smex rg rainbow-identifiers rainbow-delimiters projectile prettier page-break-lines org-roam org-pomodoro org-download org-bullets nyan-mode neotree multiple-cursors mu4e-alert move-text mode-icons minimap magit lorem-ipsum keyfreq impatient-mode hungry-delete helpful goto-chg flycheck expand-region emojify emmet-mode elpy elfeed doom-themes doom-modeline diredfl dired-subtree dired-git-info diff-hl dashboard csv-mode counsel company-quickhelp color-identifiers-mode browse-kill-ring beacon auto-dim-other-buffers anzu amx all-the-icons-ivy-rich ace-window)))
+ '(pdf-view-midnight-colors (cons "#EEFFFF" "#292D3E"))
+ '(rustic-ansi-faces
+   ["#292D3E" "#ff5370" "#c3e88d" "#ffcb6b" "#82aaff" "#c792ea" "#89DDFF" "#EEFFFF"])
+ '(vc-annotate-background "#292D3E")
+ '(vc-annotate-color-map
+   (list
+    (cons 20 "#c3e88d")
+    (cons 40 "#d7de81")
+    (cons 60 "#ebd476")
+    (cons 80 "#ffcb6b")
+    (cons 100 "#fcb66b")
+    (cons 120 "#f9a16b")
+    (cons 140 "#f78c6c")
+    (cons 160 "#e78e96")
+    (cons 180 "#d690c0")
+    (cons 200 "#c792ea")
+    (cons 220 "#d97dc1")
+    (cons 240 "#ec6898")
+    (cons 260 "#ff5370")
+    (cons 280 "#d95979")
+    (cons 300 "#b36082")
+    (cons 320 "#8d678b")
+    (cons 340 "#676E95")
+    (cons 360 "#676E95")))
+ '(vc-annotate-very-old-color nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(js2-object-property ((t (:inherit font-lock-variable-name-face)))))
+(put 'dired-find-alternate-file 'disabled nil)
+  #+end_src
+- Isirasyk dropbox ir viska init.el turetu pasiimti is dropboxo
+* Emacs installation on LINUX (senas)
+Before even doing anything, in your .emacs.d/init.el file add all this info --
+ https://www.youtube.com/watch?v=EX9PKK3EMaw&t
+** susikuriam baze - init.el
+   Jeigu nauja sistema, tai reikia pirma eiti i .emacs.d ir susikurti init.el faila.
+ /home/azeubu/Dropbox/org/  Jis bus pagrindinis, ten desim tai:
+
+	(require 'package)
+     (setq package-enable-at-startup nil)
+     (add-to-list 'package-archives
+		  '("melpa" . "https://melpa.org/npackages/"))
+     (package-initialize)
+
+     ;; Bootstrap 'use-package
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+
+     (org-babel-load-file (expand-file-name "myinit.org"))
+
+** susikuriam sutrauka - myinit.org
+   vel, .emacs.d folderiuke sukuriam myinit.org
+
+   (require 'package)
+   (setq package-enable-at-startup nil)
+   (add-to-list 'package-archives
+   '("melpa" . "https://melpa.org/packages/"))
+   (package-initialize)
+
+   ;; Bootstrap 'use-package
+   (unless (package-installed-p 'use-package)
+   (package-refresh-contents)
+   (package-install 'use-package))
+** Totally new thingy krc 2021-12-06 - veikia su dropbox
+   sudo apt install emacs
+   atsidarai .emacs.d, susikuri init.el faila
+   ikeli visa sita content 
+
+   ;; Initialize package sources
+   (require 'package)
+
+   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+   ("org" . "https://orgmode.org/elpa/")
+   ("elpa" . "https://elpa.gnu.org/packages/")))
+
+   (package-initialize)
+   (unless package-archive-contents
+   (package-refresh-contents))
+
+   CIA PADARAI package-refresh-contents
+   perkrauni emacs, ziuri ar viskas ok
+   go and check M-x list-packages
+   PAMEGINK M-x package install use- ir jeigu meta ka nors - gerai, reiskia pasiruoses kitam zingsniui
+
+   open init.el ir ikelk 
+
+   (unless (package-installed-p 'use-package)
+   (package-refresh-contents)
+   (package-install 'use-package))
+
+   reload emacs, jeigu viskas veikia- einam sekanti zingsni
+
+   susikurk dropboxe vieta kur nori kelti emacs failus.
+   susikurk ten myinit.org IR TAIP PAT myinit.el
+    
+   i myinit.org ikelk sita content
+
+   #+BEGIN_SRC emacs-lisp
+   ;; Thanks, but no thanks
+   (setq inhibit-startup-message t)
+
+
+   (menu-bar-mode -1)            ; Disable the menu bar
+   (tool-bar-mode -1)          ; Disable the toolbar
+   (tooltip-mode -1)           ; Disable tooltips
+   (set-fringe-mode 10)       ; Give some breathing room
+
+   ;; Set up the visible bell
+   (setq visible-bell t)
+   (load-theme 'tango-dark)
+   #+END_SRC
+
+   turn off emacs, turn on. 
+
+   Jeigu pasikeicia theme - tu ready to go. jeigu ne, paziurek ar myinit.el turi ta pati content kaip org.
+
+   Blogiausiu atveju nueik i temp_emacs ir copy files from there.
+
+   zodziu, viskas okei dabar. galesiu su Jokubu pasneketi apie wordpress ir core files and etc ir editint juos normaliai.
+   vaziuoju pas Julyte dabar, ji siek tiek pyksta manau kad isejau paciam smuti fruti marketingo sukuryje daryti savo reikaliuku.
+   einu pareklaminti facebook, darysim zaidima
+
+** change caps to ctrl
+#+BEGIN_SRC bash
+   /usr/bin/setxkbmap -option "ctrl:swapcaps"
+   #+END_SRC
+* Emacs on WINDOWS
+
+some useful stuff https://www.gnu.org/software/emacs/manual/html_mono/efaq-w32.html#Location-of-init-file
+
+install emacs from here - http://ftp.task.gda.pl/pub/gnu/emacs/windows/emacs-27/
+
+set home path variable like the guy in this tut - https://lucidmanager.org/productivity/emacs-windows/
+
+do - setx HOME %USERPROFILE% in windows powershell
+
+then you will see that HOME variable has appeared under - settings -> system -> advanced system settings -> environment variables 
+
+then open emacs and do C-h v, write user-emacs-directory and enter. It will create an .emacs.d directory under HOME path. 
+
+It works, right? okay, now you remember how to set the path.
+
+now go back to environment variables and make it like so - C:\Users\Arvydas\emacs
+
+You will place the .emacs file in that folder and also .emacs.d folder will appear in it. great.
+
+put some variables in .emacs and confirm that emacs got modified
+
+(menu-bar-mode -1)            ; Disable the menu bar
+(tool-bar-mode -1)          ; Disable the toolbar
+(tooltip-mode -1)           ; Disable tooltips
+(set-fringe-mode 10)       ; Give some breathing room
+
+worked for me so far.
+
+Time to link it with Dropbox.
+
+add this to the .emacs file. right under use-package installation
+
+(org-babel-load-file (expand-file-name "C:\\Users\\Arvydas\\Dropbox\\temp_emacs\\myinit.org"))
+
+imesk theme i .emacs.d, jokiu folderiu. turetu veikti
 * Old emacs notes
   :LOGBOOK:
   CLOCK: [2021-08-01 Sk 05:19]--[2021-08-01 Sk 15:46] => 10:27
@@ -190,135 +385,3 @@
           Yes, separate files for everything, orgzly on my phone all synced up, reviews are scheduled,
           now all I have to do is stick to my schedules and do the actual work.
   :END:
-* Emacs installation on LINUX
-Before even doing anything, in your .emacs.d/init.el file add all this info --
- https://www.youtube.com/watch?v=EX9PKK3EMaw&t
-** susikuriam baze - init.el
-   Jeigu nauja sistema, tai reikia pirma eiti i .emacs.d ir susikurti init.el faila.
- /home/azeubu/Dropbox/org/  Jis bus pagrindinis, ten desim tai:
-
-	(require 'package)
-     (setq package-enable-at-startup nil)
-     (add-to-list 'package-archives
-		  '("melpa" . "https://melpa.org/npackages/"))
-     (package-initialize)
-
-     ;; Bootstrap 'use-package
-     (unless (package-installed-p 'use-package)
-       (package-refresh-contents)
-       (package-install 'use-package))
-
-     (org-babel-load-file (expand-file-name "myinit.org"))
-
-** susikuriam sutrauka - myinit.org
-   vel, .emacs.d folderiuke sukuriam myinit.org
-
-   (require 'package)
-   (setq package-enable-at-startup nil)
-   (add-to-list 'package-archives
-   '("melpa" . "https://melpa.org/packages/"))
-   (package-initialize)
-
-   ;; Bootstrap 'use-package
-   (unless (package-installed-p 'use-package)
-   (package-refresh-contents)
-   (package-install 'use-package))
-** Totally new thingy krc 2021-12-06 - veikia su dropbox
-   sudo apt install emacs
-   atsidarai .emacs.d, susikuri init.el faila
-   ikeli visa sita content 
-
-   ;; Initialize package sources
-   (require 'package)
-
-   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-   ("org" . "https://orgmode.org/elpa/")
-   ("elpa" . "https://elpa.gnu.org/packages/")))
-
-   (package-initialize)
-   (unless package-archive-contents
-   (package-refresh-contents))
-
-   CIA PADARAI package-refresh-contents
-   perkrauni emacs, ziuri ar viskas ok
-   go and check M-x list-packages
-   PAMEGINK M-x package install use- ir jeigu meta ka nors - gerai, reiskia pasiruoses kitam zingsniui
-
-   open init.el ir ikelk 
-
-   (unless (package-installed-p 'use-package)
-   (package-refresh-contents)
-   (package-install 'use-package))
-
-   reload emacs, jeigu viskas veikia- einam sekanti zingsni
-
-   susikurk dropboxe vieta kur nori kelti emacs failus.
-   susikurk ten myinit.org IR TAIP PAT myinit.el
-    
-   i myinit.org ikelk sita content
-
-   #+BEGIN_SRC emacs-lisp
-   ;; Thanks, but no thanks
-   (setq inhibit-startup-message t)
-
-
-   (menu-bar-mode -1)            ; Disable the menu bar
-   (tool-bar-mode -1)          ; Disable the toolbar
-   (tooltip-mode -1)           ; Disable tooltips
-   (set-fringe-mode 10)       ; Give some breathing room
-
-   ;; Set up the visible bell
-   (setq visible-bell t)
-   (load-theme 'tango-dark)
-   #+END_SRC
-
-   turn off emacs, turn on. 
-
-   Jeigu pasikeicia theme - tu ready to go. jeigu ne, paziurek ar myinit.el turi ta pati content kaip org.
-
-   Blogiausiu atveju nueik i temp_emacs ir copy files from there.
-
-   zodziu, viskas okei dabar. galesiu su Jokubu pasneketi apie wordpress ir core files and etc ir editint juos normaliai.
-   vaziuoju pas Julyte dabar, ji siek tiek pyksta manau kad isejau paciam smuti fruti marketingo sukuryje daryti savo reikaliuku.
-   einu pareklaminti facebook, darysim zaidima
-
-** change caps to ctrl
-#+BEGIN_SRC bash
-   /usr/bin/setxkbmap -option "ctrl:swapcaps"
-   #+END_SRC
-* Emacs on WINDOWS
-
-some useful stuff https://www.gnu.org/software/emacs/manual/html_mono/efaq-w32.html#Location-of-init-file
-
-install emacs from here - http://ftp.task.gda.pl/pub/gnu/emacs/windows/emacs-27/
-
-set home path variable like the guy in this tut - https://lucidmanager.org/productivity/emacs-windows/
-
-do - setx HOME %USERPROFILE% in windows powershell
-
-then you will see that HOME variable has appeared under - settings -> system -> advanced system settings -> environment variables 
-
-then open emacs and do C-h v, write user-emacs-directory and enter. It will create an .emacs.d directory under HOME path. 
-
-It works, right? okay, now you remember how to set the path.
-
-now go back to environment variables and make it like so - C:\Users\Arvydas\emacs
-
-You will place the .emacs file in that folder and also .emacs.d folder will appear in it. great.
-
-put some variables in .emacs and confirm that emacs got modified
-
-(menu-bar-mode -1)            ; Disable the menu bar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)       ; Give some breathing room
-
-worked for me so far.
-
-Time to link it with Dropbox.
-
-add this to the .emacs file. right under use-package installation
-
-(org-babel-load-file (expand-file-name "C:\\Users\\Arvydas\\Dropbox\\temp_emacs\\myinit.org"))
-
-imesk theme i .emacs.d, jokiu folderiu. turetu veikti
