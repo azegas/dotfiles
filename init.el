@@ -23,6 +23,9 @@
 
 ;; (org-babel-load-file (expand-file-name "~/Dropbox/src/emacs/myinit.org"))
 
+;; trying to make lsp faster
+(setenv "LSP_USE_PLISTS" "1")
+
 (load "~/Dropbox/src/emacs/recipes/ace-window.el")
 (load "~/Dropbox/src/emacs/recipes/avy.el")
 (load "~/Dropbox/src/emacs/recipes/backups.el")
