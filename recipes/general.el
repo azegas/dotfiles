@@ -165,9 +165,9 @@
    ("C-h C" . helpful-command)))
 
 ;; [2022-03-13 Sk]
-(use-package csv-mode
-  :ensure t
-  :mode "\\.csv\\'")
+;; (use-package csv-mode
+;;   :ensure t
+;;   :mode "\\.csv\\'")
 
 ;; shell-other-window
 (defun eshell-other-window ()
