@@ -18,6 +18,7 @@
 (add-hook 'css-mode-hook #'lsp)
 (add-hook 'js-mode-hook #'lsp)
 
+
 ;; lsp-ui-workspace-symbol - nusoks i definition - cool
 (use-package lsp-ivy
   :ensure t)
@@ -32,7 +33,15 @@
 
 ;; do M-x lsp-diagnose ir check ar yra errors
 
-(setq lsp-idle-delay 0.500)
 (setq lsp-lens-enable t)
+
+;; attempting to make lsp faster (M-x lsp-doctor)
+;; check emacs version - apt-cache policy emacs
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq gc-cons-threshold 100000000)
+(setq lsp-idle-delay 0.500)
+;; install emacs 28.. is kind of faster now https://www.how2shout.com/linux/how-to-install-emacs-28-on-ubuntu-20-04-lts-focal-fossa/
+;; butinai turek flyspell ir flymake ar ka ten toki installines, kitaip nebus autocompletion normalaus.. rasys su {1:blet ir pan}
+;; (setenv "LSP_USE_PLISTS" "1") ;; add this line to init.el only
 
 ;;; lsp-mode.el ends here
