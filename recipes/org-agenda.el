@@ -44,7 +44,7 @@
                                           ;instead
 
 ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
 
 (setq org-agenda-custom-commands
       '(("a" "Simple agenda view"
