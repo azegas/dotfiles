@@ -151,4 +151,6 @@ otherwise to the parent directory,set by `pop-find-parent-directory' "
 
 (provide 'pop-eshell-mode)
 
+(pop-eshell-mode 1)
+
 ;;; pop-eshell-mode end.
