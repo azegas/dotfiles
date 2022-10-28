@@ -9,7 +9,7 @@
 ;; runserver. Works like a charm and stays in the background.
 ;;; Code:
 
-(add-to-list 'load-path "~/Dropbox/src/emacs/elpa/pop-eshell")
+;; (add-to-list 'load-path "~/Dropbox/src/emacs/random-packages/pop-eshell")
 (require 'pop-eshell-mode)
 (setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
 (pop-eshell-mode 1)

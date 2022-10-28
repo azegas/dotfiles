@@ -61,7 +61,7 @@
 (load "~/Dropbox/src/emacs/recipes/org-roam.el")
 (load "~/Dropbox/src/emacs/recipes/org-clock.el")
 ;;(load "~/Dropbox/src/emacs/recipes/org-download.el")
-(load "~/Dropbox/src/emacs/recipes/pop-eshell.el")
+(load "~/Dropbox/src/emacs/random-packages/pop-eshell/pop-eshell-mode.el")
 (load "~/Dropbox/src/emacs/recipes/projectile.el")
 (load "~/Dropbox/src/emacs/recipes/rainbow-delimiters.el")
 (load "~/Dropbox/src/emacs/recipes/rg.el")
