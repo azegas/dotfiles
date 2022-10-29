@@ -20,12 +20,13 @@
 ;turn off company auto-completion in eshell, because it adds annoying spaces after each completion.. like ls, sucks
 (add-hook 'eshell-mode-hook (lambda () (company-mode -1)) 'append)
 
-(use-package company-quickhelp
-  :ensure t
-  :config
-  (company-quickhelp-mode 1)
-  (eval-after-load 'company
-    '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
-(setq company-quickhelp-delay 0)
+;; makes lsp crash - https://github.com/emacs-lsp/lsp-mode/discussions/3781#discussioncomment-3992134
+;; (use-package company-quickhelp
+;;   :ensure t
+;;   :config
+;;   (company-quickhelp-mode 1)
+;;   (eval-after-load 'company
+;;     '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
+;; (setq company-quickhelp-delay 0)
 
 ;;; company.el ends here
