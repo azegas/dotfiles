@@ -28,6 +28,19 @@
   :ensure t
   :hook (lsp-mode . lsp-ui-mode))
 
+;; (use-package lsp-treemacs
+;;   :ensure t)
+
+;; see errors
+;; M-x lsp-treemacs-errors-list
+;; M-x lsp-errors-list-mode
+
+;; lsp-treemacs-symbols
+;; lsp-treemacs-references/impleentations
+
+;; A guide on disabling/enabling lsp-mode features
+;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+
 ;; attempting to make lsp quicker
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 
@@ -41,7 +54,7 @@
 (setq gc-cons-threshold 100000000)
 (setq lsp-idle-delay 0.500)
 ;; install emacs 28.. is kind of faster now https://www.how2shout.com/linux/how-to-install-emacs-28-on-ubuntu-20-04-lts-focal-fossa/
-;; butinai turek flyspell ir flymake ar ka ten toki installines, kitaip nebus autocompletion normalaus.. rasys su {1:blet ir pan}
+;; proper lsp install here - https://emacs-lsp.github.io/lsp-mode/page/
 ;; (setenv "LSP_USE_PLISTS" "1") ;; add this line to init.el only
 
 ;;; lsp-mode.el ends here
