@@ -1,6 +1,8 @@
 ;;; js2-mode.el --- js syntax highlighting
 ;;; Commentary:
 ;; inspiration from here - https://github.com/howardabrams/dot-files/blob/master/emacs-javascript.org
+;; if syntax highlighting does not work, check out org note "byte recompile emacs packages"
+;; ar tik nebus rjsx mode geresnis(react highlighting possible) nei js2?
 ;;; Code:
 
 (use-package js2-mode
