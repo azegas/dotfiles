@@ -34,7 +34,7 @@
 (load "~/Dropbox/src/emacs/recipes/browse-kill-ring.el")
 (load "~/Dropbox/src/emacs/recipes/company.el")
 (load "~/Dropbox/src/emacs/recipes/counsel.el")
-;;(load "~/Dropbox/src/emacs/recipes/diff-hl.el")
+(load "~/Dropbox/src/emacs/recipes/diff-hl.el")
 (load "~/Dropbox/src/emacs/recipes/dired.el")
 (load "~/Dropbox/src/emacs/recipes/doom-themes.el")
 (load "~/Dropbox/src/emacs/recipes/doom-modeline.el")
@@ -43,10 +43,10 @@
 ;;(load "~/Dropbox/src/emacs/recipes/emojify.el")
 ;;(load "~/Dropbox/src/emacs/recipes/erc.el")
 (load "~/Dropbox/src/emacs/recipes/expand-region.el")
-;;(load "~/Dropbox/src/emacs/recipes/flycheck.el")
-;;(load "~/Dropbox/src/emacs/recipes/flyspell.el")
+;; (load "~/Dropbox/src/emacs/recipes/flycheck.el")
+;; (load "~/Dropbox/src/emacs/recipes/flyspell.el")
 (load "~/Dropbox/src/emacs/recipes/general.el")
-;;(load "~/Dropbox/src/emacs/recipes/goto-chg.el")
+(load "~/Dropbox/src/emacs/recipes/goto-chg.el")
 (load "~/Dropbox/src/emacs/recipes/hungry-delete.el")
 (load "~/Dropbox/src/emacs/recipes/impatient-mode.el")
 (load "~/Dropbox/src/emacs/recipes/ivy.el")
@@ -78,6 +78,10 @@
 ;;(load "~/Dropbox/src/emacs/recipes/ws-butler.el")
 (load "~/Dropbox/src/emacs/recipes/yasnippet.el")
 (load "~/Dropbox/src/emacs/recipes/secrets.el")
+(load "~/Dropbox/src/emacs/recipes/json-mode.el")
+(load "~/Dropbox/src/emacs/recipes/rjsx-mode.el")
+(load "~/Dropbox/src/emacs/recipes/prettier-js.el")
+(load "~/Dropbox/src/emacs/recipes/dap-mode.el")
 
 ;;webdev stuff
 (load "~/Dropbox/src/emacs/recipes/web-mode.el")
@@ -88,6 +92,6 @@
 ;;JavaScript stuff
 ;;inspiration for js things "redguardtoo" on github
 ;;(load "~/Dropbox/src/emacs/recipes/js-comint.el")
-(load "~/Dropbox/src/emacs/recipes/js2-mode.el")
+;;(load "~/Dropbox/src/emacs/recipes/js2-mode.el")
 ;;(load "~/Dropbox/src/emacs/recipes/tern.el")
 ;;(load "~/Dropbox/src/emacs/recipes/skewer-mode.el")
