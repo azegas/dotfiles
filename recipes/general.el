@@ -5,6 +5,9 @@
 
 ;;; ---------------------------------------
 
+;; want a quickier scrolling with c-n/c-p?
+;; find "repeat keys" in your system, then modify it
+
 ;; startup stuff
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
