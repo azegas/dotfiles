@@ -133,7 +133,8 @@ otherwise to the parent directory,set by `pop-find-parent-directory' "
 (defvar pop-eshell-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-e C-f") 'fast-eshell-pop)
-    (define-key map (kbd "C-c C-e C-e") 'eshell-pop-toggle)
+    ;; (define-key map (kbd "C-c C-e C-e") 'eshell-pop-toggle)
+    (define-key map (kbd "C-2") 'eshell-pop-toggle)
   map)
   "pop eshell mode key maps.")
 
