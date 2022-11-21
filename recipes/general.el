@@ -45,7 +45,7 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; White-space
-(setq whitespace-style '(face trailing tabs tab-mark))
+;; (setq whitespace-style '(face trailing tabs tab-mark))
 ;; (global-whitespace-mode)
 
 ;; Add note tag to C-c C-z
