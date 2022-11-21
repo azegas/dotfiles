@@ -9,6 +9,7 @@
   :hook (((js2-mode rjsx-mode) . prettier-js-mode)))
 
 (add-hook 'css-mode-hook 'prettier-js-mode)
-(add-hook 'web-mode-hook 'prettier-js-mode)
+;; turning off web mode hook, messes up django development
+;; (add-hook 'web-mode-hook 'prettier-js-mode)
 
 ;;; prettier-js.el ends here
