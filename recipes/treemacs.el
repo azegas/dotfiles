@@ -1,10 +1,7 @@
 ;;; treemacs.el --- yes
 ;;; Commentary:
-;; nafik installina hydra ir pan
+;;; ? - hydra help or tree-hydra-advanced
 ;;; Code:
-
-;; keybindings
-;; ? - hydra help or tree-hydra-advanced
 
 (use-package treemacs
   :ensure t
@@ -12,7 +9,7 @@
     ;; Don't follow the cursor
   (treemacs-follow-mode -1)
   (treemacs-git-mode 'deferred)
-  :bind ("C-t" . treemacs-select-window))
+  :bind ("C-1" . treemacs-select-window))
 
 ;; jump to treemacs window with ace mode
 ;; didn't manage this to work, need to  do "after" somehow
