@@ -6,6 +6,7 @@
 ;; corner if you use "Doom-modeline". Can click on the icon - shows all
 ;; the errors. Great!  https://www.flycheck.org/en/latest/# Not to
 ;; confuse with flyspell - checks grammar.
+;; M-x checkdoc - checks document
 ;;; Code:
 
 (use-package flycheck
