@@ -39,7 +39,7 @@
 (load "~/Dropbox/src/emacs/recipes/doom-themes.el")
 (load "~/Dropbox/src/emacs/recipes/doom-modeline.el")
 ;;(load "~/Dropbox/src/emacs/recipes/elfeed.el")
-;;(load "~/Dropbox/src/emacs/recipes/elpy.el")
+(load "~/Dropbox/src/emacs/recipes/elpy.el")
 ;;(load "~/Dropbox/src/emacs/recipes/emojify.el")
 ;;(load "~/Dropbox/src/emacs/recipes/erc.el")
 (load "~/Dropbox/src/emacs/recipes/expand-region.el")
@@ -82,6 +82,9 @@
 (load "~/Dropbox/src/emacs/recipes/rjsx-mode.el")
 (load "~/Dropbox/src/emacs/recipes/prettier-js.el")
 (load "~/Dropbox/src/emacs/recipes/dap-mode.el")
+(load "~/Dropbox/src/emacs/recipes/exec-path-from-shell.el")
+(load "~/Dropbox/src/emacs/recipes/python.el")
+(load "~/Dropbox/src/emacs/recipes/markdown-mode.el")
 
 ;;webdev stuff
 (load "~/Dropbox/src/emacs/recipes/web-mode.el")
