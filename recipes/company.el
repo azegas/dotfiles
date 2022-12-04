@@ -20,6 +20,11 @@
 ;turn off company auto-completion in eshell, because it adds annoying spaces after each completion.. like ls, sucks
 (add-hook 'eshell-mode-hook (lambda () (company-mode -1)) 'append)
 
+;; turn off company mode in org major mode. Annoying suggestions with each word.
+(defun jpk/org-mode-hook ()
+  (company-mode -1))
+(add-hook 'org-mode-hook #'jpk/org-mode-hook)
+
 ;; makes lsp crash - https://github.com/emacs-lsp/lsp-mode/discussions/3781#discussioncomment-3992134
 ;; (use-package company-quickhelp
 ;;   :ensure t
