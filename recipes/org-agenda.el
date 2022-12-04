@@ -166,4 +166,5 @@
 ;;         subtree-end
 ;;       nil)))
 
+;; (add-hook 'after-init-hook 'org-agenda-list)
 ;;; agenda.el ends here
