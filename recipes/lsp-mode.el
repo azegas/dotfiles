@@ -5,6 +5,8 @@
 ;; features explanations - https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
 ;;; Code:
 
+;; lsp ideas - https://github.com/Crandel/home/blob/master/.config/emacs/recipes/lsp-mode-rcp.el
+
 (use-package lsp-mode
   :ensure t
   ;; :commands (lsp lsp-deferred)          ;both of these commands activate the package. interesting
