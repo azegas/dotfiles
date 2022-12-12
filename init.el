@@ -27,7 +27,7 @@
 ;; works fine without it on 28 emacs (m-x lsp-doctor)
 ;; (setenv "LSP_USE_PLISTS" "1")
 
-;;(load "~/Dropbox/src/emacs/recipes/ace-window.el") ;; turning it off cuz of evil C-w$
+(load "~/Dropbox/src/emacs/recipes/ace-window.el")
 (load "~/Dropbox/src/emacs/recipes/avy.el")
 (load "~/Dropbox/src/emacs/recipes/backups.el")
 (load "~/Dropbox/src/emacs/recipes/beacon.el")
@@ -59,7 +59,7 @@
 (load "~/Dropbox/src/emacs/recipes/org-archive.el")
 (load "~/Dropbox/src/emacs/recipes/org-agenda.el")
 (load "~/Dropbox/src/emacs/recipes/org-capture.el")
-(load "~/Dropbox/src/emacs/recipes/org-roam.el")
+;;(load "~/Dropbox/src/emacs/recipes/org-roam.el")
 (load "~/Dropbox/src/emacs/recipes/org-clock.el")
 ;;(load "~/Dropbox/src/emacs/recipes/org-download.el")
 (load "~/Dropbox/src/emacs/random-packages/pop-eshell/pop-eshell-mode.el")
@@ -85,7 +85,10 @@
 (load "~/Dropbox/src/emacs/recipes/exec-path-from-shell.el")
 (load "~/Dropbox/src/emacs/recipes/python.el")
 (load "~/Dropbox/src/emacs/recipes/markdown-mode.el")
-(load "~/Dropbox/src/emacs/recipes/evil.el")
+;;(load "~/Dropbox/src/emacs/recipes/evil.el")
+(load "~/Dropbox/src/emacs/recipes/emacs-dashboard.el")
+(load "~/Dropbox/src/emacs/recipes/highlight-indentation.el")
+(load "~/Dropbox/src/emacs/recipes/plain-org-wiki.el")
 
 ;;webdev stuff
 (load "~/Dropbox/src/emacs/recipes/web-mode.el")
