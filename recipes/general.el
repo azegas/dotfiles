@@ -32,6 +32,7 @@
 (setq kill-whole-line t)
 ;; Mouse avoidance. becomes visible again when typing.
 (setq make-pointer-invisible t)
+(add-hook 'before-save-hook 'whitespace-cleanup)
 (fset 'yes-or-no-p 'y-or-n-p)
 (delete-selection-mode t)               ; Delete marked region when typing over it
 (setq ad-redefinition-action 'accept)   ; turn off the error message at emacs launch
