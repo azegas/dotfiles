@@ -59,7 +59,6 @@
 (load "~/Dropbox/src/emacs/recipes/org-archive.el")
 (load "~/Dropbox/src/emacs/recipes/org-agenda.el")
 (load "~/Dropbox/src/emacs/recipes/org-capture.el")
-;;(load "~/Dropbox/src/emacs/recipes/org-roam.el")
 (load "~/Dropbox/src/emacs/recipes/org-clock.el")
 ;;(load "~/Dropbox/src/emacs/recipes/org-download.el")
 (load "~/Dropbox/src/emacs/random-packages/pop-eshell/pop-eshell-mode.el")
