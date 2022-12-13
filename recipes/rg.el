@@ -6,6 +6,8 @@
 ;; https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
 ;;; Code:
 
+;; test
+
 (use-package rg
   :ensure t
   :commands rg)
