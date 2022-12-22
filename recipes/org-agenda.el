@@ -10,50 +10,82 @@
 ;;; Code:
 
 (setq org-agenda-prefix-format '(
-  (agenda  . " %i %-12:c%?-12t% s") ;; file name + org-agenda-entry-type
+  (agenda  . " %i %-12:c%?-12t% s")
   (agenda  . "  • ")
   ;; (timeline  . "  % s")
   ;; (todo  . " %i %-12:c")
   ;; (tags  . " %i %-12:c")
   ;; (search . " %i %-12:c")
   ))
-
-;; System locale to use for formatting time values. Show 2022-02-02 instead of 02/02/22
-(setq system-time-locale "C")         ; Make sure that the weekdays in the
-                                      ; time stamps of your Org mode files and
-                                        ; in the agenda appear in English.
-
-(setq org-agenda-inhibit-startup t)     ; Stop preparing agenda buffers on startup
+(setq system-time-locale "C")
+(setq org-agenda-inhibit-startup t)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-start-with-log-mode nil) ;shows all CLOSED: tasks in agenda view. kinda cool
+(setq org-agenda-start-with-log-mode nil)
 (setq org-agenda-skip-scheduled-if-done t)
 ;; (setq org-agenda-prefix-format "%t %s")
 (setq org-agenda-restore-windows-after-quit t)
-(setq org-agenda-sticky nil)                ;allows to open multiple
-                                          ;agenda views at once, but
-                                          ;need a refresh
-(setq org-agenda-show-future-repeats nil) ;don't show repeating tasks in the future
+(setq org-agenda-sticky nil)
+(setq org-agenda-show-future-repeats nil)
+(setq org-agenda-span 1)
 (require 'org-habit)
 (setq org-agenda-tags-column 90)
 (setq org-habit-graph-column 60)
-(setq org-agenda-use-tag-inheritance nil) ;good, shows in agenda if t,
-                                          ;but doesn't add an actual
-                                          ;tag, in case want to track
-                                          ;finished tasks. must add a
-                                          ;tag manually to each task
-                                          ;instead
+(setq org-agenda-use-tag-inheritance t)
 
-;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/documents/org/roam/" "\.org$"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (setq org-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\")
+       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\" "\\.org$"))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       (setq org-directory "~/Dropbox/org/notes/")
+       (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
+       ))
+
+
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+
+(defun set-org-agenda-files ()
+  "Set different org-files to be used in `org-agenda`."
+  (setq org-agenda-files (list (concat org-directory "todo.org")
+                               (concat org-directory "repeating.org")
+                               (concat org-directory "stasys.org"))))
+
+(set-org-agenda-files)
+
+;; (setq org-agenda-custom-commands
+;;       '(("a" "Simple agenda view"
+;;          ((agenda "")
+;;           (todo "IN-PROGRESS" "")
+;;            (tags "/+DONE|+CANCELLED"
+;;                  ((org-agenda-overriding-header "Archivable tasks")
+;;                   (org-use-tag-inheritance '("project"))))))))
 
 (setq org-agenda-custom-commands
-      '(("a" "Simple agenda view"
-         ((agenda "")
-          (todo "IN-PROGRESS" "")
-           (tags "/+DONE|+CANCELLED"
-                 ((org-agenda-overriding-header "Archivable tasks")
-                  (org-use-tag-inheritance '("project"))))))))
-
+      '(
+        ("p" "PERSONAL"
+         (
+          (tags-todo "-pkc/!STARTED" ((org-agenda-overriding-header "Started")))
+          (tags-todo "-pkc/!WAITING" ((org-agenda-overriding-header "Waiting")))
+          (tags-todo "-pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
+          (tags-todo "-pkc/!ASK" ((org-agenda-overriding-header "ASK:")))
+          (agenda "" (;; (org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("-pkc"))))
+          ))
+        ("w" "WORK"
+         (
+          (tags-todo "+pkc/!PROJECT" ((org-agenda-overriding-header "Projects:")))
+          (tags-todo "+pkc/!STARTED" ((org-agenda-overriding-header "Started tasks:")))
+          (tags-todo "+pkc/!WAITING" ((org-agenda-overriding-header "Waiting for something:")))
+          (tags-todo "+pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
+          (tags-todo "+pkc/!ASK" ((org-agenda-overriding-header "Ask someone:")))
+          (agenda "" (;; (org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("+pkc"))))
+          ))
+        ;; ("e" "Emacs Tasks" tags-todo "+emacs-arvydasDev-personal")
+        ))
 
 
 ;; (setq org-agenda-custom-commands
