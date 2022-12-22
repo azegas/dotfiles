@@ -157,7 +157,6 @@
        (load "~/Dropbox/src/emacs/recipes/lsp-mode.el")
        ;;(load "~/Dropbox/src/emacs/recipes/ws-butler.el")
        (load "~/Dropbox/src/emacs/recipes/yasnippet.el")
-       (load "~/Dropbox/src/emacs/recipes/secrets.el")
        (load "~/Dropbox/src/emacs/recipes/json-mode.el")
        (load "~/Dropbox/src/emacs/recipes/rjsx-mode.el")
        (load "~/Dropbox/src/emacs/recipes/prettier-js.el")
