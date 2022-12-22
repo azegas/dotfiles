@@ -4,7 +4,16 @@
 ;;; Code:
 
 (add-to-list 'custom-theme-load-path "~/Dropbox/src/emacs/misc/themes/")
-;; (load-theme 'zenburn t)
+;;(load-theme 'zenburn t)
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (set-face-attribute 'default nil :height 110)
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       ))
+
 
 ;; [2022-03-14 Pr] Transparency
 ;; (set-frame-parameter (selected-frame) 'alpha '(95 . 95))

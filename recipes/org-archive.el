@@ -34,7 +34,17 @@
 ;; dont need all those archive labels in properties tag. too many date
 ;; inputs to sort through
 
-(setq org-archive-location "~/Dropbox/documents/org/roam/projects/archive/%s_archive::")
+
+;; (cond ((eq system-type 'windows-nt)
+;;        ;; Windows-specific code goes here.
+;;        (setq org-archive-location "C:\\Users\\arvga\\Dropbox\\org\\archive\\%s_archive::")
+;;        )
+;;       ((eq system-type 'gnu/linux)
+;;        ;; Linux-specific code goes here.
+;;        (setq org-archive-location "~/Dropbox/org/archive/%s_archive::")
+;;        ))
+;; (setq org-archive-location "~/Dropbox/org/archive/archive_.org::")
+
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
 
