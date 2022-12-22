@@ -24,7 +24,8 @@
 (toggle-scroll-bar -1)
 (blink-cursor-mode -1)
 (global-hl-line-mode 1)
-(setq-default indicate-empty-lines t)   ; show where buffers end.
+;; not needed, line numbers show the end of buffer anyway
+(setq-default indicate-empty-lines nil)   ; show where buffers end.
 (setq visible-bell t)
 
 ;; Parentheses
