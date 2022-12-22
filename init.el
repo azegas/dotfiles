@@ -79,7 +79,6 @@
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\lsp-mode.el")
        ;;(load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\ws-butler.el")
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\yasnippet.el")
-       (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\secrets.el")
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\json-mode.el")
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\rjsx-mode.el")
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\prettier-js.el")
