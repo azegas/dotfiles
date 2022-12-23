@@ -34,8 +34,8 @@
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
-       (setq org-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\")
-       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\" "\\.org$"))
+       (setq org-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\")
+       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\" "\\.org$"))
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.

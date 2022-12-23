@@ -9,7 +9,7 @@
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
-       (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\")
+       (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\")
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
