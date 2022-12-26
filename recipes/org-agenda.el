@@ -34,8 +34,8 @@
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
-       (setq org-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\")
-       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\" "\\.org$"))
+       (setq org-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\")
+       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\" "\\.org$"))
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
@@ -67,23 +67,26 @@
       '(
         ("p" "PERSONAL"
          (
+          (agenda "" (;; (org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("-pkc"))))
           (tags-todo "-pkc/!STARTED" ((org-agenda-overriding-header "Started")))
           (tags-todo "-pkc/!WAITING" ((org-agenda-overriding-header "Waiting")))
           (tags-todo "-pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
           (tags-todo "-pkc/!ASK" ((org-agenda-overriding-header "ASK:")))
-          (agenda "" (;; (org-agenda-span 7)
-                      (org-agenda-tag-filter-preset '("-pkc"))))
-          ))
+
+          )
+         )
         ("w" "WORK"
          (
+          (agenda "" (;; (org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("+pkc"))))
           (tags-todo "+pkc/!PROJECT" ((org-agenda-overriding-header "Projects:")))
           (tags-todo "+pkc/!STARTED" ((org-agenda-overriding-header "Started tasks:")))
           (tags-todo "+pkc/!WAITING" ((org-agenda-overriding-header "Waiting for something:")))
           (tags-todo "+pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
           (tags-todo "+pkc/!ASK" ((org-agenda-overriding-header "Ask someone:")))
-          (agenda "" (;; (org-agenda-span 7)
-                      (org-agenda-tag-filter-preset '("+pkc"))))
-          ))
+          )
+         )
         ;; ("e" "Emacs Tasks" tags-todo "+emacs-arvydasDev-personal")
         ))
 
