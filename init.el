@@ -90,6 +90,7 @@
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\emacs-dashboard.el")
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\highlight-indentation.el")
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\plain-org-wiki.el")
+       (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\db.el")
 
        ;;webdev stuff
        (load "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\web-mode.el")
@@ -167,6 +168,7 @@
        (load "~/Dropbox/src/emacs/recipes/emacs-dashboard.el")
        (load "~/Dropbox/src/emacs/recipes/highlight-indentation.el")
        (load "~/Dropbox/src/emacs/recipes/plain-org-wiki.el")
+       (load "~/Dropbox/src/emacs/recipes/db.el")
 
 ;;webdev stuff
 (load "~/Dropbox/src/emacs/recipes/web-mode.el")
