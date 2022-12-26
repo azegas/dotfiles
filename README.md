@@ -1,14 +1,18 @@
 # My personal Emacs configuration
 
-Journal attempt instead of many small files.
+Emacs outshines all other editing software in approximately the same
+way that the noonday sun does the stars. It is not just bigger and
+brighter: it simply makes everything else vanish. – Neal Stephenson,
+In the Beginning was the Command Line (1998)
 
-- capture template with TODO keywords
-- open agenda, filter by topic, filter by todo keyword
-- have all day everyday entries for whole year, kinda cool to look
-  back and to show to others
-- not sure how to enter stuff through orgzly, to inbox perhaps or
-  assign tags?
-- add tags when capturing notes %^G, sort by them, then sort by TODO
-  tasks
-- try to encrypt this file so no one would see the contents? Useful
-  when at work.
+## [2022-04-24 Sun] feat: MAJOR CHANGE - from one org to many .el files!
+
+The .org file has become too large and too clumpsy to maintain
+efficiently (for me), so I decided to create many small files instead.
+Thanks to jump.el I will be able to jump thought these fiels quick and
+easy, the debug process will be easier I think as well and changes
+tracking with git will be more clear.
+
+Biggest inspiration for this change was [this guy's config](https://github.com/Crandel/home/tree/master/.config/emacs).
+
+Overall, I am very happy with this change.
