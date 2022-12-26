@@ -9,11 +9,14 @@
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
-       (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\")
+       (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\")
+       (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\personal_notes")
+       (setq plain-org-wiki-extra-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes" "\.org$"))
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
-       (setq plain-org-wiki-directory "~/Dropbox/org/notes")
+       (setq plain-org-wiki-directory "~/Dropbox/org/notes/personal_notes")
+       (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/pkc_notes/" "\.org$"))
        ))
 
 (global-set-key (kbd "C-c n f") 'plain-org-wiki)
