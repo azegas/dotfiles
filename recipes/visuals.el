@@ -38,7 +38,7 @@
 
 ;; Line numbers
 ;; (global-display-line-numbers-mode 1)
-(add-hook 'text-mode-hook #'display-line-numbers-mode)
+;; (add-hook 'text-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; (set-face-attribute 'default nil :family "Consolas" :height 110)
