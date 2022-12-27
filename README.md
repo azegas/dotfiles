@@ -1,18 +1,32 @@
 # My personal Emacs configuration
 
-Emacs outshines all other editing software in approximately the same
-way that the noonday sun does the stars. It is not just bigger and
-brighter: it simply makes everything else vanish. – Neal Stephenson,
-In the Beginning was the Command Line (1998)
+https://orgmode.org/worg/org-quotes.html
 
-## [2022-04-24 Sun] feat: MAJOR CHANGE - from one org to many .el files!
+<2022-12-27 Tue> I am feeling little bit overwhelmed with my workflow
+with emacs to track my daily tasks and projects at home and at work.
 
-The .org file has become too large and too clumpsy to maintain
-efficiently (for me), so I decided to create many small files instead.
-Thanks to jump.el I will be able to jump thought these fiels quick and
-easy, the debug process will be easier I think as well and changes
-tracking with git will be more clear.
+All was fine until I discovered that I can use emacs at work(finally).
+Now the struggle is with Dropbox, keeping only my work files at work,
+but also seeing them at home..
 
-Biggest inspiration for this change was [this guy's config](https://github.com/Crandel/home/tree/master/.config/emacs).
+Then also the agenda views, capture templates, refiling, one big org
+file or many small org files, tags, categories, archiving and so on.
+The more I tinker with it the more lost and confused I become.
 
-Overall, I am very happy with this change.
+Each time configuring the method requires me restructuring the
+notes...
+
+This is the attempt where I try to implement this:
+
+https://members.optusnet.com.au/~charles57/GTD/gtd_workflow.html
+
+https://members.optusnet.com.au/~charles57/GTD/remember.html
+
+https://members.optusnet.com.au/~charles57/GTD/mydotemacs.txt
+
+https://lifehacker.com/the-weekly-review-how-one-hour-can-save-you-a-week-s-w-5908816
+
+Wish me luck.
+
+I will simplify it as much as possible, then use it with ease and
+enjoyment. I know it.
