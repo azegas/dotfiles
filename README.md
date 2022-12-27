@@ -12,3 +12,4 @@ Journal attempt instead of many small files.
   tasks
 - try to encrypt this file so no one would see the contents? Useful
   when at work.
+- pridek tagus @ prie kiekvienos task

@@ -183,19 +183,18 @@
 ;;(load "~/Dropbox/src/emacs/recipes/tern.el")
 ;;(load "~/Dropbox/src/emacs/recipes/skewer-mode.el")
        ))
+(put 'dired-find-alternate-file 'disabled nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("ea5822c1b2fb8bb6194a7ee61af3fe2cc7e2c7bab272cbb498a0234984e1b2d9" "854a1ae47e79e1d8c80b4e2f1e20f80450cf9ddd103e8f9d7dcd400b3d7325b1" default))
  '(org-agenda-files
-   '("/home/arvydas/Dropbox/org/notes/anyksciai.org" "/home/arvydas/Dropbox/org/notes/api.org" "/home/arvydas/Dropbox/org/notes/arvydasDev.org" "/home/arvydas/Dropbox/org/notes/baba.org" "/home/arvydas/Dropbox/org/notes/citatos.org" "/home/arvydas/Dropbox/org/notes/computers.org" "/home/arvydas/Dropbox/org/notes/csfw.org" "/home/arvydas/Dropbox/org/notes/cyberFortify.org" "/home/arvydas/Dropbox/org/notes/db.org" "/home/arvydas/Dropbox/org/notes/diary.org" "/home/arvydas/Dropbox/org/notes/django.org" "/home/arvydas/Dropbox/org/notes/dpd.org" "/home/arvydas/Dropbox/org/notes/emacs.org" "/home/arvydas/Dropbox/org/notes/gifts.org" "/home/arvydas/Dropbox/org/notes/github.org" "/home/arvydas/Dropbox/org/notes/inbox.org" "/home/arvydas/Dropbox/org/notes/javascript.org" "/home/arvydas/Dropbox/org/notes/jonava.org" "/home/arvydas/Dropbox/org/notes/julyte.org" "/home/arvydas/Dropbox/org/notes/kaledos.org" "/home/arvydas/Dropbox/org/notes/kaunas.org" "/home/arvydas/Dropbox/org/notes/kedainiai.org" "/home/arvydas/Dropbox/org/notes/klaipeda.org" "/home/arvydas/Dropbox/org/notes/knowYourArea.org" "/home/arvydas/Dropbox/org/notes/lansweeper.org" "/home/arvydas/Dropbox/org/notes/lfw.org" "/home/arvydas/Dropbox/org/notes/linuxOS.org" "/home/arvydas/Dropbox/org/notes/mintys.org" "/home/arvydas/Dropbox/org/notes/moletai.org" "/home/arvydas/Dropbox/org/notes/movies.org" "/home/arvydas/Dropbox/org/notes/naujojiAkmene.org" "/home/arvydas/Dropbox/org/notes/network.org" "/home/arvydas/Dropbox/org/notes/o365Migration.org" "/home/arvydas/Dropbox/org/notes/pagalbaGyvunams.org" "/home/arvydas/Dropbox/org/notes/panevezys.org" "/home/arvydas/Dropbox/org/notes/pencija.org" "/home/arvydas/Dropbox/org/notes/photography.org" "/home/arvydas/Dropbox/org/notes/pkc.org" "/home/arvydas/Dropbox/org/notes/projectIdeas.org" "/home/arvydas/Dropbox/org/notes/projects.org" "/home/arvydas/Dropbox/org/notes/python.org" "/home/arvydas/Dropbox/org/notes/raspberry.org" "/home/arvydas/Dropbox/org/notes/repeating.org" "/home/arvydas/Dropbox/org/notes/smuti.org" "/home/arvydas/Dropbox/org/notes/somedayMaybe.org" "/home/arvydas/Dropbox/org/notes/sportas.org" "/home/arvydas/Dropbox/org/notes/toike.org" "/home/arvydas/Dropbox/org/notes/travel.org" "/home/arvydas/Dropbox/org/notes/uzsienis.org" "/home/arvydas/Dropbox/org/notes/vilnius.org" "/home/arvydas/Dropbox/org/notes/wildlifeCamera.org" "/home/arvydas/Dropbox/org/notes/windowsOS.org")))
+   '("~/Dropbox/org/notes/inbox.org" "~/Dropbox/org/notes/javascript.org" "~/Dropbox/org/notes/journal.org" "~/Dropbox/org/notes/python.org"))
+ '(warning-suppress-log-types '((auto-save))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(put 'dired-find-alternate-file 'disabled nil)

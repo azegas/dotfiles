@@ -27,8 +27,11 @@
 ;; (setq org-todo-keywords
 ;;       (quote ((sequence "10min(1)" "2min(2)" "30min(3)" "1val(v)" "PALEK(p)" "SKAITYK(s)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)" "REPEATING(r)"))))
 
+;; (setq org-todo-keywords
+;;       (quote ((sequence "REPEATING(r)" "TODO(t)" "NEXT(n)" "DELEGATED(D)" "STARTED(S)" "WAITING(w)" "ASK(a)" "SOMEDAY(s)" "PROJECT(p)" "|" "DONE(d)" "PROJDONE(P)" "CANCELLED(c)"))))
+
 (setq org-todo-keywords
-      (quote ((sequence "REPEATING(r)" "TODO(t)" "NEXT(n)" "DELEGATED(D)" "STARTED(S)" "WAITING(w)" "ASK(a)" "SOMEDAY(s)" "PROJECT(p)" "|" "DONE(d)" "PROJDONE(P)" "CANCELLED(c)"))))
+      (quote ((sequence "REPEATING(r)" "TODO(t)" "NEXT(n)" "DELEGATED(D)" "STARTED(S)" "WAITING(w)" "ASK(a)" "SOMEDAY(s)" "PROJECT(P)" "IDEA(i)" "PERZVELK(p)" "|" "DONE(d)" "CANCELLED(c)"))))
 
 ;; ;; list-colors-display
 (setq org-todo-keyword-faces
