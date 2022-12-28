@@ -39,6 +39,7 @@
 (setq-default sentence-end-double-space nil) ; Do not add double space after periods
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer) ; no more annoying buffer list combinatios
 (setq-default indent-tabs-mode nil)     ; idk man, advised
+(setq dired-kill-when-opening-new-dired-buffer t) ;I was annoyed of dired buffers, so added this
 
 ;; Character wrap
 (setq fill-column 80)
