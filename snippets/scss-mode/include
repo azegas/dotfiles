@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: inc
+# key: inc
+# --
+
+@include ${1:mixinName}();

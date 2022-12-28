@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: newFile
+# key: new
+# --
+
+#+STARTUP: overview
+#+FILETAGS: ${2:ar reikia tago?}
+#+archive: ::* Archived Tasks
+
+* ${1:failo vardas}
+`(buffer-file-name)`
+
+$0
+
+* references
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+
+* Archived Tasks :ARCHIVE:

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: book
+# key: <book
+# --
+
+** ${1:quote}
+:PROPERTIES:
+:author: ${2:author}
+:from: ${3:from where?}
+:END:
+
+$0

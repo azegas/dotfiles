@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: book
+# key: <book
+# --
+
+*** ${1:title}
+:PROPERTIES:
+:author: ${2:author}
+:year: ${3:year}
+:pages: ${6:pages}
+:rating: ${7:rating}
+:END:
+
+$0

@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: appli
+# key: appli
+# --
+
+*** position ${1:}
+${2:}
+*** date applied ${3:}
+*** date should respond ${4:}
+*** date will write again ${5:}
+*** kanalas
+${6:}
+*** zinute
+${7:}

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: dmake
+# key: dmake
+# --
+
+python3 manage.py makemigrations

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pip freeze
+# key: freeze
+# --
+
+python -m pip freeze > requirements.txt

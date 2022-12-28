@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: new-package
+# key: pack
+# --
+
+;;; ${1:name}.el --- ${2:what_it's_for?}
+;;; Commentary:
+;; ${3:any_comments?}
+;;; Code:
+
+$0
+
+;;; ${4:name}.el ends here
