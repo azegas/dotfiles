@@ -91,6 +91,7 @@
        (load "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\highlight-indentation.el")
        (load "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\plain-org-wiki.el")
        (load "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\db.el")
+       (load "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\powershell.el")
 
        ;;webdev stuff
        (load "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\web-mode.el")
