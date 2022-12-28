@@ -8,7 +8,7 @@
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
-       (set-face-attribute 'default nil :height 110)
+       (set-face-attribute 'default nil :height 130)
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
