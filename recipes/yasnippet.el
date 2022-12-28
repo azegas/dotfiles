@@ -12,8 +12,17 @@
 (use-package yasnippet
   :ensure t
   :config
-  (setq yas-snippet-dirs '("~/Dropbox/src/emacs/snippets"))
   (yas-global-mode 1))
+
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (setq yas-snippet-dirs '("c:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets"))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       (setq yas-snippet-dirs '("~/Dropbox/src/emacs/snippets"))
+       ))
 
 (use-package yasnippet-snippets
   :disabled t)
