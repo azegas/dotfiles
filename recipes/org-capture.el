@@ -17,45 +17,69 @@
 
 ;; bzg config - https://github.com/bzg/dotemacs/blob/master/emacs.org
 
-(cond ((eq system-type 'windows-nt)
-       ;; Windows-specific code goes here.
-       (setq org-capture-templates
-             '(("i" "INBOX")
-               ("ii" "INBOX QUICK" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-                "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-               ("ia" "INBOX su aprasymu" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-                "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-               ("s" "SOMEDAY")
-               ("ss" "SOMEDAY SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-                "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-               ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-                "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-               ("sd" "SOMEDAY DEADLINE" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-                "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-               ))
-       )
-      ((eq system-type 'gnu/linux)
-       ;; Linux-specific code goes here.
-       (setq org-capture-templates
-             '(
-               ("i" "INBOX")
-               ("j" "JOURNAL" entry (file+datetree "~/Dropbox/org/notes/personal_notes/journal.org")
-                "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
-               ("ii" "INBOX QUICK" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-                "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-               ("ia" "INBOX su aprasymu" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-                "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-               ("s" "SOMEDAY")
-               ("ss" "SOMEDAY SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-                "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-               ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-                "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-               ("sd" "SOMEDAY DEADLINE" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-                "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-               )
+;; (cond ((eq system-type 'windows-nt)
+;;        ;; Windows-specific code goes here.
+;;        (setq org-capture-templates
+;;              '(("i" "INBOX")
+;;                ("ii" "INBOX QUICK" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+;;                ("ia" "INBOX su aprasymu" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+;;                ("s" "SOMEDAY")
+;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ))
+;;        )
+;;       ((eq system-type 'gnu/linux)
+;;        ;; Linux-specific code goes here.
+;;        (setq org-capture-templates
+;;              '(
+;;                ("i" "INBOX")
+;;                ("j" "JOURNAL" entry (file+datetree "~/Dropbox/org/notes/personal_notes/journal.org")
+;;                 "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
+;;                ("ii" "INBOX QUICK" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
+;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+;;                ("ia" "INBOX su aprasymu" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
+;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+;;                ("s" "SOMEDAY")
+;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                )
+;;              )
+;;        )
+;;       )
+
+
+    (cond ((eq system-type 'windows-nt)
+           (defun display-startup-echo-area-message ()
+             (message "Writing from windows"))
+           )
+          ((eq system-type 'gnu/linux)
+           (defun display-startup-echo-area-message ()
+             (setq org-capture-templates
+                   '(
+                     ("i" "Inbox" entry (file+headline "~/Dropbox/org/notes/gtd.org" "Tasks")
+                      "* %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n%i%l\n%?")
+                     ;; ("i" "Inbox-TAG" entry (file+headline "~/Dropbox/org/notes/gtd.org" "Tasks")
+                     ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
+                     ("j" "Journal" entry(file+datetree "~/Dropbox/org/notes/journal.org")
+                      "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%i%?":tree-type month)
+                     ("d" "Daily review" entry(file+datetree "~/Dropbox/org/notes/journal.org")
+                      "* [%<%Y-%m-%d %H:%M>] Today's summary%?\n%[~/Dropbox/org/notes/.daily_review.txt]":tree-type month)
+                     ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
+                     ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
+                     ))
              )
-       )
-      )
+           ))
+
 
 ;; (setq org-capture-templates
 ;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")

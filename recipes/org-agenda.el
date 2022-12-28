@@ -30,7 +30,9 @@
 (require 'org-habit)
 (setq org-agenda-tags-column 90)
 (setq org-habit-graph-column 60)
-(setq org-agenda-use-tag-inheritance t)
+
+(setq org-agenda-use-tag-inheritance t) ;xuj znajesh
+(setq org-use-tag-inheritance nil)      ;nepaveldi subtasks heading tago
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
@@ -43,17 +45,42 @@
        (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
        ))
 
+(setq org-refile-targets (quote (("~/Dropbox/org/notes/gtd.org" :maxlevel . 1)
+                              ("~/Dropbox/org/notes/someday.org" :level . 2))))
 
-(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+;; (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 
-(defun set-org-agenda-files ()
-  "Set different org-files to be used in `org-agenda`."
-  (setq org-agenda-files (list (concat org-directory "todo.org")
-                               (concat org-directory "repeating.org")
-                               (concat org-directory "stasys.org"))))
+;; (defun set-org-agenda-files ()
+;;   "Set different org-files to be used in `org-agenda`."
+;;   (setq org-agenda-files (list (concat org-directory "todo.org")
+;;                                (concat org-directory "repeating.org")
+;;                                (concat org-directory "stasys.org"))))
+;; (set-org-agenda-files)
 
-(set-org-agenda-files)
+(setq org-agenda-custom-commands
+'(
+
+("p" "Projects"
+((tags "PROJECT")))
+
+("h" "Office and Home Lists"
+     ((agenda)
+          (tags-todo "OFFICE")
+          (tags-todo "HOME")
+          (tags-todo "COMPUTER")
+          (tags-todo "DVD")
+          (tags-todo "READING")))
+
+("d" "THE MOST IMPORTANTTTTTTTT!!!!!!!!"
+     (
+          (agenda "" ((org-agenda-ndays 1)
+                      (org-agenda-sorting-strategy
+                       (quote ((agenda time-up priority-down tag-up) )))
+                      (org-deadline-warning-days 0)
+                      ))))
+)
+)
 
 ;; (setq org-agenda-custom-commands
 ;;       '(("a" "Simple agenda view"
@@ -63,32 +90,32 @@
 ;;                  ((org-agenda-overriding-header "Archivable tasks")
 ;;                   (org-use-tag-inheritance '("project"))))))))
 
-(setq org-agenda-custom-commands
-      '(
-        ("p" "PERSONAL"
-         (
-          (agenda "" (;; (org-agenda-span 7)
-                      (org-agenda-tag-filter-preset '("-pkc"))))
-          (tags-todo "-pkc/!STARTED" ((org-agenda-overriding-header "Started")))
-          (tags-todo "-pkc/!WAITING" ((org-agenda-overriding-header "Waiting")))
-          (tags-todo "-pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
-          (tags-todo "-pkc/!ASK" ((org-agenda-overriding-header "ASK:")))
+;; (setq org-agenda-custom-commands
+;;       '(
+;;         ("p" "PERSONAL"
+;;          (
+;;           (agenda "" (;; (org-agenda-span 7)
+;;                       (org-agenda-tag-filter-preset '("-pkc"))))
+;;           (tags-todo "-pkc/!STARTED" ((org-agenda-overriding-header "Started")))
+;;           (tags-todo "-pkc/!WAITING" ((org-agenda-overriding-header "Waiting")))
+;;           (tags-todo "-pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
+;;           (tags-todo "-pkc/!ASK" ((org-agenda-overriding-header "ASK:")))
 
-          )
-         )
-        ("w" "WORK"
-         (
-          (agenda "" (;; (org-agenda-span 7)
-                      (org-agenda-tag-filter-preset '("+pkc"))))
-          (tags-todo "+pkc/!PROJECT" ((org-agenda-overriding-header "Projects:")))
-          (tags-todo "+pkc/!STARTED" ((org-agenda-overriding-header "Started tasks:")))
-          (tags-todo "+pkc/!WAITING" ((org-agenda-overriding-header "Waiting for something:")))
-          (tags-todo "+pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
-          (tags-todo "+pkc/!ASK" ((org-agenda-overriding-header "Ask someone:")))
-          )
-         )
-        ;; ("e" "Emacs Tasks" tags-todo "+emacs-arvydasDev-personal")
-        ))
+;;           )
+;;          )
+;;         ("w" "WORK"
+;;          (
+;;           (agenda "" (;; (org-agenda-span 7)
+;;                       (org-agenda-tag-filter-preset '("+pkc"))))
+;;           (tags-todo "+pkc/!PROJECT" ((org-agenda-overriding-header "Projects:")))
+;;           (tags-todo "+pkc/!STARTED" ((org-agenda-overriding-header "Started tasks:")))
+;;           (tags-todo "+pkc/!WAITING" ((org-agenda-overriding-header "Waiting for something:")))
+;;           (tags-todo "+pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
+;;           (tags-todo "+pkc/!ASK" ((org-agenda-overriding-header "Ask someone:")))
+;;           )
+;;          )
+;;         ;; ("e" "Emacs Tasks" tags-todo "+emacs-arvydasDev-personal")
+;;         ))
 
 
 ;; (setq org-agenda-custom-commands
