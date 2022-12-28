@@ -10,7 +10,7 @@
 
   (cond ((eq system-type 'windows-nt)
          ;; Windows-specific code goes here.
-         (dired "C:\\Users\\arvga\\Dropbox\\src\\emacs\\recipes\\")
+         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\")
          )
         ((eq system-type 'gnu/linux)
          ;; Linux-specific code goes here.
@@ -28,7 +28,7 @@
 
   (cond ((eq system-type 'windows-nt)
          ;; Windows-specific code goes here.
-         (dired "C:\\Users\\arvga\\Dropbox\\src\\emacs\\snippets\\")
+         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets\\")
          )
         ((eq system-type 'gnu/linux)
          ;; Linux-specific code goes here.
@@ -44,7 +44,7 @@
 
   (cond ((eq system-type 'windows-nt)
          ;; Windows-specific code goes here.
-         (find-file "C:\\Users\\arvga\\Dropbox\\src\\emacs\\init.el")
+         (find-file "C:\\Users\\arvga\\.arvydas\\src\\emacs\\init.el")
          )
         ((eq system-type 'gnu/linux)
          ;; Linux-specific code goes here.
