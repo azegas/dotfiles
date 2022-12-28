@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: alermsg
-# key: alermsg
-# --
-
-alertMsg.innerHTML = `There was an error!\n${error}`;

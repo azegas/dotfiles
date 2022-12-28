@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: image
-# key: <imgp
-# --
-
-#+attr_html: :width 400px
-#+ATTR_ORG: :width 400
-[[file:~/Dropbox/documents/org/images_nejudink/$0.jpg]]

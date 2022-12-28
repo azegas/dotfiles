@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: style
-# key: style
-# --
-
-<link rel="stylesheet" href="./style.css" />

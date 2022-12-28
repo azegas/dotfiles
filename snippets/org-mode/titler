@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: titler
-# key: <tt
-# --
-
-#+TITLE: ${1:title}
-#+AUTHOR: ${2:author}
-
-$0

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: dmig
-# key: dmig
-# --
-
-python3 manage.py migrate

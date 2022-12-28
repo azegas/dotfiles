@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: drun
-# key: drun
-# --
-
-python3 manage.py runserver

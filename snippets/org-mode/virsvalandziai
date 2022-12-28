@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: virsvalandziai
-# key: vv
-# --
-
-${1:kada}, ${2:kiek}, ${3:kodel}

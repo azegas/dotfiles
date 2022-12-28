@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: filter
-# key: filter
-# --
-
-const metai2021 = dataArr.blet.filter(function (el) {
-return el.Laikotarpis == 2021
-})
-console.log(metai2021)

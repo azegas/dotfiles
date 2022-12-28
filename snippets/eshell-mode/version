@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: version
-# key: version
-# --
-
-apt-cache policy ${1:package-name}
