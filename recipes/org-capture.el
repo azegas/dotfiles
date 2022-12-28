@@ -59,7 +59,6 @@
 
 
 (cond ((eq system-type 'windows-nt)
-       (defun display-startup-echo-area-message ()
          (setq org-capture-templates
                '(
 ;;                ("ii" "INBOX" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
@@ -69,20 +68,18 @@
 ;;                ("it" "SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
                  ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
                  ("i" "Inbox" entry (file+headline "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" "Tasks")
-                  "* %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n%i%l\n%?")
+                  "* TOOD %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n%i%l\n\n%?")
                  ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
                   "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%i%?":tree-type month)
                  ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
                  ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
                  ))
-         )
        )
       ((eq system-type 'gnu/linux)
-       (defun display-startup-echo-area-message ()
          (setq org-capture-templates
                '(
                  ("i" "Inbox" entry (file+headline "~/Dropbox/org/notes/gtd.org" "Tasks")
-                  "* %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n%i%l\n%?")
+                  "* TODO %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n%i%l\n\n%?")
                  ;; ("i" "Inbox-TAG" entry (file+headline "~/Dropbox/org/notes/gtd.org" "Tasks")
                  ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
                  ("j" "Journal" entry(file+datetree "~/Dropbox/org/notes/journal.org")
@@ -92,7 +89,6 @@
                  ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
                  ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
                  ))
-         )
        ))
 
 
