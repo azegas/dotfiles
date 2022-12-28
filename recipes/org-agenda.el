@@ -32,12 +32,12 @@
 (setq org-habit-graph-column 60)
 
 (setq org-agenda-use-tag-inheritance t) ;xuj znajesh
-(setq org-use-tag-inheritance nil)      ;nepaveldi subtasks heading tago
+(setq org-use-tag-inheritance t)      ;nepaveldi subtasks heading tago
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
-       (setq org-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\")
-       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\" "\\.org$"))
+       (setq org-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
+       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes" "\\.org$"))
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
@@ -45,8 +45,20 @@
        (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
        ))
 
-(setq org-refile-targets (quote (("~/Dropbox/org/notes/gtd.org" :maxlevel . 1)
-                              ("~/Dropbox/org/notes/someday.org" :level . 2))))
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (setq org-refile-targets (quote (("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" :maxlevel . 1)
+                                        ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\someday.org" :level . 2)
+                                        ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\references.org" :level . 1)
+                                        )))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       (setq org-refile-targets (quote (("~/Dropbox/org/notes/gtd.org" :maxlevel . 1)
+                                        ("~/Dropbox/org/notes/someday.org" :level . 2))))
+       ))
+
 
 ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
@@ -64,21 +76,21 @@
 ("p" "Projects"
 ((tags "PROJECT")))
 
-("h" "Office and Home Lists"
-     ((agenda)
-          (tags-todo "OFFICE")
-          (tags-todo "HOME")
-          (tags-todo "COMPUTER")
-          (tags-todo "DVD")
-          (tags-todo "READING")))
+;; ("h" "Office and Home Lists"
+;;      ((agenda)
+;;           (tags-todo "OFFICE")
+;;           (tags-todo "HOME")
+;;           (tags-todo "COMPUTER")
+;;           (tags-todo "DVD")
+;;           (tags-todo "READING")))
 
-("d" "THE MOST IMPORTANTTTTTTTT!!!!!!!!"
-     (
-          (agenda "" ((org-agenda-ndays 1)
-                      (org-agenda-sorting-strategy
-                       (quote ((agenda time-up priority-down tag-up) )))
-                      (org-deadline-warning-days 0)
-                      ))))
+;; ("d" "THE MOST IMPORTANTTTTTTTT!!!!!!!!"
+;;      (
+;;           (agenda "" ((org-agenda-ndays 1)
+;;                       (org-agenda-sorting-strategy
+;;                        (quote ((agenda time-up priority-down tag-up) )))
+;;                       (org-deadline-warning-days 0)
+;;                       ))))
 )
 )
 

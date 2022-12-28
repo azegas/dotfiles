@@ -22,7 +22,7 @@
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "APPT(a)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
+      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "APPT(a)" "ASK(a)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
 
 ;; (setq org-todo-keywords
 ;;       (quote ((sequence "TODO(t)" "ASK(k)" "IN-PROGRESS(p)" "SKAITYK(s)" "WAITING(w)" "IGALIOK(i)" "BUY(b)" "REMINDER(r)" "HOME(h)" "|" "DONE(d)" "CANCELLED(c)"))))
@@ -34,18 +34,18 @@
 ;;       (quote ((sequence "REPEATING(r)" "TODO(t)" "NEXT(n)" "DELEGATED(D)" "STARTED(S)" "WAITING(w)" "ASK(a)" "SOMEDAY(s)" "PROJECT(p)" "|" "DONE(d)" "PROJDONE(P)" "CANCELLED(c)"))))
 
 ;; ;; ;; list-colors-display
-;; (setq org-todo-keyword-faces
-;;       (quote (
-;;               ("REPEATING" :foreground "gold" :weight bold)
-;;               ("TODO" :foreground "IndianRed1" :weight bold)
-;;               ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
-;;               ("DELEGATED" :foreground "magenta" :weight bold)
-;;               ("STARTED" :foreground "cyan" :weight bold)
-;;               ("WAITING" :foreground "chocolate" :weight bold)
-;;               ("ASK" :foreground "lawn green" :weight bold)
-;;               ("SOMEDAY" :foreground "slate gray" :weight bold)
-;;               ("PROJECT" :foreground "IndianRed3" :weight bold)
-;;               )))
+(setq org-todo-keyword-faces
+      (quote (
+              ;; ("REPEATING" :foreground "gold" :weight bold)
+              ("TODO" :foreground "IndianRed1" :weight bold)
+              ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
+              ;; ("DELEGATED" :foreground "magenta" :weight bold)
+              ("STARTED" :foreground "cyan" :weight bold)
+              ("WAITING" :foreground "chocolate" :weight bold)
+              ("ASK" :foreground "lawn green" :weight bold)
+              ("APPT" :foreground "slate gray" :weight bold)
+              ;; ("PROJECT" :foreground "IndianRed3" :weight bold)
+              )))
 
 ;; (setq org-tag-alist
 ;;       '(("@ERRAND" . ?e)

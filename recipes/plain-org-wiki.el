@@ -9,7 +9,7 @@
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
-       (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\")
+       (setq plain-org-wiki-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
        ;; (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\personal_notes")
        ;; (setq plain-org-wiki-extra-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes" "\.org$"))
        )
