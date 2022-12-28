@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: boilerplate class
+# key: class
+# --
+
+# pasitvarkyk lygiuote
+
+class Irasas:
+    def __init__(self, tekstas):
+        self.tekstas = tekstas
+
+    def pajamos(self):
+        pass
+
+    def islaidos(self):
+        pass
+
+    def __str__(self):
+        return f"Ivedem {self.tekstas}"
+
+
+x = Irasas("labas")
+print(x)

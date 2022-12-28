@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: image
+# key: <img
+# --
+
+#+attr_html: :width 600px
+#+ATTR_ORG: :width 600
