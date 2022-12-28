@@ -72,8 +72,6 @@
                   "* %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n%i%l\n%?")
                  ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
                   "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%i%?":tree-type month)
-                 ("d" "Daily review" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
-                  "* [%<%Y-%m-%d %H:%M>] Today's summary%?\n%[~/Dropbox/org/notes/.daily_review.txt]":tree-type month)
                  ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
                  ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
                  ))

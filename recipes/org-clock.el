@@ -11,7 +11,7 @@
 (setq org-clock-persist-query-resume nil) ; Do not prompt to resume an active clock, just resume it
 (define-key org-mode-map (kbd "C-c C-x C-r") 'org-clock-report) ; Keybind dissapeared after new org install? When roam.
 (setq org-clock-idle-time 15)                                   ; ask what to do with a left and forgotten clock
-(setq org-clock-in-switch-to-state "IN-PROGRESS")
+(setq org-clock-in-switch-to-state "STARTED")
 (setq org-clock-out-switch-to-state "WAITING")
 (setq org-clock-into-drawer "LOGBOOK")
 (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto) ; exists, but remapping to be global

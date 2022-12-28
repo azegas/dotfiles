@@ -8,10 +8,11 @@
   :ensure t
   :init (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l)
                                         ;aw-ignore-current t ; not good to turn off since I wont be able to do c-o o <current>
-              aw-dispatch-always t)     ;t means it applies a letter even if there are only two windows. not needed.
+              aw-dispatch-always nil)     ;t means it applies a letter even if there are only two windows. not needed.
   :bind (("C-x o" . ace-window)
          ("M-O" . ace-swap-window)
          ("C-x v" . aw-split-window-horz)))
+
 (defvar aw-dispatch-alist
   '((?x aw-delete-window "Delete Window")
     (?m aw-swap-window "Swap Windows")

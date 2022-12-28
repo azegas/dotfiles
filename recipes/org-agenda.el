@@ -21,7 +21,7 @@
 (setq org-agenda-inhibit-startup t)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-start-with-log-mode nil)
-(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-scheduled-if-done nil)
 ;; (setq org-agenda-prefix-format "%t %s")
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-sticky nil)
@@ -70,29 +70,29 @@
 ;;                                (concat org-directory "stasys.org"))))
 ;; (set-org-agenda-files)
 
-(setq org-agenda-custom-commands
-'(
+;; (setq org-agenda-custom-commands
+;; '(
 
-("p" "Projects"
-((tags "PROJECT")))
+;; ("p" "Projects"
+;; ((tags "PROJECT")))
 
-;; ("h" "Office and Home Lists"
-;;      ((agenda)
-;;           (tags-todo "OFFICE")
-;;           (tags-todo "HOME")
-;;           (tags-todo "COMPUTER")
-;;           (tags-todo "DVD")
-;;           (tags-todo "READING")))
+;; ;; ("h" "Office and Home Lists"
+;; ;;      ((agenda)
+;; ;;           (tags-todo "OFFICE")
+;; ;;           (tags-todo "HOME")
+;; ;;           (tags-todo "COMPUTER")
+;; ;;           (tags-todo "DVD")
+;; ;;           (tags-todo "READING")))
 
-;; ("d" "THE MOST IMPORTANTTTTTTTT!!!!!!!!"
-;;      (
-;;           (agenda "" ((org-agenda-ndays 1)
-;;                       (org-agenda-sorting-strategy
-;;                        (quote ((agenda time-up priority-down tag-up) )))
-;;                       (org-deadline-warning-days 0)
-;;                       ))))
-)
-)
+;; ;; ("d" "THE MOST IMPORTANTTTTTTTT!!!!!!!!"
+;; ;;      (
+;; ;;           (agenda "" ((org-agenda-ndays 1)
+;; ;;                       (org-agenda-sorting-strategy
+;; ;;                        (quote ((agenda time-up priority-down tag-up) )))
+;; ;;                       (org-deadline-warning-days 0)
+;; ;;                       ))))
+;; )
+;; )
 
 ;; (setq org-agenda-custom-commands
 ;;       '(("a" "Simple agenda view"
