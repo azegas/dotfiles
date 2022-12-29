@@ -20,7 +20,7 @@
 (setq system-time-locale "C")
 (setq org-agenda-inhibit-startup t)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-start-with-log-mode nil)
+(setq org-agenda-start-with-log-mode '(closed))
 (setq org-agenda-skip-scheduled-if-done nil)
 ;; (setq org-agenda-prefix-format "%t %s")
 (setq org-agenda-restore-windows-after-quit t)
