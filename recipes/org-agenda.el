@@ -45,7 +45,7 @@
        (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
        ))
 
-;; finally fixed org agenda files on startup here:
+;; finally fixed org agenda files on STARTUP here:
 ;; https://emacs.stackexchange.com/questions/39478/emacs-not-loading-org-agenda-files-on-startup
 
 (cond ((eq system-type 'windows-nt)
