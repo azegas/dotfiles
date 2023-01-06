@@ -78,9 +78,11 @@
       ((eq system-type 'gnu/linux)
          (setq org-capture-templates
                '(
-                 ("i" "Inbox" entry (file+headline "~/Dropbox/org/notes/gtd.org" "Tasks")
+                 ("i" "Inbox" entry (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
                   "* TODO %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                 ("n" "Note" entry (file+headline "~/Dropbox/org/notes/gtd.org" "Tasks")
+                 ("p" "PKC someday" entry (file+headline "~/Dropbox/org/notes/somedayPkc.org" "pkcSomeday")
+                  "* TODO %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
+                 ("n" "Note" entry (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
                   "* %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
                  ;; ("i" "Inbox-TAG" entry (file+headline "~/Dropbox/org/notes/gtd.org" "Tasks")
                  ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")

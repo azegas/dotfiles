@@ -21,7 +21,7 @@
 (setq org-agenda-inhibit-startup t)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-start-with-log-mode '(closed))
-(setq org-agenda-skip-scheduled-if-done nil)
+(setq org-agenda-skip-scheduled-if-done t) ; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasks
 ;; (setq org-agenda-prefix-format "%t %s")
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-sticky nil)
@@ -45,24 +45,37 @@
        (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
        ))
 
+
+;; * org-mode configuration
+;;  #+STARTUP: overview
+;;  #+STARTUP: hidestars
+;;  #+STARTUP: logdone
+;;  #+PROPERTY: Effort_ALL  0:10 0:20 0:30 1:00 2:00 4:00 6:00 8:00
+;;  #+COLUMNS: %38ITEM(Details) %TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM{Total}
+;;  #+PROPERTY: Effort_ALL 0 0:10 0:20 0:30 1:00 2:00 3:00 4:00 8:00
+;;  #+TAGS: { OFFICE(o) HOME(h) } COMPUTER(c) PROJECT(p) READING(r) ERRANDS(e)
+;;  #+TAGS: DVD(d) LUNCHTIME(l)
+;;  #+archive: ~/Dropbox/org/notes/archive.org::
+
+
 ;; finally fixed org agenda files on STARTUP here:
 ;; https://emacs.stackexchange.com/questions/39478/emacs-not-loading-org-agenda-files-on-startup
 
-(cond ((eq system-type 'windows-nt)
-       ;; Windows-specific code goes here.
-       (setq org-refile-targets (quote (("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" :maxlevel . 1)
-                                        ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\someday.org" :level . 2)
-                                        ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\references.org" :level . 1)
-                                        )))
-       )
-      ((eq system-type 'gnu/linux)
-       ;; Linux-specific code goes here.
-       (setq org-refile-targets (quote (("~/Dropbox/org/notes/gtd.org" :maxlevel . 1)
-                                        ("~/Dropbox/org/notes/someday.org" :level . 2))))
-       ))
+;; (cond ((eq system-type 'windows-nt)
+;;        ;; Windows-specific code goes here.
+;;        (setq org-refile-targets (quote (("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" :maxlevel . 1)
+;;                                         ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\someday.org" :level . 2)
+;;                                         ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\references.org" :level . 1)
+;;                                         )))
+;;        )
+;;       ((eq system-type 'gnu/linux)
+;;        ;; Linux-specific code goes here.
+;;        (setq org-refile-targets (quote (("~/Dropbox/org/notes/gtd.org" :maxlevel . 1)
+;;                                         ("~/Dropbox/org/notes/someday.org" :level . 2))))
+;;        ))
 
 
-;; (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
 
 ;; (defun set-org-agenda-files ()
@@ -76,7 +89,7 @@
 ;; '(
 
 ;; ("p" "Projects"
-;; ((tags "PROJECT")))
+;; ((todo "PROJECT")))
 
 ;; ;; ("h" "Office and Home Lists"
 ;; ;;      ((agenda)
@@ -96,6 +109,64 @@
 ;; )
 ;; )
 
+
+(setq org-agenda-custom-commands
+      '(
+        ("p" "PERSONAL Agenda"
+         (
+          (agenda "" (;; (org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("-pkc"))))
+          (tags-todo "-pkc/!STARTED" (
+                                      (org-agenda-overriding-header "Started")
+                                      (org-agenda-tag-filter-preset '("-pkc"))
+                                      ))
+          (tags-todo "-pkc/!PROJECT" (
+                                      (org-agenda-overriding-header "Projects")
+                                      (org-agenda-tag-filter-preset '("-pkc"))
+                                      ))
+          (tags-todo "-pkc/!WAITING" (
+                                      (org-agenda-overriding-header "Waiting")
+                                      (org-agenda-tag-filter-preset '("-pkc"))
+                                      ))
+          (tags-todo "-pkc/!NEXT" (
+                                   (org-agenda-overriding-header "Next actions:")
+                                   (org-agenda-tag-filter-preset '("-pkc"))
+                                   ))
+          (todo "ASK" (
+                       (org-agenda-overriding-header "ASK:")
+                       (org-agenda-tag-filter-preset '("-pkc"))
+                       ))
+          )
+         )
+        ("w" "WORK agenda "
+         (
+          (agenda "" (;; (org-agenda-span 7)
+                      (org-agenda-tag-filter-preset '("+pkc"))))
+          (tags-todo "pkc/!PROJECT" (
+                                     (org-agenda-overriding-header "Projects:")
+                                     (org-agenda-tag-filter-preset '("+pkc"))
+                                     ))
+          (tags-todo "+pkc/!STARTED" (
+                                      (org-agenda-overriding-header "Started tasks:")
+                                      (org-agenda-tag-filter-preset '("+pkc"))
+                                      ))
+          (tags-todo "+pkc/!WAITING" (
+                                      (org-agenda-overriding-header "Waiting for something:")
+                                      (org-agenda-tag-filter-preset '("+pkc"))
+                                      ))
+          (tags-todo "+pkc/!NEXT" (
+                                   (org-agenda-overriding-header "Next actions:")
+                                   (org-agenda-tag-filter-preset '("+pkc"))
+                                   ))
+          (tags-todo "+pkc/!ASK" (
+                                  (org-agenda-overriding-header "Ask someone:")
+                                  (org-agenda-tag-filter-preset '("+pkc"))
+                                  ))
+          )
+         )
+        ;; ("e" "Emacs Tasks" tags-todo "+emacs-arvydasDev-personal")
+        ))
+
 ;; (setq org-agenda-custom-commands
 ;;       '(("a" "Simple agenda view"
 ;;          ((agenda "")
@@ -103,34 +174,6 @@
 ;;            (tags "/+DONE|+CANCELLED"
 ;;                  ((org-agenda-overriding-header "Archivable tasks")
 ;;                   (org-use-tag-inheritance '("project"))))))))
-
-;; (setq org-agenda-custom-commands
-;;       '(
-;;         ("p" "PERSONAL"
-;;          (
-;;           (agenda "" (;; (org-agenda-span 7)
-;;                       (org-agenda-tag-filter-preset '("-pkc"))))
-;;           (tags-todo "-pkc/!STARTED" ((org-agenda-overriding-header "Started")))
-;;           (tags-todo "-pkc/!WAITING" ((org-agenda-overriding-header "Waiting")))
-;;           (tags-todo "-pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
-;;           (tags-todo "-pkc/!ASK" ((org-agenda-overriding-header "ASK:")))
-
-;;           )
-;;          )
-;;         ("w" "WORK"
-;;          (
-;;           (agenda "" (;; (org-agenda-span 7)
-;;                       (org-agenda-tag-filter-preset '("+pkc"))))
-;;           (tags-todo "+pkc/!PROJECT" ((org-agenda-overriding-header "Projects:")))
-;;           (tags-todo "+pkc/!STARTED" ((org-agenda-overriding-header "Started tasks:")))
-;;           (tags-todo "+pkc/!WAITING" ((org-agenda-overriding-header "Waiting for something:")))
-;;           (tags-todo "+pkc/!NEXT" ((org-agenda-overriding-header "Next actions:")))
-;;           (tags-todo "+pkc/!ASK" ((org-agenda-overriding-header "Ask someone:")))
-;;           )
-;;          )
-;;         ;; ("e" "Emacs Tasks" tags-todo "+emacs-arvydasDev-personal")
-;;         ))
-
 
 ;; (setq org-agenda-custom-commands
 ;;       '(("ta" "Anywhere" tags-todo "@anywhere-somedaymaybe/!TODO")

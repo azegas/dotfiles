@@ -22,7 +22,7 @@
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "ASK(a)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
+      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
 
 ;; (setq org-todo-keywords
 ;;       (quote ((sequence "TODO(t)" "ASK(k)" "IN-PROGRESS(p)" "SKAITYK(s)" "WAITING(w)" "IGALIOK(i)" "BUY(b)" "REMINDER(r)" "HOME(h)" "|" "DONE(d)" "CANCELLED(c)"))))
@@ -46,6 +46,21 @@
               ("APPT" :foreground "slate gray" :weight bold)
               ;; ("PROJECT" :foreground "IndianRed3" :weight bold)
               )))
+
+
+;; (setq org-todo-keyword-faces
+;;       '(("NEXT" . (:background "Deepskyblue2"
+;;                                :foreground "black"
+;;                                :weight bold
+;;                                         :box (:line-width 2
+;;                                                   :style released-button)))
+;;         ("WAITING" . (:background "yellow"
+;;                                   :foreground "black"
+;;                                   :weight bold
+;;                                   :box (:line-width 2
+;;                                                     :style released-button)
+;;                         ))
+;;                                  ))
 
 ;; (setq org-tag-alist
 ;;       '(("@ERRAND" . ?e)
