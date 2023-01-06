@@ -4,7 +4,8 @@
 ;;; Code:
 
 (use-package json-mode
-  :ensure t
+  ;; :ensure t
+  :config
   :mode ("\\.json"))
 
 ;;; json-mode.el ends here

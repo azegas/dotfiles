@@ -7,7 +7,7 @@
 ;; Cheat sheet - https://docs.emmet.io/cheat-sheet/
 ;; SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
 (use-package emmet-mode
-  :ensure t
+  ;; :ensure t
   :config
   :hook ((web-mode . emmet-mode)
          (html-mode . emmet-mode)
