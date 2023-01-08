@@ -1,7 +1,0 @@
-;; https://emacs.stackexchange.com/questions/12881/how-do-i-set-a-different-location-for-the-dot-emacs-emacs-file-on-windows-7
-;; Place this file in C:\Users\Username\AppData\Roaming and point to the appropriate files
-(setq user-init-file "C:/path/to/.emacs") ---- need this
-(setq user-emacs-directory "C:/path/to/.emacs.d/") --- optional
-(setq default-directory "C:/whatever/you/want/to/start/in") --- optional
-(setenv "HOME" "D:/my/home/directory") --- optional
-(load user-init-file) ---- need this
