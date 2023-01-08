@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: dshell
+# key: dsh
+# --
+
+./manage.py shell

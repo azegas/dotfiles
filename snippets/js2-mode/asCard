@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: ascard
+# key: ascard
+# --
+
+const dataArr = {};
+
+const fetchData = async () => {
+    try {
+        const response = await fetch(END_POINT);
+        if (response.ok) {
+        dataArr.blet = await response.json();
+            console.log(dataArr)
+            dataArr.blet.forEach((x) => createCard(x));
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+fetchData()

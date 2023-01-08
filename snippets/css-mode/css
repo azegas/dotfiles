@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: css
+# key: css
+# --
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+$0

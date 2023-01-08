@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: cform
+# key: cform
+# --
+
+    <div class="container">
+        <h1>Hello, does this thing work?</h1>
+        <button><a href="./index.html">Index</a></button>
+        <form>
+            <div class="form-group" id="name-block">
+                <label class="font-weight-bold" for="name">Name</label>
+                <input class="form-control" id="name" name="name" type="text" placeholder="Enter name" />
+                <span class="validation-error">Error</span>
+            </div>
+            <div class="form-group" id="image-block">
+                <label class="font-weight-bold" for="image">Image</label>
+                <input class="form-control"  id="image" type="text" placeholder="https://google.com/logo.png" />
+                <small id="emailHelp" class="form-text text-muted">Please enter a proper image url.</small>
+                <span class="validation-error">Error</span>
+                </div>
+            <button id="submit-btn" type="submit">Save to DB</button>
+        </form>
+        <span id="status-msg"></span>
+    </div>
