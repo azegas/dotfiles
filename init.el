@@ -155,7 +155,7 @@
        ;;(load "~/.emacs.d/recipes/erc.el")
        ;; (load "~/.emacs.d/recipes/flycheck.el")
        ;; (load "~/.emacs.d/recipes/flyspell.el")
-       ;; (load "~/.emacs.d/recipes/impatient-mode.el")
+       (load "~/.emacs.d/recipes/impatient-mode.el")
        (load "~/.emacs.d/recipes/move-text.el")
        (load "~/.emacs.d/recipes/multiple-cursors.el")
        (load "~/.emacs.d/recipes/rainbow-delimiters.el")
