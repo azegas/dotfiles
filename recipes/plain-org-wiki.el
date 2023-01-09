@@ -15,7 +15,7 @@
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
-       (setq plain-org-wiki-directory "~/Dropbox/org/notes/")
+       (setq plain-org-wiki-directory "~/Dropbox/org/")
        ;; (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
        ))
 
