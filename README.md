@@ -15,6 +15,15 @@ init.org file in my .emacs.d
 <2023-01-06> Found out about emacs daemon mode. It makes emacs
 instances load instantaneously. Amazing.
 
+Add these to .bashrc for easy launch/use/kill:
+`
+alias ed='emacs --daemon'
+
+alias e='emacsclient -c -n'
+
+alias ek='emacsclient -e "(kill-emacs)"'
+`
+
 <2023-01-06> [Using emacs with org mode at
 work](https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/).
 Finally decided to have work org files at work and personal at home.
