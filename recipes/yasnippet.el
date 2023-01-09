@@ -21,7 +21,7 @@
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
-       (setq yas-snippet-dirs '("~/Dropbox/src/emacs/snippets"))
+       (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
        ))
 
 (use-package yasnippet-snippets

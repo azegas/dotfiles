@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: db
+# key: db
+# --
+
+#+begin_src sqlite :db ~/Dropbox/src/db/shop.db :colnames yes
+$0
+#+end_src
