@@ -23,6 +23,7 @@
 
 ;; its possible to archive like so:
 ;; # archiving example
+;; #+archive: ~/Dropbox/org/archive.org::* 2023
 ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
 ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
 ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::** From %s

@@ -22,7 +22,7 @@
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
+      (quote ((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "ASK(a)" "PROJECT(p)" "REPEATING(r)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
 
 ;; (setq org-todo-keywords
 ;;       (quote ((sequence "TODO(t)" "ASK(k)" "IN-PROGRESS(p)" "SKAITYK(s)" "WAITING(w)" "IGALIOK(i)" "BUY(b)" "REMINDER(r)" "HOME(h)" "|" "DONE(d)" "CANCELLED(c)"))))

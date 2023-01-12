@@ -30,7 +30,9 @@
 (require 'org-habit)
 (setq org-agenda-tags-column 90)
 (setq org-habit-graph-column 60)
+;; (setq org-scheduled-past-days 0)        ;jeigu nenori +1 days
 
+(setq org-complete-tags-always-offer-all-agenda-tags t) ;allows to use tags in ALL agenda files
 (setq org-agenda-use-tag-inheritance t) ;xuj znajesh
 (setq org-use-tag-inheritance nil)      ;nepaveldi subtasks heading tago
 
@@ -42,12 +44,25 @@
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
        (setq org-directory "~/Dropbox/org/")
-       (setq org-agenda-files '("~/Dropbox/org/tasks.org"
-                                "~/Dropbox/org/archive.org"
-                                "~/Dropbox/org/references.org"))
+       (setq org-agenda-files '(
+                                ;; "~/Dropbox/org/archive.org"
+                                ;; "~/Dropbox/org/notebook.org"
+                                "~/Dropbox/org/agenda.org"
+                                "~/Dropbox/org/inbox.org"))
        ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
        ))
 
+(setq org-archive-location (concat org-directory
+                                   "zz_archived.org"                   ;; archive file
+                                   "::"
+                                   "* Archived from original file %s"  ;; archive header
+                                   ))
+
+(setq org-archive-save-context-info '(time file category todo itags olpath ltags)) ;info that gets added when archiving, category is important in my case
+;; (setq org-archive-save-context-info '(time))
+
+
+;; (setq org-archive-mark-done t)          ;not really useful, since archiving notes also?
 
 ;; * org-mode configuration
 ;;  #+STARTUP: overview
@@ -79,8 +94,10 @@
 
 
 (setq org-refile-targets (quote (
-                                 ("~/Dropbox/org/tasks.org" :maxlevel . 1)
-                                 ("~/Dropbox/org/references.org" :maxlevel . 1))))
+                                 ("~/Dropbox/org/agenda.org" :maxlevel . 2)
+                                 ("~/Dropbox/org/references.org" :maxlevel . 1)
+                                 ("~/Dropbox/org/notebook.org" :maxlevel . 2)
+                                 )))
 
 ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 

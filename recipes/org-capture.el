@@ -78,19 +78,18 @@
       ((eq system-type 'gnu/linux)
          (setq org-capture-templates
                '(
-                 ("t" "Tasks" entry (file+headline "~/Dropbox/org/tasks.org" "Tasks")
+                 ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                 ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
                   "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                 ("r" "Reference" entry (file+headline "~/Dropbox/org/references.org" "References")
-                  "* %^{Task} %^G:ref:\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                 ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
-                  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
-                 ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
-                  "* [%<%Y-%m-%d %H:%M>] Today's summary\n%?\n%[~/Dropbox/org/.daily_review.txt]":tree-type month)
+                 ;; ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
+                 ;;  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
+                 ;; ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
+                 ;;  "* [%<%Y-%m-%d %H:%M>] Today's summary\n%?\n%[~/Dropbox/org/.daily_review.txt]":tree-type month)
                  ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
                  ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
                  ))
-       ))
-
+         ))
 
 ;; (setq org-capture-templates
 ;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")
