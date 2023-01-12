@@ -30,6 +30,7 @@
 (require 'org-habit)
 (setq org-agenda-tags-column 90)
 (setq org-habit-graph-column 60)
+(setq org-todo-repeat-to-state "REPEATING")
 ;; (setq org-scheduled-past-days 0)        ;jeigu nenori +1 days
 
 (setq org-complete-tags-always-offer-all-agenda-tags t) ;allows to use tags in ALL agenda files
