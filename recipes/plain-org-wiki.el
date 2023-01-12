@@ -19,6 +19,13 @@
        ;; (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
        ))
 
+;; WSL-specific setup
+(when (and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+  (setq plain-org-wiki-directory "/mnt/c/Users/arvga/stuff/org/")
+  )
+
+
 (global-set-key (kbd "C-c n f") 'plain-org-wiki)
 
 ;;; plain-org-wiki.el ends here

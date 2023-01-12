@@ -53,6 +53,19 @@
        ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
        ))
 
+;; WSL-specific setup
+(when (and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+  (setq org-directory "/mnt/c/Users/arvga/stuff/org/")
+  (setq org-agenda-files '(
+                           ;; "~/Dropbox/org/archive.org"
+                           ;; "~/Dropbox/org/notebook.org"
+                           "/mnt/c/Users/arvga/stuff/org/notebook.org"
+                           "/mnt/c/Users/arvga/stuff/org/agenda.org"
+                           "/mnt/c/Users/arvga/stuff/org/inbox.org"
+                           ))
+  )
+
 (setq org-archive-location (concat org-directory
                                    "zz_archived.org"                   ;; archive file
                                    "::"
@@ -99,6 +112,15 @@
                                  ("~/Dropbox/org/references.org" :maxlevel . 1)
                                  ("~/Dropbox/org/notebook.org" :maxlevel . 2)
                                  )))
+
+;; WSL-specific setup
+(when (and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+(setq org-refile-targets (quote (
+                                 ("/mnt/c/Users/arvga/stuff/org/agenda.org" :maxlevel . 2)
+                                 ("/mnt/c/Users/arvga/stuff/org/notebook.org" :maxlevel . 1)
+                                 )))
+  )
 
 ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
