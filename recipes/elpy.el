@@ -40,6 +40,10 @@
 (setq elpy-rpc-virtualenv-path 'current)
 (set-language-environment "UTF-8")
 
+;; can not find module named... in elpy shell
+;; https://emacs.stackexchange.com/questions/50905/wrong-cwd-in-python-mode
+'(elpy-shell-starting-directory (quote current-directory))
+
 (setq elpy-rpc-python-command "python3")
 (setq python-shell-interpreter "python3")
 (setq elpy-get-info-from-shell t)

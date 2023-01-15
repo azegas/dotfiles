@@ -45,16 +45,16 @@
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
        (setq org-directory "~/Dropbox/org/")
-       (setq org-agenda-files '(
-                                ;; "~/Dropbox/org/archive.org"
-                                ;; "~/Dropbox/org/notebook.org"
-                                "~/Dropbox/org/agenda.org"
-                                "~/Dropbox/org/inbox.org"))
-       ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
+       ;; (setq org-agenda-files '(
+       ;;                          ;; "~/Dropbox/org/archive.org"
+       ;;                          ;; "~/Dropbox/org/notebook.org"
+       ;;                          "~/Dropbox/org/agenda.org"
+       ;;                          "~/Dropbox/org/inbox.org"))
+       (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
        ))
 
 (setq org-archive-location (concat org-directory
-                                   "zz_archived.org"                   ;; archive file
+                                   "../zz_archived.org"                   ;; archive file
                                    "::"
                                    "* Archived from original file %s"  ;; archive header
                                    ))
@@ -94,13 +94,13 @@
 ;;        ))
 
 
-(setq org-refile-targets (quote (
-                                 ("~/Dropbox/org/agenda.org" :maxlevel . 2)
-                                 ("~/Dropbox/org/references.org" :maxlevel . 1)
-                                 ("~/Dropbox/org/notebook.org" :maxlevel . 2)
-                                 )))
+;; (setq org-refile-targets (quote (
+;;                                  ("~/Dropbox/org/agenda.org" :maxlevel . 2)
+;;                                  ("~/Dropbox/org/references.org" :maxlevel . 1)
+;;                                  ("~/Dropbox/org/notebook.org" :maxlevel . 2)
+;;                                  )))
 
-;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
 
 ;; (defun set-org-agenda-files ()
@@ -140,21 +140,23 @@
         ("a" "My Agenda"
          (
           (agenda "")
-          (tags-todo "STARTED" (
+          (todo "STARTED" (
                                 (org-agenda-overriding-header "Started")
                                 ))
-          (tags-todo "PROJECT" (
+          (todo "PROJECT" (
                                 (org-agenda-overriding-header "Projects")
                                 ))
-          (tags-todo "WAITING" (
+          (todo "WAITING" (
                                 (org-agenda-overriding-header "Waiting")
                                 ))
-          (tags-todo "NEXT" (
+          (todo "NEXT" (
                              (org-agenda-overriding-header "Next actions:")
                              ))
           (todo "ASK" (
                        (org-agenda-overriding-header "ASK:")
                        ))
+          (tags "/+DONE|+CANCELLED"
+                ((org-agenda-overriding-header "Archivable tasks")))
           )
          )
         )

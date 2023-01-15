@@ -80,8 +80,8 @@
                '(
                  ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
                   "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                 ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                  "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
+                 ;; ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                 ;;  "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
                  ;; ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
                  ;;  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
                  ;; ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
