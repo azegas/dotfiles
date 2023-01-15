@@ -154,7 +154,7 @@
        ;;(load "~/.emacs.d/recipes/emojify.el")
        ;;(load "~/.emacs.d/recipes/erc.el")
        ;; (load "~/.emacs.d/recipes/flycheck.el")
-       ;; (load "~/.emacs.d/recipes/flyspell.el")
+       (load "~/.emacs.d/recipes/flyspell.el")
        (load "~/.emacs.d/recipes/impatient-mode.el")
        (load "~/.emacs.d/recipes/move-text.el")
        (load "~/.emacs.d/recipes/multiple-cursors.el")
@@ -195,8 +195,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("1a1ac598737d0fcdc4dfab3af3d6f46ab2d5048b8e72bc22f50271fd6d393a00" "ea5822c1b2fb8bb6194a7ee61af3fe2cc7e2c7bab272cbb498a0234984e1b2d9" "854a1ae47e79e1d8c80b4e2f1e20f80450cf9ddd103e8f9d7dcd400b3d7325b1" default))
- '(org-agenda-files
-   '("/home/arvydas/Dropbox/org/notes/api.org" "/home/arvydas/Dropbox/org/notes/birthdays.org" "/home/arvydas/Dropbox/org/notes/db.org" "/home/arvydas/Dropbox/org/notes/emacs.org" "/home/arvydas/Dropbox/org/notes/inbox.org" "/home/arvydas/Dropbox/org/notes/journal.org" "/home/arvydas/Dropbox/org/notes/kaledos2022.org" "/home/arvydas/Dropbox/org/notes/namas.org" "/home/arvydas/Dropbox/org/notes/obelsdumas.org" "/home/arvydas/Dropbox/org/notes/pagalbaGyvunams.org" "/home/arvydas/Dropbox/org/notes/python.org" "/home/arvydas/Dropbox/org/notes/references.org" "/home/arvydas/Dropbox/org/notes/repeating.org" "/home/arvydas/Dropbox/org/notes/smuti.org" "/home/arvydas/Dropbox/org/notes/someday.org" "/home/arvydas/Dropbox/org/notes/vim.org" "/home/arvydas/Dropbox/org/notes/vsCode.org" "/home/arvydas/Dropbox/org/notes/whyEmacs.org" "/home/arvydas/Dropbox/org/notes/wildlifeCamera.org"))
+ '(org-agenda-files nil)
  '(package-selected-packages
    '(ivy-rich powershell which-key web-mode volatile-highlights use-package undo-tree rjsx-mode rg rainbow-delimiters projectile prettier-js plain-org-wiki multiple-cursors move-text magit lsp-ui lsp-ivy lorem-ipsum json-mode impatient-mode hungry-delete helpful goto-chg flycheck expand-region exec-path-from-shell emmet-mode elpy doom-themes doom-modeline dired-git-info diff-hl dashboard dap-mode csv-mode counsel company-quickhelp browse-kill-ring beacon amx all-the-icons-ivy-rich ahk-mode))
  '(warning-suppress-log-types '((auto-save) (auto-save)))

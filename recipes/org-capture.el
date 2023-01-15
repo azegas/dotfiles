@@ -91,6 +91,16 @@
                  ))
          ))
 
+;; WSL-specific setup
+(when (and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+         (setq org-capture-templates
+               '(
+                 ("i" "Inbox" entry (file+headline "/mnt/c/Users/arvga/stuff/org/inbox.org" "Inbox")
+                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                 ))
+  )
+
 ;; (setq org-capture-templates
 ;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")
 ;;          "** 10min %?")
