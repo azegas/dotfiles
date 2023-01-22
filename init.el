@@ -173,13 +173,14 @@
        ;;(load "~/.emacs.d/recipes/evil.el")
        ;; (load "~/.emacs.d/recipes/emacs-dashboard.el")
        ;; (load "~/.emacs.d/recipes/highlight-indentation.el")
+       (load "~/.emacs.d/recipes/org-static-blog.el")
 
 
 ;;webdev stuff
 (load "~/.emacs.d/recipes/web-mode.el")
 (load "~/.emacs.d/recipes/emmet.el")
 ;;(load "~/.emacs.d/recipes/scss-mode.el")
-;;(load "~/.emacs.d/recipes/lorem-ipsum.el")
+(load "~/.emacs.d/recipes/lorem-ipsum.el")
 
 ;;JavaScript stuff
 ;;inspiration for js things "redguardtoo" on github
