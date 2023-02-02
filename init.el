@@ -174,6 +174,7 @@
        ;; (load "~/.emacs.d/recipes/emacs-dashboard.el")
        ;; (load "~/.emacs.d/recipes/highlight-indentation.el")
        (load "~/.emacs.d/recipes/org-static-blog.el")
+       (load "~/.emacs.d/recipes/org-pomodoro.el")
 
 
 ;;webdev stuff
