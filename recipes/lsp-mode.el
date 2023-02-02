@@ -18,7 +18,7 @@
 ;; (add-hook 'prog-mode-hook #'lsp)        ; not reccomended, tries to run in elisp mode..
 (add-hook 'web-mode-hook #'lsp)
 (add-hook 'python-mode-hook #'lsp)      ;https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
-(add-hook 'css-mode-hook #'lsp)
+;; (add-hook 'css-mode-hook #'lsp)
 (add-hook 'js-mode-hook #'lsp)
 
 
