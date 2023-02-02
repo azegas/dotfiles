@@ -3,7 +3,7 @@
 ;; visual
 ;;; Code:
 
-(add-to-list 'custom-theme-load-path "~/Dropbox/src/emacs/misc/themes/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
 ;;(load-theme 'zenburn t)
 
 (cond ((eq system-type 'windows-nt)
