@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: img
+# key: img
+# --
+
+
+#+attr_html: :width 1200px
+#+ATTR_ORG: :width 600
+[[./static/images/$0.png]]

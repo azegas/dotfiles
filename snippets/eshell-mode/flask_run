@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: flask_run
+# key: frun
+# --
+
+python -m flask run

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: python3_run
+# key: rpy
+# --
+
+python3 main.py
