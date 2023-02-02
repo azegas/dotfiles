@@ -36,7 +36,7 @@
          )))
 
 ;; Find myinit.org  file
-(global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
+(global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets) ;prior is PgUp
 
 ;; jump to my main init.el file
 (defun aga-find-init.el nil
@@ -72,5 +72,45 @@
 ;; (delete-other-windows))
 ;; Find test.js file
 (global-set-key (kbd "C-x j") 'aga-jump-test.js)
+
+;;--------------------------------------------------------
+
+;; jump to my org blog directory
+(defun aga-jump-blog-org nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         ;; (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/Dropbox/org/blog/")
+         ))
+  (erase-buffer))
+
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x C-<end>") 'aga-jump-blog-org)
+
+;; jump to my org blog directory
+(defun aga-jump-blog-html nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         ;; (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/Dropbox/src/arvydasg.github.io/")
+         ))
+  (erase-buffer))
+
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
+
+;;--------------------------------------------------------
 
 ;;; jump.el ends here
