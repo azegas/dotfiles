@@ -51,7 +51,13 @@
        ;;                          "~/Dropbox/org/agenda.org"
        ;;                          "~/Dropbox/org/inbox.org"))
        (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
+       (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
        ))
+
+;; siaip abu du apacioje veikia, be gal but jie yra cause tu erroru> Isjungiu, patikrinam.
+;; (add-hook 'org-trigger-hook 'save-buffer) ;after every state change - save buffer
+
+;; (setq org-archive-subtree-save-file-p t) ;if archiving from agenda - saves the buffer
 
 ;; WSL-specific setup
 (when (and (eq system-type 'gnu/linux)
@@ -112,22 +118,6 @@
 ;;                                  ("~/Dropbox/org/references.org" :maxlevel . 1)
 ;;                                  ("~/Dropbox/org/notebook.org" :maxlevel . 2)
 ;;                                  )))
-
-<<<<<<< HEAD
-(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
-=======
-;; WSL-specific setup
-(when (and (eq system-type 'gnu/linux)
-           (getenv "WSLENV"))
-(setq org-refile-targets (quote (
-                                 ("/mnt/c/Users/arvga/stuff/org/agenda.org" :maxlevel . 2)
-                                 ("/mnt/c/Users/arvga/stuff/org/notebook.org" :maxlevel . 1)
-                                 )))
-  )
-
-;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
->>>>>>> 42aa215cd39b593893d23e3d6852a7022cf52591
-
 
 ;; (defun set-org-agenda-files ()
 ;;   "Set different org-files to be used in `org-agenda`."
