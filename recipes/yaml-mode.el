@@ -1,6 +1,6 @@
 ;;; yaml-mode.el --- yaml file editing and syntax
 ;;; Commentary:
-;; hopefully it will work, need for hugo
+;; hopefully it will work, need for hugo/docker
 ;;; Code:
 
 (use-package yaml-mode
