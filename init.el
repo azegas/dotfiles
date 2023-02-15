@@ -176,6 +176,7 @@
        (load "~/.emacs.d/recipes/org-static-blog.el")
        (load "~/.emacs.d/recipes/org-pomodoro.el")
        (load "~/.emacs.d/recipes/dockerfile-mode.el")
+       (load "~/.emacs.d/recipes/vterm.el")
 
 
 ;;webdev stuff
