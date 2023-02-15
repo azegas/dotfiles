@@ -162,6 +162,7 @@
        ;;(load "~/.emacs.d/recipes/org-download.el")
        ;;(load "~/.emacs.d/recipes/super-save.el")
        ;; (load "~/.emacs.d/recipes/treemacs.el")
+       (load "~/.emacs.d/recipes/treemacs.el")
        (load "~/.emacs.d/recipes/volatile-highlights.el")
        ;; (load "~/.emacs.d/recipes/command-log-mode.el")
        (load "~/.emacs.d/recipes/ws-butler.el")
