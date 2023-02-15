@@ -122,6 +122,7 @@ height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></nos
       "<div id=\"footer\">
 <hr>
 <p>© 2021-2023 Arvydas Gasparavičius</p>
+  <button onclick=\"topFunction()\" id=\"myBtn\" title=\"Go to top\">Top</button>
   <script src=\"static/script.js\"></script>
 </div>")
 
