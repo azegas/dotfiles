@@ -153,15 +153,14 @@
        ;;(load "~/.emacs.d/recipes/elfeed.el")
        ;;(load "~/.emacs.d/recipes/emojify.el")
        ;;(load "~/.emacs.d/recipes/erc.el")
-       ;; (load "~/.emacs.d/recipes/flycheck.el")
+       (load "~/.emacs.d/recipes/flycheck.el")
        (load "~/.emacs.d/recipes/flyspell.el")
        (load "~/.emacs.d/recipes/impatient-mode.el")
        (load "~/.emacs.d/recipes/move-text.el")
        (load "~/.emacs.d/recipes/multiple-cursors.el")
        (load "~/.emacs.d/recipes/rainbow-delimiters.el")
-       ;;(load "~/.emacs.d/recipes/org-download.el")
+       ;; (load "~/.emacs.d/recipes/org-download.el")
        ;;(load "~/.emacs.d/recipes/super-save.el")
-       ;; (load "~/.emacs.d/recipes/treemacs.el")
        (load "~/.emacs.d/recipes/treemacs.el")
        (load "~/.emacs.d/recipes/volatile-highlights.el")
        ;; (load "~/.emacs.d/recipes/command-log-mode.el")
@@ -173,10 +172,11 @@
        (load "~/.emacs.d/recipes/markdown-mode.el")
        ;;(load "~/.emacs.d/recipes/evil.el")
        ;; (load "~/.emacs.d/recipes/emacs-dashboard.el")
-       ;; (load "~/.emacs.d/recipes/highlight-indentation.el")
+       (load "~/.emacs.d/recipes/highlight-indentation.el")
        (load "~/.emacs.d/recipes/org-static-blog.el")
        (load "~/.emacs.d/recipes/org-pomodoro.el")
        (load "~/.emacs.d/recipes/dockerfile-mode.el")
+       (load "~/.emacs.d/recipes/yaml-mode.el")
        (load "~/.emacs.d/recipes/vterm.el")
 
 
@@ -199,10 +199,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("1a1ac598737d0fcdc4dfab3af3d6f46ab2d5048b8e72bc22f50271fd6d393a00" "ea5822c1b2fb8bb6194a7ee61af3fe2cc7e2c7bab272cbb498a0234984e1b2d9" "854a1ae47e79e1d8c80b4e2f1e20f80450cf9ddd103e8f9d7dcd400b3d7325b1" default))
- '(org-agenda-files nil)
+   '("28a34dd458a554d34de989e251dc965e3dc72bace7d096cdc29249d60f395a82" "d0fd069415ef23ccc21ccb0e54d93bdbb996a6cce48ffce7f810826bb243502c" "ffba0482d3548c9494e84c1324d527f73ea4e43fff8dfd0e48faa8fc6d5c2bc7" "8f5b54bf6a36fe1c138219960dd324aad8ab1f62f543bed73ef5ad60956e36ae" "251ed7ecd97af314cd77b07359a09da12dcd97be35e3ab761d4a92d8d8cf9a71" "1a1ac598737d0fcdc4dfab3af3d6f46ab2d5048b8e72bc22f50271fd6d393a00" "ea5822c1b2fb8bb6194a7ee61af3fe2cc7e2c7bab272cbb498a0234984e1b2d9" "854a1ae47e79e1d8c80b4e2f1e20f80450cf9ddd103e8f9d7dcd400b3d7325b1" default))
+ '(org-agenda-files
+   '("/home/arvydas/Dropbox/org/api.org" "/home/arvydas/Dropbox/org/birthdays.org" "/home/arvydas/Dropbox/org/books.org" "/home/arvydas/Dropbox/org/codeacademy.org" "/home/arvydas/Dropbox/org/db.org" "/home/arvydas/Dropbox/org/django.org" "/home/arvydas/Dropbox/org/emacs.org" "/home/arvydas/Dropbox/org/errors.org" "/home/arvydas/Dropbox/org/flask.org" "/home/arvydas/Dropbox/org/freelance.org" "/home/arvydas/Dropbox/org/git.org" "/home/arvydas/Dropbox/org/inbox.org" "/home/arvydas/Dropbox/org/journal.org" "/home/arvydas/Dropbox/org/julyte.org" "/home/arvydas/Dropbox/org/laptop.org" "/home/arvydas/Dropbox/org/learned.org" "/home/arvydas/Dropbox/org/lfw.org" "/home/arvydas/Dropbox/org/linux.org" "/home/arvydas/Dropbox/org/namas.org" "/home/arvydas/Dropbox/org/network.org" "/home/arvydas/Dropbox/org/pagalbaGyvunams.org" "/home/arvydas/Dropbox/org/pencija.org" "/home/arvydas/Dropbox/org/personal.org" "/home/arvydas/Dropbox/org/photography.org" "/home/arvydas/Dropbox/org/productivity.org" "/home/arvydas/Dropbox/org/projectIdeas.org" "/home/arvydas/Dropbox/org/quotes.org" "/home/arvydas/Dropbox/org/raspberry.org" "/home/arvydas/Dropbox/org/repeating.org" "/home/arvydas/Dropbox/org/shortcuts.org" "/home/arvydas/Dropbox/org/smuti.org" "/home/arvydas/Dropbox/org/someday.org" "/home/arvydas/Dropbox/org/vim.org" "/home/arvydas/Dropbox/org/visit.org" "/home/arvydas/Dropbox/org/vsCode.org" "/home/arvydas/Dropbox/org/watch.org" "/home/arvydas/Dropbox/org/website.org"))
  '(package-selected-packages
-   '(ivy-rich powershell which-key web-mode volatile-highlights use-package undo-tree rjsx-mode rg rainbow-delimiters projectile prettier-js plain-org-wiki multiple-cursors move-text magit lsp-ui lsp-ivy lorem-ipsum json-mode impatient-mode hungry-delete helpful goto-chg flycheck expand-region exec-path-from-shell emmet-mode elpy doom-themes doom-modeline dired-git-info diff-hl dashboard dap-mode csv-mode counsel company-quickhelp browse-kill-ring beacon amx all-the-icons-ivy-rich ahk-mode))
+   '(vterm org-download treemacs yaml-mode dockerfile-mode org-pomodoro org-static-blog ivy-rich powershell which-key web-mode volatile-highlights use-package undo-tree rjsx-mode rg rainbow-delimiters projectile prettier-js plain-org-wiki multiple-cursors move-text magit lsp-ui lsp-ivy lorem-ipsum json-mode impatient-mode hungry-delete helpful goto-chg flycheck expand-region exec-path-from-shell emmet-mode elpy doom-themes doom-modeline dired-git-info diff-hl dashboard dap-mode csv-mode counsel company-quickhelp browse-kill-ring beacon amx all-the-icons-ivy-rich ahk-mode))
  '(warning-suppress-log-types '((auto-save) (auto-save)))
  '(warning-suppress-types '((auto-save))))
 (custom-set-faces
