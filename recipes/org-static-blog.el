@@ -8,7 +8,7 @@
 (setq org-static-blog-publish-title "arvydasg.github.io")
 (setq org-static-blog-publish-url "https://arvydasg.github.io/")
 (setq org-static-blog-publish-directory "~/Dropbox/src/arvydasg.github.io/")
-(setq org-static-blog-posts-directory "~/Dropbox/blog/")
+(setq org-static-blog-posts-directory "~/Dropbox/arvydasg.github.io_blog_content/")
 (setq org-static-blog-drafts-directory "/home/arvydas/Dropbox/blog/drafts/")
 ;; (setq org-static-blog-drafts-directory "~/Dropbox/src/arvydasg.github.io/drafts/")
 (setq org-static-blog-index-length 5)

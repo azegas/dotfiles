@@ -85,7 +85,7 @@
          )
         ((eq system-type 'gnu/linux)
          ;; Linux-specific code goes here.
-         (find-file "~/Dropbox/blog/")
+         (find-file "~/Dropbox/arvydasg.github.io_blog_content/")
          ))
   (erase-buffer))
 
