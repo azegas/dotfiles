@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: img
+# key: img
+# --
+
+![${1:altText}](./${0:location} "${2:title}")
