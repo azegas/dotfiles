@@ -176,6 +176,7 @@
        (load "~/.emacs.d/recipes/dockerfile-mode.el")
        (load "~/.emacs.d/recipes/yaml-mode.el")
        (load "~/.emacs.d/recipes/vterm.el")
+       (load "~/.emacs.d/recipes/shell-pop.el")
 
 
 ;;webdev stuff
@@ -201,7 +202,7 @@
  '(org-agenda-files
    '("/home/arvydas/Dropbox/org/api.org" "/home/arvydas/Dropbox/org/birthdays.org" "/home/arvydas/Dropbox/org/books.org" "/home/arvydas/Dropbox/org/codeacademy.org" "/home/arvydas/Dropbox/org/db.org" "/home/arvydas/Dropbox/org/django.org" "/home/arvydas/Dropbox/org/emacs.org" "/home/arvydas/Dropbox/org/errors.org" "/home/arvydas/Dropbox/org/flask.org" "/home/arvydas/Dropbox/org/freelance.org" "/home/arvydas/Dropbox/org/git.org" "/home/arvydas/Dropbox/org/inbox.org" "/home/arvydas/Dropbox/org/journal.org" "/home/arvydas/Dropbox/org/julyte.org" "/home/arvydas/Dropbox/org/laptop.org" "/home/arvydas/Dropbox/org/learned.org" "/home/arvydas/Dropbox/org/lfw.org" "/home/arvydas/Dropbox/org/linux.org" "/home/arvydas/Dropbox/org/namas.org" "/home/arvydas/Dropbox/org/network.org" "/home/arvydas/Dropbox/org/pagalbaGyvunams.org" "/home/arvydas/Dropbox/org/pencija.org" "/home/arvydas/Dropbox/org/personal.org" "/home/arvydas/Dropbox/org/photography.org" "/home/arvydas/Dropbox/org/productivity.org" "/home/arvydas/Dropbox/org/projectIdeas.org" "/home/arvydas/Dropbox/org/quotes.org" "/home/arvydas/Dropbox/org/raspberry.org" "/home/arvydas/Dropbox/org/repeating.org" "/home/arvydas/Dropbox/org/shortcuts.org" "/home/arvydas/Dropbox/org/smuti.org" "/home/arvydas/Dropbox/org/someday.org" "/home/arvydas/Dropbox/org/vim.org" "/home/arvydas/Dropbox/org/visit.org" "/home/arvydas/Dropbox/org/vsCode.org" "/home/arvydas/Dropbox/org/watch.org" "/home/arvydas/Dropbox/org/website.org"))
  '(package-selected-packages
-   '(vterm org-download treemacs yaml-mode dockerfile-mode org-pomodoro org-static-blog ivy-rich powershell which-key web-mode volatile-highlights use-package undo-tree rjsx-mode rg rainbow-delimiters projectile prettier-js plain-org-wiki multiple-cursors move-text magit lsp-ui lsp-ivy lorem-ipsum json-mode impatient-mode hungry-delete helpful goto-chg flycheck expand-region exec-path-from-shell emmet-mode elpy doom-themes doom-modeline dired-git-info diff-hl dashboard dap-mode csv-mode counsel company-quickhelp browse-kill-ring beacon amx all-the-icons-ivy-rich ahk-mode))
+   '(shell-pop vterm org-download treemacs yaml-mode dockerfile-mode org-pomodoro org-static-blog ivy-rich powershell which-key web-mode volatile-highlights use-package undo-tree rjsx-mode rg rainbow-delimiters projectile prettier-js plain-org-wiki multiple-cursors move-text magit lsp-ui lsp-ivy lorem-ipsum json-mode impatient-mode hungry-delete helpful goto-chg flycheck expand-region exec-path-from-shell emmet-mode elpy doom-themes doom-modeline dired-git-info diff-hl dashboard dap-mode csv-mode counsel company-quickhelp browse-kill-ring beacon amx all-the-icons-ivy-rich ahk-mode))
  '(warning-suppress-log-types '((auto-save) (auto-save)))
  '(warning-suppress-types '((auto-save))))
 (custom-set-faces
