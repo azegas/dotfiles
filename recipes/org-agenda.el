@@ -51,7 +51,7 @@
        ;;                          "~/Dropbox/org/agenda.org"
        ;;                          "~/Dropbox/org/inbox.org"))
        (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
-       (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+       (setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
        ))
 
 ;; siaip abu du apacioje veikia, be gal but jie yra cause tu erroru> Isjungiu, patikrinam.
