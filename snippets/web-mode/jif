@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: jif
+# key: jif
+# --
+
+{% if $1 %}
+$0
+{% else %}
+
+{% endif %}

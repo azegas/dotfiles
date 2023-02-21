@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: jbase
+# key: jbase
+# --
+
+{% extends "base.html" %}
+{% block content %}
+$0
+{% endblock %}
