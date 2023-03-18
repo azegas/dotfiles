@@ -1,5 +1,10 @@
-Configuration that I had up until 2023-03-18, didn't move much at all
-(wasn't suing emacs much at all also..).
+Configuration same as "230318-Common-place-for-org-files" and same as
+"master"
 
-All org files are in "plain org wiki" type of folder c n f - list of
-org files - all of those files are agenda/refile files. All works just fine.
+The only difference is that I want to try having project or files *in
+project folders themselves* (mainly inspired by SEB Epics/task
+managemenet and Pagalbagyvunams project).
+
+Want to be able to refile freely in these also.
+
+Not sure if agenda is necessary or not yet.
