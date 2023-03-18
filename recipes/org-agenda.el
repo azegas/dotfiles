@@ -72,12 +72,6 @@
                            ))
   )
 
-(setq org-archive-location (concat org-directory
-                                   "../zz_archived.org"                   ;; archive file
-                                   "::"
-                                   "* Archived from original file %s"  ;; archive header
-                                   ))
-
 (setq org-archive-save-context-info '(time file category todo itags olpath ltags)) ;info that gets added when archiving, category is important in my case
 ;; (setq org-archive-save-context-info '(time))
 

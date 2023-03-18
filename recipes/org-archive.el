@@ -46,6 +46,15 @@
 ;;        ))
 ;; (setq org-archive-location "~/Dropbox/org/archive/archive_.org::")
 
+;; (setq org-archive-location (concat org-directory
+;;                                    "../zz_archived.org"                   ;; archive file
+;;                                    "::"
+;;                                    "* Archived from original file %s"  ;; archive header
+;;                                    ))
+
+;internal(in the same file) archiving
+(setq org-archive-location "%s::* Archive")
+
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
 
