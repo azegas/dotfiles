@@ -1,10 +1,8 @@
-Configuration same as "230318-Common-place-for-org-files" and same as
-"master"
+Branch copied from "230318-Org-file-in-project-folder".
 
-The only difference is that I want to try having project or files *in
-project folders themselves* (mainly inspired by SEB Epics/task
-managemenet and Pagalbagyvunams project).
+Decided to make .org file to act as my init file. Better for
+documenting processes and storing shortcuts.. now I have three places
+for that. One for init(config), one for shortcuts one for
+documentation of emacs processes.
 
-Want to be able to refile freely in these also.
-
-Not sure if agenda is necessary or not yet.
+In the future it might be problem with windows stuff, but will see then.
