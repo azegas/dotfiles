@@ -22,7 +22,7 @@
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "MAYBE(m)" "REPEATING(r)" "STARTED" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
+      (quote ((sequence "TODO(t)" "EPIC(e)" "NEXT(n)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "MAYBE(m)" "REPEATING(r)" "STARTED(s)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
 
 ;; (setq org-todo-keywords
 ;;       (quote ((sequence "TODO(t)" "ASK(k)" "IN-PROGRESS(p)" "SKAITYK(s)" "WAITING(w)" "IGALIOK(i)" "BUY(b)" "REMINDER(r)" "HOME(h)" "|" "DONE(d)" "CANCELLED(c)"))))
@@ -145,7 +145,7 @@
 
 ;; Effort
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
-(setq org-global-properties (quote (("Effort_ALL" . "1:00 0:00 0:05 0:10 0:30 2:00 3:00 4:00")
+(setq org-global-properties (quote (("Effort_ALL" . "1:00 0:00 0:05 0:10 0:30 2:00 3:00 4:00 8:00 10:00 15:00")
                                     ("STYLE_ALL" . "habit"))))
 
 ;; https://orgmode.org/manual/Editing-Source-Code.html

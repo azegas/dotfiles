@@ -45,13 +45,11 @@
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
        (setq org-directory "~/Dropbox/org/")
-       ;; (setq org-agenda-files '(
-       ;;                          ;; "~/Dropbox/org/archive.org"
-       ;;                          ;; "~/Dropbox/org/notebook.org"
-       ;;                          "~/Dropbox/org/agenda.org"
-       ;;                          "~/Dropbox/org/inbox.org"))
-       (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
-       (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+       (setq org-agenda-files '(
+                                "~/Dropbox/src/pagalbaGyvunams/pagalbaGyvunams.org"
+                                ))
+       ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
+       (setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
        ))
 
 ;; siaip abu du apacioje veikia, be gal but jie yra cause tu erroru> Isjungiu, patikrinam.
