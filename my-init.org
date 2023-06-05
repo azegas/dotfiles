@@ -2491,6 +2491,8 @@ C-c f, M-x basically. Other packages use it as well.
     :ensure t
     :init (ivy-rich-mode 1))
 
+  ; if icons still don't exist, use - M-x all-the-icons-install-fonts
+
   (use-package all-the-icons-ivy-rich
     :ensure t
     :init (all-the-icons-ivy-rich-mode 1))

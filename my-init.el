@@ -1970,6 +1970,8 @@ the variables `org-static-blog-preview-start' and
   :ensure t
   :init (ivy-rich-mode 1))
 
+; if icons still don't exist, use - M-x all-the-icons-install-fonts
+
 (use-package all-the-icons-ivy-rich
   :ensure t
   :init (all-the-icons-ivy-rich-mode 1))
