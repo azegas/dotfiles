@@ -1,17 +1,5 @@
-;; (setq backup-directory-alist '(("." . "~/Dropbox/src/emacs/backups")))
-;; (setq delete-old-versions -1)
-
-;; ;; Make numeric backup versions unconditionally.
-;; (setq version-control t)
-;; (setq vc-make-backup-files t)
-;; (setq auto-save-file-name-transforms '((".*" "~/Dropbox/src/emacs/auto-save-list/" t)))
-
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
-
-;; (setq make-backup-files nil)
-;; (setq auto-save-list-file-name  nil)
-;; (setq auto-save-default nil)
 
 (use-package browse-kill-ring
   :ensure t
@@ -29,12 +17,6 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 (setq use-package-compute-statistics t) ; M-x use-package-report
-;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
-;; (setq initial-buffer-choice (lambda () (org-roam-dailies-goto-today "d") (current-buffer)))
-;; (setq initial-buffer-choice (lambda () (org-agenda nil "a") (current-buffer)))
-
-;;; ---------------------------------------
-
 ;; Increase the garbage collection threshold to 100MB to reduced startup time.
 ;; See https://www.reddit.com/r/emacs/comments/3kqt6e
 (setq-default large-file-warning-threshold 100000000) ; set warning of opening large files to 100MB
@@ -62,10 +44,6 @@
 (setq fill-column 80)
 (setq-default global-visual-line-mode nil) ; automatically wraps words at boundaries
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-;; White-space
-;; (setq whitespace-style '(face trailing tabs tab-mark))
-;; (global-whitespace-mode)
 
 ;; Add note tag to C-c C-z
 ;; Upon adding a note to a heading - add a tag automatically
@@ -155,37 +133,6 @@
 
 ;;; ---------------------------------------
 
-;; [2021-07-01] A package that displays the available keybindings in a
-;; popup. The package is pretty useful, as Emacs seems to have more
-;; keybindings than I can remember at any given point.
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
-  (setq which-key-idle-delay 0.2)
-  :config
-  (which-key-mode 1))
-
-;; [2022-04-01 Fri] amx: An alternative M-x interface for Emacs. Sort by most recent commands.
-;; https://github.com/DarwinAwardWinner/amx
-(use-package amx
-  :ensure t
-  :defer 0.5
-  :config (amx-mode))
-
-;; [2022-03-15 An] Improves *help* buffer. Way more info than with
-;; regular help.
-(use-package helpful
-  :ensure t
-  :bind
-  (("C-h f" . helpful-callable)
-   ("C-h v" . helpful-variable)
-   ("C-h k" . helpful-key)
-   ("C-c C-d" . helpful-at-point)
-   ("C-h F" . helpful-function)
-   ("C-h C" . helpful-command)))
-
 ;; [2022-03-13 Sk]
 ;; (use-package csv-mode
 ;;   :ensure t
@@ -224,22 +171,43 @@ there's a region, all lines that region covers will be duplicated."
 
 (global-set-key (kbd "M-c") 'duplicate-current-line-or-region)
 
+;; [2021-07-01] A package that displays the available keybindings in a
+;; popup. The package is pretty useful, as Emacs seems to have more
+;; keybindings than I can remember at any given point.
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  (setq which-key-idle-delay 0.2)
+  :config
+  (which-key-mode 1))
+
+;; [2022-04-01 Fri] amx: An alternative M-x interface for Emacs. Sort by most recent commands.
+;; https://github.com/DarwinAwardWinner/amx
+(use-package amx
+  :ensure t
+  :defer 0.5
+  :config (amx-mode))
+
+;; [2022-03-15 An] Improves *help* buffer. Way more info than with
+;; regular help.
+(use-package helpful
+  :ensure t
+  :bind
+  (("C-h f" . helpful-callable)
+   ("C-h v" . helpful-variable)
+   ("C-h k" . helpful-key)
+   ("C-c C-d" . helpful-at-point)
+   ("C-h F" . helpful-function)
+   ("C-h C" . helpful-command)))
+
 (use-package saveplace
   :ensure t
   :config
   ;; activate it for all buffers
   (setq-default save-place t)
   (save-place-mode 1))
-
-;; (use-package super-save
-;;   :ensure nil
-;;   ;; :disabled t                           ;fuck that, losing lots of work with this at pkc
-;;   :config
-;;   (setq super-save-auto-save-when-idle t)
-;;   (setq super-save-idle-duration 5) ;; after 5 seconds of not typing autosave
-;;   ;; add integration with ace-window
-;;   (add-to-list 'super-save-triggers 'ace-window)
-;;   (super-save-mode +1))
 
 (use-package beacon
   :ensure t
@@ -287,9 +255,6 @@ there's a region, all lines that region covers will be duplicated."
 
 ;; (set-face-attribute 'default nil :family "Consolas" :height 110)
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
-;; (load-theme 'zenburn t)
-
 ;; (cond ((eq system-type 'windows-nt)
 ;;      ;; Windows-specific code goes here.
 ;;      (set-face-attribute 'default nil :height 130)
@@ -332,24 +297,6 @@ there's a region, all lines that region covers will be duplicated."
   :custom
   (doom-modeline-irc t))
 
-;; (use-package dashboard
-;;   :ensure t
-;;   :config
-;;   (dashboard-setup-startup-hook)
-;;   :custom
-;;   (dashboard-projects-backend  'projectile)
-;;   (dashboard-items             '(
-;;                                  (bookmarks . 1)
-;;                                  (recents   . 5)
-;;                                  (projects  . 5)
-;;                                  ))
-;;   ;; (dashboard-set-footer        nil)
-;;   :bind (
-;;   (:map dashboard-mode-map
-;;         ("C-p" . nil))
-;;   )
-;; )
-
 (use-package highlight-indentation
   :ensure t
   :defer t
@@ -377,10 +324,6 @@ there's a region, all lines that region covers will be duplicated."
   :config
   (volatile-highlights-mode t))
 
-;; (use-package emojify
-;;   :ensure nil
-;;   :hook (after-init . global-emojify-mode))
-
 ;; close header when INSIDE the header
 ;; https://stackoverflow.com/questions/12737317/collapsing-the-current-outline-in-emacs-org-mode
 (setq org-cycle-emulate-tab 'white)
@@ -393,7 +336,6 @@ there's a region, all lines that region covers will be duplicated."
 (setq org-enforce-todo-dependencies t)  ; no done if mid
 (setq org-startup-with-inline-images t)
 (setq org-image-actual-width nil)
-(setq org-clock-sound "~/.emacs.d/bell.wav")
 
 ; rebind active to inactive
 (with-eval-after-load 'org
@@ -579,11 +521,6 @@ See also `org-save-all-org-buffers'"
 ;; project, they will be out of my agenda and I will not have any
 ;; buffer reverting.
 
-;; Archiving notes
-;; TUT: more about archiving -
-;; http://doc.endlessparentheses.com/Var/org-archive-location.html
-;; https://orgmode.org/worg/doc.html#org-archive-location
-
 ;; its possible to archive like so:
 ;; # archiving example
 ;; #+archive: ~/Dropbox/org/archive.org::* 2023
@@ -621,167 +558,6 @@ See also `org-save-all-org-buffers'"
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
 ;; (setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
 
-;; MANY small files below
-(define-key global-map "\C-cc" 'org-capture)
-;; (setq org-capture-templates '(
-;; ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
-;; ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
-;; ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-;; ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
-;; ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
-;; ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
-;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
-;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
-
-;; bzg config - https://github.com/bzg/dotemacs/blob/master/emacs.org
-
-;; (cond ((eq system-type 'windows-nt)
-;;        ;; Windows-specific code goes here.
-;;        (setq org-capture-templates
-;;              '(("i" "INBOX")
-;;                ("ii" "INBOX QUICK" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-;;                ("ia" "INBOX su aprasymu" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-;;                ("s" "SOMEDAY")
-;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ))
-;;        )
-;;       ((eq system-type 'gnu/linux)
-;;        ;; Linux-specific code goes here.
-;;        (setq org-capture-templates
-;;              '(
-;;                ("i" "INBOX")
-;;                ("j" "JOURNAL" entry (file+datetree "~/Dropbox/org/notes/personal_notes/journal.org")
-;;                 "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
-;;                ("ii" "INBOX QUICK" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-;;                ("ia" "INBOX su aprasymu" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-;;                ("s" "SOMEDAY")
-;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                )
-;;              )
-;;        )
-;;       )
-
-
-(cond ((eq system-type 'windows-nt)
-         (setq org-capture-templates
-               '(
-;;                ("ii" "INBOX" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-;;                ("it" "TODO" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-;;                ("it" "SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-                 ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-                 ("i" "Inbox" entry (file+headline "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" "Tasks")
-                  "* TOOD %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                 ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
-                  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
-                 ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
-                 ))
-       )
-      ((eq system-type 'gnu/linux)
-         (setq org-capture-templates
-               '(
-                 ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                 ("t" "Todo Entry" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                  "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                 ;; ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                 ;;  "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                 ;; ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
-                 ;; ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] Today's summary\n%?\n%[~/Dropbox/org/.daily_review.txt]":tree-type month)
-                 ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
-                 ))
-         ))
-
-;; WSL-specific setup
-(when (and (eq system-type 'gnu/linux)
-           (getenv "WSLENV"))
-         (setq org-capture-templates
-               '(
-                 ("i" "Inbox" entry (file+headline "/mnt/c/Users/arvga/stuff/org/inbox.org" "Inbox")
-                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                 ))
-  )
-
-;; (setq org-capture-templates
-;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")
-;;          "** 10min %?")
-;;         ("2" "2min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 2min %?")
-;;         ("t" "TOOD" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 2min %?")
-;;         ("3" "30min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 30min %?")
-;;         ("v" "1val" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 1val %?")
-;;         ("p" "PALEK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** PALEK %?")
-;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** SKAITYK %?")
-;;         ("l" "lokacija" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** TODO %?\n  %i\n  %a")
-;;         ;; ("d" "diary august" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220508141623-diary.org" "diary september") "** %U %^{Title}\n%?"))
-;;       ))
-
-;; (setq org-capture-templates
-;;       '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** TODO %?")
-;;         ("k" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** ASK %?")
-;;         ("p" "IN-PROGRESS" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** IN-PROGRESS %?")
-;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** SKAITYK %?")
-;;         ("w" "WAITING" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** WAITING %?")
-;;         ("i" "IGALIOK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** WAITING %?")
-;;         ("b" "BUY" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** BUY %?")
-;;         ("r" "REMINDER" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** REMINDER %?")
-;;         ("h" "HOME" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** HOME %?")
-;;         ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary")
-;;          "* %<%H:%M>: %?")
-;;         ("l" "location" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** TODO %?\n  %i\n  %a")
-;;         ))
-
-;; jeigu nori keybindint directly to a key
-;; (define-key global-map (kbd "C-c c")
-;;   (lambda () (interactive) (org-capture nil "i")))
-
-;; ONE BIG FILE BELOW
-;; (setq org-capture-templates '(
-;;                               ("i" "Inbox No Timesamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox No Timestamp") "* TODO %?\n %^{Effort}p")
-;;                               ("I" "Inbox Timestamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox Timestamp") "* TODO %?\n%^{Effort}p\n%^{SCHEDULED}p")
-;;                               ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Tasks") "* %? \n%^{SCHEDULED}p")
-;;                               ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/roam/20220323162627-emacs.org" "Tasks") "* TODO %(org-set-tags \"emacs\")%?\n%^{Effort}p")
-;;                               ("o" "Obelsdumas" entry (file+headline "~/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "Tasks") "* TODO %(org-set-tags \"obelsdumas\")%?\n%^{Effort}p")
-;;                               ("p" "Portfolio" entry (file+headline "~/Dropbox/documents/org/roam/20220323164133-portfolio.org" "Tasks") "* TODO %(org-set-tags \"portfolio\")%?\n%^{Effort}p")
-;;                               ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "Tasks") "* TODO %(org-set-tags \"smuti_fruti\")%?\n%^{Effort}p")
-;;                               ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/diary.org" "diary") "* %U %^{Title}\n%?")
-;;                               ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "Tasks") "* TODO %(org-set-tags \"facebook\")%?\n%^{Effort}p")))
-
 (setq org-log-note-clock-out t)
 (setq org-clock-out-when-done t)        ; Clock out when moving task to a done state
 (org-clock-persistence-insinuate)       ; Resume clocking task when emacs is restarted
@@ -803,20 +579,6 @@ See also `org-save-all-org-buffers'"
 
 (global-set-key (kbd "C-c i") #'eos/org-clock-in) ; list of tasks, choose one
 (global-set-key (kbd "C-c C-x C-o") #'org-clock-out)
-
-;;; ---------------------------------------
-
-;; this functions is later used in clock reports. Check org_clock
-;; looking through all the folders inside 2020, great!
-;; later this function is used in clock report
-(defun add-dailies ()
-  (append org-agenda-files
-          (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/**/*.org")))
-
-;; only looking through one folder
-;; (defun add-dailies ()
-;;   (append org-agenda-files
-;;           (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/kovo/*.org")))
 
 ;;; ---------------------------------------
 
@@ -854,12 +616,6 @@ See also `org-save-all-org-buffers'"
 (use-package org-static-blog
   :ensure t)
 
-(setq org-static-blog-publish-title "arvydasg.github.io")
-(setq org-static-blog-publish-url "https://arvydasg.github.io/")
-(setq org-static-blog-publish-directory "~/Dropbox/src/arvydasg.github.io/")
-(setq org-static-blog-posts-directory "~/Dropbox/arvydasg.github.io_blog_content/")
-(setq org-static-blog-drafts-directory "/home/arvydas/Dropbox/arvydasg.github.io_blog_content/")
-;; (setq org-static-blog-drafts-directory "~/Dropbox/src/arvydasg.github.io/drafts/")
 (setq org-static-blog-index-length 5)
 (setq org-static-blog-preview-link-p t)
 (setq org-static-blog-preview-date-first-p t)
@@ -1078,39 +834,10 @@ the variables `org-static-blog-preview-start' and
 (setq org-agenda-use-tag-inheritance t) ;xuj znajesh
 (setq org-use-tag-inheritance nil)      ;nepaveldi subtasks heading tago
 
-(cond ((eq system-type 'windows-nt)
-       ;; Windows-specific code goes here.
-       (setq org-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
-       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes" "\\.org$"))
-       )
-      ((eq system-type 'gnu/linux)
-       ;; Linux-specific code goes here.
-       (setq org-directory "~/Dropbox/org/")
-       (setq org-agenda-files '(
-                                "~/Dropbox/src/pagalbaGyvunams/pagalbaGyvunams.org"
-                                "~/.emacs.d/my-init.org"
-                                ))
-       ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
-       (setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
-       ))
-
 ;; siaip abu du apacioje veikia, be gal but jie yra cause tu erroru> Isjungiu, patikrinam.
 ;; (add-hook 'org-trigger-hook 'save-buffer) ;after every state change - save buffer
 
 ;; (setq org-archive-subtree-save-file-p t) ;if archiving from agenda - saves the buffer
-
-;; WSL-specific setup
-(when (and (eq system-type 'gnu/linux)
-           (getenv "WSLENV"))
-  (setq org-directory "/mnt/c/Users/arvga/stuff/org/")
-  (setq org-agenda-files '(
-                           ;; "~/Dropbox/org/archive.org"
-                           ;; "~/Dropbox/org/notebook.org"
-                           "/mnt/c/Users/arvga/stuff/org/notebook.org"
-                           "/mnt/c/Users/arvga/stuff/org/agenda.org"
-                           "/mnt/c/Users/arvga/stuff/org/inbox.org"
-                           ))
-  )
 
 (setq org-archive-save-context-info '(time file category todo itags olpath ltags)) ;info that gets added when archiving, category is important in my case
 ;; (setq org-archive-save-context-info '(time))
@@ -1393,26 +1120,6 @@ the variables `org-static-blog-preview-start' and
 (use-package plain-org-wiki
   :ensure t)
 
-
-(cond ((eq system-type 'windows-nt)
-       ;; Windows-specific code goes here.
-       (setq plain-org-wiki-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
-       ;; (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\personal_notes")
-       ;; (setq plain-org-wiki-extra-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes" "\.org$"))
-       )
-      ((eq system-type 'gnu/linux)
-       ;; Linux-specific code goes here.
-       (setq plain-org-wiki-directory "~/Dropbox/org/")
-       ;; (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
-       ))
-
-;; WSL-specific setup
-(when (and (eq system-type 'gnu/linux)
-           (getenv "WSLENV"))
-  (setq plain-org-wiki-directory "/mnt/c/Users/arvga/stuff/org/")
-  )
-
-
 (global-set-key (kbd "C-c n f") 'plain-org-wiki)
 
 (use-package move-text
@@ -1424,15 +1131,6 @@ the variables `org-static-blog-preview-start' and
   :ensure t
   :config
   (yas-global-mode 1))
-
-(cond ((eq system-type 'windows-nt)
-       ;; Windows-specific code goes here.
-       (setq yas-snippet-dirs '("c:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets"))
-       )
-      ((eq system-type 'gnu/linux)
-       ;; Linux-specific code goes here.
-       (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
-       ))
 
 (use-package yasnippet-snippets
   :disabled t)
@@ -1805,116 +1503,6 @@ the variables `org-static-blog-preview-start' and
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 
-;; Easily jump to my package files in dired
-(defun aga-find-packages nil
-  "Find the myinit.org file."
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (dired "~/.emacs.d")
-         )))
-
-;; (delete-other-windows))
-;; Find myinit.org  file
-;; (global-set-key (kbd "C-x <C-backspace>") 'aga-find-packages)
-(global-set-key (kbd "C-x <C-home>") 'aga-find-packages)
-
-;; Easily jump to my yasnippet snippet directory in dired
-(defun aga-find-snippets nil
-  "Find the myinit.org file."
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets\\")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (dired "~/.emacs.d/snippets/")
-         )))
-
-;prior is PgUp
-(global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
-
-;; jump to my main init.el file
-(defun aga-find-init.el nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (find-file "C:\\Users\\arvga\\.arvydas\\src\\emacs\\init.el")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/.emacs.d/my-init.org")
-         )))
-
-
-;; (delete-other-windows))
-;; Find init.el file
-;; (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
-(global-set-key (kbd "C-x <C-backspace>") 'aga-find-init.el)
-
-;; jump to my a random js test file
-(defun aga-jump-test.js nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (find-file "C:\\Temp\\test.js")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/temp/js/test.js")
-         ))
-  (erase-buffer))
-;; (delete-other-windows))
-;; Find test.js file
-(global-set-key (kbd "C-x j") 'aga-jump-test.js)
-
-;;--------------------------------------------------------
-
-;; jump to my org blog directory
-(defun aga-jump-blog-org nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         ;; (find-file "C:\\Temp\\test.js")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/Dropbox/arvydasg.github.io_blog_content/")
-         ))
-  (erase-buffer))
-
-;; (delete-other-windows))
-;; Find test.js file
-(global-set-key (kbd "C-x C-<end>") 'aga-jump-blog-org)
-
-;; jump to my org blog directory
-(defun aga-jump-blog-html nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         ;; (find-file "C:\\Temp\\test.js")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/Dropbox/src/arvydasg.github.io/")
-         ))
-  (erase-buffer))
-
-;; (delete-other-windows))
-;; Find test.js file
-(global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
-
 (use-package rg
   :ensure t
   :commands rg)
@@ -1990,40 +1578,12 @@ the variables `org-static-blog-preview-start' and
   :config
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy)
-  (setq projectile-sort-order 'recently-active)
-  (setq projectile-project-search-path '("~/Dropbox/src/")))
+  (setq projectile-sort-order 'recently-active))
 
 (use-package goto-chg
   :ensure t)
 (global-set-key (kbd "M-[") 'goto-last-change)
 (global-set-key (kbd "M-]") 'goto-last-change-reverse)
-
-;; (use-package evil
-;;   :ensure nil
-;;   :init (setq evil-want-C-i-jump nil) ;; allows to use TAB in org mode
-;;   :config
-;;   (evil-mode 1)
-;;   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-;;   ;;Not sure why this isn’t the default – it is in vim – but this makes C-u to go up half a page
-;;   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-;;   ;; jump to any char with space only
-;;   (define-key evil-normal-state-map (kbd "SPC") 'avy-goto-char-timer)
-;;   ;; can not quit windows with evil mode.. now I can
-;;   (define-key evil-normal-state-map (kbd "q") 'quit-window)
-;;   ;; forcing myself  to use C-w for evil window management
-;;   (global-unset-key (kbd "C-x o")))
-
-
-;; ;; change cursor to indicate different modes of VIM
-;; (setq evil-default-cursor (quote (t "#750000"))
-;;       evil-visual-state-cursor '("green" hollow)
-;;       evil-normal-state-cursor '("green" box)
-;;       evil-insert-state-cursor '("pink" (bar . 2)))
-
-;; ;; (use-package evil
-;; ;;   :ensure t
-;; ;;   :config
-;; ;;   (evil-mode 1))
 
 ;; (use-package treemacs
 ;;   :ensure t
@@ -2298,3 +1858,361 @@ the variables `org-static-blog-preview-start' and
 
 (fset 'duplicate\ and\ clock_in
       [?\C-c ?\C-t ?r ?\C-  ?\M-x return ?\M-w return ?\C-y ?\C-p ?\C-x ?n ?s tab ?\C-n ?\C-k ?\C-k ?\C-k ?\C-k ?\C-k ?\C-p ?\C-x ?n ?w ?\C-l ?\C-n ?\C-k ?\C-p ?\C-c ?\C-x ?\C-i ?\C-x ?\C-s])
+
+;; add custom themes
+(add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
+;; to check custom themes location, try to load a theme:
+;; (load-theme 'zenburn t)
+
+;; set default buffer on startup
+;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
+
+;; projectile project default location
+(setq projectile-project-search-path '("~/Dropbox/src/"))
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (setq yas-snippet-dirs '("c:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets"))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
+       ))
+
+;; Easily jump to my package files in dired
+(defun aga-find-packages nil
+  "Find the myinit.org file."
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (dired "~/.emacs.d")
+         )))
+
+;; Find myinit.org  file
+;; (global-set-key (kbd "C-x <C-backspace>") 'aga-find-packages)
+(global-set-key (kbd "C-x <C-home>") 'aga-find-packages)
+
+;; Easily jump to my yasnippet snippet directory in dired
+(defun aga-find-snippets nil
+  "Find the myinit.org file."
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets\\")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (dired "~/.emacs.d/snippets/")
+         )))
+
+                                        ;prior is PgUp
+(global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
+
+;; jump to my main init.el file
+(defun aga-find-init.el nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (find-file "C:\\Users\\arvga\\.arvydas\\src\\emacs\\init.el")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/.emacs.d/my-init.org")
+         )))
+
+
+;; (delete-other-windows))
+;; Find init.el file
+;; (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
+(global-set-key (kbd "C-x <C-backspace>") 'aga-find-init.el)
+
+;; jump to my a random js test file
+(defun aga-jump-test.js nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/temp/js/test.js")
+         ))
+  (erase-buffer))
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x j") 'aga-jump-test.js)
+
+;;--------------------------------------------------------
+
+;; jump to my org blog directory
+(defun aga-jump-blog-org nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         ;; (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/Dropbox/arvydasg.github.io_blog_content/")
+         ))
+  (erase-buffer))
+
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x C-<end>") 'aga-jump-blog-org)
+
+;; jump to my org blog directory
+(defun aga-jump-blog-html nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         ;; (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/Dropbox/src/arvydasg.github.io/")
+         ))
+  (erase-buffer))
+
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
+
+(setq org-clock-sound "~/.emacs.d/bell.wav")
+
+;; MANY small files below
+(define-key global-map "\C-cc" 'org-capture)
+;; (setq org-capture-templates '(
+;; ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
+;; ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+;; ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+;; ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
+;; ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
+;; ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
+;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
+;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
+
+;; bzg config - https://github.com/bzg/dotemacs/blob/master/emacs.org
+
+;; (cond ((eq system-type 'windows-nt)
+;;        ;; Windows-specific code goes here.
+;;        (setq org-capture-templates
+;;              '(("i" "INBOX")
+;;                ("ii" "INBOX QUICK" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+;;                ("ia" "INBOX su aprasymu" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+;;                ("s" "SOMEDAY")
+;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ))
+;;        )
+;;       ((eq system-type 'gnu/linux)
+;;        ;; Linux-specific code goes here.
+;;        (setq org-capture-templates
+;;              '(
+;;                ("i" "INBOX")
+;;                ("j" "JOURNAL" entry (file+datetree "~/Dropbox/org/notes/personal_notes/journal.org")
+;;                 "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
+;;                ("ii" "INBOX QUICK" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
+;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+;;                ("ia" "INBOX su aprasymu" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
+;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+;;                ("s" "SOMEDAY")
+;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+;;                )
+;;              )
+;;        )
+;;       )
+
+
+(cond ((eq system-type 'windows-nt)
+         (setq org-capture-templates
+               '(
+;;                ("ii" "INBOX" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+;;                ("it" "TODO" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+;;                ("it" "SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+                 ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+                 ("i" "Inbox" entry (file+headline "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" "Tasks")
+                  "* TOOD %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
+                 ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
+                  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
+                 ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
+                 ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
+                 ))
+       )
+      ((eq system-type 'gnu/linux)
+         (setq org-capture-templates
+               '(
+                 ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                 ("t" "Todo Entry" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                  "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                 ;; ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                 ;;  "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
+                 ;; ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
+                 ;;  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
+                 ;; ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
+                 ;;  "* [%<%Y-%m-%d %H:%M>] Today's summary\n%?\n%[~/Dropbox/org/.daily_review.txt]":tree-type month)
+                 ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
+                 ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
+                 ))
+         ))
+
+;; WSL-specific setup
+(when (and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+         (setq org-capture-templates
+               '(
+                 ("i" "Inbox" entry (file+headline "/mnt/c/Users/arvga/stuff/org/inbox.org" "Inbox")
+                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                 ))
+  )
+
+;; (setq org-capture-templates
+;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")
+;;          "** 10min %?")
+;;         ("2" "2min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+;;          "** 2min %?")
+;;         ("t" "TOOD" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+;;          "** 2min %?")
+;;         ("3" "30min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+;;          "** 30min %?")
+;;         ("v" "1val" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+;;          "** 1val %?")
+;;         ("p" "PALEK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+;;          "** PALEK %?")
+;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+;;          "** SKAITYK %?")
+;;         ("l" "lokacija" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+;;          "** TODO %?\n  %i\n  %a")
+;;         ;; ("d" "diary august" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220508141623-diary.org" "diary september") "** %U %^{Title}\n%?"))
+;;       ))
+
+;; (setq org-capture-templates
+;;       '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** TODO %?")
+;;         ("k" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** ASK %?")
+;;         ("p" "IN-PROGRESS" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** IN-PROGRESS %?")
+;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** SKAITYK %?")
+;;         ("w" "WAITING" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** WAITING %?")
+;;         ("i" "IGALIOK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** WAITING %?")
+;;         ("b" "BUY" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** BUY %?")
+;;         ("r" "REMINDER" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** REMINDER %?")
+;;         ("h" "HOME" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** HOME %?")
+;;         ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary")
+;;          "* %<%H:%M>: %?")
+;;         ("l" "location" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+;;          "** TODO %?\n  %i\n  %a")
+;;         ))
+
+;; jeigu nori keybindint directly to a key
+;; (define-key global-map (kbd "C-c c")
+;;   (lambda () (interactive) (org-capture nil "i")))
+
+;; ONE BIG FILE BELOW
+;; (setq org-capture-templates '(
+;;                               ("i" "Inbox No Timesamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox No Timestamp") "* TODO %?\n %^{Effort}p")
+;;                               ("I" "Inbox Timestamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox Timestamp") "* TODO %?\n%^{Effort}p\n%^{SCHEDULED}p")
+;;                               ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Tasks") "* %? \n%^{SCHEDULED}p")
+;;                               ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/roam/20220323162627-emacs.org" "Tasks") "* TODO %(org-set-tags \"emacs\")%?\n%^{Effort}p")
+;;                               ("o" "Obelsdumas" entry (file+headline "~/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "Tasks") "* TODO %(org-set-tags \"obelsdumas\")%?\n%^{Effort}p")
+;;                               ("p" "Portfolio" entry (file+headline "~/Dropbox/documents/org/roam/20220323164133-portfolio.org" "Tasks") "* TODO %(org-set-tags \"portfolio\")%?\n%^{Effort}p")
+;;                               ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "Tasks") "* TODO %(org-set-tags \"smuti_fruti\")%?\n%^{Effort}p")
+;;                               ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/diary.org" "diary") "* %U %^{Title}\n%?")
+;;                               ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "Tasks") "* TODO %(org-set-tags \"facebook\")%?\n%^{Effort}p")))
+
+;; this functions is later used in clock reports. Check org_clock
+;; looking through all the folders inside 2020, great!
+;; later this function is used in clock report
+(defun add-dailies ()
+  (append org-agenda-files
+          (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/**/*.org")))
+
+;; only looking through one folder
+;; (defun add-dailies ()
+;;   (append org-agenda-files
+;;           (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/kovo/*.org")))
+
+(setq org-static-blog-publish-title "arvydasg.github.io")
+(setq org-static-blog-publish-url "https://arvydasg.github.io/")
+(setq org-static-blog-publish-directory "~/Dropbox/src/arvydasg.github.io/")
+(setq org-static-blog-posts-directory "~/Dropbox/arvydasg.github.io_blog_content/")
+(setq org-static-blog-drafts-directory "/home/arvydas/Dropbox/arvydasg.github.io_blog_content/")
+;; (setq org-static-blog-drafts-directory "~/Dropbox/src/arvydasg.github.io/drafts/")
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (setq org-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
+       (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes" "\\.org$"))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       (setq org-directory "~/Dropbox/org/")
+       (setq org-agenda-files '(
+                                "~/Dropbox/src/pagalbaGyvunams/pagalbaGyvunams.org"
+                                "~/.emacs.d/my-init.org"
+                                ))
+       ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
+       (setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
+       ))
+
+;; WSL-specific setup
+(when (and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+  (setq org-directory "/mnt/c/Users/arvga/stuff/org/")
+  (setq org-agenda-files '(
+                           ;; "~/Dropbox/org/archive.org"
+                           ;; "~/Dropbox/org/notebook.org"
+                           "/mnt/c/Users/arvga/stuff/org/notebook.org"
+                           "/mnt/c/Users/arvga/stuff/org/agenda.org"
+                           "/mnt/c/Users/arvga/stuff/org/inbox.org"
+                           ))
+  )
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (setq plain-org-wiki-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
+       ;; (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\personal_notes")
+       ;; (setq plain-org-wiki-extra-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes" "\.org$"))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       (setq plain-org-wiki-directory "~/Dropbox/org/")
+       ;; (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
+       ))
+
+;; WSL-specific setup
+(when (and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+  (setq plain-org-wiki-directory "/mnt/c/Users/arvga/stuff/org/")
+  )
