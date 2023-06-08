@@ -866,7 +866,6 @@ block
 ** Org-general
 
 #+begin_src emacs-lisp
-
   (setq org-cycle-emulate-tab 'white)
   (setq org-log-into-drawer "LOGBOOK"
         ; Hide * and / in org tex.)
@@ -935,6 +934,7 @@ block
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
+  ;; dont let to refile without applying the tag first
   (defun my/org-refile-with-tag-check ()
     "Refile a task, checking if it has any tags."
     (interactive)
@@ -954,6 +954,7 @@ http://doc.endlessparentheses.com/Var/org-archive-location.html
 https://orgmode.org/worg/doc.html#org-archive-location
 
 #+begin_src emacs-lisp
+  ;; dont let to archive without applying the tag first
   (defun my/org-archive-with-tag-check ()
     "Archive a task, checking if it has any tags."
     (interactive)
@@ -995,7 +996,8 @@ https://orgmode.org/worg/doc.html#org-archive-location
     (interactive)
     (org-clock-in '(4)))
 
-  (global-set-key (kbd "C-c i") #'eos/org-clock-in) ; list of tasks, choose one
+  ; list of tasks, choose one
+  (global-set-key (kbd "C-c i") #'eos/org-clock-in)
   (global-set-key (kbd "C-c C-x C-o") #'org-clock-out)
 
   ;;; ---------------------------------------
@@ -1248,12 +1250,11 @@ do C-c C-e on the parentheses below. Evaluate them.
 #+begin_src emacs-lisp
   (setq org-agenda-prefix-format '(
     (agenda  . " %i %-12:c%?-12t% s")
-    (agenda  . "  • ")
-      ))
+    (agenda  . "  • ")))
   (setq system-time-locale "C")
   (setq org-agenda-inhibit-startup t)
   (global-set-key (kbd "C-c a") 'org-agenda)
-  (setq org-agenda-start-with-log-mode '(clos
+  (setq org-agenda-start-with-log-mode '(closed))
   ; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasksed))
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-restore-windows-after-quit t)
@@ -1272,8 +1273,6 @@ do C-c C-e on the parentheses below. Evaluate them.
   ;nepaveldi subtasks heading tago
   (setq org-use-tag-inheritance nil)
   (setq org-archive-save-context-info '(time))
-  ;info that gets added when archiving, category is important in my case
-  (setq org-archive-save-context-info '(time file category todo itags olpath ltags))
   (setq org-agenda-custom-commands
         '(
           ("a" "My Agenda"
