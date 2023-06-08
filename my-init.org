@@ -1,68 +1,433 @@
-* General
-** Backups
+* Directories
 
-I don’t use backup files often as I use git to manage most of my org
-files. However, I still feel safer when having a backup. I follow
-the backup configuration from Sacha Chua to enable Emacs’s backups
-aggressively.
+Locations to modify if you move to a different machine and want to
+save the files elsewhere.
 
-Save backup files to a dedicated directory.
+** Themes-locations
 
 #+begin_src emacs-lisp
-  (setq make-backup-files nil) ; stop creating backup~ files
-  (setq auto-save-default nil) ; stop creating #autosave# files
+  ;; add custom themes
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
+  ;; to check custom themes location, try to load a theme:
+  ;; (load-theme 'zenburn t)
 #+end_src
 
-** Browse-kill-ring
-
-[2022-03-18 Pn] Are you tired of using the endless keystrokes of C-y M-y M-y M-y … to
-get at that bit of text you killed thirty-seven kills ago? Ever wish
-you could just look through everything you’ve killed recently to find
-out if you killed that piece of text that you think you killed, but
-you’re not quite sure? If so, then browse-kill-ring is the Emacs
-extension for you.
-
-Shortcut - M-y to browse-kill-ring
+** Default-startup-file-location
 
 #+begin_src emacs-lisp
-  (use-package browse-kill-ring
-    :ensure t
-    :config
-    (browse-kill-ring-default-keybindings)
+  ;; set default buffer on startup
+  ;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
+#+end_src
+
+** Projectile-locations
+
+#+begin_src emacs-lisp
+  ;; projectile project default location
+  (setq projectile-project-search-path '("~/Dropbox/src/"))
+#+end_src
+
+** Yasnippet-locations
+
+#+begin_src emacs-lisp
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (setq yas-snippet-dirs '("c:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets"))
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
+         ))
+#+end_src
+
+** My-custom-jumping-locations
+
+#+begin_src emacs-lisp
+  ;; Easily jump to my package files in dired
+  (defun aga-find-packages nil
+    "Find the myinit.org file."
+    (interactive)
+
+    (cond ((eq system-type 'windows-nt)
+           ;; Windows-specific code goes here.
+           (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\")
+           )
+          ((eq system-type 'gnu/linux)
+           ;; Linux-specific code goes here.
+           (dired "~/.emacs.d")
+           )))
+
+  ;; Find myinit.org  file
+  ;; (global-set-key (kbd "C-x <C-backspace>") 'aga-find-packages)
+  (global-set-key (kbd "C-x <C-home>") 'aga-find-packages)
+
+  ;; Easily jump to my yasnippet snippet directory in dired
+  (defun aga-find-snippets nil
+    "Find the myinit.org file."
+    (interactive)
+
+    (cond ((eq system-type 'windows-nt)
+           ;; Windows-specific code goes here.
+           (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets\\")
+           )
+          ((eq system-type 'gnu/linux)
+           ;; Linux-specific code goes here.
+           (dired "~/.emacs.d/snippets/")
+           )))
+
+                                          ;prior is PgUp
+  (global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
+
+  ;; jump to my main init.el file
+  (defun aga-find-init.el nil
+    (interactive)
+
+    (cond ((eq system-type 'windows-nt)
+           ;; Windows-specific code goes here.
+           (find-file "C:\\Users\\arvga\\.arvydas\\src\\emacs\\init.el")
+           )
+          ((eq system-type 'gnu/linux)
+           ;; Linux-specific code goes here.
+           (find-file "~/.emacs.d/my-init.org")
+           )))
+
+
+  ;; (delete-other-windows))
+  ;; Find init.el file
+  ;; (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
+  (global-set-key (kbd "C-x <C-backspace>") 'aga-find-init.el)
+
+  ;; jump to my a random js test file
+  (defun aga-jump-test.js nil
+    (interactive)
+
+    (cond ((eq system-type 'windows-nt)
+           ;; Windows-specific code goes here.
+           (find-file "C:\\Temp\\test.js")
+           )
+          ((eq system-type 'gnu/linux)
+           ;; Linux-specific code goes here.
+           (find-file "~/temp/js/test.js")
+           ))
+    (erase-buffer))
+  ;; (delete-other-windows))
+  ;; Find test.js file
+  (global-set-key (kbd "C-x j") 'aga-jump-test.js)
+
+  ;;--------------------------------------------------------
+
+  ;; jump to my org blog directory
+  (defun aga-jump-blog-org nil
+    (interactive)
+
+    (cond ((eq system-type 'windows-nt)
+           ;; Windows-specific code goes here.
+           ;; (find-file "C:\\Temp\\test.js")
+           )
+          ((eq system-type 'gnu/linux)
+           ;; Linux-specific code goes here.
+           (find-file "~/Dropbox/arvydasg.github.io_blog_content/")
+           ))
+    (erase-buffer))
+
+  ;; (delete-other-windows))
+  ;; Find test.js file
+  (global-set-key (kbd "C-x C-<end>") 'aga-jump-blog-org)
+
+  ;; jump to my org blog directory
+  (defun aga-jump-blog-html nil
+    (interactive)
+
+    (cond ((eq system-type 'windows-nt)
+           ;; Windows-specific code goes here.
+           ;; (find-file "C:\\Temp\\test.js")
+           )
+          ((eq system-type 'gnu/linux)
+           ;; Linux-specific code goes here.
+           (find-file "~/Dropbox/src/arvydasg.github.io/")
+           ))
+    (erase-buffer))
+
+  ;; (delete-other-windows))
+  ;; Find test.js file
+  (global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
+#+end_src
+
+** org-locations
+*** org-clock-sound-location
+
+#+begin_src emacs-lisp
+  (setq org-clock-sound "~/.emacs.d/bell.wav")
+#+end_src
+
+# Archive is also possible to change, check it out. Either set it in
+# this file or in each individual file.
+
+*** Org-capture-locations
+
+#+begin_src emacs-lisp
+  ;; MANY small files below
+  (define-key global-map "\C-cc" 'org-capture)
+  ;; (setq org-capture-templates '(
+  ;; ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
+  ;; ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
+  ;; ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
+  ;; ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
+  ;; ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
+  ;; ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
+  ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
+  ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
+
+  ;; bzg config - https://github.com/bzg/dotemacs/blob/master/emacs.org
+
+  ;; (cond ((eq system-type 'windows-nt)
+  ;;        ;; Windows-specific code goes here.
+  ;;        (setq org-capture-templates
+  ;;              '(("i" "INBOX")
+  ;;                ("ii" "INBOX QUICK" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+  ;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+  ;;                ("ia" "INBOX su aprasymu" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+  ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+  ;;                ("s" "SOMEDAY")
+  ;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+  ;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+  ;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+  ;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+  ;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
+  ;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+  ;;                ))
+  ;;        )
+  ;;       ((eq system-type 'gnu/linux)
+  ;;        ;; Linux-specific code goes here.
+  ;;        (setq org-capture-templates
+  ;;              '(
+  ;;                ("i" "INBOX")
+  ;;                ("j" "JOURNAL" entry (file+datetree "~/Dropbox/org/notes/personal_notes/journal.org")
+  ;;                 "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
+  ;;                ("ii" "INBOX QUICK" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
+  ;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+  ;;                ("ia" "INBOX su aprasymu" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
+  ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+  ;;                ("s" "SOMEDAY")
+  ;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+  ;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+  ;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+  ;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+  ;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
+  ;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
+  ;;                )
+  ;;              )
+  ;;        )
+  ;;       )
+
+
+  (cond ((eq system-type 'windows-nt)
+           (setq org-capture-templates
+                 '(
+  ;;                ("ii" "INBOX" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+  ;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
+  ;;                ("it" "TODO" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+  ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+  ;;                ("it" "SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
+                   ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
+                   ("i" "Inbox" entry (file+headline "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" "Tasks")
+                    "* TOOD %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
+                   ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
+                    "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
+                   ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
+                   ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
+                   ))
+         )
+        ((eq system-type 'gnu/linux)
+           (setq org-capture-templates
+                 '(
+                   ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                    "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                   ("t" "Todo Entry" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                    "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                   ;; ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                   ;;  "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
+                   ;; ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
+                   ;;  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
+                   ;; ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
+                   ;;  "* [%<%Y-%m-%d %H:%M>] Today's summary\n%?\n%[~/Dropbox/org/.daily_review.txt]":tree-type month)
+                   ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
+                   ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
+                   ))
+           ))
+
+  ;; WSL-specific setup
+  (when (and (eq system-type 'gnu/linux)
+             (getenv "WSLENV"))
+           (setq org-capture-templates
+                 '(
+                   ("i" "Inbox" entry (file+headline "/mnt/c/Users/arvga/stuff/org/inbox.org" "Inbox")
+                    "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+                   ))
+    )
+
+  ;; (setq org-capture-templates
+  ;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")
+  ;;          "** 10min %?")
+  ;;         ("2" "2min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+  ;;          "** 2min %?")
+  ;;         ("t" "TOOD" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+  ;;          "** 2min %?")
+  ;;         ("3" "30min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+  ;;          "** 30min %?")
+  ;;         ("v" "1val" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+  ;;          "** 1val %?")
+  ;;         ("p" "PALEK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+  ;;          "** PALEK %?")
+  ;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+  ;;          "** SKAITYK %?")
+  ;;         ("l" "lokacija" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
+  ;;          "** TODO %?\n  %i\n  %a")
+  ;;         ;; ("d" "diary august" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220508141623-diary.org" "diary september") "** %U %^{Title}\n%?"))
+  ;;       ))
+
+  ;; (setq org-capture-templates
+  ;;       '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** TODO %?")
+  ;;         ("k" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** ASK %?")
+  ;;         ("p" "IN-PROGRESS" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** IN-PROGRESS %?")
+  ;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** SKAITYK %?")
+  ;;         ("w" "WAITING" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** WAITING %?")
+  ;;         ("i" "IGALIOK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** WAITING %?")
+  ;;         ("b" "BUY" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** BUY %?")
+  ;;         ("r" "REMINDER" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** REMINDER %?")
+  ;;         ("h" "HOME" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** HOME %?")
+  ;;         ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary")
+  ;;          "* %<%H:%M>: %?")
+  ;;         ("l" "location" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
+  ;;          "** TODO %?\n  %i\n  %a")
+  ;;         ))
+
+  ;; jeigu nori keybindint directly to a key
+  ;; (define-key global-map (kbd "C-c c")
+  ;;   (lambda () (interactive) (org-capture nil "i")))
+
+  ;; ONE BIG FILE BELOW
+  ;; (setq org-capture-templates '(
+  ;;                               ("i" "Inbox No Timesamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox No Timestamp") "* TODO %?\n %^{Effort}p")
+  ;;                               ("I" "Inbox Timestamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox Timestamp") "* TODO %?\n%^{Effort}p\n%^{SCHEDULED}p")
+  ;;                               ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Tasks") "* %? \n%^{SCHEDULED}p")
+  ;;                               ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/roam/20220323162627-emacs.org" "Tasks") "* TODO %(org-set-tags \"emacs\")%?\n%^{Effort}p")
+  ;;                               ("o" "Obelsdumas" entry (file+headline "~/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "Tasks") "* TODO %(org-set-tags \"obelsdumas\")%?\n%^{Effort}p")
+  ;;                               ("p" "Portfolio" entry (file+headline "~/Dropbox/documents/org/roam/20220323164133-portfolio.org" "Tasks") "* TODO %(org-set-tags \"portfolio\")%?\n%^{Effort}p")
+  ;;                               ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "Tasks") "* TODO %(org-set-tags \"smuti_fruti\")%?\n%^{Effort}p")
+  ;;                               ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/diary.org" "diary") "* %U %^{Title}\n%?")
+  ;;                               ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "Tasks") "* TODO %(org-set-tags \"facebook\")%?\n%^{Effort}p")))
+#+end_src
+
+*** Org-clock-locations
+
+#+begin_src emacs-lisp
+  ;; this functions is later used in clock reports. Check org_clock
+  ;; looking through all the folders inside 2020, great!
+  ;; later this function is used in clock report
+  (defun add-dailies ()
+    (append org-agenda-files
+            (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/**/*.org")))
+
+  ;; only looking through one folder
+  ;; (defun add-dailies ()
+  ;;   (append org-agenda-files
+  ;;           (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/kovo/*.org")))
+#+end_src
+
+*** org-static-blog-locations
+
+#+begin_src emacs-lisp
+    (setq org-static-blog-publish-title "arvydasg.github.io")
+    (setq org-static-blog-publish-url "https://arvydasg.github.io/")
+    (setq org-static-blog-publish-directory "~/Dropbox/src/arvydasg.github.io/")
+    (setq org-static-blog-posts-directory "~/Dropbox/arvydasg.github.io_blog_content/")
+    (setq org-static-blog-drafts-directory "/home/arvydas/Dropbox/arvydasg.github.io_blog_content/")
+    ;; (setq org-static-blog-drafts-directory "~/Dropbox/src/arvydasg.github.io/drafts/")
+#+end_src
+
+*** org-agenda-locations
+
+#+begin_src emacs-lisp
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (setq org-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
+         (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes" "\\.org$"))
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (setq org-directory "~/Dropbox/org/")
+         (setq org-agenda-files '(
+                                  "~/Dropbox/src/pagalbaGyvunams/pagalbaGyvunams.org"
+                                  "~/.emacs.d/my-init.org"
+                                  ))
+         (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+         ))
+
+  ;; WSL-specific setup
+  (when (and (eq system-type 'gnu/linux)
+             (getenv "WSLENV"))
+    (setq org-directory "/mnt/c/Users/arvga/stuff/org/")
+    (setq org-agenda-files '(
+                             "/mnt/c/Users/arvga/stuff/org/notebook.org"
+                             "/mnt/c/Users/arvga/stuff/org/agenda.org"
+                             "/mnt/c/Users/arvga/stuff/org/inbox.org"
+                             ))
     )
 #+end_src
 
-** Command-log-mode
-
-Show event history and command history of some or all buffers
-2022-10-08. Run global-command-log-mode. then clm/something
+*** plain-org-wiki-locations
 
 #+begin_src emacs-lisp
-  (use-package command-log-mode
-    :commands (global-command-log-mode))
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (setq plain-org-wiki-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
+         ;; (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\personal_notes")
+         ;; (setq plain-org-wiki-extra-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes" "\.org$"))
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (setq plain-org-wiki-directory "~/Dropbox/org/")
+         ;; (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
+         ))
+
+  ;; WSL-specific setup
+  (when (and (eq system-type 'gnu/linux)
+             (getenv "WSLENV"))
+    (setq plain-org-wiki-directory "/mnt/c/Users/arvydas/OneDrive/Documents/arvydas.dev/GIT/org/")
+    )
+#+end_src
+*** org-archive-locations
+
+#+begin_src emacs-lisp
+  (setq org-archive-location "/mnt/c/Users/arvydas/OneDrive/Documents/arvydas.dev/GIT/org/archive.org::* Archive")
 #+end_src
 
+* General
 ** General stuff
 
 Random stuff that provides some functionalities
 
 #+begin_src emacs-lisp
-  ;; want a quickier scrolling with c-n/c-p?
-  ;; find "repeat keys" in your system, then modify it
-
+  ; want a quickier scrolling with c-n/c-p? find "repeat keys" in your system, then modify it
   ;; startup stuff
   (setq inhibit-startup-message t)
   (setq initial-scratch-message nil)
-  (setq use-package-compute-statistics t) ; M-x use-package-report
-  ;; Increase the garbage collection threshold to 100MB to reduced startup time.
-  ;; See https://www.reddit.com/r/emacs/comments/3kqt6e
-  (setq-default large-file-warning-threshold 100000000) ; set warning of opening large files to 100MB
+  ; M-x use-package-report
+  (setq use-package-compute-statistics t)
+  ; set warning of opening large files to 100MB
+  (setq-default large-file-warning-threshold 100000000)
   (setq gc-cons-threshold (* 1024 1024 100))
   (setq gc-cons-threshold 100000000)
 
-  ;; [2021-07-01] Winner Mode is a global minor mode. When activated, it allows you to
-  ;; “undo” (and “redo”) changes in the window configuration with the key
-  ;; commands C-c left and C-c right.
   (winner-mode +1)
   ;; C-k kills line including its newline
   (setq kill-whole-line t)
@@ -70,16 +435,23 @@ Random stuff that provides some functionalities
   (setq make-pointer-invisible t)
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (fset 'yes-or-no-p 'y-or-n-p)
-  (delete-selection-mode t)               ; Delete marked region when typing over it
-  (setq ad-redefinition-action 'accept)   ; turn off the error message at emacs launch
-  (setq-default sentence-end-double-space nil) ; Do not add double space after periods
-  (global-set-key (kbd "C-x C-b") 'switch-to-buffer) ; no more annoying buffer list combinatios
-  (setq-default indent-tabs-mode nil)     ; idk man, advised
-  (setq dired-kill-when-opening-new-dired-buffer t) ;I was annoyed of dired buffers, so added this
+  ; Delete marked region when typing over it
+  (delete-selection-mode t)
+  ; turn off the error message at emacs launch
+  (setq ad-redefinition-action 'accept)
+  ; Do not add double space after periods
+  (setq-default sentence-end-double-space nil)
+  ; no more annoying buffer list combinatios
+  (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+  ; idk man, advised
+  (setq-default indent-tabs-mode nil)
+  ; I was annoyed of dired buffers, so added this
+  (setq dired-kill-when-opening-new-dired-buffer t)
 
   ;; Character wrap
   (setq fill-column 80)
-  (setq-default global-visual-line-mode nil) ; automatically wraps words at boundaries
+  ; automatically wraps words at boundaries
+  (setq-default global-visual-line-mode nil)
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
   ;; Add note tag to C-c C-z
@@ -95,8 +467,10 @@ Random stuff that provides some functionalities
 
   (defun my/org-add-note ()
     (interactive)
-    (org-add-note)                    ; call the original function
-    (ndk/org-mark-headline-for-note)) ; then call the function above to add the tag
+    ; call the original function
+    (org-add-note)
+    ; then call the function above to add the tag
+    (ndk/org-mark-headline-for-note))
 
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-c C-z") #'my/org-add-note))
@@ -207,7 +581,51 @@ Random stuff that provides some functionalities
         (goto-char (+ origin (* (length region) arg) arg)))))
 
   (global-set-key (kbd "M-c") 'duplicate-current-line-or-region)
+#+end_src
 
+** Backups
+
+I don’t use backup files often as I use git to manage most of my org
+files. However, I still feel safer when having a backup. I follow
+the backup configuration from Sacha Chua to enable Emacs’s backups
+aggressively.
+
+Save backup files to a dedicated directory.
+
+#+begin_src emacs-lisp
+  ; stop creating backup~ files
+  (setq make-backup-files nil)
+  ; stop creating #autosave# files
+  (setq auto-save-default nil)
+#+end_src
+
+** Browse-kill-ring
+
+[2022-03-18 Pn] Are you tired of using the endless keystrokes of C-y M-y M-y M-y … to
+get at that bit of text you killed thirty-seven kills ago? Ever wish
+you could just look through everything you’ve killed recently to find
+out if you killed that piece of text that you think you killed, but
+you’re not quite sure? If so, then browse-kill-ring is the Emacs
+extension for you.
+
+Shortcut - M-y to browse-kill-ring
+
+#+begin_src emacs-lisp
+  (use-package browse-kill-ring
+    :ensure t
+    :config
+    (browse-kill-ring-default-keybindings)
+    )
+#+end_src
+
+** Command-log-mode
+
+Show event history and command history of some or all buffers
+2022-10-08. Run global-command-log-mode. then clm/something
+
+#+begin_src emacs-lisp
+  (use-package command-log-mode
+    :commands (global-command-log-mode))
 #+end_src
 
 ** Help
@@ -308,23 +726,26 @@ Don't get lost bro.
   (global-hl-line-mode 1)
 
   ;; not needed, line numbers show the end of buffer anyway
-  (setq-default indicate-empty-lines nil)   ; show where buffers end.
+  ; show where buffers end.
+  (setq-default indicate-empty-lines nil)
   (setq visible-bell t)
 
   ;; Parentheses
-  (electric-pair-mode +1)                 ; writes parens automatically for you
-  (show-paren-mode 1)                     ; highlight parenthesis
-  (setq show-paren-delay 0)               ; Show matching parens
+  ; writes parens automatically for you
+  (electric-pair-mode +1)
+  ; highlight parenthesis
+  (show-paren-mode 1)
 
-  (column-number-mode 1)                  ; column-number in mode-line.
-  (size-indication-mode 1)                ; file size indication in mode-line
+  (setq show-paren-delay 0)
+  ; column-number in mode-line.
+  (column-number-mode 1)
+  ; file size indication in mode-line
+  (size-indication-mode 1)
 
   ;; Line numbers
   ;; (global-display-line-numbers-mode 1)
   ;; (add-hook 'text-mode-hook #'display-line-numbers-mode)
   (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-
-  ;; (set-face-attribute 'default nil :family "Consolas" :height 110)
 #+end_src
 
 ** Fonts
@@ -371,9 +792,8 @@ displayed. So far so good, liking it.
     :ensure t
     :config
     ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    ;; (load-theme 'doom-palenight t)
+    (setq doom-themes-enable-bold t
+          doom-themes-enable-italic t)
     (load-theme 'doom-gruvbox t))
 #+end_src
 
@@ -447,16 +867,17 @@ block
 
 #+begin_src emacs-lisp
 
-  ;; close header when INSIDE the header
-  ;; https://stackoverflow.com/questions/12737317/collapsing-the-current-outline-in-emacs-org-mode
   (setq org-cycle-emulate-tab 'white)
-
-  (setq org-log-into-drawer "LOGBOOK")
-  (setq org-hide-emphasis-markers t) ; Hide * and / in org tex.
+  (setq org-log-into-drawer "LOGBOOK"
+        ; Hide * and / in org tex.)
+  (setq org-hide-emphasis-markers t)
   (setq org-log-done 'time)
-  (setq org-startup-indented t)           ; heading indentation
-  (setq org-return-follows-link t)        ; RET to follow links
-  (setq org-enforce-todo-dependencies t)  ; no done if mid
+  ; heading indentation
+  (setq org-startup-indented t)
+  ; RET to follow links
+  (setq org-return-follows-link t)
+  ;  no done if mid
+  (setq org-enforce-todo-dependencies t)
   (setq org-startup-with-inline-images t)
   (setq org-image-actual-width nil)
 
@@ -467,120 +888,17 @@ block
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "EPIC(e)" "NEXT(n)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "MAYBE(m)" "REPEATING(r)" "STARTED(s)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
 
-  ;; (setq org-todo-keywords
-  ;;       (quote ((sequence "TODO(t)" "ASK(k)" "IN-PROGRESS(p)" "SKAITYK(s)" "WAITING(w)" "IGALIOK(i)" "BUY(b)" "REMINDER(r)" "HOME(h)" "|" "DONE(d)" "CANCELLED(c)"))))
-
-  ;; (setq org-todo-keywords
-  ;;       (quote ((sequence "10min(1)" "2min(2)" "30min(3)" "1val(v)" "PALEK(p)" "SKAITYK(s)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)" "REPEATING(r)"))))
-
-  ;; (setq org-todo-keywords
-  ;;       (quote ((sequence "REPEATING(r)" "TODO(t)" "NEXT(n)" "DELEGATED(D)" "STARTED(S)" "WAITING(w)" "ASK(a)" "SOMEDAY(s)" "PROJECT(p)" "|" "DONE(d)" "PROJDONE(P)" "CANCELLED(c)"))))
-
-  ;; ;; ;; list-colors-display
   (setq org-todo-keyword-faces
         (quote (
-                ;; ("REPEATING" :foreground "gold" :weight bold)
                 ("TODO" :foreground "IndianRed1" :weight bold)
                 ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
-                ;; ("DELEGATED" :foreground "magenta" :weight bold)
                 ("STARTED" :foreground "cyan" :weight bold)
                 ("WAITING" :foreground "chocolate" :weight bold)
                 ("ASK" :foreground "lawn green" :weight bold)
                 ("APPT" :foreground "slate gray" :weight bold)
-                ;; ("PROJECT" :foreground "IndianRed3" :weight bold)
                 )))
 
-
-  ;; (setq org-todo-keyword-faces
-  ;;       '(("NEXT" . (:background "Deepskyblue2"
-  ;;                                :foreground "black"
-  ;;                                :weight bold
-  ;;                                         :box (:line-width 2
-  ;;                                                   :style released-button)))
-  ;;         ("WAITING" . (:background "yellow"
-  ;;                                   :foreground "black"
-  ;;                                   :weight bold
-  ;;                                   :box (:line-width 2
-  ;;                                                     :style released-button)
-  ;;                         ))
-  ;;                                  ))
-
-  ;; (setq org-tag-alist
-  ;;       '(("@ERRAND" . ?e)
-  ;;        ("@HOME" . ?h)
-  ;;        ("@WORK" . ?w)
-  ;;        ("@COMPUTER" . ?c)
-  ;;        ("@TRAVELLING" . ?t)
-  ;;        ("@ASK" . ?a)
-  ;;        ("someday" . ?s)
-  ;;        ("read" . ?r)
-  ;;        ("note" . ?n)
-  ;;        ("peace" . ?p)))
-
-  ;; (setq org-tag-alist
-  ;;       '(
-  ;;         (:startgroup)
-  ;;         ("Handson" . ?o)
-  ;;         (:grouptags)
-  ;;         ("Write" . ?w) ("Code" . ?c) ("Tel" . ?t)
-  ;;         (:endgroup)
-
-  ;;         (:startgroup)
-  ;;         ("Handsoff" . ?f)
-  ;;         (:grouptags)
-  ;;         ("Read" . ?r) ("View" . ?v) ("Listen" . ?l)
-  ;;         (:endgroup)
-
-  ;;         ("Mail" . ?@) ("Print" . ?P) ("Buy" . ?b)))
-
-  ;; (setq org-todo-keywords
-  ;;   '((sequence
-  ;;      "TODO(t!)" ; Initial creation
-  ;;      "GO(g@)"; Work in progress
-  ;;      "WAIT(w@)" ; My choice to pause task
-  ;;      "BLOCKED(b@)" ; Not my choice to pause task
-  ;;      "REVIEW(r!)" ; Inspect or Share Time
-  ;;      "|" ; Remaining close task
-  ;;      "DONE(d)" ; Normal completion
-  ;;      "CANCELED(c)" ; Not going to od it
-  ;;      "DUPLICATE(p)" ; Already did it
-  ;;      )))
-
-  ;; (setq org-tag-alist '((:startgroup . nil)
-  ;;                       ("@buy" . ?b)
-  ;;                       ("@computer" . ?c)
-  ;;                       ("@home" . ?h)
-  ;;                       ("@travel" . ?t)
-  ;;                       (:endgroup . nil)
-  ;;                       ("emacs" . ?e)
-  ;;                       ("somedaymaybe" . ?s)
-  ;;                       ("citatos" . ?c)
-  ;;                       ("pkc" . ?p)))
-
-  ;; (setq org-tag-alist '((:startgroup . nil)
-  ;;                       ("@anywhere" . ?a)
-  ;;                       ("@buy" . ?b)
-  ;;                       ("@call" . ?c)
-  ;;                       ("@home" . ?h)
-  ;;                       ("@komputer" . ?k)
-  ;;                       ("@readreview" . ?r)
-  ;;                       ("@repeating" . ?R)
-  ;;                       ("@travel" . ?t)
-  ;;                       ("@pnvz" . ?z)
-  ;;                       ("@waitingfor" . ?w)
-  ;;                       (:endgroup . nil)
-  ;;                       ("emacs" . ?e)
-  ;;                       ("somedaymaybe" . ?s)
-  ;;                       ("pkc" . ?p)))
-
-  ;; (setq org-tag-alist '((:startgroup . nil)
-  ;;                       ("@work" . ?w) ("@home" . ?h)
-  ;;                       ("@tennisclub" . ?t)
-  ;;                       (:endgroup . nil)
-  ;;                       ("laptop" . ?l) ("pc" . ?p)))
-
   (setq org-agenda-tags-todo-honor-ignore-options t)
-  ;; (setq org-fast-tag-selection-single-key 'expert)
 
   (add-hook 'org-capture-mode-hook
             (lambda ()
@@ -603,15 +921,6 @@ block
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
     (add-to-list 'org-structure-template-alist '("py" . "src python ")))
 
-  ;; automatically save files that were refiled to. Taken from here:
-  ;; https://github.com/rougier/emacs-gtd/issues/9
-
-  ;; Automatically get the files in "~/Documents/org"
-  ;; with fullpath
-  ;; (setq org-agenda-files
-  ;;       (mapcar 'file-truename
-  ;;            (file-expand-wildcards "~/Dropbox/documents/org/roam/projects/* .org")))
-
   ;; Save the corresponding buffers
   (defun gtd-save-org-buffers ()
     "Save `org-agenda-files' buffers without user confirmation.
@@ -623,14 +932,18 @@ block
                              t)))
     (message "Saving org-agenda-files buffers... done"))
 
-  ;; Add it after refile
-  ;; (advice-add 'org-refile :after
-  ;;             (lambda (&rest _)
-  ;;               (gtd-save-org-buffers)))
-
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
+  (defun my/org-refile-with-tag-check ()
+    "Refile a task, checking if it has any tags."
+    (interactive)
+    (let ((tags (org-get-tags)))
+      (unless tags
+        (error "Cannot refile task without a tag")))
+    (org-refile))
+
+  (define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
 #+end_src
 
 ** Org-archive
@@ -641,74 +954,42 @@ http://doc.endlessparentheses.com/Var/org-archive-location.html
 https://orgmode.org/worg/doc.html#org-archive-location
 
 #+begin_src emacs-lisp
-  ;; last customization - 2022.09.20
-  ;; changed from one massive archive file that all roam projects output
-  ;; to internal archiving. But then noticed, that when I archive, the
-  ;; buffer gets reverted each time, all headings get opened and yeah..
-  ;; its a mess and I don't like that. Also, even though the task is done
-  ;; and archived, it remains in the file, therefore shows in org agenda
-  ;; under "achievable tasks". When I noticed this, I decided to stay
-  ;; under the default or archive settings, which just automatically
-  ;; creates .org_archive file for each project file. I am happy about
-  ;; this now.. Will still have all files in one place for a particular
-  ;; project, they will be out of my agenda and I will not have any
-  ;; buffer reverting.
+  (defun my/org-archive-with-tag-check ()
+    "Archive a task, checking if it has any tags."
+    (interactive)
+    (let ((tags (org-get-tags)))
+      (unless tags
+        (error "Cannot archive task without a tag")))
+    (org-archive-subtree))
 
-  ;; its possible to archive like so:
-  ;; # archiving example
-  ;; #+archive: ~/Dropbox/org/archive.org::* 2023
-  ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/%s_datetree::datetree/
-  ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::datetree/* From %s
-  ;; #+archive: ~/Dropbox/documents/org/emacs_backups/archive/archive.org::** From %s
-  ;; #+archive: ::* Archived Tasks - internal archiving
-  ;; #+archive: ::** Arvydas.dev ARCHIVED
-  ;; #+archive: ~/Dropbox/documents/org/references/archive.org::* From Blog
-
-  ;; archiving with a help of refile into one big archive.org file -
-  ;; dont need all those archive labels in properties tag. too many date
-  ;; inputs to sort through
-
-
-  ;; (cond ((eq system-type 'windows-nt)
-  ;;        ;; Windows-specific code goes here.
-  ;;        (setq org-archive-location "C:\\Users\\arvga\\Dropbox\\org\\archive\\%s_archive::")
-  ;;        )
-  ;;       ((eq system-type 'gnu/linux)
-  ;;        ;; Linux-specific code goes here.
-  ;;        (setq org-archive-location "~/Dropbox/org/archive/%s_archive::")
-  ;;        ))
-  ;; (setq org-archive-location "~/Dropbox/org/archive/archive_.org::")
-
-  ;; (setq org-archive-location (concat org-directory
-  ;;                                    "../zz_archived.org"                   ;; archive file
-  ;;                                    "::"
-  ;;                                    "* Archived from original file %s"  ;; archive header
-  ;;                                    ))
-
-  ;internal(in the same file) archiving
-  (setq org-archive-location "%s::* Archive")
-
-  ;; (setq org-archive-location "~/Dropbox/documents/org/archive/%s_archive::* archive")
-  ;; (setq org-archive-location "~/Dropbox/documents/org/archive/archive_2022-09.org::* archive September")
+  (define-key org-mode-map (kbd "C-c C-x C-a") 'my/org-archive-with-tag-check)
 #+end_src
 
 ** Org-clock
 
 #+begin_src emacs-lisp
+  ; Clock out when moving task to a done state
   (setq org-log-note-clock-out t)
-  (setq org-clock-out-when-done t)        ; Clock out when moving task to a done state
-  (org-clock-persistence-insinuate)       ; Resume clocking task when emacs is restarted
-  (setq org-clock-persist t)              ; Save the running clock and all clock history when exiting Emacs, load it on startup
-  (setq org-clock-in-resume t)            ; Resume clocking task on clock-in if the clock is open
-  (setq org-clock-persist-query-resume nil) ; Do not prompt to resume an active clock, just resume it
-  (define-key org-mode-map (kbd "C-c C-x C-r") 'org-clock-report) ; Keybind dissapeared after new org install? When roam.
-  (setq org-clock-idle-time 15)                                   ; ask what to do with a left and forgotten clock
+  (setq org-clock-out-when-done t)
+  ; Resume clocking task when emacs is restarted
+  (org-clock-persistence-insinuate)
+  ; Save the running clock and all clock history when exiting Emacs, load it on startup
+  (setq org-clock-persist t)
+  ; Resume clocking task on clock-in if the clock is open
+  (setq org-clock-in-resume t)
+  ; Do not prompt to resume an active clock, just resume it
+  (setq org-clock-persist-query-resume nil)
+  ; Keybind dissapeared after new org install? When roam.
+  (define-key org-mode-map (kbd "C-c C-x C-r") 'org-clock-report)
+  ; ask what to do with a left and forgotten clock
+  (setq org-clock-idle-time 15)
   (setq org-clock-in-switch-to-state "STARTED")
   (setq org-clock-out-switch-to-state "WAITING")
   (setq org-clock-into-drawer "LOGBOOK")
-  (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto) ; exists, but remapping to be global
-  (setq org-clock-history-length 23)                   ; C-c I show history of clocks
-
+  ; exists, but remapping to be global
+  (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
+  ; C-c I show history of clocks
+  (setq org-clock-history-length 23)
   ;; tipo lengviau clock in padaryti, nes matai a list of recent clocks?
   (defun eos/org-clock-in ()
     (interactive)
@@ -755,7 +1036,6 @@ https://orgmode.org/worg/doc.html#org-archive-location
     :commands (org-pomodoro)
     :config
     (setq org-pomodoro-ticking-sound-p nil)
-    ;; (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil))))
     )
 #+end_src
 
@@ -955,7 +1235,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
     :type '(string)
     :safe t)
 #+end_src
-
+nnn
 ** Org-agenda
 
 M-x org-agenda-file-list. Go there and click "save the changes"
@@ -969,17 +1249,13 @@ do C-c C-e on the parentheses below. Evaluate them.
   (setq org-agenda-prefix-format '(
     (agenda  . " %i %-12:c%?-12t% s")
     (agenda  . "  • ")
-    ;; (timeline  . "  % s")
-    ;; (todo  . " %i %-12:c")
-    ;; (tags  . " %i %-12:c")
-    ;; (search . " %i %-12:c")
-    ))
+      ))
   (setq system-time-locale "C")
   (setq org-agenda-inhibit-startup t)
   (global-set-key (kbd "C-c a") 'org-agenda)
-  (setq org-agenda-start-with-log-mode '(closed))
-  (setq org-agenda-skip-scheduled-if-done t) ; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasks
-  ;; (setq org-agenda-prefix-format "%t %s")
+  (setq org-agenda-start-with-log-mode '(clos
+  ; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasksed))
+  (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-restore-windows-after-quit t)
   (setq org-agenda-sticky nil)
   (setq org-agenda-show-future-repeats nil)
@@ -988,90 +1264,16 @@ do C-c C-e on the parentheses below. Evaluate them.
   (setq org-agenda-tags-column 90)
   (setq org-habit-graph-column 60)
   (setq org-todo-repeat-to-state "REPEATING")
-  ;; (setq org-scheduled-past-days 0)        ;jeigu nenori +1 days
 
-  (setq org-complete-tags-always-offer-all-agenda-tags t) ;allows to use tags in ALL agenda files
-  (setq org-agenda-use-tag-inheritance t) ;xuj znajesh
-  (setq org-use-tag-inheritance nil)      ;nepaveldi subtasks heading tago
-
-  ;; siaip abu du apacioje veikia, be gal but jie yra cause tu erroru> Isjungiu, patikrinam.
-  ;; (add-hook 'org-trigger-hook 'save-buffer) ;after every state change - save buffer
-
-  ;; (setq org-archive-subtree-save-file-p t) ;if archiving from agenda - saves the buffer
-
-  (setq org-archive-save-context-info '(time file category todo itags olpath ltags)) ;info that gets added when archiving, category is important in my case
-  ;; (setq org-archive-save-context-info '(time))
-
-
-  ;; (setq org-archive-mark-done t)          ;not really useful, since archiving notes also?
-
-  ;; * org-mode configuration
-  ;;  #+STARTUP: overview
-  ;;  #+STARTUP: hidestars
-  ;;  #+STARTUP: logdone
-  ;;  #+PROPERTY: Effort_ALL  0:10 0:20 0:30 1:00 2:00 4:00 6:00 8:00
-  ;;  #+COLUMNS: %38ITEM(Details) %TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM{Total}
-  ;;  #+PROPERTY: Effort_ALL 0 0:10 0:20 0:30 1:00 2:00 3:00 4:00 8:00
-  ;;  #+TAGS: { OFFICE(o) HOME(h) } COMPUTER(c) PROJECT(p) READING(r) ERRANDS(e)
-  ;;  #+TAGS: DVD(d) LUNCHTIME(l)
-  ;;  #+archive: ~/Dropbox/org/notes/archive.org::
-
-
-  ;; finally fixed org agenda files on STARTUP here:
-  ;; https://emacs.stackexchange.com/questions/39478/emacs-not-loading-org-agenda-files-on-startup
-
-  ;; (cond ((eq system-type 'windows-nt)
-  ;;        ;; Windows-specific code goes here.
-  ;;        (setq org-refile-targets (quote (("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" :maxlevel . 1)
-  ;;                                         ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\someday.org" :level . 2)
-  ;;                                         ("C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\references.org" :level . 1)
-  ;;                                         )))
-  ;;        )
-  ;;       ((eq system-type 'gnu/linux)
-  ;;        ;; Linux-specific code goes here.
-  ;;        (setq org-refile-targets (quote (("~/Dropbox/org/notes/gtd.org" :maxlevel . 1)
-  ;;                                         ("~/Dropbox/org/notes/someday.org" :level . 2))))
-  ;;        ))
-
-
-  ;; (setq org-refile-targets (quote (
-  ;;                                  ("~/Dropbox/org/agenda.org" :maxlevel . 2)
-  ;;                                  ("~/Dropbox/org/references.org" :maxlevel . 1)
-  ;;                                  ("~/Dropbox/org/notebook.org" :maxlevel . 2)
-  ;;                                  )))
-
-  ;; (defun set-org-agenda-files ()
-  ;;   "Set different org-files to be used in `org-agenda`."
-  ;;   (setq org-agenda-files (list (concat org-directory "todo.org")
-  ;;                                (concat org-directory "repeating.org")
-  ;;                                (concat org-directory "stasys.org"))))
-  ;; (set-org-agenda-files)
-
-  ;; (setq org-agenda-custom-commands
-  ;; '(
-
-  ;; ("p" "Projects"
-  ;; ((todo "PROJECT")))
-
-  ;; ;; ("h" "Office and Home Lists"
-  ;; ;;      ((agenda)
-  ;; ;;           (tags-todo "OFFICE")
-  ;; ;;           (tags-todo "HOME")
-  ;; ;;           (tags-todo "COMPUTER")
-  ;; ;;           (tags-todo "DVD")
-  ;; ;;           (tags-todo "READING")))
-
-  ;; ;; ("d" "THE MOST IMPORTANTTTTTTTT!!!!!!!!"
-  ;; ;;      (
-  ;; ;;           (agenda "" ((org-agenda-ndays 1)
-  ;; ;;                       (org-agenda-sorting-strategy
-  ;; ;;                        (quote ((agenda time-up priority-down tag-up) )))
-  ;; ;;                       (org-deadline-warning-days 0)
-  ;; ;;                       ))))
-  ;; )
-  ;; )
-
-
+  ;allows to use tags in ALL agenda files
+  (setq org-complete-tags-always-offer-all
+  ;xuj znajesh-agenda-tags t)
+  (setq org-agenda-use-tag-inheritance t)
+  ;nepaveldi subtasks heading tago
+  (setq org-use-tag-inheritance nil)
+  (setq org-archive-save-context-info '(time))
+  ;info that gets added when archiving, category is important in my case
+  (setq org-archive-save-context-info '(time file category todo itags olpath ltags))
   (setq org-agenda-custom-commands
         '(
           ("a" "My Agenda"
@@ -1098,184 +1300,6 @@ do C-c C-e on the parentheses below. Evaluate them.
            )
           )
         )
-
-
-  ;; (setq org-agenda-custom-commands
-  ;;       '(
-  ;;         ("p" "PERSONAL Agenda"
-  ;;          (
-  ;;           (agenda "" (;; (org-agenda-span 7)
-  ;;                       (org-agenda-tag-filter-preset '("-pkc"))))
-  ;;           (tags-todo "-pkc/!STARTED" (
-  ;;                                       (org-agenda-overriding-header "Started")
-  ;;                                       (org-agenda-tag-filter-preset '("-pkc"))
-  ;;                                       ))
-  ;;           (tags-todo "-pkc/!PROJECT" (
-  ;;                                       (org-agenda-overriding-header "Projects")
-  ;;                                       (org-agenda-tag-filter-preset '("-pkc"))
-  ;;                                       ))
-  ;;           (tags-todo "-pkc/!WAITING" (
-  ;;                                       (org-agenda-overriding-header "Waiting")
-  ;;                                       (org-agenda-tag-filter-preset '("-pkc"))
-  ;;                                       ))
-  ;;           (tags-todo "-pkc/!NEXT" (
-  ;;                                    (org-agenda-overriding-header "Next actions:")
-  ;;                                    (org-agenda-tag-filter-preset '("-pkc"))
-  ;;                                    ))
-  ;;           (todo "ASK" (
-  ;;                        (org-agenda-overriding-header "ASK:")
-  ;;                        (org-agenda-tag-filter-preset '("-pkc"))
-  ;;                        ))
-  ;;           )
-  ;;          )
-  ;;         ("w" "WORK agenda "
-  ;;          (
-  ;;           (agenda "" (;; (org-agenda-span 7)
-  ;;                       (org-agenda-tag-filter-preset '("+pkc"))))
-  ;;           (tags-todo "pkc/!PROJECT" (
-  ;;                                      (org-agenda-overriding-header "Projects:")
-  ;;                                      (org-agenda-tag-filter-preset '("+pkc"))
-  ;;                                      ))
-  ;;           (tags-todo "+pkc/!STARTED" (
-  ;;                                       (org-agenda-overriding-header "Started tasks:")
-  ;;                                       (org-agenda-tag-filter-preset '("+pkc"))
-  ;;                                       ))
-  ;;           (tags-todo "+pkc/!WAITING" (
-  ;;                                       (org-agenda-overriding-header "Waiting for something:")
-  ;;                                       (org-agenda-tag-filter-preset '("+pkc"))
-  ;;                                       ))
-  ;;           (tags-todo "+pkc/!NEXT" (
-  ;;                                    (org-agenda-overriding-header "Next actions:")
-  ;;                                    (org-agenda-tag-filter-preset '("+pkc"))
-  ;;                                    ))
-  ;;           (tags-todo "+pkc/!ASK" (
-  ;;                                   (org-agenda-overriding-header "Ask someone:")
-  ;;                                   (org-agenda-tag-filter-preset '("+pkc"))
-  ;;                                   ))
-  ;;           )
-  ;;          )
-  ;;         ;; ("e" "Emacs Tasks" tags-todo "+emacs-arvydasDev-personal")
-  ;;         ))
-
-  ;; (setq org-agenda-custom-commands
-  ;;       '(("a" "Simple agenda view"
-  ;;          ((agenda "")
-  ;;           (todo "IN-PROGRESS" "")
-  ;;            (tags "/+DONE|+CANCELLED"
-  ;;                  ((org-agenda-overriding-header "Archivable tasks")
-  ;;                   (org-use-tag-inheritance '("project"))))))))
-
-  ;; (setq org-agenda-custom-commands
-  ;;       '(("ta" "Anywhere" tags-todo "@anywhere-somedaymaybe/!TODO")
-  ;;         ("tb" "Buy" tags-todo "@buy-somedaymaybe/!TODO")
-  ;;         ("tc" "Calls/asks" tags-todo "@call-somedaymaybe-@repeating/!TODO")
-  ;;         ("th" "Home" tags-todo "@home-somedaymaybe-@repeating/!TODO")
-  ;;         ("tk" "Komputer" tags-todo "@komputer-somedaymaybe-@repeating/!TODO")
-  ;;         ("tr" "Readreview" tags-todo "@readreview-somedaymaybe-@repeating/!TODO")
-  ;;         ("tt" "Travel" tags-todo "@travel-somedaymaybe-@repeating/!TODO")
-  ;;         ("tp" "Pkc" tags-todo "pkc-@repeating-somedaymaybe/!TODO"
-  ;;          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline)))
-  ;;          )
-  ;;         ("tz" "Panevezys" tags-todo "@pnvz-somedaymaybe-@repeating/!TODO")
-  ;;         ("tw" "Waitingfor" tags-todo "@waitingfor-somedaymaybe-@repeating/!TODO")
-  ;;         ("ts" "Someday/maybe" tags-todo "-@repeating+somedaymaybe+LEVEL=2" ;show ONLY level 2 heading
-  ;;          ((org-agenda-dim-blocked-tasks nil)))
-  ;;         ("a" "Agenda"
-  ;;          ((agenda ""
-  ;;                   ((org-agenda-span 2)))
-  ;;           (tags-todo "@anywhere-somedaymaybe|@call-somedaymaybe|@internet-somedaymaybe|@komputer-somedaymaybe/!TODO"
-  ;;                      ((org-agenda-overriding-header "Common next actions")
-  ;;                       (org-agenda-dim-blocked-tasks 'invisible)
-  ;;                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
-  ;;           (tags-todo "@home-somedaymaybe/!TODO"
-  ;;                      ((org-agenda-overriding-header "Home actions")
-  ;;                       (org-agenda-dim-blocked-tasks 'invisible)))
-  ;;           (tags-todo "@waitingfor-somedaymaybe/!TODO"
-  ;;                      ((org-agenda-overriding-header "Waiting for")
-  ;;                       (org-agenda-dim-blocked-tasks 'invisible)))
-  ;;           (tags-todo "@pnvz-somedaymaybe/!TODO"
-  ;;                      ((org-agenda-overriding-header "Errands Pnvz")
-  ;;                       (org-agenda-dim-blocked-tasks 'invisible)))
-  ;;           (tags-todo "@readreview-somedaymaybe/!TODO"
-  ;;                      ((org-agenda-overriding-header "Read/review")
-  ;;                       (org-agenda-dim-blocked-tasks 'invisible)))
-  ;;           (tags "/+DONE|+CANCELLED"
-  ;;                 ((org-agenda-overriding-header "Archivable tasks")
-  ;;                  (org-use-tag-inheritance '("project"))))
-  ;;           (tags-todo "-@repeating-pkc-@buy-@travel-emacs-@anywhere-@call-@internet-@komputer-@home-@readreview-@waitingfor-somedaymaybe/!TODO"
-  ;;                 ((org-agenda-overriding-header "Contextless tasks")))
-  ;;           ))))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-  ;; (setq org-agenda-custom-commands
-  ;;       '(("a" "Agenda asmenine"
-  ;;          ((agenda ""
-  ;;                   ((org-agenda-span 1)))
-  ;;           (tags "PRIORITY=\"A\""
-  ;;                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-  ;;                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
-  ;;           (alltodo ""
-  ;;                     ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
-  ;;                    (;; (org-agenda-tag-filter-preset '("-pkc"))
-  ;;                     (org-agenda-skip-function
-  ;;                      '(or (air-org-skip-subtree-if-priority ?A)
-  ;;                           (org-agenda-skip-if nil '(scheduled deadline))))))))
-  ;;         ("p" "pkc"
-  ;;          ((agenda ""
-  ;;                   ((org-agenda-span 1)))
-  ;;           (tags "PRIORITY=\"A\""
-  ;;                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-  ;;                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
-  ;;           (alltodo "-ISMOK"
-  ;;                     ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
-  ;;                    ((org-agenda-tag-filter-preset '("+pkc"))
-  ;;                     (org-agenda-skip-function
-  ;;                      '(or (air-org-skip-subtree-if-priority ?A)
-  ;;                           (org-agenda-skip-if nil '(scheduled deadline))
-  ;;                           (org-agenda-skip-entry-if 'todo '("ISMOK"))))))
-  ;;           (todo "ISMOK"
-  ;;                 ((org-agenda-tag-filter-preset '("+pkc"))
-  ;;                  (org-agenda-skip-function
-  ;;                      '(or (air-org-skip-subtree-if-priority ?A)
-  ;;                           (org-agenda-skip-if nil '(scheduled deadline))))))))
-  ;;         ("c" "Calls" tags-todo "namai/!WAITING")))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-          ;; ("x" "Personal agenda"
-          ;;  ((agenda "" ((org-agenda-span 7)
-          ;;               (org-agenda-tag-filter-preset '("-pkc"))))))
-
-          ;; the longer I tweak the more I see you don't need custom
-          ;; views.. all can be achieved inside agenda
-          ;; ("p" "PKC view"
-          ;;  ((tags "PRIORITY=\"A\""
-          ;;         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-          ;;          (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          ;;   (agenda ""
-          ;;           ((org-agenda-span 1)))
-          ;;   (alltodo ""
-          ;;             ;kazkodel tik sitas pkc filter turi effect, gal lad in alltodo
-          ;;            (;; (org-agenda-tag-filter-preset '("+pkc"))
-          ;;             (org-agenda-skip-function
-          ;;              '(or (air-org-skip-subtree-if-priority ?A)
-          ;;                   (org-agenda-skip-if nil '(scheduled deadline))))))))
-
-          ;; slashes are must to record second quotes
-          ;; ("z" "effort stuff" tags-todo "Effort=\"0:10\"")
-
-  ;; (defun air-org-skip-subtree-if-priority (priority)
-  ;;   "Skip an agenda subtree if it has a priority of PRIORITY.
-  ;; PRIORITY may be one of the characters ?A, ?B, or ?C."
-  ;;   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-  ;;         (pri-value (* 1000 (- org-lowest-priority priority)))
-  ;;         (pri-current (org-get-priority (thing-at-point 'line t))))
-  ;;     (if (= pri-value pri-current)
-  ;;         subtree-end
-  ;;       nil)))
-
-  ;; (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
 
 ** Pain-org-wiki
@@ -1412,28 +1436,13 @@ document
 
 spell check
 
+sudo apt install ispell
+
 #+begin_src emacs-lisp
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-  ;; (global-set-key (kbd "C-1") 'flyspell-auto-correct-previous-word)
-  ;; (global-set-key (kbd "C-2") 'flyspell-auto-correct-word)
-  ;; (global-set-key (kbd "C-3") 'flyspell-goto-next-error)
-  ;; (global-set-key (kbd "C-4") 'flyspell-buffer)
-
   (global-set-key (kbd "<f5>") 'flyspell-mode)
-
-  ;; <2022-03-20 Sk> removing C-M-i "auto-correct word" because it
-  ;; wouldn't let me to bind org-roam "insert link automatically
-  ;; thingy". Now, as I unbind it (it's not gone, I can still auto
-  ;; correct words with C-.m) I can use C-M-i to org-roam insert link. I
-  ;; am tired, right, repeating myself. Going to sleep. Glad org-roam
-  ;; works and I am finding solutions to make it work according to this
-  ;; https://www.youtube.com/watch?v=AyhPmypHDEw tutorial.
-
-  ;; (with-eval-after-load "flyspell"
-  ;;   (define-key flyspell-mode-map (kbd "C-M-i") nil))
 #+end_src
 
 ** Lorem-ipsum
@@ -1494,15 +1503,19 @@ lsp ideas - https://github.com/Crandel/home/blob/master/.config/emacs/recipes/ls
 #+begin_src emacs-lisp
   (use-package lsp-mode
     :ensure t
-    ;; :commands (lsp lsp-deferred)          ;both of these commands activate the package. interesting
+    ;both of these commands activate the package. interesting
+    ;; :commands (lsp lsp-deferred)
     :init
-    (setq lsp-keymap-prefix "C-c l")      ; Or 'C-l', 's-l'
+    ; Or 'C-l', 's-l'
+    (setq lsp-keymap-prefix "C-c l")
     :config
     (lsp-enable-which-key-integration t))
 
-  ;; (add-hook 'prog-mode-hook #'lsp)        ; not reccomended, tries to run in elisp mode..
+  ; not reccomended, tries to run in elisp mode..
+  ;; (add-hook 'prog-mode-hook #'lsp)
   (add-hook 'web-mode-hook #'lsp)
-  (add-hook 'python-mode-hook #'lsp)      ;https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
+  ;https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
+  (add-hook 'python-mode-hook #'lsp)
   ;; (add-hook 'css-mode-hook #'lsp)
   (add-hook 'js-mode-hook #'lsp)
 
@@ -1538,7 +1551,8 @@ lsp ideas - https://github.com/Crandel/home/blob/master/.config/emacs/recipes/ls
 
   ;; attempting to make lsp faster (M-x lsp-doctor)
   ;; check emacs version - apt-cache policy emacs
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  ;; 1mb
+  (setq read-process-output-max (* 1024 1024))
   (setq gc-cons-threshold 100000000)
   (setq lsp-idle-delay 0.500)
   ;; install emacs 28.. is kind of faster now https://www.how2shout.com/linux/how-to-install-emacs-28-on-ubuntu-20-04-lts-focal-fossa/
@@ -1915,7 +1929,8 @@ sudo apt install -y libtool-bin
     :ensure t
     :bind (("C-2" . shell-pop))
     :config
-    (setq shell-pop-full-span t))         ;basically shell window is fullwidht instead of current buffer size(when split)
+    ;basically shell window is fullwidht instead of current buffer size(when split)
+    (setq shell-pop-full-span t))
 
   ;; c-u 2 binding - to launch multiple shell buffers, but then how to close each? :p
 #+end_src
@@ -2076,7 +2091,8 @@ C-c f, M-x basically. Other packages use it as well.
     (ivy-count-format "(%d/%d) ")
     ;; nice if you want previously opened buffers to appear after an
     ;; emacs shutdown
-    (ivy-use-virtual-buffers t)           ;saves buffers from last session
+    ;saves buffers from last session
+    (ivy-use-virtual-buffers t)
     :config (ivy-mode))
 
   (use-package ivy-rich
@@ -2328,12 +2344,14 @@ dropdown su suggestions, works perfectly wiht elisp out of the box
   (use-package company
     :after lsp-mode
     :config
-    (setq company-idle-delay 0) ; lb svarbu, instant suggestion
+    ; lb svarbu, instant suggestion
+    (setq company-idle-delay 0)
     ;; (setq company-show-numbers t)
     (setq company-tooltip-limit 10)
     (setq company-minimum-prefix-length 1)
     (setq company-tooltip-align-annotations t)
-    (setq company-tooltip-flip-when-above nil) ; flip when narrow place
+    ; flip when narrow place
+    (setq company-tooltip-flip-when-above nil)
     (global-company-mode))
 
   ;turn off company auto-completion in eshell, because it adds annoying spaces after each completion.. like ls, sucks
@@ -2462,413 +2480,4 @@ Couldn't find packages for some stuff, so made a macro and they work fine.
 
   (fset 'duplicate\ and\ clock_in
         [?\C-c ?\C-t ?r ?\C-  ?\M-x return ?\M-w return ?\C-y ?\C-p ?\C-x ?n ?s tab ?\C-n ?\C-k ?\C-k ?\C-k ?\C-k ?\C-k ?\C-p ?\C-x ?n ?w ?\C-l ?\C-n ?\C-k ?\C-p ?\C-c ?\C-x ?\C-i ?\C-x ?\C-s])
-#+end_src
-* Directories
-
-Locations to modify if you move to a different machine and want to
-save the files elsewhere.
-** Themes-locations
-
-#+begin_src emacs-lisp
-  ;; add custom themes
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
-  ;; to check custom themes location, try to load a theme:
-  ;; (load-theme 'zenburn t)
-#+end_src
-
-** Default-startup-file-location
-
-#+begin_src emacs-lisp
-  ;; set default buffer on startup
-  ;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
-#+end_src
-
-** Projectile-locations
-
-#+begin_src emacs-lisp
-  ;; projectile project default location
-  (setq projectile-project-search-path '("~/Dropbox/src/"))
-#+end_src
-
-** Yasnippet-locations
-
-#+begin_src emacs-lisp
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (setq yas-snippet-dirs '("c:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets"))
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
-         ))
-#+end_src
-
-** My-custom-jumping-locations
-
-#+begin_src emacs-lisp
-  ;; Easily jump to my package files in dired
-  (defun aga-find-packages nil
-    "Find the myinit.org file."
-    (interactive)
-
-    (cond ((eq system-type 'windows-nt)
-           ;; Windows-specific code goes here.
-           (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\")
-           )
-          ((eq system-type 'gnu/linux)
-           ;; Linux-specific code goes here.
-           (dired "~/.emacs.d")
-           )))
-
-  ;; Find myinit.org  file
-  ;; (global-set-key (kbd "C-x <C-backspace>") 'aga-find-packages)
-  (global-set-key (kbd "C-x <C-home>") 'aga-find-packages)
-
-  ;; Easily jump to my yasnippet snippet directory in dired
-  (defun aga-find-snippets nil
-    "Find the myinit.org file."
-    (interactive)
-
-    (cond ((eq system-type 'windows-nt)
-           ;; Windows-specific code goes here.
-           (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets\\")
-           )
-          ((eq system-type 'gnu/linux)
-           ;; Linux-specific code goes here.
-           (dired "~/.emacs.d/snippets/")
-           )))
-
-                                          ;prior is PgUp
-  (global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
-
-  ;; jump to my main init.el file
-  (defun aga-find-init.el nil
-    (interactive)
-
-    (cond ((eq system-type 'windows-nt)
-           ;; Windows-specific code goes here.
-           (find-file "C:\\Users\\arvga\\.arvydas\\src\\emacs\\init.el")
-           )
-          ((eq system-type 'gnu/linux)
-           ;; Linux-specific code goes here.
-           (find-file "~/.emacs.d/my-init.org")
-           )))
-
-
-  ;; (delete-other-windows))
-  ;; Find init.el file
-  ;; (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
-  (global-set-key (kbd "C-x <C-backspace>") 'aga-find-init.el)
-
-  ;; jump to my a random js test file
-  (defun aga-jump-test.js nil
-    (interactive)
-
-    (cond ((eq system-type 'windows-nt)
-           ;; Windows-specific code goes here.
-           (find-file "C:\\Temp\\test.js")
-           )
-          ((eq system-type 'gnu/linux)
-           ;; Linux-specific code goes here.
-           (find-file "~/temp/js/test.js")
-           ))
-    (erase-buffer))
-  ;; (delete-other-windows))
-  ;; Find test.js file
-  (global-set-key (kbd "C-x j") 'aga-jump-test.js)
-
-  ;;--------------------------------------------------------
-
-  ;; jump to my org blog directory
-  (defun aga-jump-blog-org nil
-    (interactive)
-
-    (cond ((eq system-type 'windows-nt)
-           ;; Windows-specific code goes here.
-           ;; (find-file "C:\\Temp\\test.js")
-           )
-          ((eq system-type 'gnu/linux)
-           ;; Linux-specific code goes here.
-           (find-file "~/Dropbox/arvydasg.github.io_blog_content/")
-           ))
-    (erase-buffer))
-
-  ;; (delete-other-windows))
-  ;; Find test.js file
-  (global-set-key (kbd "C-x C-<end>") 'aga-jump-blog-org)
-
-  ;; jump to my org blog directory
-  (defun aga-jump-blog-html nil
-    (interactive)
-
-    (cond ((eq system-type 'windows-nt)
-           ;; Windows-specific code goes here.
-           ;; (find-file "C:\\Temp\\test.js")
-           )
-          ((eq system-type 'gnu/linux)
-           ;; Linux-specific code goes here.
-           (find-file "~/Dropbox/src/arvydasg.github.io/")
-           ))
-    (erase-buffer))
-
-  ;; (delete-other-windows))
-  ;; Find test.js file
-  (global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
-#+end_src
-
-** org-locations
-*** org-clock-sound-location
-
-#+begin_src emacs-lisp
-  (setq org-clock-sound "~/.emacs.d/bell.wav")
-#+end_src
-
-# Archive is also possible to change, check it out. Either set it in
-# this file or in each individual file.
-
-*** Org-capture-locations
-
-#+begin_src emacs-lisp
-  ;; MANY small files below
-  (define-key global-map "\C-cc" 'org-capture)
-  ;; (setq org-capture-templates '(
-  ;; ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
-  ;; ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
-  ;; ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-  ;; ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
-  ;; ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
-  ;; ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
-  ;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
-  ;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
-
-  ;; bzg config - https://github.com/bzg/dotemacs/blob/master/emacs.org
-
-  ;; (cond ((eq system-type 'windows-nt)
-  ;;        ;; Windows-specific code goes here.
-  ;;        (setq org-capture-templates
-  ;;              '(("i" "INBOX")
-  ;;                ("ii" "INBOX QUICK" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-  ;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-  ;;                ("ia" "INBOX su aprasymu" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-  ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-  ;;                ("s" "SOMEDAY")
-  ;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-  ;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-  ;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-  ;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-  ;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-  ;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-  ;;                ))
-  ;;        )
-  ;;       ((eq system-type 'gnu/linux)
-  ;;        ;; Linux-specific code goes here.
-  ;;        (setq org-capture-templates
-  ;;              '(
-  ;;                ("i" "INBOX")
-  ;;                ("j" "JOURNAL" entry (file+datetree "~/Dropbox/org/notes/personal_notes/journal.org")
-  ;;                 "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
-  ;;                ("ii" "INBOX QUICK" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-  ;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-  ;;                ("ia" "INBOX su aprasymu" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-  ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-  ;;                ("s" "SOMEDAY")
-  ;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-  ;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-  ;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-  ;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-  ;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-  ;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-  ;;                )
-  ;;              )
-  ;;        )
-  ;;       )
-
-
-  (cond ((eq system-type 'windows-nt)
-           (setq org-capture-templates
-                 '(
-  ;;                ("ii" "INBOX" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-  ;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-  ;;                ("it" "TODO" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-  ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-  ;;                ("it" "SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-                   ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-                   ("i" "Inbox" entry (file+headline "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" "Tasks")
-                    "* TOOD %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                   ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
-                    "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
-                   ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
-                   ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
-                   ))
-         )
-        ((eq system-type 'gnu/linux)
-           (setq org-capture-templates
-                 '(
-                   ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                    "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                   ("t" "Todo Entry" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                    "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                   ;; ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                   ;;  "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                   ;; ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
-                   ;;  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
-                   ;; ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
-                   ;;  "* [%<%Y-%m-%d %H:%M>] Today's summary\n%?\n%[~/Dropbox/org/.daily_review.txt]":tree-type month)
-                   ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
-                   ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
-                   ))
-           ))
-
-  ;; WSL-specific setup
-  (when (and (eq system-type 'gnu/linux)
-             (getenv "WSLENV"))
-           (setq org-capture-templates
-                 '(
-                   ("i" "Inbox" entry (file+headline "/mnt/c/Users/arvga/stuff/org/inbox.org" "Inbox")
-                    "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                   ))
-    )
-
-  ;; (setq org-capture-templates
-  ;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")
-  ;;          "** 10min %?")
-  ;;         ("2" "2min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-  ;;          "** 2min %?")
-  ;;         ("t" "TOOD" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-  ;;          "** 2min %?")
-  ;;         ("3" "30min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-  ;;          "** 30min %?")
-  ;;         ("v" "1val" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-  ;;          "** 1val %?")
-  ;;         ("p" "PALEK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-  ;;          "** PALEK %?")
-  ;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-  ;;          "** SKAITYK %?")
-  ;;         ("l" "lokacija" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-  ;;          "** TODO %?\n  %i\n  %a")
-  ;;         ;; ("d" "diary august" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220508141623-diary.org" "diary september") "** %U %^{Title}\n%?"))
-  ;;       ))
-
-  ;; (setq org-capture-templates
-  ;;       '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** TODO %?")
-  ;;         ("k" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** ASK %?")
-  ;;         ("p" "IN-PROGRESS" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** IN-PROGRESS %?")
-  ;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** SKAITYK %?")
-  ;;         ("w" "WAITING" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** WAITING %?")
-  ;;         ("i" "IGALIOK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** WAITING %?")
-  ;;         ("b" "BUY" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** BUY %?")
-  ;;         ("r" "REMINDER" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** REMINDER %?")
-  ;;         ("h" "HOME" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** HOME %?")
-  ;;         ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary")
-  ;;          "* %<%H:%M>: %?")
-  ;;         ("l" "location" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-  ;;          "** TODO %?\n  %i\n  %a")
-  ;;         ))
-
-  ;; jeigu nori keybindint directly to a key
-  ;; (define-key global-map (kbd "C-c c")
-  ;;   (lambda () (interactive) (org-capture nil "i")))
-
-  ;; ONE BIG FILE BELOW
-  ;; (setq org-capture-templates '(
-  ;;                               ("i" "Inbox No Timesamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox No Timestamp") "* TODO %?\n %^{Effort}p")
-  ;;                               ("I" "Inbox Timestamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox Timestamp") "* TODO %?\n%^{Effort}p\n%^{SCHEDULED}p")
-  ;;                               ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Tasks") "* %? \n%^{SCHEDULED}p")
-  ;;                               ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/roam/20220323162627-emacs.org" "Tasks") "* TODO %(org-set-tags \"emacs\")%?\n%^{Effort}p")
-  ;;                               ("o" "Obelsdumas" entry (file+headline "~/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "Tasks") "* TODO %(org-set-tags \"obelsdumas\")%?\n%^{Effort}p")
-  ;;                               ("p" "Portfolio" entry (file+headline "~/Dropbox/documents/org/roam/20220323164133-portfolio.org" "Tasks") "* TODO %(org-set-tags \"portfolio\")%?\n%^{Effort}p")
-  ;;                               ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "Tasks") "* TODO %(org-set-tags \"smuti_fruti\")%?\n%^{Effort}p")
-  ;;                               ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/diary.org" "diary") "* %U %^{Title}\n%?")
-  ;;                               ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "Tasks") "* TODO %(org-set-tags \"facebook\")%?\n%^{Effort}p")))
-#+end_src
-
-*** Org-clock-locations
-
-#+begin_src emacs-lisp
-  ;; this functions is later used in clock reports. Check org_clock
-  ;; looking through all the folders inside 2020, great!
-  ;; later this function is used in clock report
-  (defun add-dailies ()
-    (append org-agenda-files
-            (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/**/*.org")))
-
-  ;; only looking through one folder
-  ;; (defun add-dailies ()
-  ;;   (append org-agenda-files
-  ;;           (file-expand-wildcards "~/Dropbox/documents/org/roam/daily/2022/kovo/*.org")))
-#+end_src
-
-*** org-static-blog-locations
-
-#+begin_src emacs-lisp
-    (setq org-static-blog-publish-title "arvydasg.github.io")
-    (setq org-static-blog-publish-url "https://arvydasg.github.io/")
-    (setq org-static-blog-publish-directory "~/Dropbox/src/arvydasg.github.io/")
-    (setq org-static-blog-posts-directory "~/Dropbox/arvydasg.github.io_blog_content/")
-    (setq org-static-blog-drafts-directory "/home/arvydas/Dropbox/arvydasg.github.io_blog_content/")
-    ;; (setq org-static-blog-drafts-directory "~/Dropbox/src/arvydasg.github.io/drafts/")
-#+end_src
-
-*** org-agenda-locations
-
-#+begin_src emacs-lisp
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (setq org-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
-         (setq org-agenda-files (directory-files-recursively "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes" "\\.org$"))
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (setq org-directory "~/Dropbox/org/")
-         (setq org-agenda-files '(
-                                  "~/Dropbox/src/pagalbaGyvunams/pagalbaGyvunams.org"
-                                  "~/.emacs.d/my-init.org"
-                                  ))
-         ;; (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
-         (setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
-         ))
-
-  ;; WSL-specific setup
-  (when (and (eq system-type 'gnu/linux)
-             (getenv "WSLENV"))
-    (setq org-directory "/mnt/c/Users/arvga/stuff/org/")
-    (setq org-agenda-files '(
-                             ;; "~/Dropbox/org/archive.org"
-                             ;; "~/Dropbox/org/notebook.org"
-                             "/mnt/c/Users/arvga/stuff/org/notebook.org"
-                             "/mnt/c/Users/arvga/stuff/org/agenda.org"
-                             "/mnt/c/Users/arvga/stuff/org/inbox.org"
-                             ))
-    )
-#+end_src
-
-*** plain-org-wiki-locations
-
-#+begin_src emacs-lisp
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (setq plain-org-wiki-directory "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes")
-         ;; (setq plain-org-wiki-directory "C:\\Users\\arvga\\Dropbox\\org\\notes\\personal_notes")
-         ;; (setq plain-org-wiki-extra-files (directory-files-recursively "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes" "\.org$"))
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (setq plain-org-wiki-directory "~/Dropbox/org/")
-         ;; (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
-         ))
-
-  ;; WSL-specific setup
-  (when (and (eq system-type 'gnu/linux)
-             (getenv "WSLENV"))
-    (setq plain-org-wiki-directory "/mnt/c/Users/arvga/stuff/org/")
-    )
 #+end_src
