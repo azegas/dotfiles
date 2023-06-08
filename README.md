@@ -1,22 +1,22 @@
 # Table of Contents
 
--   [My personal Emacs configuration](#orge62cc4d)
-    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-06-05 Mon] </span></span> Lots of refactoring](#orgd2258f7)
-    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-03-18 Sat] </span></span> One org mode file for all configuration](#orgdede8a9)
-    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-01-08 Sun] </span></span> No init.org.](#org0dd44ee)
-    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-01-06 Fri] </span></span> Daemon mode](#org9ce361b)
-    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-01-06 Fri] </span></span> Using emacs with org mode at work](#org502b137)
-    -   [<span class="timestamp-wrapper"><span class="timestamp">[2022-12-27 Tue] </span></span> Overwhelmed](#orgde59f1a)
+-   [My personal Emacs configuration](#orgd1d5e42)
+    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-06-05 Mon] </span></span> Lots of refactoring](#org8688351)
+    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-03-18 Sat] </span></span> One org mode file for all configuration](#org98f68e7)
+    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-01-08 Sun] </span></span> No init.org.](#org1629de7)
+    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-01-06 Fri] </span></span> Daemon mode](#org1d4d6a7)
+    -   [<span class="timestamp-wrapper"><span class="timestamp">[2023-01-06 Fri] </span></span> Using emacs with org mode at work](#org942a4c1)
+    -   [<span class="timestamp-wrapper"><span class="timestamp">[2022-12-27 Tue] </span></span> Overwhelmed](#org3dd4718)
 
 
-<a id="orge62cc4d"></a>
+<a id="orgd1d5e42"></a>
 
 # My personal Emacs configuration
 
 <https://orgmode.org/worg/org-quotes.html>
 
 
-<a id="orgd2258f7"></a>
+<a id="org8688351"></a>
 
 ## <span class="timestamp-wrapper"><span class="timestamp">[2023-06-05 Mon] </span></span> Lots of refactoring
 
@@ -27,7 +27,7 @@ switch machines, so decided to put all of those directories in one
 place so it's easy to configure.
 
 
-<a id="orgdede8a9"></a>
+<a id="org98f68e7"></a>
 
 ## <span class="timestamp-wrapper"><span class="timestamp">[2023-03-18 Sat] </span></span> One org mode file for all configuration
 
@@ -42,7 +42,7 @@ In the future it might be problem with windows stuff, but will see
 then.
 
 
-<a id="org0dd44ee"></a>
+<a id="org1629de7"></a>
 
 ## <span class="timestamp-wrapper"><span class="timestamp">[2023-01-08 Sun] </span></span> No init.org.
 
@@ -53,13 +53,11 @@ package is ignrod upon next load.
 In case I want to load org file as my init.el, I can do it by placing
 init.org file in my .emacs.d
 
-\`\`\`
-(package-initialize)
-(org-babel-load-file "~/.emacs.d/config.org")
-\`\`\`
+    (package-initialize)
+    (org-babel-load-file "~/.emacs.d/config.org")
 
 
-<a id="org9ce361b"></a>
+<a id="org1d4d6a7"></a>
 
 ## <span class="timestamp-wrapper"><span class="timestamp">[2023-01-06 Fri] </span></span> Daemon mode
 
@@ -67,26 +65,23 @@ Found out about emacs daemon mode. It makes emacs
 instances load instantaneously. Amazing.
 
 Add these to .bashrc for easy launch/use/kill:
-\`\`\`
-alias ed='emacs &#x2013;daemon'
-alias e='emacsclient -c -n'
-alias ek='emacsclient -e "(kill-emacs)"'
-\`\`\`
+
+    alias ed='emacs --daemon'
+    alias e='emacsclient -c -n'
+    alias ek='emacsclient -e "(kill-emacs)"'
 
 
-<a id="org502b137"></a>
+<a id="org942a4c1"></a>
 
 ## <span class="timestamp-wrapper"><span class="timestamp">[2023-01-06 Fri] </span></span> Using emacs with org mode at work
 
-[Using emacs with org mode at
-work](<https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/>).
+[Using emacs with org mode at work](https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/).
 Finally decided to have work org files at work and personal at home.
 Better work and life balance in this way. Emacs at work windows
-computer will run on WSL with [GWSL](<https://opticos.github.io/gwsl/>)
-for a GUI.
+computer will run on WSL with [GWSL](https://opticos.github.io/gwsl/) for a GUI.
 
 
-<a id="orgde59f1a"></a>
+<a id="org3dd4718"></a>
 
 ## <span class="timestamp-wrapper"><span class="timestamp">[2022-12-27 Tue] </span></span> Overwhelmed
 

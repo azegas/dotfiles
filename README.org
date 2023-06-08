@@ -31,10 +31,10 @@ package is ignrod upon next load.
 In case I want to load org file as my init.el, I can do it by placing
 init.org file in my .emacs.d
 
-```
-(package-initialize)
-(org-babel-load-file "~/.emacs.d/config.org")
-```
+#+begin_src bash
+  (package-initialize)
+  (org-babel-load-file "~/.emacs.d/config.org")
+#+end_src
 
 ** [2023-01-06 Fri] Daemon mode
 
@@ -42,19 +42,19 @@ Found out about emacs daemon mode. It makes emacs
 instances load instantaneously. Amazing.
 
 Add these to .bashrc for easy launch/use/kill:
-```
-alias ed='emacs --daemon'
-alias e='emacsclient -c -n'
-alias ek='emacsclient -e "(kill-emacs)"'
-```
+
+#+begin_src bash
+  alias ed='emacs --daemon'
+  alias e='emacsclient -c -n'
+  alias ek='emacsclient -e "(kill-emacs)"'
+#+end_src
 
 ** [2023-01-06 Fri] Using emacs with org mode at work
-[Using emacs with org mode at
-work](https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/).
+
+[[https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/][Using emacs with org mode at work]].
 Finally decided to have work org files at work and personal at home.
 Better work and life balance in this way. Emacs at work windows
-computer will run on WSL with [GWSL](https://opticos.github.io/gwsl/)
-for a GUI.
+computer will run on WSL with [[https://opticos.github.io/gwsl/][GWSL]] for a GUI.
 
 ** [2022-12-27 Tue] Overwhelmed
 
