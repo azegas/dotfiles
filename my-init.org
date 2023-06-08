@@ -867,7 +867,7 @@ block
 
 #+begin_src emacs-lisp
   (setq org-cycle-emulate-tab 'white)
-  (setq org-log-into-drawer "LOGBOOK"
+  (setq org-log-into-drawer "LOGBOOK")
         ; Hide * and / in org tex.)
   (setq org-hide-emphasis-markers t)
   (setq org-log-done 'time)
@@ -1267,8 +1267,7 @@ do C-c C-e on the parentheses below. Evaluate them.
   (setq org-todo-repeat-to-state "REPEATING")
 
   ;allows to use tags in ALL agenda files
-  (setq org-complete-tags-always-offer-all
-  ;xuj znajesh-agenda-tags t)
+  (setq org-complete-tags-always-offer-all-agenda-tags t)
   (setq org-agenda-use-tag-inheritance t)
   ;nepaveldi subtasks heading tago
   (setq org-use-tag-inheritance nil)
