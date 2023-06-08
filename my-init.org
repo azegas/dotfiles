@@ -1904,8 +1904,8 @@ sudo apt install -y libtool
 sudo apt install -y libtool-bin
 
 #+begin_src emacs-lisp
-  (use-package vterm
-    :ensure t)
+  ;; (use-package vterm
+  ;;   :ensure t)
 #+end_src
 
 *** Shell-pop

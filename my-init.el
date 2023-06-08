@@ -1468,8 +1468,8 @@ the variables `org-static-blog-preview-start' and
 
 (add-hook 'web-mode 'emmet-mode)
 
-(use-package vterm
-  :ensure t)
+;; (use-package vterm
+;;   :ensure t)
 
 (use-package shell-pop
   :ensure t
