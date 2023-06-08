@@ -1,3 +1,4 @@
+#+TOC: headlines 2
 * My personal Emacs configuration
 
 https://orgmode.org/worg/org-quotes.html
