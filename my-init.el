@@ -1,13 +1,15 @@
-;; add custom themes
-(add-to-list 'custom-theme-load-path "~/.emacs.d/misc/themes/")
-;; to check custom themes location, try to load a theme:
-;; (load-theme 'zenburn t)
+;; absolute path to emacs dir
+(setq my/emacs-dir "~/.emacs.d")
+
+;; org location
+(setq my/org-agenda-files-location "/home/arvy/org/org-agenda-files/")
+(setq my/org-inbox-file (concat my/org-agenda-files-location "inbox.org"))
 
 ;; set default buffer on startup
-;; (setq initial-buffer-choice "~/Dropbox/documents/org/roam/Inbox.org")
+;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
 
 ;; projectile project default location
-(setq projectile-project-search-path '("~/Dropbox/src/"))
+(setq my/projectile-dir "/home/arvy/src/")
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
@@ -350,7 +352,8 @@
 ;; WSL-specific setup
 (when (and (eq system-type 'gnu/linux)
            (getenv "WSLENV"))
-  (setq plain-org-wiki-directory "/mnt/c/Users/arvydas/OneDrive/Documents/arvydas.dev/GIT/org/")
+  ;; (setq plain-org-wiki-directory "/mnt/c/Users/arvydas/OneDrive/Documents/arvydas.dev/GIT/org/")
+  (setq plain-org-wiki-directory my/org-agenda-files-location)
   )
 
 (setq org-archive-location "/mnt/c/Users/arvydas/OneDrive/Documents/arvydas.dev/GIT/org/archive.org::* Archive")
@@ -572,27 +575,6 @@ there's a region, all lines that region covers will be duplicated."
   (setq-default save-place t)
   (save-place-mode 1))
 
-(use-package beacon
-  :ensure t
-  :config
-  (progn
-    (setq beacon-blink-when-point-moves-vertically nil) ; default nil
-    (setq beacon-blink-when-point-moves-horizontally nil) ; default nil
-    (setq beacon-blink-when-buffer-changes t) ; default t
-    (setq beacon-blink-when-window-scrolls t) ; default t
-    (setq beacon-blink-when-window-changes t) ; default t
-    (setq beacon-blink-when-focused nil) ; default nil
-
-    (setq beacon-blink-duration 0.3) ; default 0.3
-    (setq beacon-blink-delay 0.3) ; default 0.3
-    (setq beacon-size 20) ; default 40
-    ;; (setq beacon-color "yellow") ; default 0.5
-    (setq beacon-color 0.5) ; default 0.5
-
-    (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
-
-    (beacon-mode 1)))
-
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -620,6 +602,31 @@ there's a region, all lines that region covers will be duplicated."
 ;; (global-display-line-numbers-mode 1)
 ;; (add-hook 'text-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
+;; custom themes location
+(add-to-list 'custom-theme-load-path (concat my/emacs-dir "/misc/themes/"))
+;; (load-theme 'zenburn t)
+
+(use-package beacon
+  :ensure t
+  :config
+  (progn
+    (setq beacon-blink-when-point-moves-vertically nil) ; default nil
+    (setq beacon-blink-when-point-moves-horizontally nil) ; default nil
+    (setq beacon-blink-when-buffer-changes t) ; default t
+    (setq beacon-blink-when-window-scrolls t) ; default t
+    (setq beacon-blink-when-window-changes t) ; default t
+    (setq beacon-blink-when-focused nil) ; default nil
+
+    (setq beacon-blink-duration 0.3) ; default 0.3
+    (setq beacon-blink-delay 0.3) ; default 0.3
+    (setq beacon-size 20) ; default 40
+    ;; (setq beacon-color "yellow") ; default 0.5
+    (setq beacon-color 0.5) ; default 0.5
+
+    (add-to-list 'beacon-dont-blink-major-modes 'term-mode)
+
+    (beacon-mode 1)))
 
 ;; (cond ((eq system-type 'windows-nt)
 ;;      ;; Windows-specific code goes here.
@@ -689,408 +696,6 @@ there's a region, all lines that region covers will be duplicated."
   :config
   (volatile-highlights-mode t))
 
-(setq org-cycle-emulate-tab 'white)
-(setq org-log-into-drawer "LOGBOOK")
-      ; Hide * and / in org tex.)
-(setq org-hide-emphasis-markers t)
-(setq org-log-done 'time)
-; heading indentation
-(setq org-startup-indented t)
-; RET to follow links
-(setq org-return-follows-link t)
-;  no done if mid
-(setq org-enforce-todo-dependencies t)
-(setq org-startup-with-inline-images t)
-(setq org-image-actual-width nil)
-
-; rebind active to inactive
-(with-eval-after-load 'org
-  (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
-
-(setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "EPIC(e)" "NEXT(n)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "MAYBE(m)" "REPEATING(r)" "STARTED(s)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
-
-(setq org-todo-keyword-faces
-      (quote (
-              ("TODO" :foreground "IndianRed1" :weight bold)
-              ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
-              ("STARTED" :foreground "cyan" :weight bold)
-              ("WAITING" :foreground "chocolate" :weight bold)
-              ("ASK" :foreground "lawn green" :weight bold)
-              ("APPT" :foreground "slate gray" :weight bold)
-              )))
-
-(setq org-agenda-tags-todo-honor-ignore-options t)
-
-(add-hook 'org-capture-mode-hook
-          (lambda ()
-            (setq-local org-tag-alist (org-global-tags-completion-table))))
-
-;; Effort
-(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
-(setq org-global-properties (quote (("Effort_ALL" . "1:00 0:00 0:05 0:10 0:30 2:00 3:00 4:00 8:00 10:00 15:00")
-                                    ("STYLE_ALL" . "habit"))))
-
-;; https://orgmode.org/manual/Editing-Source-Code.html
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
-
-;; [2022-04-10 Sun] org tempo added before, now just added templates
-(use-package org-tempo
-  :after org
-  :config
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python ")))
-
-;; Save the corresponding buffers
-(defun gtd-save-org-buffers ()
-  "Save `org-agenda-files' buffers without user confirmation.
-See also `org-save-all-org-buffers'"
-  (interactive)
-  (message "Saving org-agenda-files buffers...")
-  (save-some-buffers t (lambda ()
-                         (when (member (buffer-file-name) org-agenda-files)
-                           t)))
-  (message "Saving org-agenda-files buffers... done"))
-
-;; Save Org buffers after refiling!
-(advice-add 'org-refile :after 'org-save-all-org-buffers)
-
-;; dont let to refile without applying the tag first
-(defun my/org-refile-with-tag-check ()
-  "Refile a task, checking if it has any tags."
-  (interactive)
-  (let ((tags (org-get-tags)))
-    (unless tags
-      (error "Cannot refile task without a tag")))
-  (org-refile))
-
-(define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
-
-;; dont let to archive without applying the tag first
-(defun my/org-archive-with-tag-check ()
-  "Archive a task, checking if it has any tags."
-  (interactive)
-  (let ((tags (org-get-tags)))
-    (unless tags
-      (error "Cannot archive task without a tag")))
-  (org-archive-subtree))
-
-(define-key org-mode-map (kbd "C-c C-x C-a") 'my/org-archive-with-tag-check)
-
-; Clock out when moving task to a done state
-(setq org-log-note-clock-out t)
-(setq org-clock-out-when-done t)
-; Resume clocking task when emacs is restarted
-(org-clock-persistence-insinuate)
-; Save the running clock and all clock history when exiting Emacs, load it on startup
-(setq org-clock-persist t)
-; Resume clocking task on clock-in if the clock is open
-(setq org-clock-in-resume t)
-; Do not prompt to resume an active clock, just resume it
-(setq org-clock-persist-query-resume nil)
-; Keybind dissapeared after new org install? When roam.
-(define-key org-mode-map (kbd "C-c C-x C-r") 'org-clock-report)
-; ask what to do with a left and forgotten clock
-(setq org-clock-idle-time 15)
-(setq org-clock-in-switch-to-state "STARTED")
-(setq org-clock-out-switch-to-state "WAITING")
-(setq org-clock-into-drawer "LOGBOOK")
-; exists, but remapping to be global
-(global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
-; C-c I show history of clocks
-(setq org-clock-history-length 23)
-;; tipo lengviau clock in padaryti, nes matai a list of recent clocks?
-(defun eos/org-clock-in ()
-  (interactive)
-  (org-clock-in '(4)))
-
-; list of tasks, choose one
-(global-set-key (kbd "C-c i") #'eos/org-clock-in)
-(global-set-key (kbd "C-c C-x C-o") #'org-clock-out)
-
-;;; ---------------------------------------
-
-;; ORG CLOCK REPORT EXAMPLES
-
-;; documentation is here - https://orgmode.org/manual/The-clock-table.html
-
-;; [2022-04-10 Sun] Daily org-diary file report BY TAG
-;; #+BEGIN: clocktable :maxlevel 3 :scope file :tags t :sort (1 . ?a) :emphasize t :narrow 100! :match "emacs"
-
-;; [2022-04-10 Sun] Daily org-diary file report without tag, show all tasks
-;; #+BEGIN: clocktable :maxlevel 3 :scope file :tags t :sort (1 . ?a) :emphasize t :narrow 100!
-
-;; #+BEGIN: clocktable :maxlevel 3 :scope add-dailies :tags t
-;; #+BEGIN: clocktable :maxlevel 3 :scope file :step day :tstart "<-1w>" :tend "<now>" :compact t
-;; #+BEGIN: clocktable :maxlevel 5 :compact nil :emphasize t :scope subtree :timestamp t :link t :header "#+NAME: 2022_Vasaris\n"
-;; #+BEGIN: clocktable :maxlevel 1 :compact t :emphasize t :timestamp t :link t
-;; #+BEGIN: clocktable :maxlevel 5 :compact t :sort (1 . ?a) :emphasize t :scope subtree :timestamp t :link t
-
-;; (use-package org-download
-;;   :ensure nil
-;;   :defer t
-;;   :commands org-download)
-
-;; (setq-default org-download-image-dir "~/Dropbox/documents/org/images_nejudink")
-
-(use-package org-pomodoro
-  :ensure t
-  :commands (org-pomodoro)
-  :config
-  (setq org-pomodoro-ticking-sound-p nil)
-  )
-
-(use-package org-static-blog
-  :ensure t)
-
-(setq org-static-blog-index-length 5)
-(setq org-static-blog-preview-link-p t)
-(setq org-static-blog-preview-date-first-p t)
-(setq org-static-blog-use-preview t)
-(setq org-static-blog-enable-tags t)
-(setq org-export-with-toc nil)            ;can add in individual file with #+OPTIONS: toc:1/nil
-(setq org-export-with-section-numbers nil) ;can add in individual file with #+OPTIONS: num:nil
-(setq org-static-blog-no-post-tag "nonpost")
-
-;; This header is inserted into the <head> section of every page:
-;;   (you will need to create the style sheet at
-;;    ~/projects/blog/static/style.css
-;;    and the favicon at
-;;    ~/projects/blog/static/favicon.ico)
-(setq org-static-blog-page-header
-      "<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MC4ZQHP');</script>
-<!-- End Google Tag Manager -->
-<meta name=\"author\" content=\"Arvydas Gasparavicius\">
-<meta name=\"referrer\" content=\"no-referrer\">
-<meta name=\"viewport\" content=\"initial-scale=1,width=device-width,minimum-scale=1\">
-<link href= \"static/style.css\" rel=\"stylesheet\" type=\"text/css\" />
-<script src=\"static/lightbox.js\"></script>
-<script src=\"static/auto-render.min.js\"></script>
-<link rel=\"icon\" href=\"static/ag.ico\">")
-
-;; This preamble is inserted at the beginning of the <body> of every page:
-;;   This particular HTML creates a <div> with a simple linked headline
-(setq org-static-blog-page-preamble
-"
-<header>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MC4ZQHP\"
-height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <div class=\"container\">
-        <div class=\"subcontainer\">
-            <nav class=\"nav\">
-                <a href=\"https://arvydasg.github.io/\" class=\"nav-logo-wrapper\">
-                    <p class=\"nav-branding\">Arvydas.dev</p>
-                </a>
-                <ul class=\"nav-menu\">
-                    <li class=\"nav-item\">
-                        <a href=\"https://arvydasg.github.io/tag-project.html\" class=\"nav-link\">Projects</a>
-                    </li>
-                    <li class=\"nav-item\">
-                        <a href=\"https://arvydasg.github.io/archive.html\" class=\"nav-link\">Blog</a>
-                    </li>
-                    <li class=\"nav-item\">
-                        <a href=\"https://arvydasg.github.io/tags.html\" class=\"nav-link\">Tags</a>
-                    </li>
-                    <li class=\"nav-item\">
-                        <a href=\"https://arvydas.dev/codeacademy/\" class=\"nav-link\">CodeAcademy</a>
-                    </li>
-                    <li class=\"nav-item\">
-                        <a href=\"https://arvydasg.github.io/freelancing.html\" class=\"nav-link\">Freelancing</a>
-                    </li>
-                    <li class=\"nav-item\">
-                        <a href=\"https://arvydasg.github.io/uses.html\" class=\"nav-link\">Uses</a>
-                    </li>
-                    <li class=\"nav-item\">
-                        <a href=\"https://arvydasg.github.io/about.html\" class=\"nav-link\">About</a>
-                    </li>
-                </ul>
-                <div class=\"hamburger\">
-                    <span class=\"bar\"></span>
-                    <span class=\"bar\"></span>
-                    <span class=\"bar\"></span>
-                </div>
-            </nav>
-        </div>
-    </div>
-    </header>
-    "
-)
-
-;; before hamburger
-;; (setq org-static-blog-page-preamble
-;; "
-;; <div id=\"nav-content\">
-;; <div class=\"header\">
-;;    <a href=\"https://arvydasg.github.io/\">Arvydas.dev</a>
-;;   <div class=\"sitelinks\">
-;;     <a href=\"https://arvydasg.github.io/about.html\">About</a> | <a href=\"https://arvydasg.github.io/freelancing.html\">Freelancing</a> | <a href=\"https://arvydasg.github.io/tag-project.html\">Projects</a> | <a href=\"https://arvydasg.github.io/archive.html\">Blog</a> | <a href=\"https://arvydasg.github.io/uses.html\">Uses</a> | <a href=\"https://arvydas.dev/codeacademy/\">CodeAcademy</a>
-;;   </div>
-;; <hr>
-;;   </div>
-;; </div>"
-;; )
-
-;; (setq org-static-blog-page-preamble
-
-;; "<div class=\"header\">
-;;   <a href=\"https://arvydasg.github.io/\">Arvydas Scratchpad on the Internet</a>
-;;   <div class=\"sitelinks\">
-;;     <a href=\"https://github.com/arvydasg\">Github</a> | <a href=\"https://arvydasg.github.io/projects.html\">Projects</a> | <a href=\"https://arvydasg.github.io/archive.html\">Archive</a> | <a href=\"https://arvydasg.github.io/uses.html\">Uses</a> | <a href=\"https://arvydasg.github.io/about.html\">About</a>
-;;   </div>
-;; </div>"
-;;       )
-
-;; This postamble is inserted at the end of the <body> of every page:
-;;   This particular HTML creates a <div> with a link to the archive page
-;;   and a licensing stub.
-(setq org-static-blog-page-postamble
-      "<div id=\"footer\">
-<hr>
-<p>© 2021-2023 Arvydas Gasparavičius</p>
-  <button onclick=\"topFunction()\" id=\"myBtn\" title=\"Go to top\">Top</button>
-  <script src=\"static/script.js\"></script>
-</div>")
-
-;; (setq org-static-blog-page-postamble
-;;       "<div id=\"archive\">
-;;   <a href=\"./archive.html\">Other posts</a>
-;; </div>")
-
-;; This HTML code is inserted into the index page between the preamble and
-;;   the blog posts
-(setq org-static-blog-index-front-matter
-      "<h1> Hello there 👋 </h1>
-<hr>
-<div id=\"intro\">
-<p> My name is Arvydas I am self-taught Python/Django developer. <a class=\"no-link\" href=\"https://github.com/arvydasg\">My Github</a>.</p>
-<p> I am currently immersing myself in a comprehensive 9-month web development and Python course led by <a class=\"no-link\" href=\"./tag-codeacademy.html\">CodeAcademy</a>, with the goal of expanding my programming skills and knowledge.<p>
-<p> I also work as a freelance developer. <a class=\"no-link\" href=\"./freelancing.html\">Read more about my work.</a><p>
-<p> If you are interested in some of my writings, here are some of my latest posts:</p>
-</div>
-\n\n\n")
-
-
-
-;; ----------------------------------------------------------
-
-;; after each emacs restart files that I modified in elpa directory
-;; are not recompiled. I was advised by Bastibe to place them in my
-;; emacs config. It still does not get evaluated for some reason
-
-;; forgot what I changed here form the original file, but will leave
-;; it here nevertheless :)
-(defun org-static-blog-get-preview (post-filename)
-  "Get title, date, tags from POST-FILENAME and get the first paragraph from the rendered HTML.
-If the HTML body contains multiple paragraphs, include only the first paragraph,
-and display an ellipsis.
-Preamble and Postamble are excluded, too."
-  (with-temp-buffer
-    (insert-file-contents (org-static-blog-matching-publish-filename post-filename))
-    (let ((post-title (org-static-blog-get-title post-filename))
-          (post-date (org-static-blog-get-date post-filename))
-          (post-taglist (org-static-blog-post-taglist post-filename))
-          (post-ellipsis "")
-          (preview-region (org-static-blog--preview-region)))
-      (when (and preview-region (search-forward "<p>" nil t))
-        (setq post-ellipsis
-              (concat (when org-static-blog-preview-link-p
-                        (format "<a class=\"read-more\" href=\"%s\">"
-                                (org-static-blog-get-post-url post-filename)))
-                      org-static-blog-preview-ellipsis
-                      (when org-static-blog-preview-link-p "</a>\n"))))
-      ;; Put the substrings together.
-      (let ((title-link
-             (format "<h2 class=\"post-title\"><a href=\"%s\">%s</a></h2>"
-                     (org-static-blog-get-post-url post-filename) post-title))
-            (date-link
-             (format-time-string (concat "<div class=\"post-date\">"
-                                         (org-static-blog-gettext 'date-format)
-                                         "</div>")
-                                 post-date)))
-        (concat
-         (if org-static-blog-preview-date-first-p
-             (concat date-link title-link)
-           (concat date-link title-link))
-         preview-region
-         post-ellipsis
-         (format "<div class=\"taglist\">%s</div><hr>" post-taglist))))))
-
-
-;; Read more instead of ( ... )
-(defcustom org-static-blog-preview-ellipsis "Read more →"
-  "The HTML appended to the preview if some part of the post is hidden.
-
-The contents shown in the preview is determined by the values of
-the variables `org-static-blog-preview-start' and
-`org-static-blog-preview-end'."
-  :type '(string)
-  :safe t)
-
-(setq org-agenda-prefix-format '(
-  (agenda  . " %i %-12:c%?-12t% s")
-  (agenda  . "  • ")))
-(setq system-time-locale "C")
-(setq org-agenda-inhibit-startup t)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-start-with-log-mode '(closed))
-; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasksed))
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-restore-windows-after-quit t)
-(setq org-agenda-sticky nil)
-(setq org-agenda-show-future-repeats nil)
-(setq org-agenda-span 1)
-(require 'org-habit)
-(setq org-agenda-tags-column 90)
-(setq org-habit-graph-column 60)
-(setq org-todo-repeat-to-state "REPEATING")
-
-;allows to use tags in ALL agenda files
-(setq org-complete-tags-always-offer-all-agenda-tags t)
-(setq org-agenda-use-tag-inheritance t)
-;nepaveldi subtasks heading tago
-(setq org-use-tag-inheritance nil)
-(setq org-archive-save-context-info '(time))
-(setq org-agenda-custom-commands
-      '(
-        ("a" "My Agenda"
-         (
-          (agenda "")
-          (todo "STARTED" (
-                                (org-agenda-overriding-header "Started")
-                                ))
-          (todo "PROJECT" (
-                                (org-agenda-overriding-header "Projects")
-                                ))
-          (todo "WAITING" (
-                                (org-agenda-overriding-header "Waiting")
-                                ))
-          (todo "NEXT" (
-                             (org-agenda-overriding-header "Next actions:")
-                             ))
-          (todo "ASK" (
-                       (org-agenda-overriding-header "ASK:")
-                       ))
-          (tags "/+DONE|+CANCELLED"
-                ((org-agenda-overriding-header "Archivable tasks")))
-          )
-         )
-        )
-      )
-
-(use-package plain-org-wiki
-  :ensure t)
-
-(global-set-key (kbd "C-c n f") 'plain-org-wiki)
-
 (use-package move-text
   :ensure t
   :config
@@ -1103,6 +708,22 @@ the variables `org-static-blog-preview-start' and
 
 (use-package yasnippet-snippets
   :disabled t)
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows-specific code goes here.
+       (setq yas-snippet-dirs '("c:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets"))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+
+       ;; In this code, we assume that yas-snippet-dirs is already a
+       ;; defined list variable. The add-to-list function is then used
+       ;; to append the concatenated directory path my/emacs-dir +
+       ;; "/snippets/" to the existing list of directories specified
+       ;; by yas-snippet-dirs.
+       (setq 'yas-snippet-dirs (concat my/emacs-dir "/snippets/")
+
+       ))
 
 (use-package counsel
   :ensure t
@@ -1538,6 +1159,8 @@ the variables `org-static-blog-preview-start' and
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy)
   (setq projectile-sort-order 'recently-active))
+
+(add-to-list 'projectile-project-search-path my/projectile-dir)
 
 (use-package goto-chg
   :ensure t)
