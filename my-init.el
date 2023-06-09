@@ -435,7 +435,8 @@ See also `org-save-all-org-buffers'"
   (org-archive-subtree))
 
 (define-key org-mode-map (kbd "C-c C-x C-a") 'my/org-archive-with-tag-check)
-(setq org-archive-location (concat my/org-agenda-files-location "/archive.org::* Archive"))
+
+(setq org-archive-location (concat my/org-agenda-files-location "/archive.org::** 2023"))
 
 ;; this functions is later used in clock reports. Check org_clock
 ;; looking through all the folders inside 2020, great!
@@ -873,6 +874,8 @@ the variables `org-static-blog-preview-start' and
   :type '(string)
   :safe t)
 
+;; if you want to see archived tasks in agenda view - press v then A
+
 (setq org-agenda-prefix-format '(
                                  (agenda  . " %i %-12:c%?-12t% s")
                                  (agenda  . "  • ")))
@@ -880,7 +883,7 @@ the variables `org-static-blog-preview-start' and
 (setq org-agenda-inhibit-startup t)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-start-with-log-mode '(closed))
-                                        ; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasksed))
+; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasksed))
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-sticky nil)
@@ -891,10 +894,10 @@ the variables `org-static-blog-preview-start' and
 (setq org-habit-graph-column 60)
 (setq org-todo-repeat-to-state "REPEATING")
 
-                                        ;allows to use tags in ALL agenda files
+;allows to use tags in ALL agenda files
 (setq org-complete-tags-always-offer-all-agenda-tags t)
 (setq org-agenda-use-tag-inheritance t)
-                                        ;nepaveldi subtasks heading tago
+;nepaveldi subtasks heading tago
 (setq org-use-tag-inheritance nil)
 (setq org-archive-save-context-info '(time))
 (setq org-agenda-custom-commands
@@ -1507,29 +1510,29 @@ the variables `org-static-blog-preview-start' and
     (?? aw-show-dispatch-help))
   "List of actions for `aw-dispatch-default'.")
 
-(use-package ivy
-  :defer 0.1
-  :diminish
-  :bind (("C-c C-r" . ivy-resume)
-         ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-  :custom
-  (ivy-count-format "(%d/%d) ")
-  ;; nice if you want previously opened buffers to appear after an
-  ;; emacs shutdown
-  ;saves buffers from last session
-  (ivy-use-virtual-buffers t)
-  :config (ivy-mode))
+;; (use-package ivy
+;;   :defer 0.1
+;;   :diminish
+;;   :bind (("C-c C-r" . ivy-resume)
+;;          ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+;;   :custom
+;;   (ivy-count-format "(%d/%d) ")
+;;   ;; nice if you want previously opened buffers to appear after an
+;;   ;; emacs shutdown
+;;   ;saves buffers from last session
+;;   (ivy-use-virtual-buffers t)
+;;   :config (ivy-mode))
 
-(use-package ivy-rich
-  :after ivy
-  :ensure t
-  :init (ivy-rich-mode 1))
+;; (use-package ivy-rich
+;;   :after ivy
+;;   :ensure t
+;;   :init (ivy-rich-mode 1))
 
-; if icons still don't exist, use - M-x all-the-icons-install-fonts
+;; ; if icons still don't exist, use - M-x all-the-icons-install-fonts
 
-(use-package all-the-icons-ivy-rich
-  :ensure t
-  :init (all-the-icons-ivy-rich-mode 1))
+;; (use-package all-the-icons-ivy-rich
+;;   :ensure t
+;;   :init (all-the-icons-ivy-rich-mode 1))
 
 (use-package swiper
   :after ivy
