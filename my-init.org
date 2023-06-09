@@ -13,9 +13,6 @@ save the files elsewhere.
 
   ;; set default buffer on startup
   ;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
-
-  ;; projectile project default location
-  (setq my/projectile-dir "/home/arvy/src/")
 #+end_src
 
 ** Yasnippet-locations
@@ -1589,9 +1586,7 @@ WRITE SHORTCUTS
          ;; to append the concatenated directory path my/emacs-dir +
          ;; "/snippets/" to the existing list of directories specified
          ;; by yas-snippet-dirs.
-         (setq 'yas-snippet-dirs (concat my/emacs-dir "/snippets/")
-
-         ))
+         (setq yas-snippet-dirs (concat my/emacs-dir "/snippets/"))))
 #+end_src
 
 ** Adding code blocks in emacs
@@ -2384,8 +2379,6 @@ project directory. Super useful, makes the buffers way tidier.
     (projectile-global-mode)
     (setq projectile-completion-system 'ivy)
     (setq projectile-sort-order 'recently-active))
-
-  (add-to-list 'projectile-project-search-path my/projectile-dir)
 #+end_src
 
 ** Goto-chg
