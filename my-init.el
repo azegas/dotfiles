@@ -8,115 +8,6 @@
 ;; set default buffer on startup
 ;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
 
-;; Easily jump to my package files in dired
-(defun aga-find-packages nil
-  "Find the myinit.org file."
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (dired "~/.emacs.d")
-         )))
-
-;; Find myinit.org  file
-;; (global-set-key (kbd "C-x <C-backspace>") 'aga-find-packages)
-(global-set-key (kbd "C-x <C-home>") 'aga-find-packages)
-
-;; Easily jump to my yasnippet snippet directory in dired
-(defun aga-find-snippets nil
-  "Find the myinit.org file."
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets\\")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (dired "~/.emacs.d/snippets/")
-         )))
-
-                                        ;prior is PgUp
-(global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
-
-;; jump to my main init.el file
-(defun aga-find-init.el nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (find-file "C:\\Users\\arvga\\.arvydas\\src\\emacs\\init.el")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/.emacs.d/my-init.org")
-         )))
-
-
-;; (delete-other-windows))
-;; Find init.el file
-;; (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
-(global-set-key (kbd "C-x <C-backspace>") 'aga-find-init.el)
-
-;; jump to my a random js test file
-(defun aga-jump-test.js nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         (find-file "C:\\Temp\\test.js")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/temp/js/test.js")
-         ))
-  (erase-buffer))
-;; (delete-other-windows))
-;; Find test.js file
-(global-set-key (kbd "C-x j") 'aga-jump-test.js)
-
-;;--------------------------------------------------------
-
-;; jump to my org blog directory
-(defun aga-jump-blog-org nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         ;; (find-file "C:\\Temp\\test.js")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/Dropbox/arvydasg.github.io_blog_content/")
-         ))
-  (erase-buffer))
-
-;; (delete-other-windows))
-;; Find test.js file
-(global-set-key (kbd "C-x C-<end>") 'aga-jump-blog-org)
-
-;; jump to my org blog directory
-(defun aga-jump-blog-html nil
-  (interactive)
-
-  (cond ((eq system-type 'windows-nt)
-         ;; Windows-specific code goes here.
-         ;; (find-file "C:\\Temp\\test.js")
-         )
-        ((eq system-type 'gnu/linux)
-         ;; Linux-specific code goes here.
-         (find-file "~/Dropbox/src/arvydasg.github.io/")
-         ))
-  (erase-buffer))
-
-;; (delete-other-windows))
-;; Find test.js file
-(global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
-
 ; want a quickier scrolling with c-n/c-p? find "repeat keys" in your system, then modify it
 ;; startup stuff
 (setq inhibit-startup-message t)
@@ -1470,6 +1361,113 @@ the variables `org-static-blog-preview-start' and
   :ensure t
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
+
+;; Easily jump to my package files in dired
+(defun aga-find-packages nil
+  "Find the myinit.org file."
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\recipes\\")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (dired my/emacs-dir)
+         )))
+
+;; Find myinit.org  file
+;; (global-set-key (kbd "C-x <C-backspace>") 'aga-find-packages)
+(global-set-key (kbd "C-x <C-home>") 'aga-find-packages)
+
+;; Easily jump to my yasnippet snippet directory in dired
+(defun aga-find-snippets nil
+  "Find the myinit.org file."
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (dired "C:\\Users\\arvga\\.arvydas\\src\\emacs\\snippets\\")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (dired (concat my/emacs-dir "/snippets/"))
+         )))
+
+                                        ;prior is PgUp
+(global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
+
+;; jump to my main init.el file
+(defun aga-find-init.el nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (find-file "C:\\Users\\arvga\\.arvydas\\src\\emacs\\init.el")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file (concat my/emacs-dir "/my-init.org")
+         ))))
+
+
+;; (delete-other-windows))
+;; Find init.el file
+;; (global-set-key (kbd "C-x <C-home>") 'aga-find-init.el)
+(global-set-key (kbd "C-x <C-backspace>") 'aga-find-init.el)
+
+;; jump to my a random js test file
+(defun aga-jump-test.js nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/temp/js/test.js")
+         ))
+  (erase-buffer))
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x j") 'aga-jump-test.js)
+
+;; jump to my org blog directory
+(defun aga-jump-blog-org nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         ;; (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/Dropbox/arvydasg.github.io_blog_content/")
+         ))
+  (erase-buffer))
+
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x C-<end>") 'aga-jump-blog-org)
+
+;; jump to my org blog directory
+(defun aga-jump-blog-html nil
+  (interactive)
+
+  (cond ((eq system-type 'windows-nt)
+         ;; Windows-specific code goes here.
+         ;; (find-file "C:\\Temp\\test.js")
+         )
+        ((eq system-type 'gnu/linux)
+         ;; Linux-specific code goes here.
+         (find-file "~/Dropbox/src/arvydasg.github.io/")
+         ))
+  (erase-buffer))
+
+;; (delete-other-windows))
+;; Find test.js file
+(global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
 
 (use-package rg
   :ensure t
