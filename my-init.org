@@ -1,3 +1,5 @@
+If you want to disable a specific part of the config, just write
+COMMENT to that headline
 * Directories
 
 Locations to modify if you move to a different machine and want to
@@ -10,6 +12,7 @@ save the files elsewhere.
   ;; org location
   (setq my/org-agenda-files-location "/home/arvy/org/org-agenda-files/")
   (setq my/org-inbox-file (concat my/org-agenda-files-location "inbox.org"))
+  (setq my/org-journal-file "/home/arvy/org/org-agenda-files/journal.org")
 
   ;; set default buffer on startup
   ;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
@@ -475,33 +478,33 @@ block
 #+begin_src emacs-lisp
   (setq org-cycle-emulate-tab 'white)
   (setq org-log-into-drawer "LOGBOOK")
-        ; Hide * and / in org tex.)
+                                          ; Hide * and / in org tex.)
   (setq org-hide-emphasis-markers t)
   (setq org-log-done 'time)
-  ; heading indentation
+                                          ; heading indentation
   (setq org-startup-indented t)
-  ; RET to follow links
+                                          ; RET to follow links
   (setq org-return-follows-link t)
-  ;  no done if mid
+                                          ;  no done if mid
   (setq org-enforce-todo-dependencies t)
   (setq org-startup-with-inline-images t)
   (setq org-image-actual-width nil)
 
-  ; rebind active to inactive
+                                          ; rebind active to inactive
   (with-eval-after-load 'org
     (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "EPIC(e)" "NEXT(n)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "MAYBE(m)" "REPEATING(r)" "STARTED(s)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
+        (quote ((sequence "TODO(t)" "EPIC(e)" "REPEATING(r)" "STARTED(s)" "|" "DONE(d)" "CANCELLED(c)"))))
 
   (setq org-todo-keyword-faces
         (quote (
                 ("TODO" :foreground "IndianRed1" :weight bold)
                 ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
+                ("EPIC" :foreground "DeepSkyBlue2" :weight bold)
                 ("STARTED" :foreground "cyan" :weight bold)
                 ("WAITING" :foreground "chocolate" :weight bold)
                 ("ASK" :foreground "lawn green" :weight bold)
-                ("APPT" :foreground "slate gray" :weight bold)
                 )))
 
   (setq org-agenda-tags-todo-honor-ignore-options t)
@@ -530,7 +533,7 @@ block
   ;; Save the corresponding buffers
   (defun gtd-save-org-buffers ()
     "Save `org-agenda-files' buffers without user confirmation.
-  See also `org-save-all-org-buffers'"
+      See also `org-save-all-org-buffers'"
     (interactive)
     (message "Saving org-agenda-files buffers...")
     (save-some-buffers t (lambda ()
@@ -553,7 +556,7 @@ block
   (define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
 
 
-         (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
 #+end_src
 
@@ -672,14 +675,19 @@ https://orgmode.org/worg/doc.html#org-archive-location
                  ))
          ))
 
-  ;; WSL-specific setup
   (when (and (eq system-type 'gnu/linux)
              (getenv "WSLENV"))
     (setq org-capture-templates
-          '(
+          `(
             ("i" "Inbox" entry (file+headline my/org-inbox-file "Inbox")
              "* %? %^G \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-            ))
+            ;; ("j" "Evening " entry (file+datetree ,my/org-journal-file)
+            ;;  "* %U %^{Title}\n%?")
+            ("j" "Evening journal entry" entry(file+datetree ,my/org-journal-file)
+             (file "/home/arvy/org/org-agenda-files/capture-templates/default-journal-template.orgcaptmpl")
+             )
+            )
+          )
     )
 #+end_src
 
@@ -923,9 +931,20 @@ do C-c C-e on the parentheses below. Evaluate them.
 
   ;; if you want to see archived tasks in agenda view - press v then A
 
-  (setq org-agenda-prefix-format '(
-                                   (agenda  . " %i %-12:c%?-12t% s")
-                                   (agenda  . "  • ")))
+  ;; Hook to display the agenda in a single window
+  (add-hook 'org-agenda-finalize-hook 'delete-other-windows)
+  ;; Number of text lines to be added when E is pressed in the agenda.
+  (setq org-agenda-entry-text-maxlines 10)
+  ;; The min and max height of the agenda window as a fraction of frame height.
+  (setq org-agenda-window-frame-fractions '(0.0 . 0.5))
+
+  (setq org-agenda-prefix-format
+        '((agenda . " %i %-12:c%?-14t%s")
+          (timeline . "  % s")
+          (todo . " %i %-14:c")
+          (tags . " %i %-14:c")
+          (search . " %i %-14:c")))
+
   (setq system-time-locale "C")
   (setq org-agenda-inhibit-startup t)
   (global-set-key (kbd "C-c a") 'org-agenda)
@@ -950,6 +969,16 @@ do C-c C-e on the parentheses below. Evaluate them.
   (setq org-archive-save-context-info '(time))
   (setq org-agenda-custom-commands
         '(
+          ;; Week agenda for rendez-vous and tasks
+          ("$" "All appointments" agenda* "Week planning"
+           ((org-agenda-span 'week)
+            (org-agenda-sorting-strategy
+             '(time-up todo-state-up priority-down))))
+          ("(" "Today's tasks" agenda "Tasks and rdv for today"
+           ((org-agenda-span 1)
+            (org-deadline-warning-days 0)
+            (org-agenda-sorting-strategy
+             '(deadline-up todo-state-up priority-down))))
           ("a" "My Agenda"
            (
             (agenda "")

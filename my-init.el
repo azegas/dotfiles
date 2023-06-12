@@ -4,6 +4,7 @@
 ;; org location
 (setq my/org-agenda-files-location "/home/arvy/org/org-agenda-files/")
 (setq my/org-inbox-file (concat my/org-agenda-files-location "inbox.org"))
+(setq my/org-journal-file "/home/arvy/org/org-agenda-files/journal.txt")
 
 ;; set default buffer on startup
 ;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
@@ -348,33 +349,33 @@ there's a region, all lines that region covers will be duplicated."
 
 (setq org-cycle-emulate-tab 'white)
 (setq org-log-into-drawer "LOGBOOK")
-      ; Hide * and / in org tex.)
+                                        ; Hide * and / in org tex.)
 (setq org-hide-emphasis-markers t)
 (setq org-log-done 'time)
-; heading indentation
+                                        ; heading indentation
 (setq org-startup-indented t)
-; RET to follow links
+                                        ; RET to follow links
 (setq org-return-follows-link t)
-;  no done if mid
+                                        ;  no done if mid
 (setq org-enforce-todo-dependencies t)
 (setq org-startup-with-inline-images t)
 (setq org-image-actual-width nil)
 
-; rebind active to inactive
+                                        ; rebind active to inactive
 (with-eval-after-load 'org
   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "EPIC(e)" "NEXT(n)" "WAITING(w)" "ASK(a)" "PROJECT(p)" "MAYBE(m)" "REPEATING(r)" "STARTED(s)" "|" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
+      (quote ((sequence "TODO(t)" "EPIC(e)" "REPEATING(r)" "STARTED(s)" "|" "DONE(d)" "CANCELLED(c)"))))
 
 (setq org-todo-keyword-faces
       (quote (
               ("TODO" :foreground "IndianRed1" :weight bold)
               ("NEXT" :foreground "DeepSkyBlue2" :weight bold)
+              ("EPIC" :foreground "DeepSkyBlue2" :weight bold)
               ("STARTED" :foreground "cyan" :weight bold)
               ("WAITING" :foreground "chocolate" :weight bold)
               ("ASK" :foreground "lawn green" :weight bold)
-              ("APPT" :foreground "slate gray" :weight bold)
               )))
 
 (setq org-agenda-tags-todo-honor-ignore-options t)
@@ -403,7 +404,7 @@ there's a region, all lines that region covers will be duplicated."
 ;; Save the corresponding buffers
 (defun gtd-save-org-buffers ()
   "Save `org-agenda-files' buffers without user confirmation.
-See also `org-save-all-org-buffers'"
+    See also `org-save-all-org-buffers'"
   (interactive)
   (message "Saving org-agenda-files buffers...")
   (save-some-buffers t (lambda ()
@@ -424,6 +425,9 @@ See also `org-save-all-org-buffers'"
   (org-refile))
 
 (define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
+
+
+(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
 ;; dont let to archive without applying the tag first
 (defun my/org-archive-with-tag-check ()
@@ -499,166 +503,42 @@ See also `org-save-all-org-buffers'"
 ;; #+BEGIN: clocktable :maxlevel 1 :compact t :emphasize t :timestamp t :link t
 ;; #+BEGIN: clocktable :maxlevel 5 :compact t :sort (1 . ?a) :emphasize t :scope subtree :timestamp t :link t
 
-;; MANY small files below
-(define-key global-map "\C-cc" 'org-capture)
-;; (setq org-capture-templates '(
-;; ("a" "Arvydas.dev" entry (file+headline "~/Dropbox/documents/org/arvydasdev.org" "arvydas.dev") "* TODO %?\n%^{Effort}p")
-;; ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/src_emacs.org" "Emacs") "* TODO %?\n%^{Effort}p")
-;; ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/src_smutifruti.org" "Smuti Fruti") "* TODO %?\n%^{Effort}p")
-;; ("f" "Facebook_django" entry (file+headline "~/Dropbox/documents/org/src_facebook_django.org" "Facebook_django") "* TODO %?\n%^{Effort}p")
-;; ("p" "Personal" entry (file+headline "~/Dropbox/documents/org/personal.org" "Personal") "* TODO %?\n%^{Effort}p")
-;; ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/notes/diary.org" "Diary") "* %U %^{Title}\n%?")))
-;; ("p" "Planned" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Planned") "* %i%? %^{SCHEDULED}p" :prepend t)
-;; ("r" "Repeating" entry (file+headline "~/Dropbox/1.planai/tickler.org" "Repeating") "* %i%? %^{SCHEDULED}p")))
-
 ;; bzg config - https://github.com/bzg/dotemacs/blob/master/emacs.org
 
-;; (cond ((eq system-type 'windows-nt)
-;;        ;; Windows-specific code goes here.
-;;        (setq org-capture-templates
-;;              '(("i" "INBOX")
-;;                ("ii" "INBOX QUICK" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-;;                ("ia" "INBOX su aprasymu" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-;;                ("s" "SOMEDAY")
-;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ))
-;;        )
-;;       ((eq system-type 'gnu/linux)
-;;        ;; Linux-specific code goes here.
-;;        (setq org-capture-templates
-;;              '(
-;;                ("i" "INBOX")
-;;                ("j" "JOURNAL" entry (file+datetree "~/Dropbox/org/notes/personal_notes/journal.org")
-;;                 "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n")
-;;                ("ii" "INBOX QUICK" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-;;                ("ia" "INBOX su aprasymu" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "inbox")
-;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-;;                ("s" "SOMEDAY")
-;;                ("ss" "SOMEDAY SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  SCHEDULED: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sn" "SOMEDAY NON-SCHEDULED" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                ("sd" "SOMEDAY DEADLINE" entry (file+headline "~/Dropbox/org/notes/pkc_notes/inbox.org" "With Timestamp")
-;;                 "* SOMEDAY %?\n  DEADLINE: %^t\n  :PROPERTIES:\n  :CAPTURED: %U\n  :END:\n\n- %a" :prepend t)
-;;                )
-;;              )
-;;        )
-;;       )
-
+;; MANY small files below
+(define-key global-map "\C-cc" 'org-capture)
 
 (cond ((eq system-type 'windows-nt)
-         (setq org-capture-templates
-               '(
-;;                ("ii" "INBOX" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %?\n:PROPERTIES:\n:Created: %U\n:END:\n" :prepend t :created t)
-;;                ("it" "TODO" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-;;                ("it" "SCHEDULED" entry (file+headline "C:\\Users\\arvga\\Dropbox\\org\\notes\\pkc_notes\\inbox.org" "inbox")
-                 ;;                 "* TODO %^{Todo} \n:PROPERTIES:\n:Created: %U\n:END:\n\n%?\n- %a" :prepend t :created t)
-                 ("i" "Inbox" entry (file+headline "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" "Tasks")
-                  "* TOOD %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                 ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
-                  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
-                 ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
-                 ))
+       (setq org-capture-templates
+             '(
+               ("i" "Inbox" entry (file+headline "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\gtd.org" "Tasks")
+                "* TOOD %^{Task}\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
+               ("j" "Journal" entry(file+datetree "C:\\Users\\arvga\\.arvydas\\org\\pkc_notes\\journal.org")
+                "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
+               ))
        )
       ((eq system-type 'gnu/linux)
-         (setq org-capture-templates
-               '(
-                 ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                 ("t" "Todo Entry" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                  "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                 ;; ("a" "Agenda" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
-                 ;;  "* TODO %^{Task} %^G\n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n%?")
-                 ;; ("j" "Journal" entry(file+datetree "~/Dropbox/org/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] %^{Title}\n%?":tree-type month)
-                 ;; ("d" "Daily review" entry(file+datetree "~/Dropbox/org/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] Today's summary\n%?\n%[~/Dropbox/org/.daily_review.txt]":tree-type month)
-                 ;; ("j" "Journal-TAG" entry(file+datetree "~/Dropbox/org/notes/journal.org")
-                 ;;  "* [%<%Y-%m-%d %H:%M>] %? %^G\n %i\n" :tree-type month)
-                 ))
-         ))
+       (setq org-capture-templates
+             '(
+               ("i" "Inbox" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+               ("t" "Todo Entry" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+                "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+               ))
+       ))
 
-;; WSL-specific setup
 (when (and (eq system-type 'gnu/linux)
            (getenv "WSLENV"))
-         (setq org-capture-templates
-               '(
-                 ("i" "Inbox" entry (file+headline my/org-inbox-file "Inbox")
-                  "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-                 ))
+  (setq org-capture-templates
+        `(
+          ("i" "Inbox" entry (file+headline my/org-inbox-file "Inbox")
+           "* %? %^G \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+          ("j" "Evening " entry (file+datetree ,my/org-journal-file)
+           "* %U %^{Title}\n%?")
+          ("z" "Journal MONDRAS from file" entry(file+datetree ,my/org-journal-file)(file"/home/arvy/org/org-agenda-files/capture-templates/journal.orgcaptmpl"))
+          )
+        )
   )
-
-;; (setq org-capture-templates
-;;       '(("1" "10min" plain (file+headline "~/Dropbox/org/personal_notes/inbox.org" "Inbox")
-;;          "** 10min %?")
-;;         ("2" "2min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 2min %?")
-;;         ("t" "TOOD" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 2min %?")
-;;         ("3" "30min" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 30min %?")
-;;         ("v" "1val" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** 1val %?")
-;;         ("p" "PALEK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** PALEK %?")
-;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** SKAITYK %?")
-;;         ("l" "lokacija" plain (file+headline "~/Dropbox/org/notes/inbox.org" "Inbox")
-;;          "** TODO %?\n  %i\n  %a")
-;;         ;; ("d" "diary august" plain (file+headline "~/Dropbox/documents/org/roam/personal/20220508141623-diary.org" "diary september") "** %U %^{Title}\n%?"))
-;;       ))
-
-;; (setq org-capture-templates
-;;       '(("t" "TODO" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** TODO %?")
-;;         ("k" "Inbox" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** ASK %?")
-;;         ("p" "IN-PROGRESS" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** IN-PROGRESS %?")
-;;         ("s" "SKAITYK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** SKAITYK %?")
-;;         ("w" "WAITING" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** WAITING %?")
-;;         ("i" "IGALIOK" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** WAITING %?")
-;;         ("b" "BUY" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** BUY %?")
-;;         ("r" "REMINDER" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** REMINDER %?")
-;;         ("h" "HOME" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** HOME %?")
-;;         ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/20220508141623-diary.org" "diary")
-;;          "* %<%H:%M>: %?")
-;;         ("l" "location" plain (file+headline "~/Dropbox/documents/org/roam/20220504192335-inbox.org" "Inbox")
-;;          "** TODO %?\n  %i\n  %a")
-;;         ))
-
-;; jeigu nori keybindint directly to a key
-;; (define-key global-map (kbd "C-c c")
-;;   (lambda () (interactive) (org-capture nil "i")))
-
-;; ONE BIG FILE BELOW
-;; (setq org-capture-templates '(
-;;                               ("i" "Inbox No Timesamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox No Timestamp") "* TODO %?\n %^{Effort}p")
-;;                               ("I" "Inbox Timestamp" entry (file+headline "~/Dropbox/documents/org/roam/Inbox.org" "Inbox Timestamp") "* TODO %?\n%^{Effort}p\n%^{SCHEDULED}p")
-;;                               ("t" "Tickler" entry (file+headline "~/Dropbox/documents/org/roam/20220323172208-tickler.org" "Tasks") "* %? \n%^{SCHEDULED}p")
-;;                               ("e" "Emacs" entry (file+headline "~/Dropbox/documents/org/roam/20220323162627-emacs.org" "Tasks") "* TODO %(org-set-tags \"emacs\")%?\n%^{Effort}p")
-;;                               ("o" "Obelsdumas" entry (file+headline "~/Dropbox/documents/org/roam/20220323163909-obelsdumas.org" "Tasks") "* TODO %(org-set-tags \"obelsdumas\")%?\n%^{Effort}p")
-;;                               ("p" "Portfolio" entry (file+headline "~/Dropbox/documents/org/roam/20220323164133-portfolio.org" "Tasks") "* TODO %(org-set-tags \"portfolio\")%?\n%^{Effort}p")
-;;                               ("s" "Smuti Fruti" entry (file+headline "~/Dropbox/documents/org/roam/20220323164321-smuti_fruti.org" "Tasks") "* TODO %(org-set-tags \"smuti_fruti\")%?\n%^{Effort}p")
-;;                               ("d" "Diary" entry (file+datetree "~/Dropbox/documents/org/roam/diary.org" "diary") "* %U %^{Title}\n%?")
-;;                               ("f" "Facebook" entry (file+headline "~/Dropbox/documents/org/roam/20220323163825-facebook_group_automatization.org" "Tasks") "* TODO %(org-set-tags \"facebook\")%?\n%^{Effort}p")))
 
 ;; (use-package org-download
 ;;   :ensure nil
@@ -876,14 +756,26 @@ the variables `org-static-blog-preview-start' and
 
 ;; if you want to see archived tasks in agenda view - press v then A
 
-(setq org-agenda-prefix-format '(
-                                 (agenda  . " %i %-12:c%?-12t% s")
-                                 (agenda  . "  • ")))
+;; Hook to display the agenda in a single window
+(add-hook 'org-agenda-finalize-hook 'delete-other-windows)
+;; Number of text lines to be added when E is pressed in the agenda.
+(setq org-agenda-entry-text-maxlines 10)
+;; The min and max height of the agenda window as a fraction of frame height.
+(setq org-agenda-window-frame-fractions '(0.0 . 0.5))
+
+(setq org-agenda-prefix-format
+      '((agenda . " %i %-12:c%?-14t%s")
+        (timeline . "  % s")
+        (todo . " %i %-14:c")
+        (tags . " %i %-14:c")
+        (search . " %i %-14:c")))
+
 (setq system-time-locale "C")
 (setq org-agenda-inhibit-startup t)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-start-with-log-mode '(closed))
-; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasksed))
+;; if task is scheduled and is DONE - dont show in agenda. dvigubinasi
+;; jeigu ijungi ir archived tasksed))
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-restore-windows-after-quit t)
 (setq org-agenda-sticky nil)
@@ -894,34 +786,35 @@ the variables `org-static-blog-preview-start' and
 (setq org-habit-graph-column 60)
 (setq org-todo-repeat-to-state "REPEATING")
 
-;allows to use tags in ALL agenda files
+;; allows to use tags in ALL agenda files
 (setq org-complete-tags-always-offer-all-agenda-tags t)
 (setq org-agenda-use-tag-inheritance t)
-;nepaveldi subtasks heading tago
+;; nepaveldi subtasks heading tago
 (setq org-use-tag-inheritance nil)
 (setq org-archive-save-context-info '(time))
 (setq org-agenda-custom-commands
       '(
+        ;; Week agenda for rendez-vous and tasks
+        ("$" "All appointments" agenda* "Week planning"
+         ((org-agenda-span 'week)
+          (org-agenda-sorting-strategy
+           '(time-up todo-state-up priority-down))))
+        ("(" "Today's tasks" agenda "Tasks and rdv for today"
+         ((org-agenda-span 1)
+          (org-deadline-warning-days 0)
+          (org-agenda-sorting-strategy
+           '(deadline-up todo-state-up priority-down))))
         ("a" "My Agenda"
          (
           (agenda "")
-          (todo "STARTED" (
-                           (org-agenda-overriding-header "Started")
-                           ))
           (todo "PROJECT" (
                            (org-agenda-overriding-header "Projects")
                            ))
-          (todo "WAITING" (
-                           (org-agenda-overriding-header "Waiting")
-                           ))
-          (todo "NEXT" (
-                        (org-agenda-overriding-header "Next actions:")
-                        ))
-          (todo "ASK" (
-                       (org-agenda-overriding-header "ASK:")
-                       ))
-          (tags "/+DONE|+CANCELLED"
-                ((org-agenda-overriding-header "Archivable tasks")))
+          ;; (todo "NEXT" (
+          ;;               (org-agenda-overriding-header "Next actions:")
+          ;;               ))
+          ;; (tags "/+DONE|+CANCELLED"
+          ;;       ((org-agenda-overriding-header "Archivable tasks")))
           )
          )
         )
@@ -934,12 +827,8 @@ the variables `org-static-blog-preview-start' and
        )
       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
-       (setq org-directory "~/Dropbox/org/")
-       (setq org-agenda-files '(
-                                "~/Dropbox/src/pagalbaGyvunams/pagalbaGyvunams.org"
-                                "~/.emacs.d/my-init.org"
-                                ))
-       (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+       (setq org-directory my/org-agenda-files-location)
+       (setq org-agenda-files (directory-files-recursively my/org-agenda-files-location ".org$"))
        ))
 
 ;; WSL-specific setup
