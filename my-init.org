@@ -551,6 +551,10 @@ block
     (org-refile))
 
   (define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
+
+
+         (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+
 #+end_src
 
 ** Org-archive
@@ -926,7 +930,8 @@ do C-c C-e on the parentheses below. Evaluate them.
   (setq org-agenda-inhibit-startup t)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (setq org-agenda-start-with-log-mode '(closed))
-  ; if task is scheduled and is DONE - dont show in agenda. dvigubinasi jeigu ijungi ir archived tasksed))
+  ;; if task is scheduled and is DONE - dont show in agenda. dvigubinasi
+  ;; jeigu ijungi ir archived tasksed))
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-restore-windows-after-quit t)
   (setq org-agenda-sticky nil)
@@ -937,10 +942,10 @@ do C-c C-e on the parentheses below. Evaluate them.
   (setq org-habit-graph-column 60)
   (setq org-todo-repeat-to-state "REPEATING")
 
-  ;allows to use tags in ALL agenda files
+  ;; allows to use tags in ALL agenda files
   (setq org-complete-tags-always-offer-all-agenda-tags t)
   (setq org-agenda-use-tag-inheritance t)
-  ;nepaveldi subtasks heading tago
+  ;; nepaveldi subtasks heading tago
   (setq org-use-tag-inheritance nil)
   (setq org-archive-save-context-info '(time))
   (setq org-agenda-custom-commands
@@ -948,23 +953,14 @@ do C-c C-e on the parentheses below. Evaluate them.
           ("a" "My Agenda"
            (
             (agenda "")
-            (todo "STARTED" (
-                             (org-agenda-overriding-header "Started")
-                             ))
             (todo "PROJECT" (
                              (org-agenda-overriding-header "Projects")
                              ))
-            (todo "WAITING" (
-                             (org-agenda-overriding-header "Waiting")
-                             ))
-            (todo "NEXT" (
-                          (org-agenda-overriding-header "Next actions:")
-                          ))
-            (todo "ASK" (
-                         (org-agenda-overriding-header "ASK:")
-                         ))
-            (tags "/+DONE|+CANCELLED"
-                  ((org-agenda-overriding-header "Archivable tasks")))
+            ;; (todo "NEXT" (
+            ;;               (org-agenda-overriding-header "Next actions:")
+            ;;               ))
+            ;; (tags "/+DONE|+CANCELLED"
+            ;;       ((org-agenda-overriding-header "Archivable tasks")))
             )
            )
           )
@@ -977,12 +973,8 @@ do C-c C-e on the parentheses below. Evaluate them.
          )
         ((eq system-type 'gnu/linux)
          ;; Linux-specific code goes here.
-         (setq org-directory "~/Dropbox/org/")
-         (setq org-agenda-files '(
-                                  "~/Dropbox/src/pagalbaGyvunams/pagalbaGyvunams.org"
-                                  "~/.emacs.d/my-init.org"
-                                  ))
-         (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+         (setq org-directory my/org-agenda-files-location)
+         (setq org-agenda-files (directory-files-recursively my/org-agenda-files-location ".org$"))
          ))
 
   ;; WSL-specific setup
