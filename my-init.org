@@ -1005,7 +1005,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
   (setq org-static-blog-page-postamble
         "<div id=\"footer\">
   <hr>
-  <p>© 2021-2023 Arvydas Gasparavičius</p>
+  <p>2021-2023 Arvydas Gasparavicius</p>
     <button onclick=\"topFunction()\" id=\"myBtn\" title=\"Go to top\">Top</button>
     <script src=\"static/script.js\"></script>
   </div>")
@@ -1018,7 +1018,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
   ;; This HTML code is inserted into the index page between the preamble and
   ;;   the blog posts
   (setq org-static-blog-index-front-matter
-        "<h1> Hello there 👋 </h1>
+        "<h1> Hello there!</h1>
   <hr>
   <div id=\"intro\">
   <p> My name is Arvydas I am self-taught Python/Django developer. <a class=\"no-link\" href=\"https://github.com/arvydasg\">My Github</a>.</p>
@@ -1085,7 +1085,6 @@ https://orgmode.org/worg/doc.html#org-archive-location
     :type '(string)
     :safe t)
 #+end_src
-nnn
 ** Org-agenda
 
 M-x org-agenda-file-list. Go there and click "save the changes"
@@ -2372,7 +2371,7 @@ doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
   ;; (with-eval-after-load 'dired
   ;;   (define-key dired-mode-map ")" 'dired-git-info-mode))
 
-  ;; Don’t hide normal Dired file info
+  ;; Dont hide normal Dired file info
 
   ;; (setq dgi-auto-hide-details-p nil)
 
@@ -2493,7 +2492,7 @@ irc client for Emacs
 Couldn't find packages for some stuff, so made a macro and they work fine.
 
 #+begin_src emacs-lisp
-  ;; [2022-03-12 Št] 5 min tasks taken from all my agenda files.
+  ;; [2022-03-12] 5 min tasks taken from all my agenda files.
   ;; First open agenda, then list all the tasks, then click f9, then choose 5min.
   (fset '5minTasks
         (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([3 97 116 f9 61 50] 0 "%d")) arg)))
@@ -2505,12 +2504,12 @@ Couldn't find packages for some stuff, so made a macro and they work fine.
   ;; [2022-04-04 Mon] Removed this macro, next time make one that leaves
   ;; cursor on language input
 
-  ;; [2022-03-19 Št] Open nautilus
+  ;; [2022-03-19] Open nautilus
   (fset 'nautilus
         [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s return])
   (global-set-key [f1] 'nautilus)
 
-  ;; [2022-03-19 Št] Open nautilus current buffer
+  ;; [2022-03-19] Open nautilus current buffer
   (fset 'nautilus_current
         [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s ?  ?. return])
   (global-set-key [f2] 'nautilus_current)
