@@ -544,10 +544,10 @@ there's a region, all lines that region covers will be duplicated."
            (getenv "WSLENV"))
   (setq org-capture-templates
         `(
-          ("i" "Inbox" entry (file+headline my/org-inbox-file "Inbox")
-           "* %? %^G \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-          ;; ("j" "Evening " entry (file+datetree ,my/org-journal-file)
-          ;;  "* %U %^{Title}\n%?")
+          ("i" "Inbox note" entry (file+headline my/org-inbox-file "Inbox")
+           "* %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+          ("t" "Inbox Task" entry (file+headline my/org-inbox-file "Inbox")
+           "* TODO %^{Title} %^G \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n %?")
           ("j" "Evening journal entry" entry(file+datetree ,my/org-journal-file)
            (file "/home/arvy/org/org-agenda-files/capture-templates/default-journal-template.orgcaptmpl")
            )
