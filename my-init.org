@@ -876,18 +876,23 @@ https://orgmode.org/worg/doc.html#org-archive-location
     )
 #+end_src
 
-** Org-static-blo
-g
+** Org-static-blog
 
 #+begin_src emacs-lisp
   (use-package org-static-blog
     :ensure t)
 
+  ;; Title of the blog.
   (setq org-static-blog-publish-title "arvydasg.github.io")
+  ;; URL of the blog.
   (setq org-static-blog-publish-url "https://arvydasg.github.io/")
-  (setq org-static-blog-publish-directory "~/Dropbox/src/arvydasg.github.io/")
-  (setq org-static-blog-posts-directory "~/Dropbox/arvydasg.github.io_blog_content/")
-  (setq org-static-blog-drafts-directory "/home/arvydas/Dropbox/arvydasg.github.io_blog_content/")
+  ;; Directory where published HTML files are stored.
+  (setq org-static-blog-publish-directory "/home/arvy/src/arvydasg.github.io/")
+  ;; Directory where published ORG files are stored. When publishing,
+  ;; posts are rendered as HTML, and included in the index, archive,
+  ;; tags, and RSS feed.
+  (setq org-static-blog-posts-directory "/home/arvy/src/arvydasg.github.io_blog_content/")
+  (setq org-static-blog-drafts-directory "/home/arvy/src/arvydasg.github.io_blog_content/")
   ;; (setq org-static-blog-drafts-directory "~/Dropbox/src/arvydasg.github.io/drafts/")
 
   (setq org-static-blog-index-length 5)
