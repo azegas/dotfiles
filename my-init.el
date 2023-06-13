@@ -453,7 +453,18 @@ there's a region, all lines that region covers will be duplicated."
 
 (define-key org-mode-map (kbd "C-c C-x C-a") 'my/org-archive-with-tag-check)
 
-(setq org-archive-location (concat my/org-agenda-files-location "/archive.org::** 2023"))
+(setq org-archive-location (concat my/org-agenda-files-location "/archive.org::* 2023"))
+
+;; in Archive file adding :ARCHIVE: tag so later could filter by it in
+;; agenda view by pressing V and a or A. Without :ARCHIVE: tag- this would not be possible.
+
+;; turn entires from Archive to be visible automatically in agenda buffer on/off.
+;; I like to turn them on demand with V a/A.
+;; (setq org-agenda-archives-mode 't)
+(setq org-agenda-archives-mode nil)
+
+;; What informatio should be added when the heading is archived?
+(setq org-archive-save-context-info '(time))
 
 ;; this functions is later used in clock reports. Check org_clock
 ;; looking through all the folders inside 2020, great!
@@ -572,11 +583,17 @@ there's a region, all lines that region covers will be duplicated."
 (use-package org-static-blog
   :ensure t)
 
+;; Title of the blog.
 (setq org-static-blog-publish-title "arvydasg.github.io")
+;; URL of the blog.
 (setq org-static-blog-publish-url "https://arvydasg.github.io/")
-(setq org-static-blog-publish-directory "~/Dropbox/src/arvydasg.github.io/")
-(setq org-static-blog-posts-directory "~/Dropbox/arvydasg.github.io_blog_content/")
-(setq org-static-blog-drafts-directory "/home/arvydas/Dropbox/arvydasg.github.io_blog_content/")
+;; Directory where published HTML files are stored.
+(setq org-static-blog-publish-directory "/home/arvy/src/arvydasg.github.io/")
+;; Directory where published ORG files are stored. When publishing,
+;; posts are rendered as HTML, and included in the index, archive,
+;; tags, and RSS feed.
+(setq org-static-blog-posts-directory "/home/arvy/src/arvydasg.github.io_blog_content/")
+(setq org-static-blog-drafts-directory "/home/arvy/src/arvydasg.github.io_blog_content/")
 ;; (setq org-static-blog-drafts-directory "~/Dropbox/src/arvydasg.github.io/drafts/")
 
 (setq org-static-blog-index-length 5)
@@ -689,7 +706,7 @@ height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></nos
 (setq org-static-blog-page-postamble
       "<div id=\"footer\">
 <hr>
-<p>© 2021-2023 Arvydas Gasparavičius</p>
+<p>2021-2023 Arvydas Gasparavicius</p>
   <button onclick=\"topFunction()\" id=\"myBtn\" title=\"Go to top\">Top</button>
   <script src=\"static/script.js\"></script>
 </div>")
@@ -702,7 +719,7 @@ height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></nos
 ;; This HTML code is inserted into the index page between the preamble and
 ;;   the blog posts
 (setq org-static-blog-index-front-matter
-      "<h1> Hello there 👋 </h1>
+      "<h1> Hello there!</h1>
 <hr>
 <div id=\"intro\">
 <p> My name is Arvydas I am self-taught Python/Django developer. <a class=\"no-link\" href=\"https://github.com/arvydasg\">My Github</a>.</p>
@@ -769,6 +786,84 @@ the variables `org-static-blog-preview-start' and
   :type '(string)
   :safe t)
 
+;; leaving this content to be in specific org files instead
+
+;; (setq org-html-head
+;;       (concat
+;;        "<head>\n"
+;;        "<meta charset=\"UTF-8\">\n"
+;;        "<meta name=\"description\" content=\"CodeAcademy Python notes\">\n"
+;;        "<link rel=\"alternate\" type=\"application/rss+xml\" href=\"https://arvydasg.github.io/rss.xml\" title=\"RSS feed for https://arvydasg.github.io/\">\n"
+;;        "<title>CodeAcademy Databases</title>\n"
+;;        "<!-- Google Tag Manager -->\n"
+;;        "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-MC4ZQHP');</script>\n"
+;;        "<!-- End Google Tag Manager -->\n"
+;;        "<meta name=\"author\" content=\"Arvydas Gasparavicius\">\n"
+;;        "<meta name=\"referrer\" content=\"no-referrer\">\n"
+;;        "<meta name=\"viewport\" content=\"initial-scale=1,width=device-width,minimum-scale=1\">\n"
+;;        "<link href=\"../readtheorg.css\" rel=\"stylesheet\" type=\"text/css\" />\n"
+;;        "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\" />\n"
+;;        "<script src=\"static/lightbox.js\"></script>\n"
+;;        "<script src=\"static/auto-render.min.js\"></script>\n"
+;;        "<link rel=\"icon\" href=\"static/ag.ico\">\n"
+;;        "</head>\n"
+;;        ))
+
+(setq org-html-preamble
+      (concat
+       "<body>\n"
+       "
+<!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MC4ZQHP\"
+                      height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav class=\"text-center navbar navbar-expand-lg navbar-light bg-light\">
+            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+                <span class=\"navbar-toggler-icon\"></span>
+            </button>
+            <div style=\"justify-content:center\" class=\"collapse navbar-collapse \" id=\"navbarNav\">
+                <ul class=\"navbar-nav\">
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"https://arvydas.dev/codeacademy/\">Home <span class=\"sr-only\">(current)</span></a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"https://arvydas.dev/codeacademy/html_css/index.html\">HTML/CSS</a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"https://arvydas.dev/codeacademy/javascript/index.html\">JavaScript</a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link \" href=\"https://arvydas.dev/codeacademy/python/index.html\">Python</a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link active \" href=\"https://arvydas.dev/codeacademy/databases/index.html\">Databases</a>
+                    </li>
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link \" href=\"https://arvydas.dev/codeacademy/flask/index.html\">Flask</a>
+                    </li>
+                </ul>
+            </div>
+    </nav>"
+       ))
+
+(setq org-html-postamble
+      (concat
+       "<!-- bootstrap scripts -->\n"
+       "<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\"\n"
+       "        integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\"\n"
+       "        crossorigin=\"anonymous\"></script>\n"
+       "<script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js\"\n"
+       "        integrity=\"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1\"\n"
+       "        crossorigin=\"anonymous\"></script>\n"
+       "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js\"\n"
+       "        integrity=\"sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM\"\n"
+       "        crossorigin=\"anonymous\"></script>\n"
+       "<button onclick=\"topFunction()\" id=\"myBtn\" title=\"Go to top\">Top</button>\n"
+       "<script src=\"../scripts.js\"></script>\n"
+       "</body>\n"
+       "</html>\n"
+       ))
+
 ;; if you want to see archived tasks in agenda view - press v then A
 
 ;; Hook to display the agenda in a single window
@@ -804,10 +899,8 @@ the variables `org-static-blog-preview-start' and
 ;; allows to use tags in ALL agenda files
 (setq org-complete-tags-always-offer-all-agenda-tags t)
 ;; nepaveldi subtasks heading tago
-(setq org-use-tag-inheritance t)
+(setq org-use-tag-inheritance nil)
 ;; (setq org-agenda-use-tag-inheritance t)
-(setq org-archive-save-context-info '(time))
-(setq org-agenda-archives-mode 't)
 (setq org-agenda-custom-commands
       '(
         ;; ;; Week agenda for rendez-vous and tasks
@@ -827,8 +920,8 @@ the variables `org-static-blog-preview-start' and
           ;;                  (org-agenda-overriding-header "Projects")
           ;;                  ))
           (todo "STARTED" (
-                        (org-agenda-overriding-header "Started EPICS:")
-                        ))
+                           (org-agenda-overriding-header "Started EPICS:")
+                           ))
           (todo "EPIC" (
                         (org-agenda-overriding-header "EPICS:")
                         ))
@@ -1031,9 +1124,6 @@ the variables `org-static-blog-preview-start' and
 (setq read-process-output-max (* 1024 1024))
 (setq gc-cons-threshold 100000000)
 (setq lsp-idle-delay 0.500)
-;; install emacs 28.. is kind of faster now https://www.how2shout.com/linux/how-to-install-emacs-28-on-ubuntu-20-04-lts-focal-fossa/
-;; proper lsp install here - https://emacs-lsp.github.io/lsp-mode/page/
-;; (setenv "LSP_USE_PLISTS" "1") ;; add this line to init.el only
 
 (org-babel-do-load-languages
  'org-babel-load-languages (quote ((emacs-lisp . t)
@@ -1622,7 +1712,7 @@ the variables `org-static-blog-preview-start' and
 ;; (with-eval-after-load 'dired
 ;;   (define-key dired-mode-map ")" 'dired-git-info-mode))
 
-;; Don’t hide normal Dired file info
+;; Dont hide normal Dired file info
 
 ;; (setq dgi-auto-hide-details-p nil)
 
@@ -1703,7 +1793,7 @@ the variables `org-static-blog-preview-start' and
 ;;                                 "353"   ; Names notice
 ;;                                 ))
 
-;; [2022-03-12 Št] 5 min tasks taken from all my agenda files.
+;; [2022-03-12] 5 min tasks taken from all my agenda files.
 ;; First open agenda, then list all the tasks, then click f9, then choose 5min.
 (fset '5minTasks
       (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([3 97 116 f9 61 50] 0 "%d")) arg)))
@@ -1715,12 +1805,12 @@ the variables `org-static-blog-preview-start' and
 ;; [2022-04-04 Mon] Removed this macro, next time make one that leaves
 ;; cursor on language input
 
-;; [2022-03-19 Št] Open nautilus
+;; [2022-03-19] Open nautilus
 (fset 'nautilus
       [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s return])
 (global-set-key [f1] 'nautilus)
 
-;; [2022-03-19 Št] Open nautilus current buffer
+;; [2022-03-19] Open nautilus current buffer
 (fset 'nautilus_current
       [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s ?  ?. return])
 (global-set-key [f2] 'nautilus_current)
