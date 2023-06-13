@@ -125,6 +125,12 @@ Here is a list of programs I have installed for Emacs. They are not all explicit
 + sudo apt install -y libtool-bin (vterm)
 + sudo pip install elpy rope jedi (elpy)
 + sudo apt install ripgrep (rg)
++ sudo apt install nodejs npm (lsp)
++ curl -o-
+  https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh |
+  bash (for lsp ts-ls language server). Visit the instructions -
+  https://github.com/nvm-sh/nvm#installation-and-update. After running
+  the script - source .bashrc
 
 * Exported file note
 The following is exported to the top of the tangled init.el file as a
