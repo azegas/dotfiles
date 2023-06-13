@@ -1,5 +1,151 @@
-If you want to disable a specific part of the config, just write
-COMMENT to that headline
+#+TITLE: Arvydas G's Emacs Config
+:PROPERTIES:
+#+AUTHOR: Arvydas G
+#+STARTUP: fold
+#+PROPERTY: header-args :results silent :tangle yes
+#+SEQ_TODO: TODO(t) | COMMENT(c)
+:END:
+
+* Tips and tricks
+- If you want to disable a specific part of the config, just write COMMENT to that headline
+* Little history
+** [2023-06-05 Mon] Lots of refactoring
+
+New laptop, new setup ONCE Again. This time on Windows and WSL.
+
+Have a lof of directories that have to be changed all the time I
+switch machines, so decided to put all of those directories in one
+place so it's easy to configure.
+
+** [2023-03-18 Sat] One org mode file for all configuration
+
+Branch copied from "230318-Org-file-in-project-folder".
+
+Decided to make .org file to act as my init file. Better for
+documenting processes and storing shortcuts.. now I have three places
+for that. One for init(config), one for shortcuts one for
+documentation of emacs processes.
+
+In the future it might be problem with windows stuff, but will see
+then.
+
+** [2023-01-08 Sun] No init.org.
+With it the config loads slower and it's not as easy to turn off
+packages quickly. With my setup, I just uncomment the code and the
+package is ignrod upon next load.
+
+In case I want to load org file as my init.el, I can do it by placing
+init.org file in my .emacs.d
+
+#+begin_src bash
+  (package-initialize)
+  (org-babel-load-file "~/.emacs.d/config.org")
+#+end_src
+
+** [2023-01-06 Fri] Daemon mode
+
+Found out about emacs daemon mode. It makes emacs
+instances load instantaneously. Amazing.
+
+Add these to .bashrc for easy launch/use/kill:
+
+#+begin_src bash
+  alias ed='emacs --daemon'
+  alias e='emacsclient -c -n'
+  alias ek='emacsclient -e "(kill-emacs)"'
+#+end_src
+
+** [2023-01-06 Fri] Using emacs with org mode at work
+
+[[https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/][Using emacs with org mode at work]].
+Finally decided to have work org files at work and personal at home.
+Better work and life balance in this way. Emacs at work windows
+computer will run on WSL with [[https://opticos.github.io/gwsl/][GWSL]] for a GUI.
+
+** [2022-12-27 Tue] Overwhelmed
+
+I am feeling little bit overwhelmed with my workflow
+with emacs to track my daily tasks and projects at home and at work.
+
+All was fine until I discovered that I can use emacs at work(finally).
+Now the struggle is with Dropbox, keeping only my work files at work,
+but also seeing them at home..
+
+Then also the agenda views, capture templates, refiling, one big org
+file or many small org files, tags, categories, archiving and so on.
+The more I tinker with it the more lost and confused I become.
+
+Each time configuring the method requires me restructuring the
+notes...
+
+This is the attempt where I try to implement this:
+
+https://members.optusnet.com.au/~charles57/GTD/gtd_workflow.html
+
+https://members.optusnet.com.au/~charles57/GTD/remember.html
+
+https://members.optusnet.com.au/~charles57/GTD/mydotemacs.txt
+
+https://lifehacker.com/the-weekly-review-how-one-hour-can-save-you-a-week-s-w-5908816
+
+Wish me luck.
+
+I will simplify it as much as possible, then use it with ease and
+enjoyment. I know it.
+Copied
+* Great Emacs config's of others
+- First and only Lithuanian(after myself) I see using Emacs https://github.com/Giedriusj1
+- https://github.com/search?q=language%3Aelisp%20init.el
+- https://github.com/gopar/.emacs.d
+- https://github.com/zamansky/using-emacs/blob/master/myinit.org
+- https://github.com/rememberYou/.emacs.d/blob/master/config.org#javascript
+- http://doc.norang.ca/org-mode.html#TaskEstimates
+- https://alphaalgorithms.github.io/2019/05/17/emacs-agenda-views/
+- https://staff.fnwi.uva.nl/p.vanormondt/blog/2021-02-13-emacs-init-file.html
+- https://github.com/sbroberg/.emacs.d
+- https://github.com/thierryvolpiatto/emacs-config/blob/main/init.el
+- https://gitlab.com/skybert/my-little-friends/-/blob/master/emacs/.emacs#L1100
+- https://github.com/tabfugnic/dotfiles/blob/main/emacs.d/config.org
+- https://sachachua.com/dotemacs/index.html#org604b1d4
+- https://github.com/magnars/.emacs.d
+- https://github.com/zaeph/.emacs.d
+- https://whhone.com/emacs-config/#general
+- https://sqrtminusone.xyz/configs/emacs/
+- https://github.com/novoid/dot-emacs/blob/master/config.org
+- https://github.com/Crandel/home/tree/master/.config/emacs
+- https://github.com/Likhon-baRoy/.emacs.d
+- https://github.com/jakebox/jake-emacs
+* Dependencies
+Here is a list of programs I have installed for Emacs. They are not all explicitly required, however.
+
++ sudo apt install ispell (spellchecking)
++ sudo npm install -g tern (tern)
++ sudo apt install cmake (vterm)
++ sudo apt install -y libtool (vterm)
++ sudo apt install -y libtool-bin (vterm)
++ sudo pip install elpy rope jedi (elpy)
++ sudo apt install ripgrep (rg)
+
+* Exported file note
+The following is exported to the top of the tangled init.el file as a
+note.
+
+#+BEGIN_SRC emacs-lisp
+  ;; -*- lexical-binding: t; -*-
+  ;;;
+  ;;; Arvydas G's Emacs Configuration
+  ;;;
+
+  ;; Copyright (C) Arvydas G
+  ;; Author: Arvydas G <arvydas-not-real-email@gmail.com>
+  ;; URL: https://github.com/arvydasg/.emacs.d
+  ;; This file is not part of GNU Emacs.
+  ;; This file is free software.
+
+  ;; ------- The following code was auto-tangled from an Orgmode file. ------- ;;
+
+#+END_SRC
+
 * Directories
 
 Locations to modify if you move to a different machine and want to
@@ -294,6 +440,7 @@ Show event history and command history of some or all buffers
 #+end_src
 
 * Visuals
+CLOSED: [2023-06-13 Tue 08:04]
 ** General visuals
 #+begin_src emacs-lisp
   (menu-bar-mode -1)
@@ -963,31 +1110,35 @@ do C-c C-e on the parentheses below. Evaluate them.
 
   ;; allows to use tags in ALL agenda files
   (setq org-complete-tags-always-offer-all-agenda-tags t)
-  (setq org-agenda-use-tag-inheritance t)
   ;; nepaveldi subtasks heading tago
-  (setq org-use-tag-inheritance nil)
+  (setq org-use-tag-inheritance t)
+  ;; (setq org-agenda-use-tag-inheritance t)
   (setq org-archive-save-context-info '(time))
+  (setq org-agenda-archives-mode 't)
   (setq org-agenda-custom-commands
         '(
-          ;; Week agenda for rendez-vous and tasks
-          ("$" "All appointments" agenda* "Week planning"
-           ((org-agenda-span 'week)
-            (org-agenda-sorting-strategy
-             '(time-up todo-state-up priority-down))))
-          ("(" "Today's tasks" agenda "Tasks and rdv for today"
-           ((org-agenda-span 1)
-            (org-deadline-warning-days 0)
-            (org-agenda-sorting-strategy
-             '(deadline-up todo-state-up priority-down))))
+          ;; ;; Week agenda for rendez-vous and tasks
+          ;; ("$" "All appointments" agenda* "Week planning"
+          ;;  ((org-agenda-span 'week)
+          ;;   (org-agenda-sorting-strategy
+          ;;    '(time-up todo-state-up priority-down))))
+          ;; ("(" "Today's tasks" agenda "Tasks and rdv for today"
+          ;;  ((org-agenda-span 1)
+          ;;   (org-deadline-warning-days 0)
+          ;;   (org-agenda-sorting-strategy
+          ;;    '(deadline-up todo-state-up priority-down))))
           ("a" "My Agenda"
            (
             (agenda "")
-            (todo "PROJECT" (
-                             (org-agenda-overriding-header "Projects")
-                             ))
-            ;; (todo "NEXT" (
-            ;;               (org-agenda-overriding-header "Next actions:")
-            ;;               ))
+            ;; (todo "PROJECT" (
+            ;;                  (org-agenda-overriding-header "Projects")
+            ;;                  ))
+            (todo "STARTED" (
+                          (org-agenda-overriding-header "Started EPICS:")
+                          ))
+            (todo "EPIC" (
+                          (org-agenda-overriding-header "EPICS:")
+                          ))
             ;; (tags "/+DONE|+CANCELLED"
             ;;       ((org-agenda-overriding-header "Archivable tasks")))
             )
@@ -1189,9 +1340,7 @@ document
 
 ** Flyspell
 
-spell check
-
-sudo apt install ispell
+Spell check
 
 #+begin_src emacs-lisp
   (add-hook 'text-mode-hook 'flyspell-mode)
@@ -1243,7 +1392,6 @@ if not - npm install -g prettier
   ;; turning off web mode hook, messes up django development
   ;; (add-hook 'web-mode-hook 'prettier-js-mode)
 #+end_src
-
 * Programming
 ** LSP
 
@@ -1547,7 +1695,6 @@ React highlighting
 *** Tern
 
 Javascript analyzer
-dont forget to install it (sudo npm install -g tern)
 
 #+begin_src emacs-lisp
   ;; (use-package tern
@@ -1668,9 +1815,6 @@ those - later.
 *** Vterm
 
 Using vterm is like using Gnome Terminal inside Emacs.
-sudo apt install cmake
-sudo apt install -y libtool
-sudo apt install -y libtool-bin
 
 #+begin_src emacs-lisp
   ;; (use-package vterm
@@ -1893,8 +2037,9 @@ Enter the ¨personal access token¨ from github developer settings.
 ** rg
 
   [2021-07-01] "Rg" - rip grep. Helps to search for a term through many files. Super
-  useful when need to change something on many files.  Installation:
-  Sudo apt install ripgrep M-x rg and search away Tut: nice video
+  useful when need to change something on many files.
+
+  M-x rg and search away Tut: nice video
   https://www.youtube.com/watch?v=4qLD4oHOrlc&ab_channel=ProtesilaosStavrou
 
 #+begin_src emacs-lisp
@@ -2277,14 +2422,15 @@ Rss reader
 nerd news
 
 #+begin_src emacs-lisp
-  ;; (use-package elfeed
-  ;;   :ensure nil
-  ;;   :commands elfeed)
+  (use-package elfeed
+    :ensure t
+    :commands elfeed)
 
-  ;; (setq elfeed-feeds
-  ;;       '("http://nullprogram.com/feed/"
-  ;;         "https://lukesmith.xyz/rss.xml"
-  ;;         "https://planet.emacslife.com/atom.xml"))
+  (setq elfeed-feeds
+        '("http://nullprogram.com/feed/"
+          "https://lukesmith.xyz/rss.xml"
+          "https://planet.emacslife.com/atom.xml"
+          "https://emacsnyc.org/atom.xml"))
 #+end_src
 
 ** Erc

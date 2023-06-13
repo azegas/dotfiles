@@ -1,10 +1,23 @@
+;; -*- lexical-binding: t; -*-
+;;;
+;;; Arvydas G's Emacs Configuration
+;;;
+
+;; Copyright (C) Arvydas G
+;; Author: Arvydas G <arvydas-not-real-email@gmail.com>
+;; URL: https://github.com/arvydasg/.emacs.d
+;; This file is not part of GNU Emacs.
+;; This file is free software.
+
+;; ------- The following code was auto-tangled from an Orgmode file. ------- ;;
+
 ;; absolute path to emacs dir
 (setq my/emacs-dir "~/.emacs.d")
 
 ;; org location
 (setq my/org-agenda-files-location "/home/arvy/org/org-agenda-files/")
 (setq my/org-inbox-file (concat my/org-agenda-files-location "inbox.org"))
-(setq my/org-journal-file "/home/arvy/org/org-agenda-files/journal.txt")
+(setq my/org-journal-file "/home/arvy/org/org-agenda-files/journal.org")
 
 ;; set default buffer on startup
 ;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
@@ -533,9 +546,11 @@ there's a region, all lines that region covers will be duplicated."
         `(
           ("i" "Inbox" entry (file+headline my/org-inbox-file "Inbox")
            "* %? %^G \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-          ("j" "Evening " entry (file+datetree ,my/org-journal-file)
-           "* %U %^{Title}\n%?")
-          ("z" "Journal MONDRAS from file" entry(file+datetree ,my/org-journal-file)(file"/home/arvy/org/org-agenda-files/capture-templates/journal.orgcaptmpl"))
+          ;; ("j" "Evening " entry (file+datetree ,my/org-journal-file)
+          ;;  "* %U %^{Title}\n%?")
+          ("j" "Evening journal entry" entry(file+datetree ,my/org-journal-file)
+           (file "/home/arvy/org/org-agenda-files/capture-templates/default-journal-template.orgcaptmpl")
+           )
           )
         )
   )
@@ -788,31 +803,35 @@ the variables `org-static-blog-preview-start' and
 
 ;; allows to use tags in ALL agenda files
 (setq org-complete-tags-always-offer-all-agenda-tags t)
-(setq org-agenda-use-tag-inheritance t)
 ;; nepaveldi subtasks heading tago
-(setq org-use-tag-inheritance nil)
+(setq org-use-tag-inheritance t)
+;; (setq org-agenda-use-tag-inheritance t)
 (setq org-archive-save-context-info '(time))
+(setq org-agenda-archives-mode 't)
 (setq org-agenda-custom-commands
       '(
-        ;; Week agenda for rendez-vous and tasks
-        ("$" "All appointments" agenda* "Week planning"
-         ((org-agenda-span 'week)
-          (org-agenda-sorting-strategy
-           '(time-up todo-state-up priority-down))))
-        ("(" "Today's tasks" agenda "Tasks and rdv for today"
-         ((org-agenda-span 1)
-          (org-deadline-warning-days 0)
-          (org-agenda-sorting-strategy
-           '(deadline-up todo-state-up priority-down))))
+        ;; ;; Week agenda for rendez-vous and tasks
+        ;; ("$" "All appointments" agenda* "Week planning"
+        ;;  ((org-agenda-span 'week)
+        ;;   (org-agenda-sorting-strategy
+        ;;    '(time-up todo-state-up priority-down))))
+        ;; ("(" "Today's tasks" agenda "Tasks and rdv for today"
+        ;;  ((org-agenda-span 1)
+        ;;   (org-deadline-warning-days 0)
+        ;;   (org-agenda-sorting-strategy
+        ;;    '(deadline-up todo-state-up priority-down))))
         ("a" "My Agenda"
          (
           (agenda "")
-          (todo "PROJECT" (
-                           (org-agenda-overriding-header "Projects")
-                           ))
-          ;; (todo "NEXT" (
-          ;;               (org-agenda-overriding-header "Next actions:")
-          ;;               ))
+          ;; (todo "PROJECT" (
+          ;;                  (org-agenda-overriding-header "Projects")
+          ;;                  ))
+          (todo "STARTED" (
+                        (org-agenda-overriding-header "Started EPICS:")
+                        ))
+          (todo "EPIC" (
+                        (org-agenda-overriding-header "EPICS:")
+                        ))
           ;; (tags "/+DONE|+CANCELLED"
           ;;       ((org-agenda-overriding-header "Archivable tasks")))
           )
@@ -1646,14 +1665,15 @@ the variables `org-static-blog-preview-start' and
   (global-undo-tree-mode))
 (setq undo-tree-auto-save-history nil)
 
-;; (use-package elfeed
-;;   :ensure nil
-;;   :commands elfeed)
+(use-package elfeed
+  :ensure t
+  :commands elfeed)
 
-;; (setq elfeed-feeds
-;;       '("http://nullprogram.com/feed/"
-;;         "https://lukesmith.xyz/rss.xml"
-;;         "https://planet.emacslife.com/atom.xml"))
+(setq elfeed-feeds
+      '("http://nullprogram.com/feed/"
+        "https://lukesmith.xyz/rss.xml"
+        "https://planet.emacslife.com/atom.xml"
+        "https://emacsnyc.org/atom.xml"))
 
 ;; (use-package erc
 ;;   :ensure nil
