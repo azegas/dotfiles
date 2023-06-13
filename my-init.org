@@ -1419,7 +1419,24 @@ should be super useful to have IDE like functions
 full tutorial - https://www.youtube.com/watch?v=E-NAM9U5JYE&ab_channel=SystemCrafters
 features explanations - https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
 
-lsp ideas - https://github.com/Crandel/home/blob/master/.config/emacs/recipes/lsp-mode-rcp.el
+lsp ideas -
+https://github.com/Crandel/home/blob/master/.config/emacs/recipes/lsp-mode-rcp.el
+
+install emacs 28.. is kind of faster now
+https://www.how2shout.com/linux/how-to-install-emacs-28-on-ubuntu-20-04-lts-focal-fossa/
+
+proper lsp install here - https://emacs-lsp.github.io/lsp-mode/page/
+
+(setenv "LSP_USE_PLISTS" "1") ;; add this line to init.el only
+
+Language servers:
+- for html - emmet-ls
+- for js - ts-ls (need node < 14.17 version and by default ubuntu
+  installs 12 version. Download nvm and then install 14.17(nvm install
+  14.17.0). It should by default use 14.17, if not, run this command -
+  nvm use 14.17.0 Check with node --version lsp-install-server and
+  choose ts-ls. Restart emacs. Should work).
+- for python -
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -1476,9 +1493,6 @@ lsp ideas - https://github.com/Crandel/home/blob/master/.config/emacs/recipes/ls
   (setq read-process-output-max (* 1024 1024))
   (setq gc-cons-threshold 100000000)
   (setq lsp-idle-delay 0.500)
-  ;; install emacs 28.. is kind of faster now https://www.how2shout.com/linux/how-to-install-emacs-28-on-ubuntu-20-04-lts-focal-fossa/
-  ;; proper lsp install here - https://emacs-lsp.github.io/lsp-mode/page/
-  ;; (setenv "LSP_USE_PLISTS" "1") ;; add this line to init.el only
 #+end_src
 
 ** DB
