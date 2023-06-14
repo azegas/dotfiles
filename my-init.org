@@ -630,19 +630,22 @@ block
 #+begin_src emacs-lisp
   (setq org-cycle-emulate-tab 'white)
   (setq org-log-into-drawer "LOGBOOK")
-                                          ; Hide * and / in org tex.)
+  ;; Hide * and / in org tex.)
   (setq org-hide-emphasis-markers t)
+  ;; When a TODO is set to a done state, record a timestamp
   (setq org-log-done 'time)
-                                          ; heading indentation
+  ;; heading indentation
   (setq org-startup-indented t)
-                                          ; RET to follow links
+  ;; RET to follow links
   (setq org-return-follows-link t)
-                                          ;  no done if mid
+  ;;  no done if mid
   (setq org-enforce-todo-dependencies t)
   (setq org-startup-with-inline-images t)
   (setq org-image-actual-width nil)
+  ;; Make the indentation look nicer
+  (add-hook 'org-mode-hook 'org-indent-mode)
 
-                                          ; rebind active to inactive
+  ;; rebind active to inactive
   (with-eval-after-load 'org
     (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 
@@ -685,7 +688,7 @@ block
   ;; Save the corresponding buffers
   (defun gtd-save-org-buffers ()
     "Save `org-agenda-files' buffers without user confirmation.
-      See also `org-save-all-org-buffers'"
+              See also `org-save-all-org-buffers'"
     (interactive)
     (message "Saving org-agenda-files buffers...")
     (save-some-buffers t (lambda ()
