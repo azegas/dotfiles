@@ -2255,29 +2255,28 @@ and then the commands that follow below.
 C-c f, M-x basically. Other packages use it as well.
 
 #+begin_src emacs-lisp
-  ;; (use-package ivy
-  ;;   :defer 0.1
-  ;;   :diminish
-  ;;   :bind (("C-c C-r" . ivy-resume)
-  ;;          ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-  ;;   :custom
-  ;;   (ivy-count-format "(%d/%d) ")
-  ;;   ;; nice if you want previously opened buffers to appear after an
-  ;;   ;; emacs shutdown
-  ;;   ;saves buffers from last session
-  ;;   (ivy-use-virtual-buffers t)
-  ;;   :config (ivy-mode))
+  (use-package ivy
+    :defer 0.1
+    :diminish
+    :bind (("C-c C-r" . ivy-resume)
+           ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+    :custom
+    (ivy-count-format "(%d/%d) ")
+    ;; nice if you want previously opened buffers to appear after an
+    ;; emacs shutdown
+    ;saves buffers from last session
+    (ivy-use-virtual-buffers t)
+    :config (ivy-mode))
 
-  ;; (use-package ivy-rich
-  ;;   :after ivy
-  ;;   :ensure t
-  ;;   :init (ivy-rich-mode 1))
+  (use-package ivy-rich
+    :after ivy
+    :ensure t
+    :init (ivy-rich-mode 1))
 
-  ;; ; if icons still don't exist, use - M-x all-the-icons-install-fonts
-
-  ;; (use-package all-the-icons-ivy-rich
-  ;;   :ensure t
-  ;;   :init (all-the-icons-ivy-rich-mode 1))
+  ; if icons still don't exist, use - M-x all-the-icons-install-fonts
+  (use-package all-the-icons-ivy-rich
+    :ensure t
+    :init (all-the-icons-ivy-rich-mode 1))
 #+end_src
 
 ** Swiper
