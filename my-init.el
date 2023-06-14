@@ -429,18 +429,35 @@ there's a region, all lines that region covers will be duplicated."
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 ;; dont let to refile without applying the tag first
-(defun my/org-refile-with-tag-check ()
-  "Refile a task, checking if it has any tags."
-  (interactive)
-  (let ((tags (org-get-tags)))
-    (unless tags
-      (error "Cannot refile task without a tag")))
-  (org-refile))
+;; (defun my/org-refile-with-tag-check ()
+;;   "Refile a task, checking if it has any tags."
+;;   (interactive)
+;;   (let ((tags (org-get-tags)))
+;;     (unless tags
+;;       (error "Cannot refile task without a tag")))
+;;   (org-refile))
 
-(define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
+;; (define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
 
+;; Example of refile-targets 1
+;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
-(setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+;; Example of refile-targets 2
+;; (setq org-refile-targets '(((concat my/org-agenda-files-location "/docs.org") :maxlevel . 2)
+;;                            ("~/gtd/someday.org" :level . 1)
+;;                            ("~/gtd/tickler.org" :maxlevel . 2)
+;;                            ))
+
+;; Example of refile-targets 3
+(setq org-refile-targets `(
+                           (,(concat my/org-agenda-files-location "docs.org") :maxlevel . 2)
+                           (,(concat my/org-agenda-files-location "epics.org") :maxlevel . 2)
+                           (,(concat my/org-agenda-files-location "personal.org") :maxlevel . 2)
+                           (,(concat my/org-agenda-files-location "pasiukai.org") :maxlevel . 2)
+                           (,(concat my/org-agenda-files-location "commands.org") :maxlevel . 2)
+                           (,(concat my/org-agenda-files-location "backlog.org") :maxlevel . 1)
+                           ;; Add more targets as needed
+                           ))
 
 ;; dont let to archive without applying the tag first
 (defun my/org-archive-with-tag-check ()
@@ -1508,29 +1525,28 @@ the variables `org-static-blog-preview-start' and
     (?? aw-show-dispatch-help))
   "List of actions for `aw-dispatch-default'.")
 
-;; (use-package ivy
-;;   :defer 0.1
-;;   :diminish
-;;   :bind (("C-c C-r" . ivy-resume)
-;;          ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
-;;   :custom
-;;   (ivy-count-format "(%d/%d) ")
-;;   ;; nice if you want previously opened buffers to appear after an
-;;   ;; emacs shutdown
-;;   ;saves buffers from last session
-;;   (ivy-use-virtual-buffers t)
-;;   :config (ivy-mode))
+(use-package ivy
+  :defer 0.1
+  :diminish
+  :bind (("C-c C-r" . ivy-resume)
+         ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
+  :custom
+  (ivy-count-format "(%d/%d) ")
+  ;; nice if you want previously opened buffers to appear after an
+  ;; emacs shutdown
+  ;saves buffers from last session
+  (ivy-use-virtual-buffers t)
+  :config (ivy-mode))
 
-;; (use-package ivy-rich
-;;   :after ivy
-;;   :ensure t
-;;   :init (ivy-rich-mode 1))
+(use-package ivy-rich
+  :after ivy
+  :ensure t
+  :init (ivy-rich-mode 1))
 
-;; ; if icons still don't exist, use - M-x all-the-icons-install-fonts
-
-;; (use-package all-the-icons-ivy-rich
-;;   :ensure t
-;;   :init (all-the-icons-ivy-rich-mode 1))
+; if icons still don't exist, use - M-x all-the-icons-install-fonts
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init (all-the-icons-ivy-rich-mode 1))
 
 (use-package swiper
   :after ivy
