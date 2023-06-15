@@ -131,6 +131,8 @@ Here is a list of programs I have installed for Emacs. They are not all explicit
   bash (for lsp ts-ls language server). Visit the instructions -
   https://github.com/nvm-sh/nvm#installation-and-update. After running
   the script - source .bashrc
++ sudo apt-get install emacs-common-non-dfsg (for missing emacs docs
+  when C+h r)
 
 * Exported file note
 The following is exported to the top of the tangled init.el file as a
