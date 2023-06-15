@@ -1488,10 +1488,9 @@ Spell check
 Generate meaningless filer text
 
 #+begin_src emacs-lisp
-  ;; (use-package lorem-ipsum
-  ;;   :ensure nil
-  ;;   :defer t
-  ;;   )
+  (use-package lorem-ipsum
+    :ensure t
+    )
 #+end_src
 
 ** Multiple-cursors
