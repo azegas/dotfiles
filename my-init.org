@@ -133,6 +133,8 @@ Here is a list of programs I have installed for Emacs. They are not all explicit
   the script - source .bashrc
 + sudo apt-get install emacs-common-non-dfsg (for missing emacs docs
   when C+h r)
++ sudo apt install python3 (for python development)
++ apt install python3.10-venv (for python development)
 
 * Exported file note
 The following is exported to the top of the tangled init.el file as a
@@ -1547,13 +1549,13 @@ proper lsp install here - https://emacs-lsp.github.io/lsp-mode/page/
 (setenv "LSP_USE_PLISTS" "1") ;; add this line to init.el only
 
 Language servers:
-- for html - emmet-ls
-- for js - ts-ls (need node < 14.17 version and by default ubuntu
+- ~for html~ - emmet-ls
+- ~for js~ - ts-ls (need node < 14.17 version and by default ubuntu
   installs 12 version. Download nvm and then install 14.17(nvm install
   14.17.0). It should by default use 14.17, if not, run this command -
   nvm use 14.17.0 Check with node --version lsp-install-server and
   choose ts-ls. Restart emacs. Should work).
-- for python -
+- ~for python~ -
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -1573,7 +1575,6 @@ Language servers:
   (add-hook 'python-mode-hook #'lsp)
   ;; (add-hook 'css-mode-hook #'lsp)
   (add-hook 'js-mode-hook #'lsp)
-
 
   ;; lsp-ui-workspace-symbol - nusoks i definition - cool
   (use-package lsp-ivy
