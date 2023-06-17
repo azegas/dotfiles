@@ -715,7 +715,7 @@ block
   ;; (define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
 
   ;; Example of refile-targets 1
-  ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
 
   ;; Example of refile-targets 2
   ;; (setq org-refile-targets '(((concat my/org-agenda-files-location "/docs.org") :maxlevel . 2)
@@ -724,15 +724,15 @@ block
   ;;                            ))
 
   ;; Example of refile-targets 3
-  (setq org-refile-targets `(
-                             (,(concat my/org-agenda-files-location "docs.org") :maxlevel . 2)
-                             (,(concat my/org-agenda-files-location "epics.org") :maxlevel . 2)
-                             (,(concat my/org-agenda-files-location "personal.org") :maxlevel . 2)
-                             (,(concat my/org-agenda-files-location "pasiukai.org") :maxlevel . 2)
-                             (,(concat my/org-agenda-files-location "commands.org") :maxlevel . 2)
-                             (,(concat my/org-agenda-files-location "backlog.org") :maxlevel . 1)
-                             ;; Add more targets as needed
-                             ))
+  ;; (setq org-refile-targets `(
+  ;;                            (,(concat my/org-agenda-files-location "docs.org") :maxlevel . 2)
+  ;;                            (,(concat my/org-agenda-files-location "epics.org") :maxlevel . 2)
+  ;;                            (,(concat my/org-agenda-files-location "personal.org") :maxlevel . 2)
+  ;;                            (,(concat my/org-agenda-files-location "pasiukai.org") :maxlevel . 2)
+  ;;                            (,(concat my/org-agenda-files-location "commands.org") :maxlevel . 2)
+  ;;                            (,(concat my/org-agenda-files-location "backlog.org") :maxlevel . 1)
+  ;;                            ;; Add more targets as needed
+  ;;                            ))
 #+end_src
 
 ** Org-archive
