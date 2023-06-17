@@ -1222,6 +1222,11 @@ do C-c C-e on the parentheses below. Evaluate them.
 
   ;; if you want to see archived tasks in agenda view - press v then A
 
+  (defun emacs-startup-screen ()
+    "Display the weekly org-agenda and all todos."
+    (org-agenda nil "a"))
+  (add-hook 'emacs-startup-hook #'emacs-startup-screen)
+
   ;; Hook to display the agenda in a single window
   (add-hook 'org-agenda-finalize-hook 'delete-other-windows)
   ;; Number of text lines to be added when E is pressed in the agenda.
