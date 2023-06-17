@@ -116,6 +116,7 @@ Copied
 - https://github.com/Likhon-baRoy/.emacs.d
 - https://github.com/jakebox/jake-emacs
 * Dependencies
+
 Here is a list of programs I have installed for Emacs. They are not all explicitly required, however.
 
 + sudo apt install ispell (spellchecking)
@@ -744,17 +745,18 @@ https://orgmode.org/worg/doc.html#org-archive-location
 
 #+begin_src emacs-lisp
   ;; dont let to archive without applying the tag first
-  (defun my/org-archive-with-tag-check ()
-    "Archive a task, checking if it has any tags."
-    (interactive)
-    (let ((tags (org-get-tags)))
-      (unless tags
-        (error "Cannot archive task without a tag")))
-    (org-archive-subtree))
+  ;; (defun my/org-archive-with-tag-check ()
+  ;;   "Archive a task, checking if it has any tags."
+  ;;   (interactive)
+  ;;   (let ((tags (org-get-tags)))
+  ;;     (unless tags
+  ;;       (error "Cannot archive task without a tag")))
+  ;;   (org-archive-subtree))
 
-  (define-key org-mode-map (kbd "C-c C-x C-a") 'my/org-archive-with-tag-check)
+  ;; (define-key org-mode-map (kbd "C-c C-x C-a") 'my/org-archive-with-tag-check)
 
-  (setq org-archive-location (concat my/org-agenda-files-location "/archive.org::* 2023"))
+  ;; (setq org-archive-location (concat my/org-agenda-files-location "/archive.org::* 2023"))
+  (setq org-archive-location "%s::* Archive :ARCHIVE:")
 
   ;; in Archive file adding :ARCHIVE: tag so later could filter by it in
   ;; agenda view by pressing V and a or A. Without :ARCHIVE: tag- this would not be possible.
