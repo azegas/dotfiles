@@ -1564,7 +1564,7 @@ Language servers:
   14.17.0). It should by default use 14.17, if not, run this command -
   nvm use 14.17.0 Check with node --version lsp-install-server and
   choose ts-ls. Restart emacs. Should work).
-- ~for python~ -
+- ~for python~ - pip install python-lsp-server (in the environment)
 
 #+begin_src emacs-lisp
   (use-package lsp-mode
@@ -1580,8 +1580,8 @@ Language servers:
   ; not reccomended, tries to run in elisp mode..
   ;; (add-hook 'prog-mode-hook #'lsp)
   (add-hook 'web-mode-hook #'lsp)
-  ;https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
-  ;; (add-hook 'python-mode-hook #'lsp)
+  ;; https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
+  (add-hook 'python-mode-hook #'lsp)
   ;; (add-hook 'css-mode-hook #'lsp)
   (add-hook 'js-mode-hook #'lsp)
 
@@ -1621,6 +1621,40 @@ Language servers:
   (setq gc-cons-threshold 100000000)
   (setq lsp-idle-delay 0.500)
 #+end_src
+
+*** LSP cool things
+
+- LSP has - lsp-ui-imenu
+- C-c C-d - lsp-describe-thing-at-point - docs of
+  functions/classes/etc at fingertips (basically the documentation
+  like `````` under functions. If there is documnetation - you will
+  see it. Same with M - .. It will jump to the function also.)
+- lsp-find-references
+- lsp-ui-flycheck-list - displays all errors in code.
+- lsp: The main command to start an LSP session for the current buffer.
+- lsp-describe-thing-at-point: Displays documentation for the symbol at the current cursor position.
+- lsp-find-definition (M-.): Jumps to the definition of the symbol at the current cursor position.
+- lsp-find-references: Lists all references to the symbol at the current cursor position.
+- lsp-rename: Renames a symbol throughout the project.
+- lsp-ui-find-workspace-symbol (C-c C-d C-s): Searches for symbols in the entire workspace.
+- lsp-ui-flycheck-list: Shows a list of diagnostics (errors, warnings, etc.) in the current buffer.
+- lsp-ui-peek-find-references (C-c C-d C-r): Provides a peek view of references to the symbol at the current cursor position.
+- lsp-format-buffer (C-c C-l): Formats the entire buffer according to the language's formatting rules.
+- lsp-execute-code-action: Executes code actions suggested by the language server.
+
+*** LSP-UI cool things
+
+- lsp-ui-mode: Enables the lsp-ui package.
+- lsp-ui-imenu: Displays an imenu sidebar with a list of symbols in the current buffer.
+- lsp-ui-doc-mode: Enables the hover-based documentation feature.
+- lsp-ui-doc-glance: Shows a concise overlay of the symbol's documentation.
+- lsp-ui-peek-find-definitions (M-.): Provides a peek view of the definition of the symbol at the current cursor position.
+- lsp-ui-peek-jump-forward (M->): Jumps forward in the peek view stack.
+- lsp-ui-peek-jump-backward (M-<): Jumps backward in the peek view stack.
+- lsp-ui-sideline-mode: Enables the sideline feature that displays code actions and diagnostics in the fringe.
+- lsp-ui-sideline-apply-code-actions: Applies code actions shown in the sideline.
+- lsp-ui-flycheck-enable: Enables flycheck integration for displaying diagnostics.
+
 
 ** DB
 #+begin_src emacs-lisp
