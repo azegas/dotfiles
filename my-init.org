@@ -1452,10 +1452,10 @@ Removing whitespace automaticay
 saving buffer.
 
 #+begin_src emacs-lisp
-  ;; (use-package ws-butler
-  ;;   :ensure nil
-  ;;   :config
-  ;;   (ws-butler-global-mode t))
+  (use-package ws-butler
+    :ensure t
+    :config
+    (ws-butler-global-mode t))
 #+end_src
 
 ** Flycheck
