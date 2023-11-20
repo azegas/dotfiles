@@ -121,9 +121,8 @@ Here is a list of programs I have installed for Emacs. They are not all explicit
 
 + sudo apt install ispell (spellchecking)
 + sudo npm install -g tern (tern)
-+ sudo apt install cmake (vterm)
-+ sudo apt install -y libtool (vterm)
-+ sudo apt install -y libtool-bin (vterm)
++ sudo apt install libtool libtool-bin autoconf automake cmake g++
+  libncurses-dev libz-dev libglib2.0-dev (for vterm)
 + sudo pip install elpy rope jedi (elpy)
 + sudo apt install ripgrep (rg)
 + sudo apt install nodejs npm (lsp)
@@ -453,7 +452,7 @@ Show event history and command history of some or all buffers
 * Visuals
 ** General visuals
 #+begin_src emacs-lisp
-  (menu-bar-mode 1)
+  (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (blink-cursor-mode -1)
@@ -716,7 +715,8 @@ block
   ;; (define-key org-mode-map (kbd "C-c C-w") 'my/org-refile-with-tag-check)
 
   ;; Example of refile-targets 1
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  ;; (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  (setq org-refile-targets '((nil :maxlevel . 9)))
 
   ;; Example of refile-targets 2
   ;; (setq org-refile-targets '(((concat my/org-agenda-files-location "/docs.org") :maxlevel . 2)
@@ -734,6 +734,8 @@ block
   ;;                            (,(concat my/org-agenda-files-location "backlog.org") :maxlevel . 1)
   ;;                            ;; Add more targets as needed
   ;;                            ))
+
+  (setq org-src-window-setup `current-window)
 #+end_src
 
 ** Org-archive
@@ -1354,6 +1356,18 @@ https://github.com/abo-abo/plain-org-wiki
 #+begin_src emacs-lisp
   (setq org-clock-sound "~/.emacs.d/bell.wav")
 #+end_src
+
+** ox-gfm
+
+Provides syntax highlighting(and other things probably) when exporting
+.org file to .md file. End result is perfect for Github. Example - CDP
+project on Github.
+
+#+begin_src emacs-lisp
+  (use-package ox-gfm
+    :ensure t)
+#+end_src
+
 * Text Editing utilities
 ** Move-text
 
@@ -1582,6 +1596,7 @@ Language servers:
   (add-hook 'web-mode-hook #'lsp)
   ;; https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
   (add-hook 'python-mode-hook #'lsp)
+  (add-hook 'typescript-mode-hook #'lsp)
   ;; (add-hook 'css-mode-hook #'lsp)
   (add-hook 'js-mode-hook #'lsp)
 
@@ -1677,6 +1692,9 @@ Language servers:
   (add-hook 'elpy-mode-hook (lambda ()
                               (add-hook 'before-save-hook 'elpy-black-fix-code nil t)))
 
+  ;; turn off the hook in case you dont want the formatting in python
+  (setq elpy-mode-hook nil)
+
   ;; IF you can not import modules, says it can not find or w/elfeed
   ;; do M-x run-python in DIRED, the location of the files.
   ;; then do C-c C-c or C-RET - the modules will load
@@ -1697,6 +1715,12 @@ hopefully it will work, need for hugo/docker
     :ensure t)
 #+end_src
 
+** Typescript-mode
+
+#+begin_src emacs-lisp
+  (use-package typescript-mode
+    :ensure t)
+#+end_src
 ** Dockerfile-mode
 
 #+begin_src emacs-lisp
@@ -1721,10 +1745,7 @@ hopefully it will work, need for hugo/docker
   '(elpy-shell-starting-directory (quote current-directory))
 
   (setq elpy-rpc-python-command "python3")
-  ;; ipython is a more fancy one?
-  ;; (setq python-shell-interpreter "python3")
-  (setq python-shell-interpreter "ipython"
-        python-shell-interpreter-args "-i --simple-prompt")
+  (setq python-shell-interpreter "python3")
   (setq elpy-get-info-from-shell t)
 
   ;; <2022-03-18 Pn> Turned it off, doesn't look nice
@@ -1983,9 +2004,12 @@ those - later.
 
 Using vterm is like using Gnome Terminal inside Emacs.
 
+To copy from vterm buffer - first enable vterm-copy-mode with C-c C-t.
+To deactivate the mode - same command.
+
 #+begin_src emacs-lisp
-  ;; (use-package vterm
-  ;;   :ensure t)
+  (use-package vterm
+    :ensure t)
 #+end_src
 
 *** Shell-pop
@@ -1995,10 +2019,15 @@ Using vterm is like using Gnome Terminal inside Emacs.
     :ensure t
     :bind (("C-2" . shell-pop))
     :config
-    ;basically shell window is fullwidht instead of current buffer size(when split)
+                                          ;basically shell window is fullwidht instead of current buffer size(when split)
     (setq shell-pop-full-span t))
 
   ;; c-u 2 binding - to launch multiple shell buffers, but then how to close each? :p
+
+  (defun my-disable-company-mode ()
+    (company-mode -1))
+
+  (add-hook 'shell-mode-hook 'my-disable-company-mode)
 #+end_src
 
 *** exec-path-from-shell
@@ -2161,6 +2190,26 @@ Enter the ¨personal access token¨ from github developer settings.
   (global-set-key (kbd "C-x j") 'aga-jump-test.js)
 #+end_src
 
+*** Jump to a random python test file
+
+#+begin_src emacs-lisp
+  ;; jump to my a random js test file
+  (defun aga-jump-test.py nil
+    (interactive)
+
+    (cond ((eq system-type 'windows-nt)
+           ;; Windows-specific code goes here.
+           (find-file "C:\\Temp\\test.py")
+           )
+          ((eq system-type 'gnu/linux)
+           ;; Linux-specific code goes here.
+           (find-file "~/temp/py/test.py")
+           ))
+    (erase-buffer))
+  ;; (delete-other-windows))
+  ;; Find test.js file
+  (global-set-key (kbd "C-x p") 'aga-jump-test.py)
+#+end_src
 *** Jump to blog locations
 
 #+begin_src emacs-lisp
