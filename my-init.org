@@ -1347,7 +1347,9 @@ https://github.com/abo-abo/plain-org-wiki
          )
         ((eq system-type 'gnu/linux)
          ;; Linux-specific code goes here.
-         (setq plain-org-wiki-directory "~/Dropbox/org/")
+         ;; even when on WSL - use this location..
+         (setq plain-org-wiki-directory "C:\\Users\\arvydas\\OneDrive\\GIT\\org\\")
+         ;; (setq plain-org-wiki-directory "~/Dropbox/org/")
          ;; (setq plain-org-wiki-extra-files (directory-files-recursively "~/Dropbox/org/notes/" "\.org$"))
          ))
 
