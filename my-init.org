@@ -23,6 +23,9 @@ While I will be making my emacs main branch more focused on note
 taking, I will remove all the other clutter(programming packages and
 so on), since I don't write code in emacs that much anymore.
 
+Branch that contains my current configuration is this -
+https://github.com/arvydasg/.emacs.d/tree/20231124-Before-denote
+
 ** [2023-06-05 Mon] Lots of refactoring
 
 New laptop, new setup ONCE Again. This time on Windows and WSL.
