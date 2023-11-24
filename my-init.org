@@ -142,28 +142,6 @@ Copied
 - https://github.com/Likhon-baRoy/.emacs.d
 - https://github.com/jakebox/jake-emacs
 
-** Dependencies
-
-Here is a list of programs I have installed for Emacs. They are not
-all explicitly required, however.
-
-+ sudo apt install ispell (spellchecking)
-+ sudo npm install -g tern (tern)
-+ sudo apt install libtool libtool-bin autoconf automake cmake g++
-  libncurses-dev libz-dev libglib2.0-dev (for vterm)
-+ sudo pip install elpy rope jedi (elpy)
-+ sudo apt install ripgrep (rg)
-+ sudo apt install nodejs npm (lsp)
-+ curl -o-
-  https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh |
-  bash (for lsp ts-ls language server). Visit the instructions -
-  https://github.com/nvm-sh/nvm#installation-and-update. After running
-  the script - source .bashrc
-+ sudo apt-get install emacs-common-non-dfsg (for missing emacs docs
-  when C+h r)
-+ sudo apt install python3 (for python development)
-+ apt install python3.10-venv (for python development)
-
 
 * Configuration
 ** Exported file note
