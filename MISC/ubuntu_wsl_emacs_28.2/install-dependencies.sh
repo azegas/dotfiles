@@ -14,6 +14,8 @@
 # ripgrep (rg)
 # nodejs npm (lsp)
 
+sudo apt update && sudo apt upgrade -y
+
 sudo apt install ispell libtool libtool-bin autoconf automake cmake g++ libncurses-dev libz-dev libglib2.0-dev ripgrep nodejs npm emacs-common-non-dfsg python3 python3.10-venv nodejs npm -y
 
 sudo npm install -g tern (tern)
