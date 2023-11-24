@@ -9,6 +9,20 @@
 * Tips and tricks
 - If you want to disable a specific part of the config, just write COMMENT to that headline
 * Little history
+** [2023-11-24 Fri] Trying out Denote
+
+I have realized that I mostly use emacs for not taking and keeping. I
+would like to continue doing so and perhaps improve my workflow a bit
+and make it more organized with a tool like [[https://protesilaos.com/codelog/2022-06-18-denote-demo/][Denote]]. I have initially
+thought to use [[https://www.orgroam.com/][Org-Roam]], since I have tried it before, but all my
+notes being linked over the database seemed like an overkill. I want
+my notes to live forever, the less they depend on different software -
+the better.
+
+While I will be making my emacs main branch more focused on note
+taking, I will remove all the other clutter(programming packages and
+so on), since I don't write code in emacs that much anymore.
+
 ** [2023-06-05 Mon] Lots of refactoring
 
 New laptop, new setup ONCE Again. This time on Windows and WSL.
