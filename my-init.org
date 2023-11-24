@@ -6,10 +6,18 @@
 #+SEQ_TODO: TODO(t) | COMMENT(c)
 :END:
 
-* Tips and tricks
-- If you want to disable a specific part of the config, just write COMMENT to that headline
-* Little history
-** [2023-11-24 Fri] Trying out Denote
+* Notes
+
+** Org file tips and tricks
+- If you want to disable a specific part of the config, just write
+  COMMENT to that headline
+
+** Little history
+
+In this section I document the steps I took with my emacs
+configuration during the years.
+
+*** [2023-11-24 Fri] Trying out Denote
 
 I have realized that I mostly use emacs for not taking and keeping. I
 would like to continue doing so and perhaps improve my workflow a bit
@@ -26,7 +34,7 @@ so on), since I don't write code in emacs that much anymore.
 Branch that contains my current configuration is this -
 https://github.com/arvydasg/.emacs.d/tree/20231124-Before-denote
 
-** [2023-06-05 Mon] Lots of refactoring
+*** [2023-06-05 Mon] Lots of refactoring
 
 New laptop, new setup ONCE Again. This time on Windows and WSL.
 
@@ -34,7 +42,7 @@ Have a lof of directories that have to be changed all the time I
 switch machines, so decided to put all of those directories in one
 place so it's easy to configure.
 
-** [2023-03-18 Sat] One org mode file for all configuration
+*** [2023-03-18 Sat] One org mode file for all configuration
 
 Branch copied from "230318-Org-file-in-project-folder".
 
@@ -46,7 +54,7 @@ documentation of emacs processes.
 In the future it might be problem with windows stuff, but will see
 then.
 
-** [2023-01-08 Sun] No init.org.
+*** [2023-01-08 Sun] No init.org.
 With it the config loads slower and it's not as easy to turn off
 packages quickly. With my setup, I just uncomment the code and the
 package is ignrod upon next load.
@@ -59,7 +67,7 @@ init.org file in my .emacs.d
   (org-babel-load-file "~/.emacs.d/config.org")
 #+end_src
 
-** [2023-01-06 Fri] Daemon mode
+*** [2023-01-06 Fri] Daemon mode
 
 Found out about emacs daemon mode. It makes emacs
 instances load instantaneously. Amazing.
@@ -72,14 +80,14 @@ Add these to .bashrc for easy launch/use/kill:
   alias ek='emacsclient -e "(kill-emacs)"'
 #+end_src
 
-** [2023-01-06 Fri] Using emacs with org mode at work
+*** [2023-01-06 Fri] Using emacs with org mode at work
 
 [[https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/][Using emacs with org mode at work]].
 Finally decided to have work org files at work and personal at home.
 Better work and life balance in this way. Emacs at work windows
 computer will run on WSL with [[https://opticos.github.io/gwsl/][GWSL]] for a GUI.
 
-** [2022-12-27 Tue] Overwhelmed
+*** [2022-12-27 Tue] Overwhelmed
 
 I am feeling little bit overwhelmed with my workflow
 with emacs to track my daily tasks and projects at home and at work.
@@ -110,7 +118,8 @@ Wish me luck.
 I will simplify it as much as possible, then use it with ease and
 enjoyment. I know it.
 Copied
-* Great Emacs config's of others
+** Great Emacs config's of others
+
 - First and only Lithuanian(after myself) I see using Emacs https://github.com/Giedriusj1
 - https://github.com/search?q=language%3Aelisp%20init.el
 - https://github.com/gopar/.emacs.d
@@ -132,9 +141,11 @@ Copied
 - https://github.com/Crandel/home/tree/master/.config/emacs
 - https://github.com/Likhon-baRoy/.emacs.d
 - https://github.com/jakebox/jake-emacs
-* Dependencies
 
-Here is a list of programs I have installed for Emacs. They are not all explicitly required, however.
+** Dependencies
+
+Here is a list of programs I have installed for Emacs. They are not
+all explicitly required, however.
 
 + sudo apt install ispell (spellchecking)
 + sudo npm install -g tern (tern)
@@ -153,7 +164,9 @@ Here is a list of programs I have installed for Emacs. They are not all explicit
 + sudo apt install python3 (for python development)
 + apt install python3.10-venv (for python development)
 
-* Exported file note
+
+* Configuration
+** Exported file note
 The following is exported to the top of the tangled init.el file as a
 note.
 
@@ -173,7 +186,7 @@ note.
 
 #+END_SRC
 
-* Directories
+** Directories
 
 Locations to modify if you move to a different machine and want to
 save the files elsewhere.
@@ -191,8 +204,8 @@ save the files elsewhere.
   ;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
 #+end_src
 
-* General
-** General stuff
+** General
+*** General stuff
 
 Random stuff that provides some functionalities
 
@@ -363,7 +376,7 @@ Random stuff that provides some functionalities
   (global-set-key (kbd "M-c") 'duplicate-current-line-or-region)
 #+end_src
 
-** Backups
+*** Backups
 
 I don’t use backup files often as I use git to manage most of my org
 files. However, I still feel safer when having a backup. I follow
@@ -379,7 +392,7 @@ Save backup files to a dedicated directory.
   (setq auto-save-default nil)
 #+end_src
 
-** Browse-kill-ring
+*** Browse-kill-ring
 
 [2022-03-18 Pn] Are you tired of using the endless keystrokes of C-y M-y M-y M-y … to
 get at that bit of text you killed thirty-seven kills ago? Ever wish
@@ -398,7 +411,7 @@ Shortcut - M-y to browse-kill-ring
     )
 #+end_src
 
-** Command-log-mode
+*** Command-log-mode
 
 Show event history and command history of some or all buffers
 2022-10-08. Run global-command-log-mode. then clm/something
@@ -408,9 +421,9 @@ Show event history and command history of some or all buffers
     :commands (global-command-log-mode))
 #+end_src
 
-** Help
+*** Help
 
-*** Which-key
+**** Which-key
 
 #+begin_src emacs-lisp
   ;; [2021-07-01] A package that displays the available keybindings in a
@@ -426,18 +439,18 @@ Show event history and command history of some or all buffers
     (which-key-mode 1))
 #+end_src
 
-*** Amx
+**** Amx
 
 #+begin_src emacs-lisp
-  ;; [2022-04-01 Fri] amx: An alternative M-x interface for Emacs. Sort by most recent commands.
-  ;; https://github.com/DarwinAwardWinner/amx
+  ;; [2022-04-01 Fri] amx: An alternative M-x interface for Emacs. Sort
+  ;; by most recent commands. https://github.com/DarwinAwardWinner/amx
   (use-package amx
     :ensure t
     :defer 0.5
     :config (amx-mode))
 #+end_src
 
-*** Helpful
+**** Helpful
 
 #+begin_src emacs-lisp
   ;; [2022-03-15 An] Improves *help* buffer. Way more info than with
@@ -453,9 +466,10 @@ Show event history and command history of some or all buffers
      ("C-h C" . helpful-command)))
 #+end_src
 
-** Saveplace
+*** Saveplace
 
-[2021-07-01] "Saveplace" remembers your location in a file when saving files
+[2021-07-01] "Saveplace" remembers your location in a file when saving
+files
 
 #+begin_src emacs-lisp
   (use-package saveplace
@@ -466,8 +480,8 @@ Show event history and command history of some or all buffers
     (save-place-mode 1))
 #+end_src
 
-* Visuals
-** General visuals
+** Visuals
+*** General visuals
 #+begin_src emacs-lisp
   (menu-bar-mode -1)
   (tool-bar-mode -1)
@@ -502,7 +516,7 @@ Show event history and command history of some or all buffers
   ;; (load-theme 'zenburn t)
 #+end_src
 
-** Beacon
+*** Beacon
 
 [2021-07-01] "Beacon" - never lose your cursor again. Flashes the
 cursor location when switching buffers.
@@ -532,7 +546,7 @@ Don't get lost bro.
       (beacon-mode 1)))
 #+end_src
 
-** Fonts
+*** Fonts
 
 #+begin_src emacs-lisp
   ;; (cond ((eq system-type 'windows-nt)
@@ -545,7 +559,7 @@ Don't get lost bro.
   ;;      ))
 #+end_src
 
-** Transparency
+*** Transparency
 
 #+begin_src emacs-lisp
   ;; [2022-03-14 Pr] Transparency
@@ -553,7 +567,7 @@ Don't get lost bro.
   ;; (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 #+end_src
 
-** Rainbow-delimiters
+*** Rainbow-delimiters
 
 colors different sets of parenthesis with different colros. Useful
 when having lots of code in front of you, know what is where.
@@ -564,7 +578,7 @@ when having lots of code in front of you, know what is where.
     :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
-** Doom-themes
+*** Doom-themes
 
 [2022-03-18 Pn] so far There is nothing better and cleaner than -
 "Doom-modeline". It converts a basic looking, all cramped modeline
@@ -581,7 +595,7 @@ displayed. So far so good, liking it.
     (load-theme 'doom-gruvbox t))
 #+end_src
 
-** Doom-modeline
+*** Doom-modeline
 
 Doom theme modeline. Kind of minimalistic and clean.
 
@@ -605,7 +619,7 @@ turning it off, because it covers too much of the tag prompt window
     (doom-modeline-irc t))
 #+end_src
 
-** Highight-indentation
+*** Highight-indentation
 
 Minor modes for highlighting indentation
 
@@ -633,7 +647,7 @@ Minor modes for highlighting indentation
   )
 #+end_src
 
-** Volatile-hightights
+*** Volatile-hightights
 
 afte pasting f.x - block that you have pasted will be highlihted until
 cursor moves useful to see the boundries of the copied and pasted
@@ -645,8 +659,8 @@ block
     :config
     (volatile-highlights-mode t))
 #+end_src
-* Org-mode
-** Org-general
+** Org-mode
+*** Org-general
 
 #+begin_src emacs-lisp
   (setq org-cycle-emulate-tab 'white)
@@ -755,7 +769,7 @@ block
   (setq org-src-window-setup `current-window)
 #+end_src
 
-** Org-archive
+*** Org-archive
 
 Archiving notes
 TUT: more about archiving -
@@ -789,7 +803,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
   (setq org-archive-save-context-info '(time))
 #+end_src
 
-** Org-clock
+*** Org-clock
 
 #+begin_src emacs-lisp
 
@@ -855,7 +869,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
   ;; #+BEGIN: clocktable :maxlevel 5 :compact t :sort (1 . ?a) :emphasize t :scope subtree :timestamp t :link t
 #+end_src
 
-** Org-capture
+*** Org-capture
 
 #+begin_src emacs-lisp
   ;; bzg config - https://github.com/bzg/dotemacs/blob/master/emacs.org
@@ -902,7 +916,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
     )
 #+end_src
 
-** Org-download
+*** Org-download
 
 #+begin_src emacs-lisp
   ;; (use-package org-download
@@ -913,7 +927,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
   ;; (setq-default org-download-image-dir "~/Dropbox/documents/org/images_nejudink")
 #+end_src
 
-** Org-pomodoro
+*** Org-pomodoro
 
 #+begin_src emacs-lisp
   (use-package org-pomodoro
@@ -924,7 +938,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
     )
 #+end_src
 
-** Org-static-blog
+*** Org-static-blog
 
 #+begin_src emacs-lisp
   (use-package org-static-blog
@@ -1134,7 +1148,7 @@ https://orgmode.org/worg/doc.html#org-archive-location
     :safe t)
 #+end_src
 
-** Org-export-html
+*** Org-export-html
 
 Stuff for exporting html with ctrl+e h h for "codeacademy" project.
 
@@ -1228,7 +1242,7 @@ change the "title" and "content" the file.
          ))
 #+end_src
 
-** Org-agenda
+*** Org-agenda
 
 M-x org-agenda-file-list. Go there and click "save the changes"
 MANUALLY to save to init.el. Otherwise, Emacs wont read it on
@@ -1336,7 +1350,7 @@ do C-c C-e on the parentheses below. Evaluate them.
     )
 #+end_src
 
-** Pain-org-wiki
+*** Pain-org-wiki
 completion command for plain org wiki
 
 https://github.com/abo-abo/plain-org-wiki
@@ -1368,13 +1382,13 @@ https://github.com/abo-abo/plain-org-wiki
     )
 #+end_src
 
-** org-clock-sound
+*** org-clock-sound
 
 #+begin_src emacs-lisp
   (setq org-clock-sound "~/.emacs.d/bell.wav")
 #+end_src
 
-** ox-gfm
+*** ox-gfm
 
 Provides syntax highlighting(and other things probably) when exporting
 .org file to .md file. End result is perfect for Github. Example - CDP
@@ -1385,8 +1399,8 @@ project on Github.
     :ensure t)
 #+end_src
 
-* Text Editing utilities
-** Move-text
+** Text Editing utilities
+*** Move-text
 
 moving text with C + arrow keys
 
@@ -1397,7 +1411,7 @@ moving text with C + arrow keys
     (move-text-default-bindings))
 #+end_src
 
-** yasnippet
+*** yasnippet
 
 [2022-02-13 Sk] "[[https://www.youtube.com/watch?v=YDuqSwyZvlY][Yasnippet]]" - expand to a switch statement with placeholders. Tab
 between the placeholders & type actual values. like in [[https://www.youtube.com/watch?v=mflvdXKyA_g&list=PL-mFLc7R_MJdX0MxrqXEV4sM87hmVEkRw&index=2&t=67s][this]] video.
@@ -1433,12 +1447,12 @@ WRITE SHORTCUTS
          (setq yas-snippet-dirs (concat my/emacs-dir "/snippets/"))))
 #+end_src
 
-** Adding code blocks in emacs
+*** Adding code blocks in emacs
 
 For "<s TAB" snippets you need to (require 'org-tempo)
 C-c C-, is a good alternative for fresh emacs config
 
-** Counsel
+*** Counsel
 
 <2021-07-01> Click 'M-o' while in 'C-x C-f' to get a lot of options!
 
@@ -1449,7 +1463,7 @@ C-c C-, is a good alternative for fresh emacs config
     :config (counsel-mode))
 #+end_src
 
-** Expand-region
+*** Expand-region
 
 Selecting text inside () <> {} [] etc
 [2022-01-01 Št] "Expand region" allows me to select everything in between any kind of
@@ -1462,7 +1476,7 @@ brackets by pressing C-=. The more I press it, the more it selects.
     :config)
 #+end_src
 
-** Hungry delete
+*** Hungry delete
 
 Faster delete
 
@@ -1476,7 +1490,7 @@ delete.
     (global-hungry-delete-mode))
 #+end_src
 
-** Ws-butler
+*** Ws-butler
 
 Removing whitespace automaticay
 [2022-01-01 Št] "Ws-butler" - whitespace butler - clean up whitespace automatically on
@@ -1489,7 +1503,7 @@ saving buffer.
     (ws-butler-global-mode t))
 #+end_src
 
-** Flycheck
+*** Flycheck
 
 suggestions
 
@@ -1516,7 +1530,7 @@ document
   )
 #+end_src
 
-** Flyspell
+*** Flyspell
 
 Spell check
 
@@ -1527,7 +1541,7 @@ Spell check
   (global-set-key (kbd "<f5>") 'flyspell-mode)
 #+end_src
 
-** Lorem-ipsum
+*** Lorem-ipsum
 
 Generate meaningless filer text
 
@@ -1537,7 +1551,7 @@ Generate meaningless filer text
     )
 #+end_src
 
-** Multiple-cursors
+*** Multiple-cursors
 
   multiple-cursors.el --- select same words inside the buffer and replace them
   [[http://emacsrocks.com/e13.html][wow]]
@@ -1554,7 +1568,7 @@ Generate meaningless filer text
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+end_src
 
-** Prettier-js
+*** Prettier-js
 
 prettier-js.el --- aligning code cleanly/automatically
 make sure prettier is installed - which prettier
@@ -1569,135 +1583,8 @@ if not - npm install -g prettier
   ;; turning off web mode hook, messes up django development
   ;; (add-hook 'web-mode-hook 'prettier-js-mode)
 #+end_src
-* Programming
-** LSP
-
-Language server
-
-should be super useful to have IDE like functions
-full tutorial - https://www.youtube.com/watch?v=E-NAM9U5JYE&ab_channel=SystemCrafters
-features explanations - https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-
-lsp ideas -
-https://github.com/Crandel/home/blob/master/.config/emacs/recipes/lsp-mode-rcp.el
-
-install emacs 28.. is kind of faster now
-https://www.how2shout.com/linux/how-to-install-emacs-28-on-ubuntu-20-04-lts-focal-fossa/
-
-proper lsp install here - https://emacs-lsp.github.io/lsp-mode/page/
-
-(setenv "LSP_USE_PLISTS" "1") ;; add this line to init.el only
-
-Language servers:
-- ~for html~ - emmet-ls
-- ~for js~ - ts-ls (need node < 14.17 version and by default ubuntu
-  installs 12 version. Download nvm and then install 14.17(nvm install
-  14.17.0). It should by default use 14.17, if not, run this command -
-  nvm use 14.17.0 Check with node --version lsp-install-server and
-  choose ts-ls. Restart emacs. Should work).
-- ~for python~ - pip install python-lsp-server (in the environment)
-
-#+begin_src emacs-lisp
-  (use-package lsp-mode
-    :ensure t
-    ;both of these commands activate the package. interesting
-    ;; :commands (lsp lsp-deferred)
-    :init
-    ; Or 'C-l', 's-l'
-    (setq lsp-keymap-prefix "C-c l")
-    :config
-    (lsp-enable-which-key-integration t))
-
-  ; not reccomended, tries to run in elisp mode..
-  ;; (add-hook 'prog-mode-hook #'lsp)
-  (add-hook 'web-mode-hook #'lsp)
-  ;; https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
-  (add-hook 'python-mode-hook #'lsp)
-  (add-hook 'typescript-mode-hook #'lsp)
-  ;; (add-hook 'css-mode-hook #'lsp)
-  (add-hook 'js-mode-hook #'lsp)
-
-  ;; lsp-ui-workspace-symbol - nusoks i definition - cool
-  (use-package lsp-ivy
-    :ensure t)
-
-  ;; good for stuff like C-c l G r
-  (use-package lsp-ui
-    :ensure t
-    :hook (lsp-mode . lsp-ui-mode))
-
-  ;; (use-package lsp-treemacs
-  ;;   :ensure t)
-
-  ;; see errors
-  ;; M-x lsp-treemacs-errors-list
-  ;; M-x lsp-errors-list-mode
-
-  ;; lsp-treemacs-symbols
-  ;; lsp-treemacs-references/impleentations
-
-  ;; A guide on disabling/enabling lsp-mode features
-  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-
-  ;; attempting to make lsp quicker
-  ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
-
-  ;; do M-x lsp-diagnose ir check ar yra errors
-
-  (setq lsp-lens-enable t)
-
-  ;; attempting to make lsp faster (M-x lsp-doctor)
-  ;; check emacs version - apt-cache policy emacs
-  ;; 1mb
-  (setq read-process-output-max (* 1024 1024))
-  (setq gc-cons-threshold 100000000)
-  (setq lsp-idle-delay 0.500)
-#+end_src
-
-*** LSP cool things
-
-- LSP has - lsp-ui-imenu
-- C-c C-d - lsp-describe-thing-at-point - docs of
-  functions/classes/etc at fingertips (basically the documentation
-  like `````` under functions. If there is documnetation - you will
-  see it. Same with M - .. It will jump to the function also.)
-- lsp-find-references
-- lsp-ui-flycheck-list - displays all errors in code.
-- lsp: The main command to start an LSP session for the current buffer.
-- lsp-describe-thing-at-point: Displays documentation for the symbol at the current cursor position.
-- lsp-find-definition (M-.): Jumps to the definition of the symbol at the current cursor position.
-- lsp-find-references: Lists all references to the symbol at the current cursor position.
-- lsp-rename: Renames a symbol throughout the project.
-- lsp-ui-find-workspace-symbol (C-c C-d C-s): Searches for symbols in the entire workspace.
-- lsp-ui-flycheck-list: Shows a list of diagnostics (errors, warnings, etc.) in the current buffer.
-- lsp-ui-peek-find-references (C-c C-d C-r): Provides a peek view of references to the symbol at the current cursor position.
-- lsp-format-buffer (C-c C-l): Formats the entire buffer according to the language's formatting rules.
-- lsp-execute-code-action: Executes code actions suggested by the language server.
-
-*** LSP-UI cool things
-
-- lsp-ui-mode: Enables the lsp-ui package.
-- lsp-ui-imenu: Displays an imenu sidebar with a list of symbols in the current buffer.
-- lsp-ui-doc-mode: Enables the hover-based documentation feature.
-- lsp-ui-doc-glance: Shows a concise overlay of the symbol's documentation.
-- lsp-ui-peek-find-definitions (M-.): Provides a peek view of the definition of the symbol at the current cursor position.
-- lsp-ui-peek-jump-forward (M->): Jumps forward in the peek view stack.
-- lsp-ui-peek-jump-backward (M-<): Jumps backward in the peek view stack.
-- lsp-ui-sideline-mode: Enables the sideline feature that displays code actions and diagnostics in the fringe.
-- lsp-ui-sideline-apply-code-actions: Applies code actions shown in the sideline.
-- lsp-ui-flycheck-enable: Enables flycheck integration for displaying diagnostics.
-
-
-** DB
-#+begin_src emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages (quote ((emacs-lisp . t)
-                                      (sqlite . t)
-                                      (R . t)
-                                      (python . t))))
-#+end_src
-
-** Python
+** Programming
+*** Python
 
 #+begin_src emacs-lisp
   ;; black is a code formatter according to some standards. Without it I
@@ -1722,7 +1609,7 @@ Language servers:
   ;; c-c c-d - pydoc on a method
 #+end_src
 
-** Yaml-mode
+*** Yaml-mode
 
 yaml file editing and syntax
 hopefully it will work, need for hugo/docker
@@ -1732,20 +1619,21 @@ hopefully it will work, need for hugo/docker
     :ensure t)
 #+end_src
 
-** Typescript-mode
+*** Typescript-mode
 
 #+begin_src emacs-lisp
   (use-package typescript-mode
     :ensure t)
 #+end_src
-** Dockerfile-mode
+
+*** Dockerfile-mode
 
 #+begin_src emacs-lisp
   (use-package dockerfile-mode
     :ensure t)
 #+end_src
 
-** Elpy
+*** Elpy
 
 #+begin_src emacs-lisp
   (use-package elpy
@@ -1773,7 +1661,7 @@ hopefully it will work, need for hugo/docker
   (setq python-indent-guess-indent-offset-verbose nil)
 #+end_src
 
-** Emmet
+*** Emmet
 
 html tag completion
 
@@ -1792,7 +1680,7 @@ SU WEB MODE KRC PRADEDA flycheck nebeveikti ir emmet durniuoja
            (sgml-mode . emmet-mode)))
 #+end_src
 
-** Impatient mode
+*** Impatient mode
 
 opening html in browser
 
@@ -1817,8 +1705,8 @@ https://github.com/skeeto/impatient-mode.
            (current-buffer)))
 #+end_src
 
-** Javascript
-*** Js2-mode
+*** Javascript
+**** Js2-mode
 
 Js syntax highlighting
 inspiration from here - https://github.com/howardabrams/dot-files/blob/master/emacs-javascript.org
@@ -1858,7 +1746,7 @@ ar tik nebus rjsx mode geresnis(react highlighting possible) nei js2?
   ;;   (define-key js2-mode-map (kbd "C-c C-w") nil))
 #+end_src
 
-*** Js-comint
+**** Js-comint
 
 Run a JavaScript interpreter in an inferior process window
 https://js-comint-el.sourceforge.net/
@@ -1883,7 +1771,7 @@ and can not send buffer content to repl. do it through shell with node name.js i
   ;;   (js-comint-send-buffer))
 #+end_src
 
-*** Rjsx-mode
+**** Rjsx-mode
 
 React highlighting
 < starts tag and < closes
@@ -1897,7 +1785,7 @@ React highlighting
   ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 #+end_src
 
-*** Tern
+**** Tern
 
 Javascript analyzer
 
@@ -1907,7 +1795,7 @@ Javascript analyzer
   ;;    :init (add-hook 'js2-mode-hook (lambda () (tern-mode t))))
 #+end_src
 
-*** Skewer-mode
+**** Skewer-mode
 
 Live coding similar to impatient for html/css/js
 inspiration https://github.com/howardabrams/dot-files/blob/master/emacs-web.org
@@ -1924,7 +1812,7 @@ tutorial https://www.youtube.com/watch?v=5jKHHjla2Rw&ab_channel=StillEmacsing
   ;; (add-hook 'web-mode-hook 'skewer-html-mode)
 #+end_src
 
-** Json mode
+*** Json mode
 
 Json mode highlighting and lsp
 
@@ -1935,7 +1823,7 @@ Json mode highlighting and lsp
     :mode ("\\.json"))
 #+end_src
 
-** Markdown-mode
+*** Markdown-mode
 
 #+begin_src emacs-lisp
   ;;; markdown-mode.el --- hoping to get some markdown syntax help
@@ -1969,7 +1857,7 @@ Json mode highlighting and lsp
            (current-buffer)))
 #+end_src
 
-** Powershell
+*** Powershell
 
 powershell.el --- aligning code cleanly/automatically
 
@@ -1978,18 +1866,7 @@ powershell.el --- aligning code cleanly/automatically
     :ensure t)
 #+end_src
 
-** Scss-mode
-
-Scss mode for emacs
-
-#+begin_src emacs-lisp
-  ;; (use-package scss-mode
-  ;;   :ensure nil
-  ;;   :config
-  ;;   (setq scss-compile-at-save t))
-#+end_src
-
-** Web-mode
+*** Web-mode
 
 web stuff
 [2021-07-01] "Web mode" - Got it basically only for maching tags highlighting
@@ -2016,8 +1893,8 @@ those - later.
   (add-hook 'web-mode 'emmet-mode)
 #+end_src
 
-** Terminals
-*** Vterm
+*** Terminals
+**** Vterm
 
 Using vterm is like using Gnome Terminal inside Emacs.
 
@@ -2029,7 +1906,7 @@ To deactivate the mode - same command.
     :ensure t)
 #+end_src
 
-*** Shell-pop
+**** Shell-pop
 
 #+begin_src emacs-lisp
   (use-package shell-pop
@@ -2047,7 +1924,7 @@ To deactivate the mode - same command.
   (add-hook 'shell-mode-hook 'my-disable-company-mode)
 #+end_src
 
-*** exec-path-from-shell
+**** exec-path-from-shell
 
 make shell and eshell info same
 ersion numbers, packages, so on. Want eshell to know about them also
@@ -2063,8 +1940,8 @@ Github link of the solution - https://github.com/purcell/exec-path-from-shell
     (exec-path-from-shell-initialize))
 #+end_src
 
-* Git
-** Diff-hl
+** Git
+*** Diff-hl
 
 Show diff changes in dired
 
@@ -2085,7 +1962,7 @@ Show diff changes in dired
     (add-hook 'dired-mode-hook 'diff-hl-margin-mode))
 #+end_src
 
-** Magit
+*** Magit
 
   [2021-07-01] "Magit" - can not imagine working with git without it. Instead of
   writing full commands like: "git add ." and then "git commit -m 'bla
@@ -2119,9 +1996,9 @@ Enter the ¨personal access token¨ from github developer settings.
            ("C-x C-g" . magit-status)))
 #+end_src
 
-* Navigation
-** Jumping
-*** Jump emacs to directory  file
+** Navigation
+*** Jumping
+**** Jump emacs to directory  file
 
 #+begin_src emacs-lisp
   ;; Easily jump to my package files in dired
@@ -2142,7 +2019,7 @@ Enter the ¨personal access token¨ from github developer settings.
   ;; (global-set-key (kbd "C-x <C-backspace>") 'aga-find-packages)
   (global-set-key (kbd "C-x <C-home>") 'aga-find-packages)
 #+end_src
-*** Jump to snippet dir
+**** Jump to snippet dir
 
 #+begin_src emacs-lisp
   ;; Easily jump to my yasnippet snippet directory in dired
@@ -2163,7 +2040,7 @@ Enter the ¨personal access token¨ from github developer settings.
   (global-set-key (kbd "C-x <C-prior>") 'aga-find-snippets)
 #+end_src
 
-*** Jump to my-init.org
+**** Jump to my-init.org
 
 #+begin_src emacs-lisp
   ;; jump to my main init.el file
@@ -2186,7 +2063,7 @@ Enter the ¨personal access token¨ from github developer settings.
   (global-set-key (kbd "C-x <C-backspace>") 'aga-find-init.el)
 #+end_src
 
-*** Jump to a random js test file
+**** Jump to a random js test file
 
 #+begin_src emacs-lisp
   ;; jump to my a random js test file
@@ -2207,7 +2084,7 @@ Enter the ¨personal access token¨ from github developer settings.
   (global-set-key (kbd "C-x j") 'aga-jump-test.js)
 #+end_src
 
-*** Jump to a random python test file
+**** Jump to a random python test file
 
 #+begin_src emacs-lisp
   ;; jump to my a random js test file
@@ -2227,7 +2104,7 @@ Enter the ¨personal access token¨ from github developer settings.
   ;; Find test.js file
   (global-set-key (kbd "C-x p") 'aga-jump-test.py)
 #+end_src
-*** Jump to blog locations
+**** Jump to blog locations
 
 #+begin_src emacs-lisp
   ;; jump to my org blog directory
@@ -2267,7 +2144,7 @@ Enter the ¨personal access token¨ from github developer settings.
   (global-set-key (kbd "C-x C-<next>") 'aga-jump-blog-html)
 #+end_src
 
-** rg
+*** rg
 
   [2021-07-01] "Rg" - rip grep. Helps to search for a term through many files. Super
   useful when need to change something on many files.
@@ -2281,7 +2158,7 @@ Enter the ¨personal access token¨ from github developer settings.
     :commands rg)
 #+end_src
 
-** Avy
+*** Avy
 
 Jump to specific position.
 
@@ -2301,7 +2178,7 @@ visible buffer.  See https://github.com/abo-abo/avy for more info.
 
 #+end_src
 
-** Ace-window
+*** Ace-window
 
 jump/create/swap buffers
 
@@ -2335,7 +2212,7 @@ and then the commands that follow below.
     "List of actions for `aw-dispatch-default'.")
 #+end_src
 
-** Ivy
+*** Ivy
 
 [2021-07-01] "Ivy" is a generic completion mechanism for Emacs.
 
@@ -2366,7 +2243,7 @@ C-c f, M-x basically. Other packages use it as well.
     :init (all-the-icons-ivy-rich-mode 1))
 #+end_src
 
-** Swiper
+*** Swiper
 
  [2021-07-01] "Swiper" - an Ivy-enhanced alternative to Isearch.
  Instead of regular C-s C-r. Relies on Ivy, but Ivy doens't rely on
@@ -2379,7 +2256,7 @@ C-c f, M-x basically. Other packages use it as well.
            ("C-r" . swiper)))
 #+end_src
 
-** Projectile
+*** Projectile
 
 [2021-07-01] "Projectile" allows me to have a list of my projects
 under one pkeybind - C-c p p. I can then open a project and my
@@ -2400,7 +2277,7 @@ project directory. Super useful, makes the buffers way tidier.
     (setq projectile-sort-order 'recently-active))
 #+end_src
 
-** Goto-chg
+*** Goto-chg
 
 Go to last/previous change
 [2022-02-24 Kt] Perfect! Can now cycle through the last changes in the buffer. Very
@@ -2415,7 +2292,7 @@ doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
   (global-set-key (kbd "M-]") 'goto-last-change-reverse)
 #+end_src
 
-** Treemacs
+*** Treemacs
 
 ? - hydra help or tree-hydra-advanced
 
@@ -2553,7 +2430,7 @@ doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
   ;; (setq aw-ignored-buffers (delq 'treemacs-mode aw-ignored-buffers))
 #+end_src
 
-** Dired
+*** Dired
 
 #+begin_src emacs-lisp
   (use-package dired
@@ -2592,7 +2469,7 @@ doesn't work. Does ''org-cycle-agenda-files' instead when doing the reverse.
 
 #+end_src
 
-** Company
+*** Company
 
 [2021-07-01] "Company" provides autosuggestion/completion in buffers
 (writing code, pathing to files, etc). press <f1> to display the
@@ -2632,7 +2509,7 @@ dropdown su suggestions, works perfectly wiht elisp out of the box
 
 #+end_src
 
-** Undo-tree
+*** Undo-tree
 
 Undoing things easily
 
@@ -2645,99 +2522,4 @@ file stage before any modifications were made. Keybind - C-x u.
     :init
     (global-undo-tree-mode))
   (setq undo-tree-auto-save-history nil)
-#+end_src
-
-* Not essential
-** Elfeed
-
-Rss reader
-nerd news
-
-#+begin_src emacs-lisp
-  (use-package elfeed
-    :ensure t
-    :commands elfeed)
-
-  (setq elfeed-feeds
-        '("http://nullprogram.com/feed/"
-          "https://lukesmith.xyz/rss.xml"
-          "https://planet.emacslife.com/atom.xml"
-          "https://emacsnyc.org/atom.xml"))
-#+end_src
-
-** Erc
-
-irc client for Emacs
-
-#+begin_src emacs-lisp
-  ;; (use-package erc
-  ;;   :ensure nil
-  ;;   :commands (erc erc-tls)
-  ;;   :config
-  ;;   (setq erc-log-channels-directory "~/Dropbox/src/emacs/erc")
-  ;;   (setq erc-save-buffer-on-part t)
-  ;;   (add-to-list 'erc-modules 'autojoin)
-  ;;   (add-to-list 'erc-modules 'log)
-  ;;   (erc-update-modules)
-  ;;   (setq erc-kill-buffer-on-part t)
-  ;;   (setq erc-track-shorten-start 8))
-
-  ;; (setq erc-server "irc.libera.chat"
-  ;;       erc-nick "Arvydas"
-  ;;       ;; erc-user-full-name "Emacs User"
-  ;;       erc-autojoin-channels-alist '(("libera.chat" "#systemcrafters" "#emacs")))
-
-  ;; (setq erc-track-exclude-types '("NICK" "JOIN" "LEAVE" "QUIT" "PART"
-  ;;                                 "301"   ; away notice
-  ;;                                 "305"   ; return from awayness
-  ;;                                 "306"   ; set awayness
-  ;;                                 "324"   ; modes
-  ;;                                 "329"   ; channel creation date
-  ;;                                 "332"   ; topic notice
-  ;;                                 "333"   ; who set the topic
-  ;;                                 "353"   ; Names notice
-  ;;                                 ))
-#+end_src
-
-** Macros
-
-Couldn't find packages for some stuff, so made a macro and they work fine.
-
-#+begin_src emacs-lisp
-  ;; [2022-03-12] 5 min tasks taken from all my agenda files.
-  ;; First open agenda, then list all the tasks, then click f9, then choose 5min.
-  (fset '5minTasks
-        (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([3 97 116 f9 61 50] 0 "%d")) arg)))
-
-  ;;; ---------------------------------------
-
-  ;; [2022-03-17 Kt] Macro for adding code block called hack
-  ;; [2022-03-29 An] Or add [[https://orgmode.org/manual/Structure-Templates.html][(require 'org-tempo)]] for <s to work again.
-  ;; [2022-04-04 Mon] Removed this macro, next time make one that leaves
-  ;; cursor on language input
-
-  ;; [2022-03-19] Open nautilus
-  (fset 'nautilus
-        [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s return])
-  (global-set-key [f1] 'nautilus)
-
-  ;; [2022-03-19] Open nautilus current buffer
-  (fset 'nautilus_current
-        [?\M-! ?n ?a ?u ?t ?i ?l ?u ?s ?  ?. return])
-  (global-set-key [f2] 'nautilus_current)
-
-  ;;; ---------------------------------------
-
-  ;; [2022-03-27 Sk] Duplicate a task. If I try to auto copy habit to daily
-  ;; file, it gets duplicated with all the clocked times. That's not so
-  ;; good.. to everyday get all the previous clocked times added up. It
-  ;; results in inaccurate data.
-
-  ;; What I will do here is copy the task, then clock in on it. Easy. The
-  ;; poriginal task (so it wouldn't show in agenda view anymore and would be
-  ;; marked as done), I will mark as "repeating" and I will not include
-  ;; 'repeating' tasks in 'auto copy tasks to dailies' list. Iz pz.
-
-  (fset 'duplicate\ and\ clock_in
-        [?\C-c ?\C-t ?r ?\C-  ?\M-x return ?\M-w return ?\C-y ?\C-p ?\C-x ?n ?s tab ?\C-n ?\C-k ?\C-k ?\C-k ?\C-k ?\C-k ?\C-p ?\C-x ?n ?w ?\C-l ?\C-n ?\C-k ?\C-p ?\C-c ?\C-x ?\C-i ?\C-x ?\C-s])
 #+end_src
