@@ -1,3 +1,9 @@
+!!!! This branch was created BEFORE I started configuring the main branch to be only for note taking with denote !!!!
+
+Will try to edit code less in emacs, therefore will remove those programming related packages. 
+
+Let's see how it goes.
+
 #+TITLE: Arvydas G's Emacs Config
 :PROPERTIES:
 #+AUTHOR: Arvydas G
