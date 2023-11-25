@@ -18,5 +18,5 @@ cd emacs-28.2 || exit
 make
 sudo make install
 
-# Remove installation files
+# Remove installation files(better don't remove, since you will have to use them for uninstalling)
 # cd ~/emacs_build && rm -rf emacs-28.2 emacs-28.2.tar.gz

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: flask_export
-# key: fexport
-# --
-
-export FLASK_APP=main.py

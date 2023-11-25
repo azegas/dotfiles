@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: live
-# key: live
-# --
-
-python3 -m http.server
