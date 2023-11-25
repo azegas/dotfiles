@@ -45,7 +45,7 @@
 ;; (global-display-line-numbers-mode 1)
 ;; (add-hook 'text-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
 
 ;; Spell check
 (add-hook 'text-mode-hook 'flyspell-mode)
