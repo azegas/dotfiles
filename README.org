@@ -1,4 +1,12 @@
-* Little history
+#+TITLE: Arvydas G's Emacs Config
+:PROPERTIES:
+#+AUTHOR: Arvydas G
+#+STARTUP: fold
+#+PROPERTY: header-args :results silent :tangle yes
+#+SEQ_TODO: TODO(t) | COMMENT(c)
+:END:
+
+* Little history about my Emacs config
 ** [2023-06-05 Mon] Lots of refactoring
 
 New laptop, new setup ONCE Again. This time on Windows and WSL.
