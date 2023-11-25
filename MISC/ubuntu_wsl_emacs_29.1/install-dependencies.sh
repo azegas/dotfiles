@@ -18,11 +18,11 @@ sudo apt update && sudo apt upgrade -y
 
 sudo apt install ispell libtool libtool-bin autoconf automake cmake g++ libncurses-dev libz-dev libglib2.0-dev ripgrep nodejs npm emacs-common-non-dfsg python3 python3.10-venv nodejs npm -y
 
-sudo npm install -g tern (tern)
-sudo pip install elpy rope jedi (elpy)
+# sudo npm install -g tern (tern)
+# sudo pip install elpy rope jedi (elpy)
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 
-(for lsp ts-ls language server). Visit the instructions -
-  https://github.com/nvm-sh/nvm#installation-and-update. After running
-  the script - source .bashrc
+# (for lsp ts-ls language server). Visit the instructions -
+#   https://github.com/nvm-sh/nvm#installation-and-update. After running
+#   the script - source .bashrc

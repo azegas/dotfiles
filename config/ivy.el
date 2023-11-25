@@ -8,12 +8,11 @@
 ;; options! have to isntall counsel first for ivy to work.
 (use-package counsel
   :ensure t
-  :after ivy
+  ;; enable this if you want `swiper' to use it
+  ;; (setq search-default-mode #'char-fold-to-regexp)
   :config (counsel-mode))
 
 (use-package ivy
-  :defer 0.1
-  :diminish
   :bind (("C-c C-r" . ivy-resume)
          ("C-x B" . ivy-switch-buffer-other-window)) ; I never use this
   :custom
@@ -25,7 +24,6 @@
   :config (ivy-mode))
 
 (use-package ivy-rich
-  :after ivy
   :ensure t
   :init (ivy-rich-mode 1))
 
@@ -33,3 +31,9 @@
 (use-package all-the-icons-ivy-rich
   :ensure t
   :init (all-the-icons-ivy-rich-mode 1))
+
+;; [2021-07-01] “Swiper” - an Ivy-enhanced alternative to
+;; Isearch. Instead of regular C-s C-r. Relies on Ivy, but Ivy doens’t
+;; rely on Swiper.
+(use-package swiper
+  :ensure t)
