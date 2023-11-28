@@ -1,8 +1,10 @@
 ;; [2021-07-01] “Company” provides autosuggestion/completion in
-;; buffers (writing code, pathing to files, etc). press <f1> to
-;; display the documentation for the selected candidate or C-w to see
-;; its source tas dropdown su suggestions, works perfectly wiht elisp
-;; out of the box
+;; buffers (writing code, pathing to files, etc) and also in file path
+;; completion when trying to search for a directory.
+
+;; press <f1> to display the documentation for the selected candidate
+;; or C-w to see its source tas dropdown su suggestions, works
+;; perfectly wiht elisp out of the box
 
 (use-package company
   :ensure t
@@ -20,6 +22,7 @@
 ;turn off company auto-completion in eshell, because it adds annoying
 ;spaces after each completion.. like ls, sucks
 (add-hook 'eshell-mode-hook (lambda () (company-mode -1)) 'append)
+(add-hook 'shell-mode-hook (lambda () (company-mode -1)) 'append)
 
 ;; turn off company mode in org major mode. Annoying suggestions with
 ;; each word.
