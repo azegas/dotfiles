@@ -20,6 +20,21 @@
 ;; Bind a key to the function
 (global-set-key (kbd "C-`") 'open-denote-dir-in-dired)
 
+;; Change front matter(what appears on each note at the top)
+;; more things to include here - https://orgmode.org/manual/Export-Settings.html
+;; control visibility - https://orgmode.org/manual/Initial-visibility.html
+
+;; I specifically wanted to add the startup thingy, so large note
+;; files would not spit all the information into my face when i open
+;; that note
+(setq denote-org-front-matter
+"#+title:      %s
+#+date:       %s
+#+filetags:   %s
+#+identifier: %s
+#+STARTUP:    overview
+")
+
 ;; -------------------------------------------------------------------
 
 (let ((map global-map))
