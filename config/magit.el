@@ -28,6 +28,9 @@
   :bind (("C-x g" . magit-status)
 	 ("C-x C-g" . magit-status)))
 
+;; cool, can see the commands magit is running by going to
+;; "magi-process" buffer in emacs while in git repo
+
 
 ;; Show diff changes in dired
 ;; [2022-03-08 An] https://github.com/dgutov/diff-hl
