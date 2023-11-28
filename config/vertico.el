@@ -13,7 +13,7 @@
   (vertico-mode)
 
   ;; Show more candidates
-  (setq vertico-count 5)
+  (setq vertico-count 10)
   )
 
 ;; Let's you to type "pa re con" in vertico minubuffer instead of

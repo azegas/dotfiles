@@ -1,3 +1,4 @@
 ;;; -*- lisp-data -*-
 (("~/.emacs.d/")
- ("/home/arvy/.emacs.d/"))
+ ("~/Documents/notes/")
+ ("/mnt/c/Users/arvydas/OneDrive/GIT/notes/"))

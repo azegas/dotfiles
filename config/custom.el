@@ -3,34 +3,16 @@
 ;; stolen from https://github.com/Giedriusj1
 ;; reminds me VScode behavior
 
-(defun ag/create-shell-here ()
-  (interactive)
-  (let* ((dir default-directory)
-	 (shell-name (format "*shell* <%s>" dir))
-	 (shell-buffer (get-buffer shell-name)))
-    (if shell-buffer
-	(switch-to-buffer shell-buffer)
-      (shell (generate-new-buffer-name shell-name)))))
+;; (defun ag/create-shell-here ()
+;;   (interactive)
+;;   (let* ((dir default-directory)
+;;	 (shell-name (format "*shell* <%s>" dir))
+;;	 (shell-buffer (get-buffer shell-name)))
+;;     (if shell-buffer
+;;	(switch-to-buffer shell-buffer)
+;;       (shell (generate-new-buffer-name shell-name)))))
 
-(bind-keys* ( "C-`" . ag/create-shell-here))
-
-
-;;; ---------------------------------------
-
-(defun ag/find-init.el nil
-  (interactive)
-
-  (find-file (concat ag/emacs-dir "/init.el")))
-
-(global-set-key (kbd "C-x <C-backspace>") 'ag/find-init.el)
-
-;; Easily jump to my package files in dired
-(defun ag/find-packages nil
-  (interactive)
-
-  (dired ag/emacs-config-dir))
-
-(global-set-key (kbd "C-x <C-home>") 'ag/find-packages)
+;; (bind-keys* ( "C-`" . ag/create-shell-here))
 
 ;;; ---------------------------------------
 

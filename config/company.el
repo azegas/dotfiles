@@ -5,7 +5,7 @@
 ;; out of the box
 
 (use-package company
-  :after lsp-mode
+  :ensure t
   :config
   ; lb svarbu, instant suggestion
   (setq company-idle-delay 0)
@@ -17,15 +17,18 @@
   (setq company-tooltip-flip-when-above nil)
   (global-company-mode))
 
-;turn off company auto-completion in eshell, because it adds annoying spaces after each completion.. like ls, sucks
+;turn off company auto-completion in eshell, because it adds annoying
+;spaces after each completion.. like ls, sucks
 (add-hook 'eshell-mode-hook (lambda () (company-mode -1)) 'append)
 
-;; turn off company mode in org major mode. Annoying suggestions with each word.
+;; turn off company mode in org major mode. Annoying suggestions with
+;; each word.
 (defun jpk/org-mode-hook ()
   (company-mode -1))
 (add-hook 'org-mode-hook #'jpk/org-mode-hook)
 
-;; makes lsp crash - https://github.com/emacs-lsp/lsp-mode/discussions/3781#discussioncomment-3992134
+;; makes lsp crash -
+;; https://github.com/emacs-lsp/lsp-mode/discussions/3781#discussioncomment-3992134
 ;; (use-package company-quickhelp
 ;;   :ensure t
 ;;   :config

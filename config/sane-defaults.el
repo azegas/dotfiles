@@ -5,6 +5,8 @@
 
 ;; Save backup files to a dedicated directory.
 
+; M-x use-package-report to see the time of the each loaded package
+(setq use-package-compute-statistics t)
 ; stop creating backup~ files
 (setq make-backup-files nil)
 ; stop creating #autosave# files
@@ -20,9 +22,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ; Delete marked region when typing over it
 (delete-selection-mode t)
-; no more annoying buffer list combinations. Now there are two - C-x b and C-x C-b
-; I am making there to be only one
-(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 ;; Character wrap
 (setq fill-column 80)
 ; automatically wraps words at boundaries
@@ -52,3 +51,32 @@
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 (global-set-key (kbd "<f5>") 'flyspell-mode)
+
+
+
+(setq dired-listing-switches "-agho --group-directories-first")
+(global-set-key (kbd "C-x C-d") 'dired-jump)
+
+;; Hide rights/size/created info, etc in dired buffer. To see details
+;; again, in dired do ¨(¨
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
+;; highlight the selected line in dired
+(add-hook 'dired-mode-hook #'hl-line-mode)
+
+;; Enable dired-find-alternate-file. In new config it always asks at
+;; the beginning to enable this command, since it is disabled. I find
+;; it annoying, I always use "a" to open a folder in dired and I will
+;; continue doing so. The piece of code below does it so that I don't
+;; get prompted "do you really want to use this command" all the time.
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; This setting tells Emacs to consider all themes as safe and
+;; eliminates the prompt for confirmation on whether to load and trust
+;; a theme with Lisp code. With this configuration, Emacs will
+;; automatically trust and load themes without asking for confirmation
+;; each time you start Emacs.
+(setq custom-safe-themes t)
+
+;; set default buffer on startup
+;; (setq initial-buffer-choice (concat my/org-agenda-files-location "inbox.org")
+(setq initial-buffer-choice #'open-denote-dir-in-dired)
