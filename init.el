@@ -65,7 +65,7 @@
 ;; make sure to make a symlink like like described in -
 ;; [[denote:20231126T012052][make denote faster on wsl]] for
 ;; ¨/Documents/notes/¨ to work:
-(setq denote-directory (expand-file-name "~/Documents/notes/"))
+(setq denote-directory (expand-file-name "~/GIT/notes/"))
 ;; just because the location is of WINDOWS space and we are in WSL
 ;; Ubuntu space, denote will work slower
 ;; to avoid this, can possibly make a job to copy daily at 00:00 or
