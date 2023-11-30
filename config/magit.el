@@ -24,26 +24,7 @@
 ;; settings.
 
 (use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)
-	 ("C-x C-g" . magit-status)))
+  :ensure t)
 
 ;; cool, can see the commands magit is running by going to
 ;; "magi-process" buffer in emacs while in git repo
-
-
-;; Show diff changes in dired
-;; [2022-03-08 An] https://github.com/dgutov/diff-hl
-
-(use-package diff-hl
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode #'diff-hl-mode)
-  (add-hook 'prog-mode-hook #'diff-hl-mode)
-  (add-hook 'org-mode-hook #'diff-hl-mode)
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-post-refresh)
-  (add-hook 'prog-mode-hook #'diff-hl-margin-mode)
-  (add-hook 'org-mode-hook #'diff-hl-margin-mode)
-  (add-hook 'dired-mode-hook 'diff-hl-margin-mode))

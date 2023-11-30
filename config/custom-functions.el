@@ -1,4 +1,43 @@
-;;; ---------------------------------------
+;; -------------------------------------------------------------------
+
+;; Define a function to open a specific directory in Dired mode
+(defun open-denote-dir-in-dired ()
+  (interactive)
+  (dired denote-directory))
+
+;; -------------------------------------------------------------------
+
+;; setup below is to access the org-agenda-FILE quickly.
+;; Function to open the inbox.org file
+(defun ag/open-inbox-file ()
+  (interactive)
+  (find-file (expand-file-name ag/inbox-file denote-directory)))
+
+;; -------------------------------------------------------------------
+
+(defun ag/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+	   (format "%.2f seconds"
+		   (float-time
+		    (time-subtract after-init-time before-init-time)))
+	   gcs-done))
+
+;; -------------------------------------------------------------------
+
+;; Jump to my main config file
+(defun ag/find-init.el nil
+  (interactive)
+
+  (find-file (concat ag/emacs-dir "/init.el")))
+
+;; Jump to my config files location
+;; Easily jump to my package files in dired
+(defun ag/find-packages nil
+  (interactive)
+
+  (dired ag/emacs-config-dir))
+
+;; -------------------------------------------------------------------
 
 ;; stolen from https://github.com/Giedriusj1
 ;; reminds me VScode behavior
@@ -14,7 +53,7 @@
 
 ;; (bind-keys* ( "C-`" . ag/create-shell-here))
 
-;;; ---------------------------------------
+;; -------------------------------------------------------------------
 
 ;; [2022-04-05 Tue] Un-fill region. Needed for when wanting to put
 ;; text content to a website.
@@ -26,9 +65,7 @@
   (let ((fill-column (point-max)))
     (fill-region beg end)))
 
-(define-key global-map "\C-\M-Q" 'ag/unfill-region)
-
-;;; ---------------------------------------
+;; -------------------------------------------------------------------
 
 ;; Ask before closing Emacs
 (defun ag/ask-before-closing ()
@@ -40,9 +77,7 @@
 	(save-buffers-kill-emacs))
     (message "Canceled exit")))
 
-(global-set-key (kbd "C-x C-c") 'ag/ask-before-closing)
-
-;;; ---------------------------------------
+;; -------------------------------------------------------------------
 
 ;; a function to kill dired buffers. Kind of works. Or you can use "a"
 ;; to cycle through dired and it leaves no buffers opened
@@ -68,7 +103,7 @@
 	  (kill-buffer buffer)))
       (message "Killed %i dired buffer(s)." count))))
 
-;;; ---------------------------------------
+;; -------------------------------------------------------------------
 
 ;; shell-other-window
 (defun ag/eshell-other-window ()
@@ -78,7 +113,7 @@
     (switch-to-buffer (other-buffer buf))
     (switch-to-buffer-other-frame buf)))
 
-;;; ---------------------------------------
+;; -------------------------------------------------------------------
 
 ;; https://rejeep.github.io/emacs/elisp/2010/03/11/duplicate-current-line-or-region-in-emacs.html
 ;; for html actually found C-c C-e C from web mode
@@ -103,6 +138,4 @@ there's a region, all lines that region covers will be duplicated."
 	(setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
-(global-set-key (kbd "M-c") 'ag/duplicate-current-line-or-region)
-
-;;; ---------------------------------------
+;; -------------------------------------------------------------------

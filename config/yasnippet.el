@@ -17,9 +17,9 @@
 (use-package yasnippet-snippets
   :disabled t)
 
-;; In this code, we assume that yas-snippet-dirs is already a
-;; defined list variable. The add-to-list function is then used
-;; append the concatenated directory path my/emacs-dir +
-;; "/snippets/" to the existing list of directories specified
-;; by yas-snippet-dirs.
-(setq yas-snippet-dirs (concat ag/emacs-dir "/snippets/"))
+;; ;; In this code, we assume that yas-snippet-dirs is already a
+;; ;; defined list variable. The add-to-list function is then used
+;; ;; append the concatenated directory path ag/emacs-dir +
+;; ;; "/snippets/" to the existing list of directories specified
+;; ;; by yas-snippet-dirs.
+;; (setq yas-snippet-dirs (concat ag/emacs-dir "/snippets/"))

@@ -6,5 +6,3 @@
 
 (use-package goto-chg
   :ensure t)
-(global-set-key (kbd "M-[") 'goto-last-change)
-(global-set-key (kbd "M-]") 'goto-last-change-reverse)

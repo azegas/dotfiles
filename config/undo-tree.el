@@ -5,4 +5,5 @@
   :ensure t
   :init
   (global-undo-tree-mode))
+
 (setq undo-tree-auto-save-history nil)
