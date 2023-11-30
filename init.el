@@ -21,7 +21,7 @@
 (setq ag/emacs-config-dir "~/.emacs.d/config")
 
 ;; define my agenda file
-(defvar my/inbox-agenda-file "20231128T133226--inbox-task-file__planning.org")
+(defvar my/inbox-file "20231128T133226--inbox-task-file__planning.org")
 ;; ----------------------------------------------------------------------------
 
 ;; Let's load our config
