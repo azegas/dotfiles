@@ -50,3 +50,17 @@
 ;; ORG REFILE
 ;; set org refile targets. (C-w)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+
+;; -------------------------------------------------------------------
+;; ORG CAPTURE
+;; make a file location of a "capture-file". In my case it's only
+;; file(check previous emacs configs for examples with multiple files)
+;; setup capture templates
+(setq org-capture-templates
+      '(
+	("i" "Inbox" entry (file+headline ag/inbox-file "Inbox")
+	 "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
+	)
+      )
+
+;; -------------------------------------------------------------------
