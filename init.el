@@ -57,6 +57,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("b40f11c174e7e475508f1e2c1cfca354d37212494c143a494f27239c7d71a294" default))
+ '(org-agenda-files nil)
  '(package-selected-packages
    '(multiple-cursors helpful company which-key consult yasnippet vertico undo-tree orderless modus-themes magit diff-hl denote counsel)))
 (custom-set-faces

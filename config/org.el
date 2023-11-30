@@ -56,11 +56,18 @@
 ;; make a file location of a "capture-file". In my case it's only
 ;; file(check previous emacs configs for examples with multiple files)
 ;; setup capture templates
-(setq org-capture-templates
-      '(
-	("i" "Inbox" entry (file+headline ag/inbox-file "Inbox")
-	 "* TODO %? \n:PROPERTIES:\n:CAPTURED:%U\n:END:\n\n")
-	)
-      )
 
+;; DOCS
+;; template elements - https://orgmode.org/manual/Template-elements.html
+;; template expansion - https://orgmode.org/manual/Template-expansion.html
+
+(setq org-capture-templates '((
+			       "i"	;key
+			       "Inbox"	;description
+			       entry	;type
+			       (file+headline ag/inbox-file "Inbox") ;target
+			       "* TODO %? %^g \n:PROPERTIES:\n:CAPTURED: %U\n:END:\n\n" ;template
+			       :prepend t ;properties(append the new note to the top!)
+			       :empty-lines 1 ;properties
+			       )))
 ;; -------------------------------------------------------------------

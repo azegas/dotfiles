@@ -5,11 +5,11 @@
 ;; set denote directory
 (setq denote-directory (expand-file-name "/home/arvy/GIT/notes/"))
 ;; define my agenda file
-(defvar ag/inbox-file (expand-file-name "20231128T133226--inbox-task-file__planning.org" denote-directory))
+(defvar ag/inbox-file (expand-file-name "20231128T133226--inbox.org" denote-directory))
 
 
 (setq org-agenda-files '(
-			 "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org"
+			 "/home/arvy/GIT/notes/20231128T133226--inbox.org"
 			 ;; "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org_archive"
 			 ))
 
