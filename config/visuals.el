@@ -13,3 +13,24 @@
   :ensure t
   :config
   (load-theme 'modus-vivendi-tinted))
+
+;; Accelerate scrolling with the trade-off of sometimes delayed accurate fontification.
+(setq fast-but-imprecise-scrolling t)
+
+;; Use a bar cursor by default.
+(setq-default cursor-type 'bar)
+
+;; -------------------------------------------------------------------
+
+;; (use-package pixel-scroll
+;;   :hook
+;;   (org-mode-hook . pixel-scroll-precision-mode))
+
+;; (setq scroll-step            1
+;;       scroll-conservatively  10000)
+
+
+(use-package smooth-scrolling
+  :ensure t)
+
+(smooth-scrolling-mode 1)
