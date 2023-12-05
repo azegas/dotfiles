@@ -1,0 +1,1279 @@
+#+TITLE: Emacs configuration file
+#+AUTHOR: Arvydas Gasparavicius
+#+PROPERTY: header-args :tangle yes
+#+STARTUP: overview
+
+* Little history about my Emacs config
+
+** [2023-12-05 Tue] Back to init.org
+
+While driving from work I listened to [[https://github.com/freetonik/emacscast.org][emacascast]] podcast (episode 2)and
+realized how great the [[https://en.wikipedia.org/wiki/Literate_programming][Literate programming]] is and how well it suites the emacs
+config file. Today I switched back to using one .org file with all the
+configurations instead of many small .el files.
+
+** [2023-11-28 Tue] Emacs for note taking
+
+Decided to use emacs for note taking primarily. I rarely come to emacs
+to write code. All these AI tools and so on.. Staying in other editors
+instead. And if I come to emacs to code, I spend quite a while editing
+the setup and yeah..
+
+So, this emacs configuration is aimed to creating a "second brain",
+for note keeping/taking/searching etc.
+
+For that the code package is Denote. [[https://github.com/arvydasg/.emacs.d/commit/efb3b0f28b64a2dee7cca703ff301ea56f55921f][efb3b0f]] commit is the essential
+one, where most modifications have happened.
+
+Notes from that commint that summarize this chapter:
+- consult package is amazing
+- super nice to write notes with denote. Like the structure
+- cleared up some clutter from the emacs config, replaced/removed lots
+  of packages
+- vertico + orderless for nice search mechanism
+- project.el instead of projectile
+- New theme
+
+** [2023-06-05 Mon] Lots of refactoring
+
+New laptop, new setup ONCE Again. This time on Windows and WSL.
+
+Have a lof of directories that have to be changed all the time I
+switch machines, so decided to put all of those directories in one
+place so it's easy to configure.
+
+** [2023-03-18 Sat] One org mode file for all configuration
+
+Branch copied from "230318-Org-file-in-project-folder".
+
+Decided to make .org file to act as my init file. Better for
+documenting processes and storing shortcuts.. now I have three places
+for that. One for init(config), one for shortcuts one for
+documentation of emacs processes.
+
+In the future it might be problem with windows stuff, but will see
+then.
+
+** [2023-01-08 Sun] No init.org.
+With it the config loads slower and it's not as easy to turn off
+packages quickly. With my setup, I just uncomment the code and the
+package is ignrod upon next load.
+
+In case I want to load org file as my init.el, I can do it by placing
+init.org file in my .emacs.d
+
+#+begin_src bash :tangle no
+  (package-initialize)
+  (org-babel-load-file "~/.emacs.d/config.org")
+#+end_src
+
+** [2023-01-06 Fri] Daemon mode
+
+Found out about emacs daemon mode. It makes emacs
+instances load instantaneously. Amazing.
+
+Add these to .bashrc for easy launch/use/kill:
+
+#+begin_src bash :tangle no
+  alias ed='emacs --daemon'
+  alias e='emacsclient -c -n'
+  alias ek='emacsclient -e "(kill-emacs)"'
+#+end_src
+
+** [2023-01-06 Fri] Using emacs with org mode at work
+
+[[https://www.reddit.com/r/emacs/comments/1043g41/help_me_use_emacs_with_org_mode_at_work/][Using emacs with org mode at work]].
+Finally decided to have work org files at work and personal at home.
+Better work and life balance in this way. Emacs at work windows
+computer will run on WSL with [[https://opticos.github.io/gwsl/][GWSL]] for a GUI.
+
+** [2022-12-27 Tue] Overwhelmed
+
+I am feeling little bit overwhelmed with my workflow
+with emacs to track my daily tasks and projects at home and at work.
+
+All was fine until I discovered that I can use emacs at work(finally).
+Now the struggle is with Dropbox, keeping only my work files at work,
+but also seeing them at home..
+
+Then also the agenda views, capture templates, refiling, one big org
+file or many small org files, tags, categories, archiving and so on.
+The more I tinker with it the more lost and confused I become.
+
+Each time configuring the method requires me restructuring the
+notes...
+
+This is the attempt where I try to implement this:
+
+https://members.optusnet.com.au/~charles57/GTD/gtd_workflow.html
+
+https://members.optusnet.com.au/~charles57/GTD/remember.html
+
+https://members.optusnet.com.au/~charles57/GTD/mydotemacs.txt
+
+https://lifehacker.com/the-weekly-review-how-one-hour-can-save-you-a-week-s-w-5908816
+
+Wish me luck.
+
+I will simplify it as much as possible, then use it with ease and
+enjoyment. I know it.
+
+* About
+
+Put the following into the header for it to work
+
+#+BABEL: :cache yes
+#+PROPERTY: header-args :tangle yes
+#+STARTUP: overview
+
+This is an Emacs configuration file written in [[http://orgmode.org][Org mode]]. It is an attempt to
+keep my =~/.emacs.d= tidy, but still be able to keep it all in one file. I
+aim to briefly explain all my configurations as I go along!
+
+I would not recommend using this configuration /as-is/, because it probably
+contains a lot you don't really need. I do, however, hope people find some
+golden nuggets that they can smuggle into their own configs.
+
+If you really do want to try this config out, this is how I'd go about it:
+
+Backup your old =~/.emacs.d= (if necessary).
+
+#+begin_src sh :tangle no
+  mv ~/.emacs.d ~/.emacs.d-bak
+#+end_src
+
+Backup your old =~/.emacs=-file (if necessary).
+
+#+begin_src sh :tangle no
+  mv ~/.emacs ~/.emacs-bak
+#+end_src
+
+Clone the repo.
+
+#+begin_src sh :tangle no
+  git clone https://github.com/arvydasg/.emacs.d
+#+end_src
+
+On first run it should install a bunch of packages (this might take a while),
+and you might have to restart your Emacs the first time. If you experience
+bugs, please let me know!
+
+* Great Emacs config's of others
+
+- First and only Lithuanian(after myself) I see using Emacs https://github.com/Giedriusj1
+- https://github.com/search?q=language%3Aelisp%20init.el
+- https://github.com/gopar/.emacs.d
+- https://github.com/zamansky/using-emacs/blob/master/myinit.org
+- https://github.com/rememberYou/.emacs.d/blob/master/config.org#javascript
+- http://doc.norang.ca/org-mode.html#TaskEstimates
+- https://alphaalgorithms.github.io/2019/05/17/emacs-agenda-views/
+- https://staff.fnwi.uva.nl/p.vanormondt/blog/2021-02-13-emacs-init-file.html
+- https://github.com/sbroberg/.emacs.d
+- https://github.com/thierryvolpiatto/emacs-config/blob/main/init.el
+- https://gitlab.com/skybert/my-little-friends/-/blob/master/emacs/.emacs#L1100
+- https://github.com/tabfugnic/dotfiles/blob/main/emacs.d/config.org
+- https://sachachua.com/dotemacs/index.html#org604b1d4
+- https://github.com/magnars/.emacs.d
+- https://github.com/zaeph/.emacs.d
+- https://whhone.com/emacs-config/#general
+- https://sqrtminusone.xyz/configs/emacs/
+- https://github.com/novoid/dot-emacs/blob/master/config.org
+- https://github.com/Crandel/home/tree/master/.config/emacs
+- https://github.com/Likhon-baRoy/.emacs.d
+- https://github.com/jakebox/jake-emacs
+- https://github.com/terlar/emacs-config
+- https://github.com/larstvei/dot-emacs
+- https://github.com/freetonik/emacs-dotfiles
+
+* Configurations
+** Meta
+*** What is tangling, literate programming, org-babel
+
+All changes to the configuration should be done in =init.org=, *not* in
+=init.el=. Any changes in the =init.el= will be overwritten by saving
+=init.org=. The =init.el= in this repo should not be tracked by git, and is
+replaced the first time Emacs is started (assuming it has been renamed to
+=~/.emacs.d=).
+
+Emacs can't load =.org=-files directly, but =org-mode= provides functions to
+extract the code blocks and write them to a file. There are multiple ways of
+handling this; like suggested by [[http://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file][this StackOverflow post]].
+
+When this configuration is loaded for the first time, the ~init.el~ is the
+file that is loaded. It looks like this:
+
+#+begin_src emacs-lisp :tangle no
+  ;; This file replaces itself with the actual configuration at first run.
+
+  ;; We can't tangle without org!
+  (require 'org)
+  ;; Open the configuration
+  (find-file (concat user-emacs-directory "init.org"))
+  ;; tangle it
+  (org-babel-tangle)
+  ;; load it
+  (load-file (concat user-emacs-directory "init.el"))
+  ;; finally byte-compile it
+  (byte-compile-file (concat user-emacs-directory "init.el"))
+#+end_src
+
+It tangles the org-file, so that this file is overwritten with the actual
+configuration.
+
+*** Stop tracking init.el
+
+There is no reason to track the =init.el= that is generated; by running the
+following command =git= will not bother tracking it:
+
+#+begin_src sh :tangle no
+  git update-index --assume-unchanged init.el
+#+end_src
+
+If one wishes to make changes to the repo-version of =init.el= start tracking
+again with:
+
+#+begin_src sh :tangle no
+  git update-index --no-assume-unchanged init.el
+#+end_src
+
+*** Lexical binding, garbage collection
+
+Lexical scoping for the init-file is needed, it can be specified in the header.
+Make startup faster by reducing the frequency of garbage collection. The
+default is 800 kilobytes. Measured in bytes. These are the first lines of the
+actual configuration.
+
+A common optimization is to temporarily disable garbage collection
+during initialization. Here, we set the ~gc-cons-threshold~ to a
+ridiculously large number, and restore the default value after
+initialization.
+
+#+begin_src emacs-lisp
+  ;;; -*- lexical-binding: t -*-
+  (setq gc-cons-threshold (* 50 1000 1000))
+#+end_src
+
+Enabling lexical scoping with lexical-binding: t in your Emacs
+init-file can provide advantages such as better encapsulation,
+avoiding accidental variable modifications, and clearer code
+behavior by ensuring that variables are scoped as intended.
+
+*** Automatically tangle init.org and recompile the init.el file
+
+The =init.el= should (after the first run) mirror the source blocks in the
+=init.org=. We can use =C-c C-v t= to run =org-babel-tangle=, which extracts
+the code blocks from the current file into a source-specific file (in this
+case a =.el=-file).
+
+To avoid doing this each time a change is made we can add a function
+to the =after-save-hook= ensuring to always tangle and byte-compile
+the =org=-document after changes. Open *Compile-Log* buffer to see
+if your compilation has been successfull. Great for tracking if you
+have broke something with your configuration.
+
+#+begin_src emacs-lisp
+  (defun tangle-init ()
+    "If the current buffer is init.org the code-blocks are tangled,
+   and the tangled file is compiled."
+    (when (equal (buffer-file-name)
+                 (expand-file-name (concat user-emacs-directory "init.org")))
+      ;; Avoid running hooks when tangling.
+      (let ((prog-mode-hook nil))
+        (org-babel-tangle)
+        (byte-compile-file (concat user-emacs-directory "init.el")))))
+
+  (add-hook 'after-save-hook 'tangle-init)
+#+end_src
+
+** Packages
+
+John Wiegley's extremely popular [[https://github.com/jwiegley/use-package][use-package]] was included in [[https://lists.gnu.org/archive/html/emacs-devel/2022-12/msg00261.html][Emacs
+29]]. It provides a powerful macro for isolating package
+configuration. After ignoring this for a decade, I'll budge and give
+it a whirl.
+
+#+begin_src emacs-lisp
+  (require 'use-package)
+  ;; I like to tell if the package should be loaded or not, so
+  ;; commenting this below
+  ;; (setq use-package-always-ensure t)
+#+end_src
+
+Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][melpa]] is the largest
+archive and is well maintained.
+
+#+begin_src emacs-lisp
+  (setq package-archives
+  '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+  ("MELPA Stable" . "https://stable.melpa.org/packages/")
+  ("MELPA"        . "https://melpa.org/packages/"))
+  package-archive-priorities
+  '(("GNU ELPA"     . 10)
+  ("MELPA"        . 5)
+  ("MELPA Stable" . 0)))
+#+end_src
+
+** Sane defaults
+
+These are what I consider to be saner defaults.
+
+Set utf-8 as preferred coding system.
+
+#+begin_src emacs-lisp
+  (set-language-environment "UTF-8")
+  (prefer-coding-system 'utf-8)
+#+end_src
+
+We can set variables to whatever value we’d like using setq.
+
+#+begin_src emacs-lisp
+  (setq use-package-compute-statistics t  ; M-x use-package-report
+        make-backup-files nil             ;stop creating backup~ files
+        auto-save-default nil             ; stop creating #autosave# files
+        inhibit-startup-screen t          ; No splash screen please
+        initial-scratch-message nil       ; Clean scratch buffer
+        kill-whole-line t                 ; C-k kills line including its newline
+        ring-bell-function 'ignore        ; Quiet
+        scroll-margin 1                   ; Space between cursor and top/bottom
+        sentence-end-double-space nil     ; No double space
+        confirm-kill-emacs 'y-or-n-p      ; y and n instead of yes and no when quitting
+        show-paren-delay 0                ;
+        read-extended-command-predicate #'command-completion-default-include-p ;; Hide M-x commands which does not work in the current buffer.
+        dired-listing-switches "-agho --group-directories-first"               ;directoreis first in dired
+        )
+#+end_src
+
+Some variables are buffer-local, so changing them using setq will only change
+them in a single buffer. Using setq-default we change the buffer-local
+variable’s default value.
+
+#+begin_src emacs-lisp
+  (setq-default fill-column 79                   ; Maximum line width
+                auto-fill-function 'do-auto-fill ; Auto-fill-mode everywhere
+                calendar-week-start-day 1
+                )
+#+end_src
+
+Answering yes and no to each question from Emacs can be tedious, a single y or
+n will suffice.
+
+#+begin_src emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+To avoid file system clutter we put all auto saved files in a single directory.
+
+#+begin_src emacs-lisp
+  (defvar emacs-autosave-directory
+    (concat user-emacs-directory "autosaves/")
+    "This variable dictates where to put auto saves. It is set to a
+    directory called autosaves located wherever your .emacs.d/ is
+    located.")
+
+  ;; Sets all files to be backed up and auto saved in a single directory.
+  (setq backup-directory-alist
+        `((".*" . ,emacs-autosave-directory))
+        auto-save-file-name-transforms
+        `((".*" ,emacs-autosave-directory t)))
+#+end_src
+
+Enable dired-find-alternate-file. In new config it always asks at the beginning
+to enable this command, since it is disabled. I find it annoying, I always use
+"a" to open a folder in dired and I will continue doing so. The piece of code
+below does it so that I don't get prompted "do you really want to use this
+command" all the time.
+
+#+begin_src emacs-lisp
+  (put 'dired-find-alternate-file 'disabled nil)
+#+end_src
+
+#+begin_src emacs-lisp
+  ;; RANDOM HOOKS
+  (add-hook 'before-save-hook 'whitespace-cleanup)
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+  ;; Line numbers
+  ;; (global-display-line-numbers-mode 1)
+  ;; (add-hook 'text-mode-hook #'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  ;; Hide rights/size/created info, etc in dired buffer. To see details
+  ;; again, in dired do ¨(¨
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+  ;; highlight the selected line in dired
+  (add-hook 'dired-mode-hook #'hl-line-mode)
+#+end_src
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x C-d") 'dired-jump)
+#+end_src
+
+** Key bindings
+
+Inspired by [[http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs][this StackOverflow post]] I keep a =custom-bindings-map= that holds
+all my custom bindings. This map can be activated by toggling a simple
+=minor-mode= that does nothing more than activating the map. This inhibits
+other =major-modes= to override these bindings.
+
+Basically instead of using the default key-bindings that come with the
+packages, I override the default keybindings globally.
+
+#+begin_src emacs-lisp
+  (defvar custom-bindings-map (make-keymap)
+    "A keymap for custom bindings.")
+#+end_src
+
+** Directories
+
+#+begin_src emacs-lisp
+  ;; absolute path to emacs dir
+  (setq ag/emacs-dir "~/.emacs.d")
+  ;; absolute path to emacs config dir
+  (setq ag/emacs-config-dir "~/.emacs.d/config")
+  ;; set denote directory
+  (setq denote-directory (expand-file-name "/home/arvy/GIT/notes/"))
+  ;; define my agenda file
+  (defvar ag/inbox-file (expand-file-name "20231128T133226--inbox.org" denote-directory))
+
+
+  (setq org-agenda-files '(
+                           "/home/arvy/GIT/notes/20231128T133226--inbox.org"
+                           ;; "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org_archive"
+                           ))
+
+  ;; -------------------------------------------------------------------
+
+  ;; make MISC folder as a place where emacs looks for additional custom
+  ;; themes
+  (add-to-list 'custom-theme-load-path (concat ag/emacs-dir "/MISC/"))
+
+  ;; set default buffer on startup
+  ;; (setq initial-buffer-choice (concat ag/org-agenda-files-location "inbox.org")
+#+end_src
+
+** Custom functions
+
+#+begin_src emacs-lisp
+  ;; -------------------------------------------------------------------
+
+  ;; Define a function to open a specific directory in Dired mode
+  (defun open-denote-dir-in-dired ()
+    (interactive)
+    (dired denote-directory))
+
+  ;; -------------------------------------------------------------------
+
+  ;; setup below is to access the org-agenda-FILE quickly.
+  ;; Function to open the inbox.org file
+  (defun ag/open-inbox-file ()
+    (interactive)
+    (find-file (expand-file-name ag/inbox-file denote-directory)))
+
+  (global-set-key (kbd "M-`") 'ag/open-inbox-file)
+
+  ;; -------------------------------------------------------------------
+
+  ;; Jump to my main config file
+  (defun ag/find-init.org nil
+    (interactive)
+
+    (find-file (concat ag/emacs-dir "/init.org")))
+
+  (global-set-key (kbd "C-x <C-backspace>") 'ag/find-init.org)
+
+  ;; -------------------------------------------------------------------
+
+  ;; stolen from https://github.com/Giedriusj1
+  ;; reminds me VScode behavior
+
+  ;; (defun ag/create-shell-here ()
+  ;;   (interactive)
+  ;;   (let* ((dir default-directory)
+  ;;	 (shell-name (format "*shell* <%s>" dir))
+  ;;	 (shell-buffer (get-buffer shell-name)p))
+  ;;     (if shell-buffer
+  ;;	(switch-to-buffer shell-buffer)
+  ;;       (shell (generate-new-buffer-name shell-name)))))
+
+  ;; (bind-keys* ( "C-`" . ag/create-shell-here))
+
+  ;; -------------------------------------------------------------------
+
+  ;; [2022-04-05 Tue] Un-fill region. Needed for when wanting to put
+  ;; text content to a website.
+  (defun ag/unfill-region (beg end)
+    "Unfill the region, joining text paragraphs into a single
+          logical line.  This is useful, e.g., for use with
+          `visual-line-mode'."
+    (interactive "*r")
+    (let ((fill-column (point-max)))
+      (fill-region beg end)))
+
+  (define-key global-map "\C-\M-Q" 'ag/unfill-region)
+
+  ;; -------------------------------------------------------------------
+
+  ;; Ask before closing Emacs
+  (defun ag/ask-before-closing ()
+    "Ask whether or not to close, and then close if y was pressed"
+    (interactive)
+    (if (y-or-n-p (format "Exit Emacs? "))
+        (if (< emacs-major-version 22)
+            (save-buffers-kill-terminal)
+          (save-buffers-kill-emacs))
+      (message "Canceled exit")))
+
+  ;; (global-set-key (kbd "C-x C-c") 'ag/ask-before-closing)
+
+  ;; -------------------------------------------------------------------
+
+  ;; a function to kill dired buffers. Kind of works. Or you can use "a"
+  ;; to cycle through dired and it leaves no buffers opened
+  ;; DiredReuseDirectoryBuffer - https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
+  ;; KillingBuffers - https://www.emacswiki.org/emacs/KillingBuffers
+  (defun ag/kill-dired-buffers ()
+    (interactive)
+    (mapc (lambda (buffer)
+            (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+              (kill-buffer buffer)))
+          (buffer-list)))
+
+  ;; can easily check how many buffers got opened
+  (defun ag/kill-all-dired-buffers ()
+    "Kill all dired buffers."
+    (interactive)
+    (save-excursion
+      (let ((count 0))
+        (dolist (buffer (buffer-list))
+          (set-buffer buffer)
+          (when (equal major-mode 'dired-mode)
+            (setq count (1+ count))
+            (kill-buffer buffer)))
+        (message "Killed %i dired buffer(s)." count))))
+
+  ;; -------------------------------------------------------------------
+
+  ;; shell-other-window
+  (defun ag/eshell-other-window ()
+    "Open a `shell' in a new window."
+    (interactive)
+    (let ((buf (eshell)))
+      (switch-to-buffer (other-buffer buf))
+      (switch-to-buffer-other-frame buf)))
+#+end_src
+
+** Visuals
+
+*** Declutter
+
+First off, let’s declutter. Remove clickies to give a nice and clean look.
+Also, the cursor can relax. We add this to the early-init, as it might be
+marginally faster, and look less wonky.
+
+#+begin_src emacs-lisp :tangle early-init.el
+  (dolist (mode
+           '(tool-bar-mode                ; No toolbars, more room for text
+             scroll-bar-mode              ; No scroll bars either
+             menu-bar-mode                ; No menu bar as well
+             blink-cursor-mode))          ; Disable blinking cursor
+    (funcall mode 0))
+#+end_src
+
+*** Frame
+
+Add a small border on the frame. This also goes in the early-init.
+#+begin_src emacs-lisp :tangle early-init.el
+  ;; (add-to-list 'default-frame-alist '(internal-border-width . 24))
+#+end_src
+
+*** Default visual modes
+
+#+begin_src emacs-lisp
+  (dolist (mode
+           '(column-number-mode           ; Show column number in mode line
+             size-indication-mode         ; file size indication in mode-line
+             electric-pair-mode           ; closes parens automatically for you
+             smooth-scrolling-mode        ; Smooth scrolling
+             show-paren-mode              ; Highlight matching parentheses
+             ))
+    (funcall mode 1))
+#+end_src
+*** Rand
+
+#+begin_src emacs-lisp
+  (setq-default frame-title-format "%b (%f)")
+
+  ;; Accelerate scrolling with the trade-off of sometimes delayed accurate fontification.
+  (setq fast-but-imprecise-scrolling t)
+
+  ;; Use a bar cursor by default.
+  (setq-default cursor-type 'bar)
+
+  (global-visual-line-mode nil)
+#+end_src
+
+*** Theme
+
+#+BEGIN_SRC emacs-lisp
+  ;; This setting tells Emacs to consider all themes as safe and
+  ;; eliminates the prompt for confirmation on whether to load and trust
+  ;; a theme with Lisp code. With this configuration, Emacs will
+  ;; automatically trust and load themes without asking for confirmation
+  ;; each time you start Emacs.
+  (setq custom-safe-themes t)
+
+  ;; ¨Highly accessible themes for GNU Emacs, conforming with the
+  ;; highest standard for colour contrast between background and
+  ;; foreground values (WCAG AAA)¨
+
+  (use-package modus-themes
+    :ensure t
+    :config
+    (load-theme 'modus-vivendi-tinted))
+
+#+END_SRC
+
+*** Smooth scrolling
+
+#+begin_src emacs-lisp
+  (use-package smooth-scrolling
+    :ensure t)
+#+end_src
+
+*** Dashboard
+
+Dashboard provides a nice welcome.
+
+#+begin_src emacs-lisp
+  ;; A startup screen extracted from Spacemacs
+  (use-package dashboard
+    :ensure t
+    :config
+    (setq dashboard-projects-backend 'project-el
+          dashboard-banner-logo-title nil
+          dashboard-center-content t
+          dashboard-set-footer nil
+          dashboard-page-separator "\n\n\n"
+          dashboard-items '((projects . 15)
+                            (recents  . 15)
+                            (bookmarks . 5)))
+    (dashboard-setup-startup-hook))
+#+end_src
+
+** Modes
+
+Here are a list of modes(that come by default with Emacs) that I prefer enable
+by default.
+
+#+begin_src emacs-lisp
+  (dolist (mode
+           '(abbrev-mode                  ; E.g. sopl -> System.out.println
+             delete-selection-mode        ; Replace selected text
+             dirtrack-mode                ; directory tracking in *shell*
+             global-so-long-mode          ; Mitigate performance for long lines
+             recentf-mode                 ; Recently opened files
+             winner-mode                  ; ctrl+c+left/right redoes/undoes the window layouts
+             ))
+    (funcall mode 1))
+#+end_src
+
+** EditorConfig
+
+Using [[https://editorconfig.org/][EditorConfig]] is a must when collaborating with others. It is also a way
+of having multiple tools that want to format your buffer to agree (e.g. both
+the language's Emacs mode and some external formatter/prettifier).
+
+#+begin_src emacs-lisp
+  (use-package editorconfig
+    :ensure t
+    :config
+    (editorconfig-mode 1))
+#+end_src
+
+** Flyspell
+
+Flyspell offers on-the-fly spell checking.
+
+We enable =flyspell-mode= for all text-modes, and use =flyspell-prog-mode= for
+spell checking comments and strings in all programming modes. We bind =C-c l=
+to a function returned from =cycle-languages=, giving a language switcher for
+every buffer where flyspell is enabled.
+
+#+begin_src emacs-lisp
+  (use-package flyspell
+    :defer t
+    :if (executable-find "aspell")
+    :hook ((text-mode . flyspell-mode)
+           (prog-mode . flyspell-prog-mode))
+    :config
+    (ispell-change-dictionary "american" t))
+
+  (global-set-key (kbd "<f5>") 'flyspell-mode)
+#+end_src
+
+** Ace-window
+
+[2021-07-01] “Ace windows” helps me to switch windows easily. Main
+keybind - C-x o and then the commands that follow below.
+
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :ensure t)
+
+  (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l))
+  (global-set-key (kbd "C-x o") 'ace-window)
+  (global-set-key (kbd "M-0") 'ace-swap-window)
+  (global-set-key (kbd "C-x v") 'aw-split-window-horz)
+
+  (defvar aw-dispatch-alist
+    '((?x aw-delete-window "Delete Window")
+      (?m aw-swap-window "Swap Windows")
+      (?M aw-move-window "Move Window")
+      (?c aw-copy-window "Copy Window")
+      (?f aw-switch-buffer-in-window "Select Buffer")
+      (?n aw-flip-window)
+      (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+      (?c aw-split-window-fair "Split Fair Window")
+      (?h aw-split-window-vert "Split Vert Window")
+      (?v aw-split-window-horz "Split Horz Window")
+      (?o delete-other-windows)
+      ;; (?o delete-other-windows "Delete Other Windows")
+      ;; (?o delete-other-windows " Ace - Maximize Window")
+      (?? aw-show-dispatch-help))
+    "List of actions for `aw-dispatch-default'.")
+#+end_src
+
+** Denote
+
+#+begin_src emacs-lisp
+  (use-package denote
+    :ensure t)
+
+  (setq initial-buffer-choice #'open-denote-dir-in-dired)
+  ;; new keywords to denote keyword list
+  (setq denote-infer-keywords t)
+  ;; sort keywords
+  (setq denote-sort-keywords t)
+  ;; Automatically rename Denote buffers using the
+  ;; `denote-rename-buffer-format'. Instead of full filename with date
+  ;; and time and tags - show only filename
+  (denote-rename-buffer-mode 1)
+
+  ;; Change front matter(what appears on each note at the top)
+  ;; more things to include here - https://orgmode.org/manual/Export-Settings.html
+  ;; control visibility - https://orgmode.org/manual/Initial-visibility.html
+
+  ;; I specifically wanted to add the startup thingy, so large note
+  ;; files would not spit all the information into my face when i open
+  ;; that note
+  (setq denote-org-front-matter
+  "#+title:      %s
+  ,#+date:       %s
+  ,#+filetags:   %s
+  ,#+identifier: %s
+  ,#+STARTUP:    overview
+  ")
+
+  ;; highlights filename and tags
+  (add-hook 'dired-mode-hook #'denote-dired-mode)
+
+  (global-set-key (kbd "C-`") 'open-denote-dir-in-dired)
+#+end_src
+
+** Org-mode
+
+I use Org mode extensively.
+
+#+begin_src emacs-lisp
+  ;; RET to follow links
+  (setq org-return-follows-link t)
+
+  ;; open source block window under the current buffer (C-c ')
+  (setq org-src-window-setup `split-window-below)
+  ;; rebind active time-stamp to inactive. For some reason I got used to
+  ;; using inactive timestamps, maybe because they don't show up in
+  ;; agenda then
+  ;; (with-eval-after-load 'org
+  ;;   (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
+
+  ;; -------------------------------------------------------------------
+
+  ;; ORG AGENDA
+
+  ;; set default todo keywords (C-t)
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "|" "DONE(d)" "CANCELLED(c)"))))
+
+  (setq org-agenda-prefix-format '(
+                                   ;; default is the example below for agenda and for todo, tags views
+                                   ;; when pressing c-a t/m. I make everything to be a dot, since my
+                                   ;; agenda file is one.
+
+                                   ;; (agenda  . " %i %-12:c%?-12t% s") ;; file name + org-agenda-entry-type
+                                   (agenda  . "  • ")
+                                   (timeline  . " • ")
+                                   (todo  . " • ")
+                                   (tags  . " • ")
+                                   (search . " • ")
+                                   ))
+
+  (setq org-agenda-custom-commands
+        '(("A" "Active Tags" tags "watch"
+           ((org-agenda-overriding-header "My Active items")
+            (org-tags-match-list-sublevels t)
+            (org-agenda-prefix-format "  %?-12t% s")))))
+
+  ;; -------------------------------------------------------------------
+
+  ;; ORG REFILE
+  ;; set org refile targets. (C-w)
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+
+  ;; -------------------------------------------------------------------
+  ;; ORG CAPTURE
+  ;; make a file location of a "capture-file". In my case it's only
+  ;; file(check previous emacs configs for examples with multiple files)
+  ;; setup capture templates
+
+  ;; DOCS
+  ;; template elements - https://orgmode.org/manual/Template-elements.html
+  ;; template expansion - https://orgmode.org/manual/Template-expansion.html
+
+  (setq org-capture-templates '((
+                                 "i"	;key
+                                 "Inbox"	;description
+                                 entry	;type
+                                 (file+headline ag/inbox-file "Inbox") ;target
+                                 "* TODO %? %^g \n:PROPERTIES:\n:CAPTURED: %U\n:END:\n\n" ;template
+                                 :prepend t ;properties(append the new note to the top!)
+                                 :empty-lines 1 ;properties
+                                 )))
+
+  ;; Make the indentation look nicer in org mode. Pull the second level
+  ;; and higher level headings from the left side
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  ;; Hook to display the agenda in a single window by deleting all the
+  ;; other windows
+  (add-hook 'org-agenda-finalize-hook 'delete-other-windows)
+
+  (define-key global-map "\C-cc" 'org-capture)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+#+end_src
+
+
+TODO google this.
+
+Inside code blocks indentation should be correct depending on the source
+language used and have code highlighting.
+
+#+begin_src emacs-lisp
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-preserve-indentation t)
+  (setq org-src-fontify-natively t)
+#+end_src
+
+*** COMMENT LaTeX export
+
+Latex config example here - https://github.com/larstvei/dot-emacs. Did not use
+LaTeX much myself.
+
+*** COMMENT Org Modern
+
+Touch up the appearance of org mode files with some fancy UTF-8 characters.
+I disable ~org-modern-block-fringe~ due to [[https://github.com/minad/org-modern/issues/144][org-modern conflicting with]]
+~org-adapt-indentation~.
+
+#+begin_src emacs-lisp
+  ;; Modern looks for Org
+  (use-package org-modern
+    :ensure t
+    :after org
+    :hook (org-mode . org-modern-mode)
+    :config
+    (setq org-modern-block-fringe nil))
+#+end_src
+
+** Version control
+
+[2021-07-01] “Magit” - can not imagine working with git without
+it. Instead of writing full commands like: “git add .” and then “git
+commit -m ‘bla blaa’” then “git push”… I can simply `C-x g` for a git
+status. Then `s` to do git add. And finally `C-c C-c` to invoke git
+commit and simply write a message. Then press `p` and I just pushed
+the changes. Way quickier than the termina, believe me.
+
+Some notes:
+
+- install git first on emacs - https://www.youtube.com/watch?v=ZMgLZUYd8Cw
+- use personal access token
+- add this to terminal to save the token for furher use
+- git config –global credential.helper store
+
+Execute the following lines in your terminal before trying to do
+any commands with Magit.
+
+git config --global credential.helper store
+git config --global user.name arvydasg
+git config --global user.email azegaspa@gmail.com
+
+When you push anything, you will get prompted to enter a
+password. Enter the ¨personal access token¨ from github developer
+settings.
+
+Cool, can see the commands magit is running by going to "magi-process" buffer
+in emacs while in git repo
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t)
+
+  ;; Show diff git changes in sidebar
+  ;; [2022-03-08 An] https://github.com/dgutov/diff-hl
+  (use-package diff-hl
+    :ensure t
+    :config
+    (global-diff-hl-mode 1))
+
+  (add-hook 'emacs-lisp-mode #'diff-hl-mode)
+  (add-hook 'prog-mode-hook #'diff-hl-mode)
+  (add-hook 'org-mode-hook #'diff-hl-mode)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-post-refresh)
+  (add-hook 'prog-mode-hook #'diff-hl-margin-mode)
+  (add-hook 'org-mode-hook #'diff-hl-margin-mode)
+  (add-hook 'dired-mode-hook 'diff-hl-margin-mode)
+
+  (global-set-key (kbd "C-x g") 'magit-status)
+  (global-set-key (kbd "C-x C-g") 'magit-status)
+#+END_SRC
+
+** Completion UI
+
+*** Vertico
+
+[2023-11-26] decided to try out vertico instead of ivy.  Ivy
+depends on a lot of packages, vertico is more simple. It also
+replaces amx for M-x search. Prot inspired me to try it out. Let's
+see.
+
+It is everywhere - Ctrl-x f, M-x, ctrl-x d, ctrl-h v... everywhere
+where you are trying to list and jump to something - vertico is
+there
+
+#+begin_src emacs-lisp
+  (use-package vertico
+    :ensure t
+    :init
+    (vertico-mode)
+
+    ;; Show more candidates
+    (setq vertico-count 10)
+    )
+#+end_src
+
+*** COMMENT Vertico-postframe
+
+The completions are centered in a posframe (a frame at point). Using posframe
+to show Vertico.
+
+#+begin_src emacs-lisp
+  (use-package vertico-posframe
+    :ensure t
+    :config
+    (vertico-posframe-mode 1)
+    (setq vertico-posframe-width 100
+          vertico-posframe-height vertico-count))
+#+end_src
+
+*** Savehist
+
+Use the built in savehist-mode to prioritize recently used commands.
+
+#+begin_src emacs-lisp
+  (use-package savehist
+    :init
+    (savehist-mode 1))
+#+end_src
+
+*** Marginalia
+
+With Marginalia, we get better descriptions for commands inline. M-x, C-c f,
+C-x b. Adds annotations at the margin of the minibufer for completion
+candidates
+
+#+begin_src emacs-lisp
+  (use-package marginalia
+    :ensure t
+    :config
+    (marginalia-mode 1))
+#+end_src
+
+*** Completion wih corfu
+
+Modular text completion framework for code.
+
+#+begin_src emacs-lisp
+  (use-package corfu
+    :ensure t
+    :init
+    (global-corfu-mode 1)
+    (corfu-popupinfo-mode 1)
+    (corfu-history-mode)
+    :config
+    (setq corfu-cycle t
+          corfu-auto t
+          corfu-auto-delay 0
+          corfu-auto-prefix 2
+          corfu-popupinfo-delay 0.5))
+#+end_src
+
+*** Orderless
+
+I use corfu in concert with orderless.
+
+Let's you to type "pa re con" in vertico minubuffer instead of
+"package-refresh-contents". Orderless completion.
+
+#+begin_src emacs-lisp
+  (use-package orderless
+    :ensure t
+    :init
+    (setq completion-styles '(orderless basic partial-completion)
+          completion-category-defaults nil
+          orderless-component-separator "[ |]"
+          completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+** Navigation and searching
+
+The package Consult improves navigation and searching.
+
+Consult - a super great package that will improve and make my workflow way more
+interesting in emacs. It overrides a lot of default commands, but I am not
+angry about it at all, these are just pure improvements.
+
+Consult has lots of functions to keybind to. I looked through them all and
+decided to keybind only particular ones. To see more of the functions, find
+them in M-x ~consult-~
+
+#+begin_src emacs-lisp
+  (use-package consult
+    :ensure t
+    :bind (:map custom-bindings-map
+                ("C-x b" . consult-buffer)
+                ("C-c m" . consult-man)
+                ("C-c r" . consult-ripgrep)))
+
+  ;; Enable automatic preview at point in the *Completions* buffer. This is
+  ;; relevant when you use the default completion UI.
+  ;; DONT REMEMBER WHAT THIS IS, turning off for now
+  ;; (add-hook 'completion-list-mode #'consult-preview-at-point-mode)
+#+end_src
+
+** Lorem ipsum
+
+  Do you ever want to insert some [[https://en.wikipedia.org/wiki/Lorem_ipsum][Lorem ipsum]]?
+
+  #+begin_src emacs-lisp
+    (use-package lorem-ipsum
+      :defer t)
+  #+end_src
+
+  Now, run ~M-x lorem-ipsum-insert-paragraphs~ and get:
+
+  #+begin_quote
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec hendrerit
+  tempor tellus. Donec pretium posuere tellus. Proin quam nisl, tincidunt et,
+  mattis eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+  parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae dolor.
+  Nullam tristique diam non turpis. Cras placerat accumsan nulla. Nullam
+  rutrum. Nam vestibulum accumsan nisl.
+  #+end_quote
+
+** Markdown
+
+Emacs Major mode for Markdown-formatted files
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :ensure t)
+#+end_src
+
+** Multiple-cursors
+
+multiple-cursors.el — select same words inside the buffer and replace them -
+wow!!
+
+#+begin_src emacs-lisp
+  (use-package multiple-cursors
+    :ensure t)
+
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+end_src
+
+** Expand region
+
+Increase selected region by semantic units
+
+#+begin_src emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind (:map custom-bindings-map ("M-=" . er/expand-region)))
+#+end_src
+
+** Mode specific
+
+add all the packages for modes (python mode, nix mode, markdown mode and etc, webde,.)
+
+** Which-key
+
+[2021-07-01] A package that displays the available keybindings in a popup. The
+package is pretty useful, as Emacs seems to have more keybindings than I can
+remember at any given point. For example press Ctrl+c or Ctrl+x in a buffer and
+you will see the possible commands. [[https://github.com/justbur/emacs-which-key][Which key]] is nice for discoverability.
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init
+    (setq which-key-separator " ")
+    (setq which-key-prefix-prefix "+")
+    (setq which-key-idle-delay 0.2)
+    :config
+    (which-key-mode 1))
+#+end_src
+
+** Helpful
+
+[2022-03-15 An] Improves *help* buffer. Way more info than with regular help.
+
+#+begin_src emacs-lisp
+  (use-package helpful
+    :ensure t)
+
+  (global-set-key (kbd "C-h f") 'helpful-callable)
+  (global-set-key (kbd "C-h v") 'helpful-variable)
+  (global-set-key (kbd "C-h k") 'helpful-key)
+  (global-set-key (kbd "C-c C-d") 'helpful-at-point)
+  (global-set-key (kbd "C-h F") 'helpful-function)
+  (global-set-key (kbd "C-h C") 'helpful-command)
+#+end_src
+
+** Yasnippet
+
+[2022-02-13 Sk] ”Yasnippet” - expand to a switch statement with placeholders.
+Tab between the placeholders & type actual values. like in
+this(https://www.youtube.com/watch?v=mflvdXKyA_g&list=PL-mFLc7R_MJdX0MxrqXEV4sM87hmVEkRw&index=3&t=67s&ab_channel=byuksel)
+video. I am kind of too new to programming to be using snippets, but its nice,
+keeping this plugin for now. It installs kind of many snippets… hope that
+doesn’t slow emacs down. Shouldnt… You can also create your own snippet…
+possibly even for .org files. many examples here -
+https://notabug.org/arkhan/dots.old/src/master/emacs/.emacs.d/snippets
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-reload-all)
+    (yas-global-mode))
+#+END_SRC
+
+** Keycast
+
+Shows the keys that you type in the modeline. Might be useful when presenting
+emacs to someone.
+
+#+begin_src emacs-lisp
+  (use-package keycast
+    :ensure t)
+
+  (setq keycast-mode-line-format "%2s%k%c%R")
+  (setq keycast-mode-line-window-predicate 'mode-line-window-selected-p)
+  (setq keycast-mode-line-remove-tail-elements nil)
+
+  (dolist (input '(self-insert-command org-self-insert-command))
+    (add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
+
+  (dolist (event '(mouse-event-p mouse-movement-p mwheel-scroll))
+    (add-to-list 'keycast-substitute-alist `(,event nil)))
+
+  ;; don't forget to turn it on whenever you need it
+  ;; (keycast-mode-line-mode) or (keycast-mode)
+#+end_src
+** Undo-tree
+
+[2021-07-01]”Undo tree” lets me to return to the file stage before any
+modifications were made. Keybind - C-x u.
+
+#+begin_src emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :init
+    (global-undo-tree-mode))
+
+  (setq undo-tree-auto-save-history nil)
+#+end_src
+
+** Save place
+
+#+begin_src emacs-lisp
+  ;; [2021-07-01] “Saveplace” remembers your location in a file when
+  ;; saving files
+
+  (use-package saveplace
+    :ensure t
+    :config
+    ;; activate it for all buffers
+    (setq-default save-place t)
+    (save-place-mode 1))
+#+end_src
+
+** Goto-chg
+
+Go to last/previous change [2022-02-24 Kt] Perfect! Can now cycle through the
+last changes in the buffer. Very useful when doing some C-s in the buffer and
+then want to come back to the last modified location. Great! If trying to use
+it in org file - doesn’t work. Does ”org-cycle-agenda-files’ instead when doing
+the reverse.
+
+#+begin_src emacs-lisp
+  (use-package goto-chg
+    :ensure t)
+
+  (global-set-key (kbd "M-[") 'goto-last-change)
+  (global-set-key (kbd "M-]") 'goto-last-change-reverse)
+#+end_src
+
+** Bindings for functions defined above.
+
+#+begin_src emacs-lisp
+
+#+end_src
+
+
+
+Lastly we need to activate the map by creating and activating the minor-mode.
+
+#+begin_src emacs-lisp
+  (define-minor-mode custom-bindings-mode
+    "A mode that activates custom-bindings."
+    :init-value t
+    :keymap custom-bindings-map)
+#+end_src
+
+** License
+
+My Emacs configurations written in Org mode.
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see http://www.gnu.org/licenses/.

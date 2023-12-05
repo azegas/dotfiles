@@ -26,3 +26,5 @@ smex-items
 tramp
 my-init.el
 projects
+history
+*.elc

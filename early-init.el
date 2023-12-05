@@ -1,8 +1,8 @@
-;; Increase garbage collector threshold for better performance
-(setq gc-cons-threshold most-positive-fixnum)
+  (dolist (mode
+           '(tool-bar-mode                ; No toolbars, more room for text
+             scroll-bar-mode              ; No scroll bars either
+             menu-bar-mode                ; No menu bar as well
+             blink-cursor-mode))          ; Disable blinking cursor
+    (funcall mode 0))
 
-;; Disable unneeded UI elements
-(customize-set-variable 'scroll-bar-mode nil)
-(customize-set-variable 'horizontal-scroll-bar-mode nil)
-(customize-set-variable 'menu-bar-mode nil)
-(customize-set-variable 'tool-bar-mode nil)
+  ;; (add-to-list 'default-frame-alist '(internal-border-width . 24))
