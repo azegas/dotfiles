@@ -27,6 +27,7 @@
 		   "helpful.el"
 		   ;; "keycast.el"
 		   "magit.el"
+		   "marginalia.el"
 		   "multiple-cursors.el"
 		   "org.el"
 		   "sane-defaults.el"
@@ -59,7 +60,7 @@
    '("b40f11c174e7e475508f1e2c1cfca354d37212494c143a494f27239c7d71a294" default))
  '(org-agenda-files nil)
  '(package-selected-packages
-   '(multiple-cursors helpful company which-key consult yasnippet vertico undo-tree orderless modus-themes magit diff-hl denote counsel)))
+   '(smooth-scrolling marginalia readable-typo-theme multiple-cursors helpful company which-key consult yasnippet vertico undo-tree orderless modus-themes magit diff-hl denote counsel)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
