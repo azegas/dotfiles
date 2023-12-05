@@ -39,6 +39,12 @@
 ; file size indication in mode-line
 (size-indication-mode 1)
 ;; (load-theme 'zenburn t)
+;; localization
+(setq-default calendar-week-start-day 1)
+;; Hide M-x commands which does not work in the current buffer.
+(setq read-extended-command-predicate #'command-completion-default-include-p)
+
+
 
 (setq dired-listing-switches "-agho --group-directories-first")
 
