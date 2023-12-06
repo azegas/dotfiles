@@ -929,6 +929,29 @@ that note. Have overview view instead.
 #+STARTUP:    overview
 ")
 #+end_src
+
+*** Denote with a timer
+
+https://protesilaos.com/emacs/denote - "Journalling with a timer" part.
+
+Good for Spanish practice.
+
+[[https://github.com/protesilaos/tmr][TMR package]] is needed for this to work
+
+#+begin_src emacs-lisp
+(use-package tmr)
+#+end_src
+
+Create variables and add a hook to denote journal hook.
+#+begin_src emacs-lisp
+(defvar my-denote-tmr-duration "10")
+
+(defvar my-denote-tmr-description "Practice writing in my journal")
+
+(defun my-denote-tmr ()
+  (tmr my-denote-tmr-duration my-denote-tmr-description))
+
+(add-hook 'denote-journal-extras-hook 'my-denote-tmr)
 #+end_src
 
 ** Org-mode
