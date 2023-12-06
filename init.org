@@ -202,40 +202,6 @@ bugs, please let me know!
 - https://github.com/larstvei/dot-emacs
 - https://github.com/freetonik/emacs-dotfiles
 
-* TODO What is use-package
-
-ensure t jau yra visur.
-
-paaiskink su :tangle no ka reiskia kai darai defer ar bind.
-
-su defer snd pastebejau, kad jeigu neidedi i (use-package) block - tuomet
-nerunina tos dalies kodo vapse. Jeigu turesi susijusiu eiluciu su tuo package -
-tuomet ir ju nerunins. be careful. Kaip su keycast vakar buvo.
-
-visados pirma dek bind, kad initializuotusi su keybindu. Taip pat ir su magit.
-Ensure t nuomet reikia nuimti nuo visu? Uzdek pats rankutem.
-
-kaip cia:
-#+begin_src emacs-lisp :tangle no
-(use-package dired-sidebar
-  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
-  :ensure t
-  :commands (dired-sidebar-toggle-sidebar)
-  :init
-  (add-hook 'dired-sidebar-mode-hook
-            (lambda ()
-              (unless (file-remote-p default-directory)
-                (auto-revert-mode))))
-  :config
-  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
-  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
-
-  (setq dired-sidebar-subtree-line-prefix "__")
-  (setq dired-sidebar-theme 'vscode)
-  (setq dired-sidebar-use-term-integration t)
-  (setq dired-sidebar-use-custom-font t))
-#+end_src
-
 * Configurations
 ** Tangling
 *** What is tangling, literate programming, org-babel
