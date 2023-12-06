@@ -220,18 +220,18 @@ When this configuration is loaded for the first time, the ~init.el~ is the
 file that is loaded. It looks like this:
 
 #+begin_src emacs-lisp :tangle no
-  ;; This file replaces itself with the actual configuration at first run.
+;; This file replaces itself with the actual configuration at first run.
 
-  ;; We can't tangle without org!
-  (require 'org)
-  ;; Open the configuration
-  (find-file (concat user-emacs-directory "init.org"))
-  ;; tangle it
-  (org-babel-tangle)
-  ;; load it
-  (load-file (concat user-emacs-directory "init.el"))
-  ;; finally byte-compile it
-  (byte-compile-file (concat user-emacs-directory "init.el"))
+;; We can't tangle without org!
+(require 'org)
+;; Open the configuration
+(find-file (concat user-emacs-directory "init.org"))
+;; tangle it
+(org-babel-tangle)
+;; load it
+(load-file (concat user-emacs-directory "init.el"))
+;; finally byte-compile it
+(byte-compile-file (concat user-emacs-directory "init.el"))
 #+end_src
 
 It tangles the org-file, so that this file is overwritten with the actual
@@ -243,14 +243,14 @@ There is no reason to track the =init.el= that is generated; by running the
 following command =git= will not bother tracking it:
 
 #+begin_src sh :tangle no
-  git update-index --assume-unchanged init.el
+git update-index --assume-unchanged init.el
 #+end_src
 
 If one wishes to make changes to the repo-version of =init.el= start tracking
 again with:
 
 #+begin_src sh :tangle no
-  git update-index --no-assume-unchanged init.el
+git update-index --no-assume-unchanged init.el
 #+end_src
 
 *** Lexical binding, garbage collection
@@ -266,8 +266,8 @@ ridiculously large number, and restore the default value after
 initialization.
 
 #+begin_src emacs-lisp
-  ;;; -*- lexical-binding: t -*-
-  (setq gc-cons-threshold (* 50 1000 1000))
+;;; -*- lexical-binding: t -*-
+(setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 
 Enabling lexical scoping with lexical-binding: t in your Emacs
@@ -289,17 +289,17 @@ if your compilation has been successfull. Great for tracking if you
 have broke something with your configuration.
 
 #+begin_src emacs-lisp
-  (defun tangle-init ()
-    "If the current buffer is init.org the code-blocks are tangled,
+(defun tangle-init ()
+  "If the current buffer is init.org the code-blocks are tangled,
    and the tangled file is compiled."
-    (when (equal (buffer-file-name)
-                 (expand-file-name (concat user-emacs-directory "init.org")))
-      ;; Avoid running hooks when tangling.
-      (let ((prog-mode-hook nil))
-        (org-babel-tangle)
-        (byte-compile-file (concat user-emacs-directory "init.el")))))
+  (when (equal (buffer-file-name)
+         (expand-file-name (concat user-emacs-directory "init.org")))
+    ;; Avoid running hooks when tangling.
+    (let ((prog-mode-hook nil))
+      (org-babel-tangle)
+      (byte-compile-file (concat user-emacs-directory "init.el")))))
 
-  (add-hook 'after-save-hook 'tangle-init)
+(add-hook 'after-save-hook 'tangle-init)
 #+end_src
 
 ** Packages
@@ -326,7 +326,6 @@ and is well maintained.
   ("MELPA"        . 5)
   ("MELPA Stable" . 0)))
 #+end_src
-
 ** General tweaks
 
 Jump to my main config file. Putting this at the top of the config to guarantee
@@ -351,18 +350,18 @@ We can set variables to whatever value we’d like using setq.
 
 #+begin_src emacs-lisp
   (setq use-package-compute-statistics t  ; M-x use-package-report
-        make-backup-files nil             ; Stop creating backup~ files
-        auto-save-default nil             ; Stop creating #autosave# files
-        inhibit-startup-screen t          ; No splash screen please
-        initial-scratch-message nil       ; Clean scratch buffer
-        kill-whole-line t                 ; C-k kills line including its newline
-        ring-bell-function 'ignore        ; Quiet
-        scroll-margin 1                   ; Space between cursor and top/bottom
-        show-paren-delay 0
-        sentence-end-double-space nil     ; No double space
-        confirm-kill-emacs 'y-or-n-p      ; y and n instead of yes and no when quitting
-        read-extended-command-predicate #'command-completion-default-include-p ; Hide M-x commands which does not work in the current buffer.
-        )
+  make-backup-files nil             ; Stop creating backup~ files
+  auto-save-default nil             ; Stop creating #autosave# files
+  inhibit-startup-screen t          ; No splash screen please
+  initial-scratch-message nil       ; Clean scratch buffer
+  kill-whole-line t                 ; C-k kills line including its newline
+  ring-bell-function 'ignore        ; Quiet
+  scroll-margin 1                   ; Space between cursor and top/bottom
+  show-paren-delay 0
+  sentence-end-double-space nil     ; No double space
+  confirm-kill-emacs 'y-or-n-p      ; y and n instead of yes and no when quitting
+  read-extended-command-predicate #'command-completion-default-include-p ; Hide M-x commands which does not work in the current buffer.
+  )
 #+end_src
 
 Some variables are buffer-local, so changing them using setq will only change
@@ -370,11 +369,14 @@ them in a single buffer. Using setq-default we change the buffer-local
 variable’s default value.
 
 #+begin_src emacs-lisp
-  (setq-default fill-column 79                   ; Maximum line width
-                auto-fill-function 'do-auto-fill ; Auto-fill-mode everywhere
-                calendar-week-start-day 1
-                )
+(setq-default
+ fill-column 79                   ;Maximum line width
+ auto-fill-function 'do-auto-fill ;Auto-fill-mode everywhere
+ calendar-week-start-day 1        ;self explanatory
+ )
 #+end_src
+
+*** y-or-n-p
 
 Answering yes and no to each question from Emacs can be tedious, a single y or
 n will suffice.
@@ -382,6 +384,8 @@ n will suffice.
 #+begin_src emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
 #+end_src
+
+*** Autosave stuff
 
 To avoid file system clutter we put all auto saved files in a single directory.
 ( have not had a chance to use this, keeping anyway..)
@@ -395,15 +399,18 @@ To avoid file system clutter we put all auto saved files in a single directory.
 
   ;; Sets all files to be backed up and auto saved in a single directory.
   (setq backup-directory-alist
-        `((".*" . ,emacs-autosave-directory))
-        auto-save-file-name-transforms
-        `((".*" ,emacs-autosave-directory t)))
+  `((".*" . ,emacs-autosave-directory))
+  auto-save-file-name-transforms
+  `((".*" ,emacs-autosave-directory t)))
 #+end_src
 
-Clean up all the whitespace in the buffer on buffer save.
+*** Clean up all the whitespace in the buffer on buffer save
+
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook 'whitespace-cleanup)
 #+end_src
+
+*** Auto fill fix
 
 Auto Fill mode breaks lines automatically at the appropriate places whenever
 lines get longer than the desired width
@@ -411,19 +418,47 @@ lines get longer than the desired width
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+end_src
 
+*** Unfill region
+
 [2022-04-05 Tue] Un-fill region. Used it when putting text content to a website
 and emacs text wrapping at 79 or 80 characters is not appropriate.
 
 #+begin_src emacs-lisp
 (defun ag/unfill-region (beg end)
   "Unfill the region, joining text paragraphs into a single
-          logical line.  This is useful, e.g., for use with
-          `visual-line-mode'."
+    logical line.  This is useful, e.g., for use with
+    `visual-line-mode'."
   (interactive "*r")
   (let ((fill-column (point-max)))
     (fill-region beg end)))
 
 (define-key global-map "\C-\M-Q" 'ag/unfill-region)
+#+end_src
+
+*** Duplicate current line or region
+
+#+begin_src emacs-lisp
+(defun duplicate-current-line-or-region (arg)
+  "Duplicates the current line or region ARG times.
+If there's no region, the current line will be duplicated. However, if
+there's a region, all lines that region covers will be duplicated."
+  (interactive "p")
+  (let (beg end (origin (point)))
+    (if (and mark-active (> (point) (mark)))
+        (exchange-point-and-mark))
+    (setq beg (line-beginning-position))
+    (if mark-active
+        (exchange-point-and-mark))
+    (setq end (line-end-position))
+    (let ((region (buffer-substring-no-properties beg end)))
+      (dotimes (_ arg)
+        (goto-char end)
+        (newline)
+        (insert region)
+        (setq end (point)))
+      (goto-char (+ origin (* (length region) arg) arg)))))
+
+(global-set-key (kbd "M-c") 'duplicate-current-line-or-region)
 #+end_src
 
 ** Key bindings
@@ -471,9 +506,9 @@ Define my agenda file
 Set org-agenda-files.
 #+begin_src emacs-lisp
   (setq org-agenda-files '(
-                           "/home/arvy/GIT/notes/20231128T133226--inbox.org"
-                           ;; "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org_archive"
-                           ))
+   "/home/arvy/GIT/notes/20231128T133226--inbox.org"
+   ;; "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org_archive"
+   ))
 #+end_src
 
 ** Visuals
@@ -486,10 +521,10 @@ marginally faster, and look less wonky.
 
 #+begin_src emacs-lisp :tangle early-init.el
 (dolist (mode
-         '(tool-bar-mode                ; No toolbars, more room for text
-           scroll-bar-mode              ; No scroll bars either
-           menu-bar-mode                ; No menu bar as well
-           blink-cursor-mode))          ; Disable blinking cursor
+   '(tool-bar-mode                ; No toolbars, more room for text
+     scroll-bar-mode              ; No scroll bars either
+     menu-bar-mode                ; No menu bar as well
+     blink-cursor-mode))          ; Disable blinking cursor
   (funcall mode 0))
 #+end_src
 
@@ -523,12 +558,12 @@ for colour contrast between background and foreground values (WCAG AAA)¨
 
 #+begin_src emacs-lisp
 (dolist (mode
-         '(column-number-mode           ; Show column number in mode line
-           size-indication-mode         ; file size indication in mode-line
-           electric-pair-mode           ; closes parens automatically for you
-           smooth-scrolling-mode        ; Smooth scrolling
-           show-paren-mode              ; Highlight matching parentheses
-           ))
+   '(column-number-mode           ; Show column number in mode line
+     size-indication-mode         ; file size indication in mode-line
+     electric-pair-mode           ; closes parens automatically for you
+     smooth-scrolling-mode        ; Smooth scrolling
+     show-paren-mode              ; Highlight matching parentheses
+     ))
   (funcall mode 1))
 #+end_src
 
@@ -559,13 +594,13 @@ Dashboard provides a nice welcome.
   :ensure t
   :config
   (setq dashboard-projects-backend 'project-el
-        dashboard-banner-logo-title nil
-        dashboard-center-content t
-        dashboard-set-footer nil
-        dashboard-page-separator "\n\n\n"
-        dashboard-items '((projects . 15)
-                          (recents  . 15)
-                          (bookmarks . 5)))
+  dashboard-banner-logo-title nil
+  dashboard-center-content t
+  dashboard-set-footer nil
+  dashboard-page-separator "\n\n\n"
+  dashboard-items '((projects . 15)
+  (recents  . 15)
+  (bookmarks . 5)))
   (dashboard-setup-startup-hook))
 #+end_src
 
@@ -592,6 +627,132 @@ Use a bar cursor by default.
 (setq-default cursor-type 'bar)
 #+end_src
 
+*** Mode line
+
+**** Custom mode line
+
+Will create my own modeline following [[https://www.youtube.com/watch?v=Qf_DLPIA9Cs&ab_channel=ProtesilaosStavrou][this]] excellent Protesilaos Stravrou
+guide.
+
+***** How it works
+
+First of all I have to mention that I will use =setq-default= instead of
+=setq=. Setq-default does the change for ALL the buffers, setq - only for the
+current buffer.
+
+Can simply try it out by evaluating this piece of code when you have two different windows
+open side by side:
+#+begin_src emacs-lisp :tangle no
+(setq mode-line-format nil)
+#+end_src
+
+Run this command do revert the change in the current buffer/window:
+#+begin_src emacs-lisp :tangle no
+(kill-local-variable 'mode-line-format)
+#+end_src
+
+now run this command when you have two buffer windows open, mode line will
+dissapear in both:
+#+begin_src emacs-lisp :tangle no
+(setq-default mode-line-format nil)
+#+end_src
+
+So here is my cusom mode line example:
+#+begin_src emacs-lisp :tangle no
+(setq-default mode-line-format
+  '("%e"
+    (:eval
+     (format "BUFFER: %s"
+       (propertize (buffer-name) 'face 'success)))
+    "   "
+    (:eval
+     (format "MODE: %s"
+       (propertize (symbol-name major-mode) 'face 'bold)))
+    ))
+#+end_src
+
+***** The actual custom modeline
+
+Mainly copied from - https://github.com/terlar/emacs-config
+
+Define a variable to conveniently access only the major mode part of
+mode-line-modes.
+
+#+begin_src emacs-lisp
+(defvar mode-line-major-mode
+  `(:propertize ("" mode-name)
+                help-echo "Major mode\n\
+mouse-1: Display major mode menu\n\
+mouse-2: Show help for major mode\n\
+mouse-3: Toggle minor modes"
+                mouse-face mode-line-highlight
+                local-map ,mode-line-major-mode-keymap))
+#+end_src
+
+Configure the order and components of the mode line.
+
+#+begin_src emacs-lisp
+(setq-default mode-line-format
+              '("%e" mode-line-front-space
+                mode-line-misc-info
+                (vc-mode vc-mode)
+                "  "
+                mode-line-modified
+                mode-line-remote
+                "  "
+                (:eval (propertize (concat (abbreviate-file-name default-directory)(buffer-name))))
+                ;; mode-line-buffer-identification ;only shows the filename
+                "  "
+                mode-line-position
+                (:eval
+                 (mode-line-right))
+                mode-line-end-spaces))
+#+end_src
+
+Setup the right aligned mode line and helper functions to display it.
+
+#+begin_src emacs-lisp
+(defvar mode-line-right-format nil
+  "The mode line to display on the right side.")
+
+(defun mode-line-right ()
+  "Render the `mode-line-right-format'."
+  (let ((formatted-line (format-mode-line mode-line-right-format)))
+    (list
+     (propertize
+      " "
+      'display
+      `(space :align-to (- right
+                           (+ ,(string-width formatted-line) right-fringe right-margin))))
+     formatted-line)))
+#+end_src
+
+Move default components to the right side of the mode line.
+
+#+begin_src emacs-lisp
+(setq mode-line-right-format
+      (list '(:eval mode-line-mule-info)
+            "  "
+            mode-line-major-mode))
+#+end_src
+
+Add position information including column and line number but skip the
+percentage.
+
+#+begin_src emacs-lisp
+(setq mode-line-position-column-line-format '(" L%l:C%C"))
+(setq mode-line-percent-position nil)
+(column-number-mode 1)
+(line-number-mode 1)
+#+end_src
+
+**** COMMENT powerline
+
+#+begin_src emacs-lisp
+(use-package powerline)
+(powerline-default-theme)
+#+end_src
+
 ** Modes
 
 Here are a list of modes(that come by default with Emacs) that I prefer to
@@ -599,13 +760,13 @@ enable by default.
 
 #+begin_src emacs-lisp
 (dolist (mode
-         '(abbrev-mode                  ; E.g. sopl -> System.out.println
-           delete-selection-mode        ; Replace selected text
-           dirtrack-mode                ; directory tracking in *shell*
-           global-so-long-mode          ; Mitigate performance for long lines
-           recentf-mode                 ; Recently opened files
-           winner-mode                  ; ctrl+c+left/right redoes/undoes the window layouts
-           ))
+   '(abbrev-mode                  ; E.g. sopl -> System.out.println
+     delete-selection-mode        ; Replace selected text
+     dirtrack-mode                ; directory tracking in *shell*
+     global-so-long-mode          ; Mitigate performance for long lines
+     recentf-mode                 ; Recently opened files
+     winner-mode                  ; ctrl+c+left/right redoes/undoes the window layouts
+     ))
   (funcall mode 1))
 #+end_src
 
@@ -655,7 +816,7 @@ and the new changes to inded_size will be applied to your python file:
 
 #+begin_src python :tangle no
 def x(value):
-          print(value)
+    print(value)
 #+end_src
 
 Found this also in the docs(can confirm that it works automatically, yes):
@@ -714,48 +875,52 @@ Using denote for my personal knowledge base that will last forever and does not
 depend on any close-source tools(Evernote, Onenote, etc). The knowledge base is
 made of simply text file, so they won't get corrupted or old/unused overtime.
 
+*** Main denote config
 #+begin_src emacs-lisp
 (use-package denote
-  :ensure t)
+  :ensure t
 
-;; Define a function to open a specific directory in Dired mode.
+  ;; Denote DOES NOT define any key bindings. I just pick some of the bindings
+  ;; from "Sample configuration" here - https://protesilaos.com/emacs/denote and
+  ;; bind them. There are way more available functions in the docs.
+  :bind (:map ag/custom-bindings-map
+  ("C-c n n" . #'denote)  ;create new denote note
+  ("C-c n i" . #'denote-link) ; add a link to another denote file
+  ("C-c n I" . #'denote-add-links) ; add ALL denote files related to your chose keywords
+  ("C-c n b" . #'denote-backlinks) ; LIST all files where current file is mentioned
+  ("C-c n f f" . #'denote-find-link) ; FIND all links to other denote files
+  ("C-c n f b" . #'denote-find-backlink) ; FIND all files where current file is mentioned
+  )
+  :hook (dired-mode . denote-dired-mode) ; highlights the filename and tags
+  :config
+  (setq denote-infer-keywords t)	;newly created keywords to go denote keyword list
+  (setq denote-sort-keywords t)		;sort denote keywords
+  ;; Automatically rename Denote buffers using the
+  ;; `denote-rename-buffer-format'. Instead of full filename with date
+  ;; and time and tags - show only filename
+  (denote-rename-buffer-mode 1)
+  )
+#+end_src
+
+*** Define a function to open a specific directory in Dired mode
+
+#+begin_src emacs-lisp
 (defun ag/open-denote-dir-in-dired ()
   (interactive)
   (dired denote-directory))
 (setq initial-buffer-choice #'ag/open-denote-dir-in-dired)
-
-;; keybinding for accessing my second brain
 (define-key ag/custom-bindings-map (kbd "") 'ag/open-denote-dir-in-dired)
+#+end_src
 
-;; new keywords to denote keyword list
-(setq denote-infer-keywords t)
-;; sort keywords
-(setq denote-sort-keywords t)
-;; Automatically rename Denote buffers using the
-;; `denote-rename-buffer-format'. Instead of full filename with date
-;; and time and tags - show only filename
-(denote-rename-buffer-mode 1)
+*** Change front matter(what appears on each note at the top)
 
-;; Denote DOES NOT define any key bindings. I just pick some of the bindings
-;; from "Sample configuration" here - https://protesilaos.com/emacs/denote and
-;; bind them. There are way more available functions in the docs.
+More things to include here - https://orgmode.org/manual/Export-Settings.html
+Control visibility - https://orgmode.org/manual/Initial-visibility.html
 
-(let ((map global-map))
-  (define-key map (kbd "C-c n n") #'denote)	 ;create new denote note
-  (define-key map (kbd "C-c n i") #'denote-link) ; add a link to another denote file
-  (define-key map (kbd "C-c n I") #'denote-add-links) ; add ALL denote files related to your chose keywords
-  (define-key map (kbd "C-c n b") #'denote-backlinks) ; LIST all files where current file is mentioned
-  (define-key map (kbd "C-c n f f") #'denote-find-link) ; FIND all links to other denote files
-  (define-key map (kbd "C-c n f b") #'denote-find-backlink) ; FIND all files where current file is mentioned
-  )
-
-;; Change front matter(what appears on each note at the top)
-;; more things to include here - https://orgmode.org/manual/Export-Settings.html
-;; control visibility - https://orgmode.org/manual/Initial-visibility.html
-
-;; I specifically wanted to add the startup thingy, so large note
-;; files would not spit all the information into my face when i open
-;; that note
+I specifically wanted to add the "startup" parameter in each new buffer, so
+large note files would not spit all the information into my face when I open
+that note. Have overview view instead.
+#+begin_src emacs-lisp
 (setq denote-org-front-matter
       "#+title:      %s
     ,#+date:       %s
@@ -763,10 +928,6 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
     ,#+identifier: %s
     ,#+STARTUP:    overview
     ")
-
-;; highlights filename and tags
-(add-hook 'dired-mode-hook #'denote-dired-mode)
-
 #+end_src
 
 ** Org-mode
@@ -775,7 +936,7 @@ I use Org mode extensively.
 
 *** Org-mode generals
 
-Enter follows links
+Pressing RET(enter) follows(opens) a link under cursor
 #+begin_src emacs-lisp
 (setq org-return-follows-link t)
 #+end_src
@@ -793,9 +954,26 @@ inactive timestamps, maybe because they don't show up in agenda.
 #+end_src
 
 Make the indentation look nicer in org mode. Pull the second level and higher
-level headings from the left side
+level headings from the left side.
+
+Turning it off for now.
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'org-indent-mode)
+;; (add-hook 'org-mode-hook 'org-indent-mode)
+#+end_src
+
+This setting is responsible for the indentation in the src code blocks. If set
+to t - will preserve the indentation after you leave the source block. If set
+to nil - your code will be indented with two extra spaces. Looks nice, but idk
+why one would choose this option(it was my default for a looong time until now,
+just figured out this option).
+#+begin_src emacs-lisp
+(setq org-src-preserve-indentation t)
+#+end_src
+
+Not sure what these two do, but leaving them here.
+#+begin_src emacs-lisp
+(setq org-src-tab-acts-natively t)
+(setq org-src-fontify-natively t)
 #+end_src
 
 *** Org-mode agenda
@@ -850,31 +1028,9 @@ different occasions.
 #+begin_src emacs-lisp
 (setq org-agenda-custom-commands
       '(("A" "Active Tags" tags "watch"
-         ((org-agenda-overriding-header "My Active items")
-          (org-tags-match-list-sublevels t)
-          (org-agenda-prefix-format "  %?-12t% s")))))
-#+end_src
-
-Enables native tab behavior in Org-mode source code blocks, allowing tabs to
-act as expected within these blocks, including indentation, cycling visibility,
-and navigation.
-#+begin_src emacs-lisp
-(setq org-src-tab-acts-natively t)
-#+end_src
-
-Preserves the original indentation of source code blocks when editing within
-Org-mode, maintaining the code's layout and structure as it was initially
-written.
-#+begin_src emacs-lisp
-(setq org-src-preserve-indentation t)
-#+end_src
-
-Enables native fontification for source code blocks in Org-mode, ensuring
-syntax highlighting and proper colorization of code elements based on their
-language syntax for improved readability and understanding within the Org
-buffer.
-#+begin_src emacs-lisp
-(setq org-src-fontify-natively t)
+   ((org-agenda-overriding-header "My Active items")
+    (org-tags-match-list-sublevels t)
+    (org-agenda-prefix-format "  %?-12t% s")))))
 #+end_src
 
 *** Org-mode refile
@@ -903,14 +1059,14 @@ Create a keybinding for org-capture.
 Create a capture template.
 #+begin_src emacs-lisp
 (setq org-capture-templates '((
-                               "i"	;key
-                               "Inbox"	;description
-                               entry	;type
-                               (file+headline ag/inbox-file "Inbox") ;target
-                               "* TODO %? %^g \n:PROPERTIES:\n:CAPTURED: %U\n:END:\n\n" ;template
-                               :prepend t ;properties(append the new note to the top!)
-                               :empty-lines 1 ;properties
-                               )))
+       "i"	;key
+       "Inbox"	;description
+       entry	;type
+       (file+headline ag/inbox-file "Inbox") ;target
+       "* TODO %? %^g \n:PROPERTIES:\n:CAPTURED: %U\n:END:\n\n" ;template
+       :prepend t ;properties(append the new note to the top!)
+       :empty-lines 1 ;properties
+       )))
 #+end_src
 
 *** COMMENT LaTeX export
@@ -968,7 +1124,7 @@ in emacs while in git repo
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)
-         ("C-x C-g" . magit-status)))
+   ("C-x C-g" . magit-status)))
 #+end_src
 
 [2022-03-08 An] https://github.com/dgutov/diff-hl. Show git diff changes in the
@@ -1042,7 +1198,7 @@ to show Vertico.
   :config
   (vertico-posframe-mode 1)
   (setq vertico-posframe-width 100
-        vertico-posframe-height vertico-count))
+  vertico-posframe-height vertico-count))
 #+end_src
 
 *** Savehist
@@ -1081,10 +1237,10 @@ Modular text completion framework for code. Using instead of company package.
   (corfu-history-mode)
   :config
   (setq corfu-cycle t
-        corfu-auto t
-        corfu-auto-delay 0
-        corfu-auto-prefix 2
-        corfu-popupinfo-delay 0.5))
+  corfu-auto t
+  corfu-auto-delay 0
+  corfu-auto-prefix 2
+  corfu-popupinfo-delay 0.5))
 #+end_src
 
 *** Orderless
@@ -1099,9 +1255,9 @@ Let's you to type "pa re con" in vertico minubuffer instead of
   :ensure t
   :init
   (setq completion-styles '(orderless basic partial-completion)
-        completion-category-defaults nil
-        orderless-component-separator "[ |]"
-        completion-category-overrides '((file (styles partial-completion)))))
+  completion-category-defaults nil
+  orderless-component-separator "[ |]"
+  completion-category-overrides '((file (styles partial-completion)))))
 #+end_src
 
 ** Navigation and searching
@@ -1129,59 +1285,59 @@ them in M-x ~consult-~
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
-         ("C-c M-x" . consult-mode-command) ;cool, lists all the various mode commands available in the current buffer
-         ("C-c h" . consult-history)
-         ("C-c k" . consult-kmacro)
-         ("C-c m" . consult-man)
-         ("C-c i" . consult-info)
+   ("C-c M-x" . consult-mode-command) ;cool, lists all the various mode commands available in the current buffer
+   ("C-c h" . consult-history)
+   ("C-c k" . consult-kmacro)
+   ("C-c m" . consult-man)
+   ("C-c i" . consult-info)
 
-         ([remap Info-search] . consult-info)
-         ;; C-x bindings in `ctl-x-map'
-         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-         ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
-         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
-         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
-         ;; Custom M-# bindings for fast register access
-         ("M-#" . consult-register-load)
-         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
-         ("C-M-#" . consult-register)
-         ;; Other custom bindings
-         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ;; M-g bindings in `goto-map'
-         ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-         ("M-g g" . consult-goto-line)             ;; orig. goto-line
-         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
-         ("M-g m" . consult-mark)
-         ("M-g k" . consult-global-mark)
-         ;; ("M-g i" . consult-imenu)
-         ;; ("M-g I" . consult-imenu-multi)
+   ([remap Info-search] . consult-info)
+   ;; C-x bindings in `ctl-x-map'
+   ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+   ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+   ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+   ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+   ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
+   ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+   ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+   ;; Custom M-# bindings for fast register access
+   ("M-#" . consult-register-load)
+   ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+   ("C-M-#" . consult-register)
+   ;; Other custom bindings
+   ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+   ;; M-g bindings in `goto-map'
+   ("M-g e" . consult-compile-error)
+   ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+   ("M-g g" . consult-goto-line)             ;; orig. goto-line
+   ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+   ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+   ("M-g m" . consult-mark)
+   ("M-g k" . consult-global-mark)
+   ;; ("M-g i" . consult-imenu)
+   ;; ("M-g I" . consult-imenu-multi)
 
-         ;; M-s bindings in `search-map'
-         ("M-s d" . consult-find)                  ;; Alternative: consult-fd
-         ("M-s c" . consult-locate)
-         ("M-s g" . consult-grep)
-         ("M-s G" . consult-git-grep)
-         ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)
-         ("M-s L" . consult-line-multi)
-         ("M-s k" . consult-keep-lines)
-         ("M-s u" . consult-focus-lines)
-         ;; Isearch integration
-         ("M-s e" . consult-isearch-history)
-         :map isearch-mode-map
-         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
-         ;; Minibuffer history
-         :map minibuffer-local-map
-         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+   ;; M-s bindings in `search-map'
+   ("M-s d" . consult-find)                  ;; Alternative: consult-fd
+   ("M-s c" . consult-locate)
+   ("M-s g" . consult-grep)
+   ("M-s G" . consult-git-grep)
+   ("M-s r" . consult-ripgrep)
+   ("M-s l" . consult-line)
+   ("M-s L" . consult-line-multi)
+   ("M-s k" . consult-keep-lines)
+   ("M-s u" . consult-focus-lines)
+   ;; Isearch integration
+   ("M-s e" . consult-isearch-history)
+   :map isearch-mode-map
+   ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+   ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+   ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+   ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+   ;; Minibuffer history
+   :map minibuffer-local-map
+   ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+   ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
@@ -1194,7 +1350,7 @@ them in M-x ~consult-~
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
   (setq register-preview-delay 0.5
-        register-preview-function #'consult-register-format)
+  register-preview-function #'consult-register-format)
 
   ;; Optionally tweak the register preview window.
   ;; This adds thin lines, sorting and hides the mode line of the window.
@@ -1202,7 +1358,7 @@ them in M-x ~consult-~
 
   ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
+  xref-show-definitions-function #'consult-xref)
 )
 
 ;; overriding some default consult keybindings
@@ -1283,63 +1439,63 @@ before, does not have the same problem like with =dired-sidebar=.
   :config
   (progn
     (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
-          treemacs-deferred-git-apply-delay        0.5
-          treemacs-directory-name-transformer      #'identity
-          treemacs-display-in-side-window          t
-          treemacs-eldoc-display                   'simple
-          treemacs-file-event-delay                2000
-          treemacs-file-extension-regex            treemacs-last-period-regex-value
-          treemacs-file-follow-delay               0.2
-          treemacs-file-name-transformer           #'identity
-          treemacs-follow-after-init               t
-          treemacs-expand-after-init               t
-          treemacs-find-workspace-method           'find-for-file-or-pick-first
-          treemacs-git-command-pipe                ""
-          treemacs-goto-tag-strategy               'refetch-index
-          treemacs-header-scroll-indicators        '(nil . "^^^^^^")
-          treemacs-hide-dot-git-directory          t
-          treemacs-indentation                     2
-          treemacs-indentation-string              " "
-          treemacs-is-never-other-window           nil
-          treemacs-max-git-entries                 5000
-          treemacs-missing-project-action          'ask
-          treemacs-move-forward-on-expand          nil
-          treemacs-no-png-images                   nil
-          treemacs-no-delete-other-windows         t
-          treemacs-project-follow-cleanup          nil
-          treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-          treemacs-position                        'left
-          treemacs-read-string-input               'from-child-frame
-          treemacs-recenter-distance               0.1
-          treemacs-recenter-after-file-follow      nil
-          treemacs-recenter-after-tag-follow       nil
-          treemacs-recenter-after-project-jump     'always
-          treemacs-recenter-after-project-expand   'on-distance
-          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
-          treemacs-project-follow-into-home        nil
-          treemacs-show-cursor                     nil
-          treemacs-show-hidden-files               t
-          treemacs-silent-filewatch                nil
-          treemacs-silent-refresh                  nil
-          treemacs-sorting                         'alphabetic-asc
-          treemacs-select-when-already-in-treemacs 'move-back
-          treemacs-space-between-root-nodes        t
-          treemacs-tag-follow-cleanup              t
-          treemacs-tag-follow-delay                1.5
-          treemacs-text-scale                      nil
-          treemacs-user-mode-line-format           nil
-          treemacs-user-header-line-format         nil
-          treemacs-wide-toggle-width               70
-          treemacs-width                           35
-          treemacs-width-increment                 1
-          treemacs-width-is-initially-locked       t
-          treemacs-workspace-switch-cleanup        nil
-          treemacs-follow-mode t
-          treemacs-filewatch-mode t
-          treemacs-fringe-indicator-mode 'always
-          treemacs-hide-gitignored-files-mode t))
+    treemacs-deferred-git-apply-delay        0.5
+    treemacs-directory-name-transformer      #'identity
+    treemacs-display-in-side-window          t
+    treemacs-eldoc-display                   'simple
+    treemacs-file-event-delay                2000
+    treemacs-file-extension-regex            treemacs-last-period-regex-value
+    treemacs-file-follow-delay               0.2
+    treemacs-file-name-transformer           #'identity
+    treemacs-follow-after-init               t
+    treemacs-expand-after-init               t
+    treemacs-find-workspace-method           'find-for-file-or-pick-first
+    treemacs-git-command-pipe                ""
+    treemacs-goto-tag-strategy               'refetch-index
+    treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+    treemacs-hide-dot-git-directory          t
+    treemacs-indentation                     2
+    treemacs-indentation-string              " "
+    treemacs-is-never-other-window           nil
+    treemacs-max-git-entries                 5000
+    treemacs-missing-project-action          'ask
+    treemacs-move-forward-on-expand          nil
+    treemacs-no-png-images                   nil
+    treemacs-no-delete-other-windows         t
+    treemacs-project-follow-cleanup          nil
+    treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+    treemacs-position                        'left
+    treemacs-read-string-input               'from-child-frame
+    treemacs-recenter-distance               0.1
+    treemacs-recenter-after-file-follow      nil
+    treemacs-recenter-after-tag-follow       nil
+    treemacs-recenter-after-project-jump     'always
+    treemacs-recenter-after-project-expand   'on-distance
+    treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+    treemacs-project-follow-into-home        nil
+    treemacs-show-cursor                     nil
+    treemacs-show-hidden-files               t
+    treemacs-silent-filewatch                nil
+    treemacs-silent-refresh                  nil
+    treemacs-sorting                         'alphabetic-asc
+    treemacs-select-when-already-in-treemacs 'move-back
+    treemacs-space-between-root-nodes        t
+    treemacs-tag-follow-cleanup              t
+    treemacs-tag-follow-delay                1.5
+    treemacs-text-scale                      nil
+    treemacs-user-mode-line-format           nil
+    treemacs-user-header-line-format         nil
+    treemacs-wide-toggle-width               70
+    treemacs-width                           35
+    treemacs-width-increment                 1
+    treemacs-width-is-initially-locked       t
+    treemacs-workspace-switch-cleanup        nil
+    treemacs-follow-mode t
+    treemacs-filewatch-mode t
+    treemacs-fringe-indicator-mode 'always
+    treemacs-hide-gitignored-files-mode t))
   :bind (:map ag/custom-bindings-map
-        ("M-`" . #'treemacs-select-window))
+  ("M-`" . #'treemacs-select-window))
   )
 
 (use-package treemacs-magit
@@ -1408,9 +1564,9 @@ Select same words inside the buffer and replace them - wow!!
 (use-package multiple-cursors
   :defer t
   :bind (:map ag/custom-bindings-map
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)))
+   ("C->" . mc/mark-next-like-this)
+   ("C-<" . mc/mark-previous-like-this)
+   ("C-c C-<" . mc/mark-all-like-this)))
 #+end_src
 
 ** Expand region
@@ -1459,12 +1615,12 @@ you will see the possible commands. [[https://github.com/justbur/emacs-which-key
 (use-package helpful
   :defer t
   :bind (:map ag/custom-bindings-map
-         ("C-h f" . helpful-callable)
-         ("C-h v" . helpful-variable)
-         ("C-h k" . helpful-key)
-         ("C-c C-d" . helpful-at-point)
-         ("C-h F" . helpful-function)
-         ("C-h C" . helpful-command)))
+   ("C-h f" . helpful-callable)
+   ("C-h v" . helpful-variable)
+   ("C-h k" . helpful-key)
+   ("C-c C-d" . helpful-at-point)
+   ("C-h F" . helpful-function)
+   ("C-h C" . helpful-command)))
 #+end_src
 
 ** Yasnippet
@@ -1543,8 +1699,8 @@ the reverse.
 (use-package goto-chg
   :ensure t
   :bind (:map ag/custom-bindings-map
-              ("M-[" . 'goto-last-change)
-              ("M-]" . 'goto-last-change-reverse)))
+  ("M-[" . 'goto-last-change)
+  ("M-]" . 'goto-last-change-reverse)))
 
 #+end_src
 
