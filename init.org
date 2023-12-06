@@ -628,7 +628,7 @@ would never approve that PR heheh.
 We must create .editorconfig file in each project directory and specify
 parameters in it - https://spec.editorconfig.org/.
 
-We can then use `editorconfig-find-current-editorconfig` function to see if the
+We can then use =editorconfig-find-current-editorconfig= function to see if the
 editorconfig can see our config file.
 
 We can then create a simple .py file:
@@ -649,7 +649,7 @@ indent_style = space
 indent_size = 10
 #+end_src
 
-Now do `editorconfig-apply` and after `editorconfig-format-buffer`
+Now do =editorconfig-apply= and after =editorconfig-format-buffer=
 function(can probably bind it to a key or do a hook, so it is ran on each save)
 and the new changes to inded_size will be applied to your python file:
 
@@ -938,9 +938,9 @@ I disable ~org-modern-block-fringe~ due to [[https://github.com/minad/org-modern
 
 [2021-07-01] “Magit” - can not imagine working with git without
 it. Instead of writing full commands like: “git add .” and then “git
-commit -m ‘bla blaa’” then “git push”… I can simply `C-x g` for a git
-status. Then `s` to do git add. And finally `C-c C-c` to invoke git
-commit and simply write a message. Then press `p` and I just pushed
+commit -m ‘bla blaa’” then “git push”… I can simply =C-x g= for a git
+status. Then =s= to do git add. And finally =C-c C-c= to invoke git
+commit and simply write a message. Then press =p= and I just pushed
 the changes. Way quickier than the termina, believe me.
 
 Some notes:
@@ -1246,7 +1246,7 @@ command” all the time.
 
 Sidebar, does the job, but don't like that ace-window clasifies that sidebar as
 a window to possibly jump to. When I have 2 windows open side by
-side(+sidebar), I can no longer jump to one of them with `C-x o`. I must choose
+side(+sidebar), I can no longer jump to one of them with =C-x o=. I must choose
 to which buffer to jump.. not good.
 
 #+begin_src emacs-lisp
@@ -1269,7 +1269,7 @@ a name assigned to it..
 **** Treemacs
 
 [[https://github.com/Alexander-Miller/treemacs][Treemacs]] seems like an extensible sidebar package. Been using it for a while
-before, does not have the same problem like with `dired-sidebar`.
+before, does not have the same problem like with =dired-sidebar=.
 
 #+begin_src emacs-lisp
 ;; The following use-package snippet includes a list of all of
@@ -1356,8 +1356,8 @@ Using vterm is like using Gnome Terminal inside Emacs.
 To copy from vterm buffer - first enable vterm-copy-mode with C-c C-t. To
 deactivate the mode - same command.
 
-`sudo apt install fish libtool libtool-bin autoconf automake cmake g++
-libncurses-dev libz-dev libglib2.0-dev (for vterm)`
+=sudo apt install fish libtool libtool-bin autoconf automake cmake g++
+libncurses-dev libz-dev libglib2.0-dev (for vterm)=
 
 #+begin_src emacs-lisp
 (use-package vterm
