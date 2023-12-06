@@ -922,12 +922,13 @@ large note files would not spit all the information into my face when I open
 that note. Have overview view instead.
 #+begin_src emacs-lisp
 (setq denote-org-front-matter
-      "#+title:      %s
-    ,#+date:       %s
-    ,#+filetags:   %s
-    ,#+identifier: %s
-    ,#+STARTUP:    overview
-    ")
+"#+title:      %s
+#+date:       %s
+#+filetags:   %s
+#+identifier: %s
+#+STARTUP:    overview
+")
+#+end_src
 #+end_src
 
 ** Org-mode
