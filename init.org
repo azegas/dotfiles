@@ -1367,28 +1367,14 @@ before, does not have the same problem like with `dired-sidebar`.
           treemacs-width                           35
           treemacs-width-increment                 1
           treemacs-width-is-initially-locked       t
-          treemacs-workspace-switch-cleanup        nil)
-
-    ;; The default width and height of the icons is 22 pixels. If you are
-    ;; using a Hi-DPI display, uncomment this to double the icon size.
-    ;;(treemacs-resize-icons 44)
-
-    (treemacs-follow-mode t)
-    (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode 'always)
-    (when treemacs-python-executable
-      (treemacs-git-commit-diff-mode t))
-
-    (pcase (cons (not (null (executable-find "git")))
-                 (not (null treemacs-python-executable)))
-      (`(t . t)
-       (treemacs-git-mode 'deferred))
-      (`(t . _)
-       (treemacs-git-mode 'simple)))
-
-    (treemacs-hide-gitignored-files-mode nil))
+          treemacs-workspace-switch-cleanup        nil
+          treemacs-follow-mode t
+          treemacs-filewatch-mode t
+          treemacs-fringe-indicator-mode 'always
+          treemacs-hide-gitignored-files-mode t))
   :bind (:map ag/custom-bindings-map
-        ("M-`" . #'treemacs-select-window)))
+        ("M-`" . #'treemacs-select-window))
+  )
 
 (use-package treemacs-magit
   :after (treemacs magit)
