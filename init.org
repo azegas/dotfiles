@@ -485,30 +485,30 @@ could easily modify possibly new locations in one place.
 
 Absolute path to emacs dir
 #+begin_src emacs-lisp
-   (setq ag/emacs-dir "~/.emacs.d")
+(setq ag/emacs-dir "~/.emacs.d")
 #+end_src
 
 Absolute path to emacs config dir
 #+begin_src emacs-lisp
-  (setq ag/emacs-config-dir "~/.emacs.d/config")
+(setq ag/emacs-config-dir "~/.emacs.d/config")
 #+end_src
 
 Set denote directory
 #+begin_src emacs-lisp
-  (setq denote-directory (expand-file-name "/home/arvy/GIT/notes/"))
+(setq denote-directory (expand-file-name "/home/arvy/GIT/notes/"))
 #+end_src
 
 Define my agenda file
 #+begin_src emacs-lisp
-  (defvar ag/inbox-file (expand-file-name "20231128T133226--inbox.org" denote-directory))
+(defvar ag/inbox-file (expand-file-name "20231128T133226--inbox.org" denote-directory))
 #+end_src
 
 Set org-agenda-files.
 #+begin_src emacs-lisp
-  (setq org-agenda-files '(
-   "/home/arvy/GIT/notes/20231128T133226--inbox.org"
-   ;; "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org_archive"
-   ))
+(setq org-agenda-files '(
+       "/home/arvy/GIT/notes/20231128T133226--inbox.org"
+       ;; "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org_archive"
+       ))
 #+end_src
 
 ** Visuals
