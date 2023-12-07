@@ -293,7 +293,7 @@ have broke something with your configuration.
   "If the current buffer is init.org the code-blocks are tangled,
    and the tangled file is compiled."
   (when (equal (buffer-file-name)
-         (expand-file-name (concat user-emacs-directory "init.org")))
+   (expand-file-name (concat user-emacs-directory "init.org")))
     ;; Avoid running hooks when tangling.
     (let ((prog-mode-hook nil))
       (org-babel-tangle)
@@ -445,17 +445,17 @@ there's a region, all lines that region covers will be duplicated."
   (interactive "p")
   (let (beg end (origin (point)))
     (if (and mark-active (> (point) (mark)))
-        (exchange-point-and-mark))
+  (exchange-point-and-mark))
     (setq beg (line-beginning-position))
     (if mark-active
-        (exchange-point-and-mark))
+  (exchange-point-and-mark))
     (setq end (line-end-position))
     (let ((region (buffer-substring-no-properties beg end)))
       (dotimes (_ arg)
-        (goto-char end)
-        (newline)
-        (insert region)
-        (setq end (point)))
+  (goto-char end)
+  (newline)
+  (insert region)
+  (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
 (global-set-key (kbd "M-c") 'duplicate-current-line-or-region)
@@ -554,26 +554,6 @@ for colour contrast between background and foreground values (WCAG AAA)¨
   (load-theme 'modus-vivendi-tinted))
 #+end_src
 
-*** Default visual modes
-
-#+begin_src emacs-lisp
-(dolist (mode
-   '(column-number-mode           ; Show column number in mode line
-     size-indication-mode         ; file size indication in mode-line
-     electric-pair-mode           ; closes parens automatically for you
-     smooth-scrolling-mode        ; Smooth scrolling
-     show-paren-mode              ; Highlight matching parentheses
-     ))
-  (funcall mode 1))
-#+end_src
-
-*** Frame
-
-Add a small border on the frame. This also goes in the early-init.
-#+begin_src emacs-lisp :tangle early-init.el
-;; (add-to-list 'default-frame-alist '(internal-border-width . 24))
-#+end_src
-
 *** Smooth scrolling
 
 #+begin_src emacs-lisp
@@ -582,6 +562,13 @@ Add a small border on the frame. This also goes in the early-init.
 
 ;; Accelerate scrolling with the trade-off of sometimes delayed accurate fontification.
 (setq fast-but-imprecise-scrolling t)
+#+end_src
+
+*** Frame
+
+Add a small border on the frame. This also goes in the early-init.
+#+begin_src emacs-lisp :tangle early-init.el
+;; (add-to-list 'default-frame-alist '(internal-border-width . 24))
 #+end_src
 
 *** Dashboard
@@ -681,32 +668,32 @@ mode-line-modes.
 #+begin_src emacs-lisp
 (defvar mode-line-major-mode
   `(:propertize ("" mode-name)
-                help-echo "Major mode\n\
+    help-echo "Major mode\n\
 mouse-1: Display major mode menu\n\
 mouse-2: Show help for major mode\n\
 mouse-3: Toggle minor modes"
-                mouse-face mode-line-highlight
-                local-map ,mode-line-major-mode-keymap))
+    mouse-face mode-line-highlight
+    local-map ,mode-line-major-mode-keymap))
 #+end_src
 
 Configure the order and components of the mode line.
 
 #+begin_src emacs-lisp
 (setq-default mode-line-format
-              '("%e" mode-line-front-space
-                mode-line-misc-info
-                (vc-mode vc-mode)
-                "  "
-                mode-line-modified
-                mode-line-remote
-                "  "
-                (:eval (propertize (concat (abbreviate-file-name default-directory)(buffer-name))))
-                ;; mode-line-buffer-identification ;only shows the filename
-                "  "
-                mode-line-position
-                (:eval
-                 (mode-line-right))
-                mode-line-end-spaces))
+        '("%e" mode-line-front-space
+    mode-line-misc-info
+    (vc-mode vc-mode)
+    "  "
+    mode-line-modified
+    mode-line-remote
+    "  "
+    (:eval (propertize (concat (abbreviate-file-name default-directory)(buffer-name))))
+    ;; mode-line-buffer-identification ;only shows the filename
+    "  "
+    mode-line-position
+    (:eval
+     (mode-line-right))
+    mode-line-end-spaces))
 #+end_src
 
 Setup the right aligned mode line and helper functions to display it.
@@ -723,7 +710,7 @@ Setup the right aligned mode line and helper functions to display it.
       " "
       'display
       `(space :align-to (- right
-                           (+ ,(string-width formatted-line) right-fringe right-margin))))
+         (+ ,(string-width formatted-line) right-fringe right-margin))))
      formatted-line)))
 #+end_src
 
@@ -732,8 +719,8 @@ Move default components to the right side of the mode line.
 #+begin_src emacs-lisp
 (setq mode-line-right-format
       (list '(:eval mode-line-mule-info)
-            "  "
-            mode-line-major-mode))
+      "  "
+      mode-line-major-mode))
 #+end_src
 
 Add position information including column and line number but skip the
@@ -751,6 +738,19 @@ percentage.
 #+begin_src emacs-lisp
 (use-package powerline)
 (powerline-default-theme)
+#+end_src
+
+*** Default visual modes
+
+#+begin_src emacs-lisp
+(dolist (mode
+   '(column-number-mode           ; Show column number in mode line
+     size-indication-mode         ; file size indication in mode-line
+     electric-pair-mode           ; closes parens automatically for you
+     smooth-scrolling-mode        ; Smooth scrolling
+     show-paren-mode              ; Highlight matching parentheses
+     ))
+  (funcall mode 1))
 #+end_src
 
 ** Modes
@@ -1033,12 +1033,12 @@ I make it as clutter free as possible by overriding everything(those file names
 nad etc) to a dot like so:
 #+begin_src emacs-lisp
 (setq org-agenda-prefix-format '(
-                                 (agenda  . "  • ")
-                                 (timeline  . " • ")
-                                 (todo  . " • ")
-                                 (tags  . " • ")
-                                 (search . " • ")
-                                 ))
+         (agenda  . "  • ")
+         (timeline  . " • ")
+         (todo  . " • ")
+         (tags  . " • ")
+         (search . " • ")
+         ))
 #+end_src
 
 Hook to display the agenda in a single window by deleting all the
