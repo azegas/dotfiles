@@ -932,6 +932,19 @@ I use Org mode extensively.
 
 *** Org-mode generals
 
+The deeper you go in the headings, the mode indented it is. Basically makes the
+org file to look nicer.
+#+begin_src emacs-lisp
+(setq org-startup-indented t)
+#+end_src
+
+Allows to toggle TAB while not on the headline, but when somewhere outside the
+headline. Useful for when you want to collapse the headline when deep inside of
+its contents.
+#+begin_src emacs-lisp
+  (setq org-cycle-emulate-tab 'white)
+#+end_src
+
 Pressing RET(enter) follows(opens) a link under cursor
 #+begin_src emacs-lisp
   (setq org-return-follows-link t)
@@ -1103,7 +1116,7 @@ Create a keybinding for org-capture.
 
 My personal capture templates. Click =C-cC= to see all the capture templates in
 sort of graphical view.
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (setq org-capture-templates '(
                                 ("t" "Tasks")
                                 (
@@ -1228,6 +1241,19 @@ sort of graphical view.
                                  )
                                 ))
 #+end_src
+
+*** Org-mode archive
+
+[2023-12-08 Fri] trying not to archive anything.
+
+But if info about archiving is needed, can find it here:
+
+http://doc.endlessparentheses.com/Var/org-archive-location.html
+
+https://orgmode.org/worg/doc.html#org-archive-location
+
+or in my old config -
+https://github.com/arvydasg/.emacs.d/tree/20231124-Before-denote
 
 *** COMMENT LaTeX export
 
