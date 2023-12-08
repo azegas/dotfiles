@@ -328,6 +328,11 @@ and is well maintained.
 #+end_src
 ** General tweaks
 
+Absolute path to emacs dir
+#+begin_src emacs-lisp
+(setq ag/emacs-dir "~/.emacs.d")
+#+end_src
+
 Jump to my main config file. Putting this at the top of the config to guarantee
 that I will always have this keybinding available if stuff breaks futher on in
 the config.
@@ -478,39 +483,6 @@ M-x cusom-bindings-map to preview all the bindings in one place.
     "A keymap for custom bindings.")
 #+end_src
 
-** Directories
-
-Trying to keep all the directories in one place, so when I change machines, I
-could easily modify possibly new locations in one place.
-
-Absolute path to emacs dir
-#+begin_src emacs-lisp
-(setq ag/emacs-dir "~/.emacs.d")
-#+end_src
-
-Absolute path to emacs config dir
-#+begin_src emacs-lisp
-(setq ag/emacs-config-dir "~/.emacs.d/config")
-#+end_src
-
-Set denote directory
-#+begin_src emacs-lisp
-(setq denote-directory (expand-file-name "/home/arvy/GIT/notes/"))
-#+end_src
-
-Define my agenda file
-#+begin_src emacs-lisp
-(defvar ag/inbox-file (expand-file-name "20231128T133226--inbox.org" denote-directory))
-#+end_src
-
-Set org-agenda-files.
-#+begin_src emacs-lisp
-(setq org-agenda-files '(
-       "/home/arvy/GIT/notes/20231128T133226--inbox.org"
-       ;; "/home/arvy/GIT/notes/20231128T133226--inbox-task-file__planning.org_archive"
-       ))
-#+end_src
-
 ** Visuals
 
 *** Declutter
@@ -586,16 +558,13 @@ Dashboard provides a nice welcome.
   dashboard-set-footer nil
   dashboard-page-separator "\n\n\n"
   dashboard-items '((projects . 15)
-  (recents  . 15)
-  (bookmarks . 5)))
-  (dashboard-setup-startup-hook))
-#+end_src
-
-*** Startup buffer
-
-Set default buffer on startup
-#+begin_src emacs-lisp
-;; (setq initial-buffer-choice (concat ag/org-agenda-files-location "inbox.org")
+        (recents  . 15)
+        (bookmarks . 5)
+        (agenda . 5)))
+  (dashboard-setup-startup-hook)
+  ;; :bind (:map ag/custom-bindings-map
+  ;;       ("C-v" . #'dashboard-open))
+  )
 #+end_src
 
 *** Line numbers
@@ -749,6 +718,7 @@ percentage.
      electric-pair-mode           ; closes parens automatically for you
      smooth-scrolling-mode        ; Smooth scrolling
      show-paren-mode              ; Highlight matching parentheses
+     global-hl-line-mode          ; Highlight the line you are on in all buffers
      ))
   (funcall mode 1))
 #+end_src
@@ -900,6 +870,8 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
   ;; and time and tags - show only filename
   (denote-rename-buffer-mode 1)
   )
+
+(setq denote-directory (expand-file-name "/home/arvy/GIT/notes/")) ;Set denote directory
 #+end_src
 
 *** Define a function to open a specific directory in Dired mode
@@ -979,8 +951,6 @@ inactive timestamps, maybe because they don't show up in agenda.
 
 Make the indentation look nicer in org mode. Pull the second level and higher
 level headings from the left side.
-
-Turning it off for now.
 #+begin_src emacs-lisp
 ;; (add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
@@ -990,35 +960,58 @@ to t - will preserve the indentation after you leave the source block. If set
 to nil - your code will be indented with two extra spaces. Looks nice, but idk
 why one would choose this option(it was my default for a looong time until now,
 just figured out this option).
+
+Actually nil is the way to go for me. Otherwise - code is structured strangely
+after I close the src block.
 #+begin_src emacs-lisp
 (setq org-src-preserve-indentation t)
 #+end_src
 
 Not sure what these two do, but leaving them here.
 #+begin_src emacs-lisp
-(setq org-src-tab-acts-natively t)
-(setq org-src-fontify-natively t)
+;; (setq org-src-tab-acts-natively t)
+;; (setq org-src-fontify-natively t)
 #+end_src
 
 *** Org-mode agenda
 
-Create a keybinding for org-agenda.
+When a TODO is set to a done state, record a timestamp
 #+begin_src emacs-lisp
-(define-key ag/custom-bindings-map (kbd "C-c a") 'org-agenda)
+(setq org-log-done 'time)
 #+end_src
 
-Setup below is to access the org-agenda-FILE quickly.
+Assigning a few files to variables
 #+begin_src emacs-lisp
-(defun ag/open-inbox-file ()
-  (interactive)
-  (find-file (expand-file-name ag/inbox-file denote-directory)))
-;; (global-set-key (kbd "M-`") 'ag/open-inbox-file)
+  (setq ag/task-file "/home/arvy/GIT/notes/tasks.org")
+  (setq ag/somedaymaybe-file "/home/arvy/GIT/notes/somedaymaybe.org")
+#+end_src
+
+Setting up org-agenda-files using those variables
+#+begin_src emacs-lisp
+(setq org-agenda-files `(,ag/task-file ,ag/somedaymaybe-file))
+#+end_src
+
+Create a keybinding for org-agenda
+#+begin_src emacs-lisp
+(define-key ag/custom-bindings-map (kbd "C-c a") 'org-agenda)
 #+end_src
 
 Set default todo keywords (C-t)
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "|" "DONE(d)" "CANCELLED(c)"))))
+      (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)" "CANCELLED(c)"))))
+#+end_src
+
+TODO and DONE keywords already have colors assigned to them, but my newly
+created "PROG" - does not. Assigning it here:
+
+To see all the available colors, check =list-faces-display=.
+
+#+begin_src emacs-lisp
+(setq org-todo-keyword-faces
+      '(
+  ("PROGRESS" . (:foreground "yellow" :weight bold))
+  ))
 #+end_src
 
 By default when you do 'M-x org-agenda' and you go to todo's or tags or just
@@ -1032,13 +1025,13 @@ agenda item is, sicne I only have one agenda file. Instead of that information,
 I make it as clutter free as possible by overriding everything(those file names
 nad etc) to a dot like so:
 #+begin_src emacs-lisp
-(setq org-agenda-prefix-format '(
-         (agenda  . "  • ")
-         (timeline  . " • ")
-         (todo  . " • ")
-         (tags  . " • ")
-         (search . " • ")
-         ))
+;; (setq org-agenda-prefix-format '(
+;;          (agenda  . "  • ")
+;;          (timeline  . " • ")
+;;          (todo  . " • ")
+;;          (tags  . " • ")
+;;          (search . " • ")
+;;          ))
 #+end_src
 
 Hook to display the agenda in a single window by deleting all the
@@ -1047,14 +1040,33 @@ other windows
 (add-hook 'org-agenda-finalize-hook 'delete-other-windows)
 #+end_src
 
-Keeping this as reference for when I will want to make split agenda views for
-different occasions.
+Defining custom agenda commands that allow me to reach the tasks that I need.
+The same can almost be as quickly achieved by opening org agenda, pressing =m=
+and then defining your tag by which to filter. If we count the number of key
+presses - they are the same :) Interesting which method I will end up using more.
 #+begin_src emacs-lisp
 (setq org-agenda-custom-commands
-      '(("A" "Active Tags" tags "watch"
-   ((org-agenda-overriding-header "My Active items")
-    (org-tags-match-list-sublevels t)
-    (org-agenda-prefix-format "  %?-12t% s")))))
+      '(
+        ;; ("x" agenda)
+        ;; ("u" tags "+boss-urgent")
+        ;; ("v" tags-todo "+boss-urgent")
+        ;; ("U" tags-tree "+boss-urgent")
+        ;; ("f" occur-tree "\\<FIXME\\>")
+        ;; ("h" . "HOME+Name tags searches") ;description for "h" prefix
+        ;; ("hl" tags "+home+Lisa")
+        ;; ("hp" tags "+home+Peter")
+        ;; ("hk" tags "+home+Kim")
+        ("p" . "Project searches") ;description for "h" prefix
+        ("pi" tags "inbox")
+        ("pe" tags "emacs")
+        ("pl" tags "lifeapi")
+        ("pq" tags "quotes")
+        ("pa" tags "arvydasdev")
+        ("pp" tags "pagalbagyvunams")
+        ("pc" tags "cdp")
+        ("ps" tags "smutifruti")
+        ("po" tags "obelsdumas")
+  ))
 #+end_src
 
 *** Org-mode refile
@@ -1068,29 +1080,153 @@ command.
 
 *** Org-mode capture
 
-Make a file location of a "capture-file". In my case it's only file(check
-previous emacs configs for examples with multiple files) setup capture
-templates
+Example of a simple capture template:
 
-template elements - https://orgmode.org/manual/Template-elements.html
-template expansion - https://orgmode.org/manual/Template-expansion.html
+Documentation for possible template elements - https://orgmode.org/manual/Template-elements.html
+
+Documentation for possible template expansion - https://orgmode.org/manual/Template-expansion.html
+
+#+begin_src emacs-lisp :tangle no
+(setq org-capture-templates '(("i"	;key
+             "Inbox"	;description
+             entry	;type
+             (file+headline ag/task-file "Inbox") ;target
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?" ;template
+             ;; :prepend t ; properties(append the new note to the top! BUT resets [/] if you have it setup)
+             )))
+#+end_src
 
 Create a keybinding for org-capture.
 #+begin_src emacs-lisp
 (define-key ag/custom-bindings-map (kbd "\C-cc") 'org-capture)
 #+end_src
 
-Create a capture template.
-#+begin_src emacs-lisp
-(setq org-capture-templates '((
-       "i"	;key
-       "Inbox"	;description
-       entry	;type
-       (file+headline ag/inbox-file "Inbox") ;target
-       "* TODO %? %^g \n:PROPERTIES:\n:CAPTURED: %U\n:END:\n\n" ;template
-       :prepend t ;properties(append the new note to the top!)
-       :empty-lines 1 ;properties
-       )))
+My personal capture templates. Click =C-cC= to see all the capture templates in
+sort of graphical view.
+#+begin_src emacs-lisp :tangle no
+(setq org-capture-templates '(
+            ("t" "Tasks")
+            (
+             "ti"
+             "Inbox"
+             entry
+             (file+headline ag/task-file "Inbox")
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
+             )
+            (
+             "te"
+             "Emacs"
+             entry
+             (file+headline ag/task-file "Emacs")
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
+             )
+            (
+             "tl"
+             "Lifeapi"
+             entry
+             (file+headline ag/task-file "Lifeapi")
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
+             )
+            (
+             "tq"
+             "Quotes"
+             entry
+             (file+headline ag/task-file "Quotes")
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
+             )
+            (
+             "ta"
+             "Arvydasdev"
+             entry
+             (file+headline ag/task-file "Arvydasdev")
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
+             )
+            (
+             "tp"
+             "PagalbaGyvunams"
+             entry
+             (file+headline ag/task-file "PagalbaGyvunams")
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
+             )
+            (
+             "tp"
+             "Core Django Project"
+             entry
+             (file+headline ag/task-file "Core Django Project")
+             "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
+             )
+            ("s" "Someday")
+            (
+             "sw"
+             "Watch"
+             entry
+             (file+headline ag/somedaymaybe-file "Watch")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sm"
+             "Movies"
+             entry
+             (file+headline ag/somedaymaybe-file "Movies")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sv"
+             "Visit"
+             entry
+             (file+headline ag/somedaymaybe-file "Visit")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sb"
+             "Buy"
+             entry
+             (file+headline ag/somedaymaybe-file "Buy")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sB"
+             "Books"
+             entry
+             (file+headline ag/somedaymaybe-file "Books")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sh"
+             "Home"
+             entry
+             (file+headline ag/somedaymaybe-file "Home")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sp"
+             "Photography"
+             entry
+             (file+headline ag/somedaymaybe-file "Photography")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "si"
+             "Project Ideas"
+             entry
+             (file+headline ag/somedaymaybe-file "Project Ideas")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sc"
+             "Code"
+             entry
+             (file+headline ag/somedaymaybe-file "Code")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            (
+             "sq"
+             "Quotes"
+             entry
+             (file+headline ag/somedaymaybe-file "Quotes")
+             "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
+             )
+            ))
 #+end_src
 
 *** COMMENT LaTeX export
@@ -1519,7 +1655,7 @@ before, does not have the same problem like with =dired-sidebar=.
     treemacs-fringe-indicator-mode 'always
     treemacs-hide-gitignored-files-mode t))
   :bind (:map ag/custom-bindings-map
-  ("M-`" . #'treemacs-select-window))
+        ("M-`" . #'treemacs-select-window))
   )
 
 (use-package treemacs-magit
