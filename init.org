@@ -519,11 +519,15 @@ asking for confirmation each time you start Emacs.
 ¨Highly accessible themes for GNU Emacs, conforming with the highest standard
 for colour contrast between background and foreground values (WCAG AAA)¨
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package modus-themes
     :ensure t
     :config
     (load-theme 'modus-vivendi-tinted))
+#+end_src
+
+#+begin_src emacs-lisp
+  (load-theme 'zenburn)
 #+end_src
 
 *** Smooth scrolling
