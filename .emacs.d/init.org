@@ -1863,7 +1863,7 @@ between brackets or parenthesis.
   (use-package expand-region
     :ensure t
     :bind (:map ag/custom-bindings-map
-                ("M-=" . er/expand-region)))
+                ("C-=" . er/expand-region)))
 #+end_src
 
 ** Mode specific
