@@ -213,8 +213,8 @@ replaced the first time Emacs is started (assuming it has been renamed to
 =~/.emacs.d=).
 
 Emacs can't load =.org=-files directly, but =org-mode= provides functions to
-extract the code blocks and write them to a file. There are multiple ways of
-handling this; like suggested by [[http://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file][this StackOverflow post]].
+EXTRACT the code blocks(begin_src) and write them to a file. There are multiple
+ways of handling this; like suggested by [[http://emacs.stackexchange.com/questions/3143/can-i-use-org-mode-to-structure-my-emacs-or-other-el-configuration-file][this StackOverflow post]].
 
 When this configuration is loaded for the first time, the ~init.el~ is the
 file that is loaded. It looks like this:
@@ -237,22 +237,6 @@ file that is loaded. It looks like this:
 It tangles the org-file, so that this file is overwritten with the actual
 configuration.
 
-*** Stop tracking init.el
-
-There is no reason to track the =init.el= that is generated; by running the
-following command =git= will not bother tracking it:
-
-#+begin_src sh :tangle no
-  git update-index --assume-unchanged init.el
-#+end_src
-
-If one wishes to make changes to the repo-version of =init.el= start tracking
-again with:
-
-#+begin_src sh :tangle no
-  git update-index --no-assume-unchanged init.el
-#+end_src
-
 *** Lexical binding, garbage collection
 
 Lexical scoping for the init-file is needed, it can be specified in the header.
@@ -260,20 +244,44 @@ Make startup faster by reducing the frequency of garbage collection. The
 default is 800 kilobytes. Measured in bytes. These are the first lines of the
 actual configuration.
 
-A common optimization is to temporarily disable garbage collection
-during initialization. Here, we set the ~gc-cons-threshold~ to a
-ridiculously large number, and restore the default value after
-initialization.
+A common optimization is to temporarily disable garbage collection during
+initialization. Here, we set the ~gc-cons-threshold~ to a ridiculously large
+number, and restore the default value after initialization.
+
+Enabling lexical scoping with lexical-binding: t in your Emacs init-file can
+provide advantages such as better encapsulation, avoiding accidental variable
+modifications, and clearer code behavior by ensuring that variables are scoped
+as intended.
 
 #+begin_src emacs-lisp
   ;;; -*- lexical-binding: t -*-
+  ;; The default is 800 kilobytes.  Measured in bytes.
   (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 
-Enabling lexical scoping with lexical-binding: t in your Emacs
-init-file can provide advantages such as better encapsulation,
-avoiding accidental variable modifications, and clearer code
-behavior by ensuring that variables are scoped as intended.
+*** Startup performance
+
+Make startup faster by reducing the frequency of garbage collection and then
+use a hook to measure Emacs startup time.
+
+#+begin_src emacs-lisp
+  ;; Profile emacs startup
+  (add-hook 'emacs-startup-hook
+      (lambda ()
+        (message "*** Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+             (float-time
+        (time-subtract after-init-time before-init-time)))
+           gcs-done)))
+#+end_src
+
+To check what made emacs load so long and identify the bottle necks, we cna use
+function and set it to t. After each emacs launch we can then do =M-x
+use-package-report= to check the report.
+
+#+begin_src emacs-lisp
+  (setq use-package-compute-statistics t)
+#+end_src
 
 *** Automatically tangle init.org and recompile the init.el file
 
@@ -288,18 +296,25 @@ the =org=-document after changes. Open *Compile-Log* buffer to see
 if your compilation has been successfull. Great for tracking if you
 have broke something with your configuration.
 
+Absolute path to emacs dir
+#+begin_src emacs-lisp
+  (setq ag/emacs-dir "~/.emacs.d")
+#+end_src
+
 #+begin_src emacs-lisp
   (defun tangle-init ()
     "If the current buffer is init.org the code-blocks are tangled,
      and the tangled file is compiled."
     (when (equal (buffer-file-name)
-                 (expand-file-name (concat user-emacs-directory "init.org")))
+     (expand-file-name (concat  "init.org")))
+     (expand-file-name (concat user-emacs-directory "init.org")))
       ;; Avoid running hooks when tangling.
       (let ((prog-mode-hook nil))
-        (org-babel-tangle)
-        (byte-compile-file (concat user-emacs-directory "init.el")))))
+  (org-babel-tangle)
+  (byte-compile-file (concat user-emacs-directory "init.el"))))
 
   (add-hook 'after-save-hook 'tangle-init)
+
 #+end_src
 
 ** Packages
@@ -328,11 +343,6 @@ and is well maintained.
 #+end_src
 ** General tweaks
 
-Absolute path to emacs dir
-#+begin_src emacs-lisp
-  (setq ag/emacs-dir "~/.emacs.d")
-#+end_src
-
 Jump to my main config file. Putting this at the top of the config to guarantee
 that I will always have this keybinding available if stuff breaks futher on in
 the config.
@@ -351,11 +361,15 @@ Set utf-8 as preferred coding system.
   (prefer-coding-system 'utf-8)
 #+end_src
 
+I am tired of clicking C-z by accident and freezing my pane.
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "C-z"))
+#+end_src
+
 We can set variables to whatever value we’d like using setq.
 
 #+begin_src emacs-lisp
-  (setq use-package-compute-statistics t  ; M-x use-package-report
-        make-backup-files nil             ; Stop creating backup~ files
+  (setq make-backup-files nil       ; Stop creating backup~ files
         auto-save-default nil             ; Stop creating #autosave# files
         inhibit-startup-screen t          ; No splash screen please
         initial-scratch-message nil       ; Clean scratch buffer
@@ -488,10 +502,9 @@ M-x cusom-bindings-map to preview all the bindings in one place.
 *** Declutter
 
 First off, let’s declutter. Remove clickies to give a nice and clean look.
-Also, the cursor can relax. We add this to the early-init, as it might be
-marginally faster, and look less wonky.
+Also, the cursor can relax.
 
-#+begin_src emacs-lisp :tangle early-init.el
+#+begin_src emacs-lisp
   (dolist (mode
            '(tool-bar-mode                ; No toolbars, more room for text
              scroll-bar-mode              ; No scroll bars either
@@ -542,12 +555,12 @@ for colour contrast between background and foreground values (WCAG AAA)¨
 
 *** Frame
 
-Add a small border on the frame. This also goes in the early-init.
-#+begin_src emacs-lisp :tangle early-init.el
+Add a small border on the frame.
+#+begin_src emacs-lisp
 ;; (add-to-list 'default-frame-alist '(internal-border-width . 24))
 #+end_src
 
-*** Dashboard
+*** COMMENT Dashboard
 
 Dashboard provides a nice welcome.
 
@@ -557,14 +570,14 @@ Dashboard provides a nice welcome.
     :ensure t
     :config
     (setq dashboard-projects-backend 'project-el
-          dashboard-banner-logo-title nil
-          dashboard-center-content t
-          dashboard-set-footer nil
-          dashboard-page-separator "\n\n\n"
-          dashboard-items '((projects . 15)
-                            (recents  . 15)
-                            (bookmarks . 5)
-                            (agenda . 5)))
+    dashboard-banner-logo-title nil
+    dashboard-center-content t
+    dashboard-set-footer nil
+    dashboard-page-separator "\n\n\n"
+    dashboard-items '((projects . 15)
+    (recents  . 15)
+    (bookmarks . 5)
+    (agenda . 5)))
     (dashboard-setup-startup-hook)
     ;; :bind (:map ag/custom-bindings-map
     ;;       ("C-v" . #'dashboard-open))
@@ -631,7 +644,7 @@ So here is my cusom mode line example:
                   ))
 #+end_src
 
-***** The actual custom modeline
+***** COMMENT The actual custom modeline
 
 Mainly copied from - https://github.com/terlar/emacs-config
 
@@ -991,8 +1004,8 @@ after I close the src block.
 
 Not sure what these two do, but leaving them here.
 #+begin_src emacs-lisp
-;; (setq org-src-tab-acts-natively t)
-;; (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-fontify-natively t)
 #+end_src
 
 *** Org-mode agenda
@@ -1021,7 +1034,7 @@ Create a keybinding for org-agenda
 Set default todo keywords (C-t)
 #+begin_src emacs-lisp
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)" "CANCELLED(c)"))))
+  (quote ((sequence "TODO(t)" "PROGRESS(p)" "|" "DONE(d)" "CANCELLED(c)"))))
 #+end_src
 
 TODO and DONE keywords already have colors assigned to them, but my newly
@@ -1393,10 +1406,10 @@ to show Vertico.
     :config
     (vertico-posframe-mode 1)
     (setq vertico-posframe-width 100
-          vertico-posframe-height vertico-count))
+    vertico-posframe-height vertico-count))
 #+end_src
 
-*** Savehist
+*** COMMENT Savehist
 
 Use the built in savehist-mode to prioritize recently used commands.
 
@@ -1433,15 +1446,13 @@ Modular text completion framework for code. Using instead of company package.
     (corfu-history-mode)
     :config
     (setq corfu-cycle t
-          corfu-auto t
-          corfu-auto-delay 0
-          corfu-auto-prefix 2
-          corfu-popupinfo-delay 0.5))
+    corfu-auto t
+    corfu-auto-delay 0
+    corfu-auto-prefix 2
+    corfu-popupinfo-delay 0.5))
 #+end_src
 
 *** Orderless
-
-I use corfu in concert with orderless.
 
 Let's you to type "pa re con" in vertico minubuffer instead of
 "package-refresh-contents". Orderless completion.
@@ -1491,7 +1502,7 @@ them in M-x ~consult-~
            ([remap Info-search] . consult-info)
            ;; C-x bindings in `ctl-x-map'
            ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-           ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+           ;; ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer(too many options tbh)
            ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
            ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
            ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
@@ -1559,7 +1570,6 @@ them in M-x ~consult-~
     )
 
   ;; overriding some default consult keybindings
-  (define-key ag/custom-bindings-map (kbd "C-s") 'consult-line) ; Remaping the default "M-s l" for swiper like functionality
   (define-key ag/custom-bindings-map (kbd "C-r") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep
   (define-key ag/custom-bindings-map (kbd "C-q") 'consult-imenu) ; Remaping the default "M-s r" for ripgrep
 
@@ -1567,6 +1577,16 @@ them in M-x ~consult-~
   ;; relevant when you use the default completion UI.
   ;; DONT REMEMBER WHAT THIS IS, turning off for now
   ;; (add-hook 'completion-list-mode #'consult-preview-at-point-mode)
+#+end_src
+
+*** Swiper
+
+The nicest buffer search.
+
+#+begin_src emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind ("C-s" . swiper))
 #+end_src
 
 *** Dired
@@ -1700,6 +1720,29 @@ before, does not have the same problem like with =dired-sidebar=.
     :ensure t)
 #+end_src
 
+*** Session management
+
+You work on many windows and many layouts - then you close emacs. All is lost,
+windows are lost, layouts are lost, you can not get them back with
+=winner-mode=. This is what session management is. Being able to get back to
+those sessions from last closed emacs session.
+
+All possible tools listed [[https://www.emacswiki.org/emacs/SessionManagement][here]].
+
+**** perspective
+
+#+begin_src emacs-lisp
+  (use-package perspective
+    :ensure t
+    :bind (
+           ("C-x k" . persp-kill-buffer*)
+           )
+    :custom
+    (persp-mode-prefix-key (kbd "C-z"))
+    :init
+    (persp-mode))
+#+end_src
+
 ** Terminal
 
 *** Vterm
@@ -1727,10 +1770,31 @@ vterm-toggle
 
 #+begin_src emacs-lisp
   (use-package vterm-toggle
+    :ensure t
     :bind(:map ag/custom-bindings-map
                ("C-`" . vterm-toggle)		; toggles vterm window
                ("C-<return>" . vterm-toggle-insert-cd) ; insert current dir and enter it when in vterm shell
                ))
+#+end_src
+
+** Programming
+
+*** COMMENT Bash
+
+wanted to have completion in .sh files, but this seems to be for shell terminal?
+
+#+begin_src emacs-lisp
+  (use-package bash-completion
+    :ensure t)
+#+end_src
+
+*** COMMENT Python
+
+#+begin_src emacs-lisp
+  (use-package elpy
+    :ensure t
+    :init
+    (elpy-enable))
 #+end_src
 
 ** Lorem ipsum
@@ -1759,7 +1823,7 @@ Select same words inside the buffer and replace them - wow!!
 
 #+begin_src emacs-lisp
   (use-package multiple-cursors
-    :defer t
+    :ensure t
     :bind (:map ag/custom-bindings-map
                 ("C->" . mc/mark-next-like-this)
                 ("C-<" . mc/mark-previous-like-this)
@@ -1773,18 +1837,19 @@ between brackets or parenthesis.
 #+begin_src emacs-lisp
   (use-package expand-region
     :ensure t
-    :bind (:map ag/custom-bindings-map ("M-=" . er/expand-region)))
+    :bind (:map ag/custom-bindings-map
+                ("M-=" . er/expand-region)))
 #+end_src
 
 ** Mode specific
 
-*** Markdown
+*** COMMENT Markdown
 
 Emacs Major mode for Markdown-formatted files
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
-    :defer t)
+    :ensure t)
 #+end_src
 
 ** Which-key
@@ -1810,10 +1875,11 @@ you will see the possible commands. [[https://github.com/justbur/emacs-which-key
 [2022-03-15 An] Improves *help* buffer. Way more info than with regular help.
 #+begin_src emacs-lisp
   (use-package helpful
-    :defer t
+    :ensure t
     :bind (:map ag/custom-bindings-map
                 ("C-h f" . helpful-callable)
                 ("C-h v" . helpful-variable)
+                ("C-h k" . helpful-key)
                 ("C-h k" . helpful-key)
                 ("C-c C-d" . helpful-at-point)
                 ("C-h F" . helpful-function)
@@ -1835,18 +1901,18 @@ https://notabug.org/arkhan/dots.old/src/master/emacs/.emacs.d/snippets
   (use-package yasnippet
     :ensure t
     :config
-    (yas-reload-all)
-    (yas-global-mode))
+    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+    (yas-global-mode 1))
 #+end_src
 
-** Keycast
+** COMMENT Keycast
 
 Shows the keys that you type in the modeline. Might be useful when presenting
 emacs to someone.
 
 #+begin_src emacs-lisp
   (use-package keycast
-    :defer t
+    :ensure t
     :config
     (setq keycast-mode-line-format "%2s%k%c%R")
     (setq keycast-mode-line-window-predicate 'mode-line-window-selected-p)
