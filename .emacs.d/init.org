@@ -135,14 +135,6 @@ enjoyment. I know it.
 
 ** How to use this config
 
-Put the following into the header for it to work
-
-#+begin_src emacs-lisp :tangle no
-  #+BABEL: :cache yes
-  #+PROPERTY: header-args :tangle yes
-  #+STARTUP: overview
-#+end_src
-
 This is an Emacs configuration file written in [[http://orgmode.org][Org mode]]. It is an attempt to
 keep my =~/.emacs.d= tidy, but still be able to keep it all in one file. I
 aim to briefly explain all my configurations as I go along!
@@ -174,6 +166,18 @@ Clone the repo.
 On first run it should install a bunch of packages (this might take a while),
 and you might have to restart your Emacs the first time. If you experience
 bugs, please let me know!
+
+** Minimal config
+
+If for any reason you might want to start the emacs config with minimal
+settings, there is =test-config.el= in the current directory as well.
+
+We can use it to start another(or new) emacs session by running such command in
+the terminal while in =.emacs.d= directory.
+
+#+begin_src bash :tangle no
+  emacs -q -l test-config.el
+#+end_src
 
 ** Great Emacs config's of others
 
@@ -207,10 +211,10 @@ bugs, please let me know!
 *** What is tangling, literate programming, org-babel
 
 All changes to the configuration should be done in =init.org=, *not* in
-=init.el=. Any changes in the =init.el= will be overwritten by saving
-=init.org=. The =init.el= in this repo should not be tracked by git, and is
-replaced the first time Emacs is started (assuming it has been renamed to
-=~/.emacs.d=).
+=init.el=. Any changes in the =init.el= will be OVERWRITTEN(due to the script
+below) by saving =init.org=. The =init.el= in this repo should not be tracked
+by git, and is replaced the first time Emacs is started (assuming it has been
+renamed to =~/.emacs.d=).
 
 Emacs can't load =.org=-files directly, but =org-mode= provides functions to
 EXTRACT the code blocks(begin_src) and write them to a file. There are multiple
@@ -237,6 +241,27 @@ file that is loaded. It looks like this:
 It tangles the org-file, so that this file is overwritten with the actual
 configuration.
 
+We set :tangle yes to all the source blocks(at the very top of .org file), so
+all source blocks get tangled by default.
+#+begin_src emacs-lisp :tangle no
+  #+BABEL: :cache yes
+  #+PROPERTY: header-args :tangle yes
+  #+STARTUP: overview
+#+end_src
+
+There is no reason to track the =init.el= that is generated; by running the
+following command =git= will not bother tracking it:
+
+#+begin_src bash :tangle no
+  git update-index --assume-unchanged init.el
+#+end_src
+
+If one wishes to make changes to the repo-version of init.el start tracking again with:
+
+#+begin_src bash :tangle no
+git update-index --no-assume-unchanged init.el
+#+end_src
+
 *** Lexical binding, garbage collection
 
 Lexical scoping for the init-file is needed, it can be specified in the header.
@@ -257,30 +282,6 @@ as intended.
   ;;; -*- lexical-binding: t -*-
   ;; The default is 800 kilobytes.  Measured in bytes.
   (setq gc-cons-threshold (* 50 1000 1000))
-#+end_src
-
-*** Startup performance
-
-Make startup faster by reducing the frequency of garbage collection and then
-use a hook to measure Emacs startup time.
-
-#+begin_src emacs-lisp
-  ;; Profile emacs startup
-  (add-hook 'emacs-startup-hook
-      (lambda ()
-        (message "*** Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-             (float-time
-        (time-subtract after-init-time before-init-time)))
-           gcs-done)))
-#+end_src
-
-To check what made emacs load so long and identify the bottle necks, we cna use
-function and set it to t. After each emacs launch we can then do =M-x
-use-package-report= to check the report.
-
-#+begin_src emacs-lisp
-  (setq use-package-compute-statistics t)
 #+end_src
 
 *** Automatically tangle init.org and recompile the init.el file
@@ -315,6 +316,30 @@ Absolute path to emacs dir
 
   (add-hook 'after-save-hook 'tangle-init)
 
+#+end_src
+
+** Startup performance
+
+Make startup faster by reducing the frequency of garbage collection and then
+use a hook to measure Emacs startup time.
+
+#+begin_src emacs-lisp
+  ;; Profile emacs startup
+  (add-hook 'emacs-startup-hook
+      (lambda ()
+        (message "*** Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+             (float-time
+        (time-subtract after-init-time before-init-time)))
+           gcs-done)))
+#+end_src
+
+To check what made emacs load so long and identify the bottle necks, we cna use
+function and set it to t. After each emacs launch we can then do =M-x
+use-package-report= to check the report.
+
+#+begin_src emacs-lisp
+  (setq use-package-compute-statistics t)
 #+end_src
 
 ** Packages
