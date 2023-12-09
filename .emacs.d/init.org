@@ -204,7 +204,7 @@ the terminal while in =.emacs.d= directory.
 - https://github.com/jakebox/jake-emacs
 - https://github.com/terlar/emacs-config
 - https://github.com/larstvei/dot-emacs
-- https://github.com/freetonik/emacs-dotfiles
+- https://github.com/freetonik/emacs-dotfiles (https://emacscast.org/)
 
 * Configurations
 ** Tangling
