@@ -1833,7 +1833,7 @@ https://notabug.org/arkhan/dots.old/src/master/emacs/.emacs.d/snippets
 
 #+begin_src emacs-lisp
   (use-package yasnippet
-    :defer t
+    :ensure t
     :config
     (yas-reload-all)
     (yas-global-mode))
