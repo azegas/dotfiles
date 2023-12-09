@@ -910,7 +910,9 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
     ;; Automatically rename Denote buffers using the
     ;; `denote-rename-buffer-format'. Instead of full filename with date
     ;; and time and tags - show only filename
-    (denote-rename-buffer-mode 1)
+    ;; telling denote not to rename buffers, since perspective mode then does not work properly
+    ;; more about it - [[denote:20231209T181842][perspective and denote conflict]]
+    (denote-rename-buffer-mode -1)
     )
 
   (setq denote-directory (expand-file-name "/home/arvy/GIT/notes/")) ;Set denote directory
