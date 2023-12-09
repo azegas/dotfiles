@@ -669,7 +669,7 @@ So here is my cusom mode line example:
                   ))
 #+end_src
 
-***** COMMENT The actual custom modeline
+***** The actual custom modeline
 
 Mainly copied from - https://github.com/terlar/emacs-config
 
