@@ -1,55 +1,66 @@
 #!/bin/bash
 
 # creating these, then using them later to make text bold in places
+
+# using these variables later to make text bold in places
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-are_you_ready() {
+01_hello() {
+    echo "Hello and welcome to blax!"
+}
+
+02_are_you_ready() {
     read -p "Are you ready to configure your new machine? (y/n): " response
     if [[ "$response" == "y" ]]; then
-	auto_fetch_pull
+	03_auto_fetch_pull
     else
-	echo "No action taken."
+	echo "Script cancelled."
+	04_copy_to_onedrive
 	exit 1  # Exit the script with a non-zero status code (indicating an error)
     fi
 }
 
-hello() {
-    echo "Hello and welcome to blax!"
-}
-
-#[[denote:20231130T065309][fetch and pull automatically]]
-auto_fetch_pull() {
-    name="${bold}auto_fetch_pull${normal}"
+03_auto_fetch_pull() {
+    name="${bold}03_auto_fetch_pull${normal}"
     read -p "Do you want to run the $name script? (y/n): " response
     if [[ "$response" == "y" ]]; then
 	echo '~/.emacs.d/MISC/auto_fetch_pull.sh' >> ~/.bashrc
 	echo -e "DONE: $name"
-	copy_to_onedrive
+	4_copy_to_onedrive
     else
-	echo "It was chosen not to add."
-	exit 1  # Exit the script with a non-zero status code (indicating an error)
+	echo "It was chosen not to add $name."
+	exit 1
     fi
 }
 
-# [[denote:20231126T012052][make denote faster on wsl]]
-copy_to_onedrive() {
-    name="${bold}copy_to_onedrive${normal}"
+04_copy_to_onedrive() {
+    name="${bold}04_copy_to_onedrive${normal}"
     read -p "Do you want to run the $name script? (y/n): " response
     if [[ "$response" == "y" ]]; then
 	echo '~/.emacs.d/MISC/copy_to_onedrive.sh' >> ~/.bashrc
 	echo -e "DONE: $name"
     else
-	echo "It was chosen not to add."
-	exit 1  # Exit the script with a non-zero status code (indicating an error)
+	echo "It was chosen not to add $name."
+	exit 1
     fi
 }
 
-ln -s GIT/dotfiles/.emacs.d/ .emacs.d
+05_symlink_to_dotfiles_for_emacs() {
+    name="${bold}05_symlink_to_dotfiles_for_emacs${normal}"
+    read -p "Do you want to run the $name script? (y/n): " response
+    if [[ "$response" == "y" ]]; then
+	cd && ln -s GIT/dotfiles/.emacs.d/ .emacs.d
+	echo -e "DONE: $name"
+    else
+	echo "It was chosen not to add $name."
+	exit 1
+    fi
+}
 
-sudo hwclock thing also
+# sudo hwclock thing also
 
 echo '---------------------------'
-hello
+01_hello
 echo '---------------------------'
-are_you_ready
+02_are_you_ready
