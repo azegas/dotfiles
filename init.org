@@ -878,14 +878,18 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
   (setq denote-directory (expand-file-name "/home/arvy/GIT/notes/")) ;Set denote directory
 #+end_src
 
-*** Define a function to open a specific directory in Dired mode
+*** COMMENT Define a function to open a specific directory in Dired mode
 
 #+begin_src emacs-lisp
   (defun ag/open-denote-dir-in-dired ()
     (interactive)
     (dired denote-directory))
-  (setq initial-buffer-choice #'ag/open-denote-dir-in-dired)
-  (define-key ag/custom-bindings-map (kbd "") 'ag/open-denote-dir-in-dired)
+    (define-key ag/custom-bindings-map (kbd "") 'ag/open-denote-dir-in-dired)
+#+end_src
+
+Start emacs in denote dired folder
+#+begin_src emacs-lisp
+(setq initial-buffer-choice #'ag/open-denote-dir-in-dired)
 #+end_src
 
 *** Change front matter(what appears on each note at the top)
@@ -906,7 +910,7 @@ that note. Have overview view instead.
 ")
 #+end_src
 
-*** Denote with a timer
+*** COMMENT Denote journal with a timer
 
 https://protesilaos.com/emacs/denote - "Journalling with a timer" part.
 
