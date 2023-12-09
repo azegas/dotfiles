@@ -1434,7 +1434,7 @@ to show Vertico.
     vertico-posframe-height vertico-count))
 #+end_src
 
-*** COMMENT Savehist
+*** Savehist
 
 Use the built in savehist-mode to prioritize recently used commands.
 
