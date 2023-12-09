@@ -309,8 +309,8 @@ provides a powerful macro for isolating package configuration.
 
 #+begin_src emacs-lisp
   (require 'use-package)
-  ;; always add :ensure t to each package
-  (setq use-package-always-ensure t)
+  ;; always add :ensure t to each package. I like to better add the :ensure t myself
+  ;; (setq use-package-always-ensure t)
 #+end_src
 
 Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][melpa]] is the largest archive
@@ -919,7 +919,8 @@ Good for Spanish practice.
 [[https://github.com/protesilaos/tmr][TMR package]] is needed for this to work
 
 #+begin_src emacs-lisp
-(use-package tmr)
+  (use-package tmr
+    :ensure t)
 #+end_src
 
 Create variables and add a hook to denote journal hook.
@@ -1401,6 +1402,7 @@ Use the built in savehist-mode to prioritize recently used commands.
 
 #+begin_src emacs-lisp
   (use-package savehist
+    :ensure t
     :init
     (savehist-mode 1))
 #+end_src
@@ -1477,6 +1479,7 @@ them in M-x ~consult-~
 
   ;; Example configuration for Consult
   (use-package consult
+    :ensure t
     ;; Replace bindings. Lazily loaded due by `use-package'.
     :bind (;; C-c bindings in `mode-specific-map'
            ("C-c M-x" . consult-mode-command) ;cool, lists all the various mode commands available in the current buffer
@@ -1830,6 +1833,7 @@ https://notabug.org/arkhan/dots.old/src/master/emacs/.emacs.d/snippets
 
 #+begin_src emacs-lisp
   (use-package yasnippet
+    :defer t
     :config
     (yas-reload-all)
     (yas-global-mode))
@@ -1857,6 +1861,7 @@ emacs to someone.
   ;; don't forget to turn it on whenever you need it
   ;; (keycast-mode-line-mode) or (keycast-mode)
 #+end_src
+
 ** Undo-tree
 
 [2021-07-01]”Undo tree” lets me to return to the file stage before any
@@ -1875,6 +1880,7 @@ modifications were made. Keybind - C-x u.
 [2021-07-01] “Saveplace” remembers your location in a file when saving files
 #+begin_src emacs-lisp
   (use-package saveplace
+    :ensure t
     :config
     ;; activate it for all buffers
     (setq-default save-place t)
