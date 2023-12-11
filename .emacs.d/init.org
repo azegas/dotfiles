@@ -928,7 +928,7 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
     (denote-rename-buffer-mode -1)
     )
 
-  (setq denote-directory (expand-file-name "/home/arvy/GIT/notes/")) ;Set denote directory
+  (setq denote-directory (expand-file-name "~/GIT/notes/")) ;Set denote directory
 #+end_src
 
 *** Define a function to open a specific directory in Dired mode
@@ -1062,8 +1062,8 @@ When a TODO is set to a done state, record a timestamp
 
 Assigning a few files to variables
 #+begin_src emacs-lisp
-  (setq ag/task-file "/home/arvy/GIT/notes/tasks.org")
-  (setq ag/somedaymaybe-file "/home/arvy/GIT/notes/somedaymaybe.org")
+  (setq ag/task-file "~/GIT/notes/tasks.org")
+  (setq ag/somedaymaybe-file "~/GIT/notes/somedaymaybe.org")
 #+end_src
 
 Setting up org-agenda-files using those variables
