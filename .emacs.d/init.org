@@ -261,7 +261,7 @@ following command =git= will not bother tracking it:
 If one wishes to make changes to the repo-version of init.el start tracking again with:
 
 #+begin_src bash :tangle no
-git update-index --no-assume-unchanged init.el
+  git update-index --no-assume-unchanged init.el
 #+end_src
 
 *** Lexical binding, garbage collection
@@ -1880,7 +1880,7 @@ between brackets or parenthesis.
 
 ** Mode specific
 
-*** COMMENT Markdown
+*** COMMENT markdown-mode
 
 Emacs Major mode for Markdown-formatted files
 
@@ -1889,13 +1889,21 @@ Emacs Major mode for Markdown-formatted files
     :ensure t)
 #+end_src
 
-*** COMMENT Markdown
+*** COMMENT dockerfile-mode
 
 Emacs Major mode for Dockerfile-formatted files
 
 #+begin_src emacs-lisp
   (use-package dockerfile-mode
     :ensure t)
+#+end_src
+
+*** nix-mode
+
+#+begin_src emacs-lisp
+  (use-package nix-mode
+    :ensure t
+    :mode "\\.nix\\'")
 #+end_src
 
 ** Which-key
