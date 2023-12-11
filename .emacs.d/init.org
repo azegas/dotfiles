@@ -920,7 +920,7 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
   (setq denote-directory (expand-file-name "/home/arvy/GIT/notes/")) ;Set denote directory
 #+end_src
 
-*** COMMENT Define a function to open a specific directory in Dired mode
+*** Define a function to open a specific directory in Dired mode
 
 #+begin_src emacs-lisp
   (defun ag/open-denote-dir-in-dired ()
