@@ -349,6 +349,17 @@ use-package-report= to check the report.
 John Wiegley's extremely popular [[https://github.com/jwiegley/use-package][use-package]] was included in [[https://lists.gnu.org/archive/html/emacs-devel/2022-12/msg00261.html][Emacs 29]]. It
 provides a powerful macro for isolating package configuration.
 
+Install use-package if it's not already installed.
+#+begin_src emacs-lisp
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+#+end_src
+
 #+begin_src emacs-lisp
   (require 'use-package)
   ;; always add :ensure t to each package. I like to better add the :ensure t myself
