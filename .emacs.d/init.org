@@ -1011,6 +1011,11 @@ inactive timestamps, maybe because they don't show up in agenda.
     (bind-key "C-c ." #'org-time-stamp-inactive org-mode-map))
 #+end_src
 
+Change org heading continuation
+#+begin_src emacs-lisp
+  ;; (setq org-ellipsis "⏎")
+#+end_src
+
 Make the indentation look nicer in org mode. Pull the second level and higher
 level headings from the left side.
 #+begin_src emacs-lisp
@@ -1879,6 +1884,15 @@ Emacs Major mode for Markdown-formatted files
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
+    :ensure t)
+#+end_src
+
+*** COMMENT Markdown
+
+Emacs Major mode for Dockerfile-formatted files
+
+#+begin_src emacs-lisp
+  (use-package dockerfile-mode
     :ensure t)
 #+end_src
 
