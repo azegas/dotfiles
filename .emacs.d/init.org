@@ -1777,6 +1777,9 @@ deactivate the mode - same command.
 =sudo apt install fish libtool libtool-bin autoconf automake cmake g++
 libncurses-dev libz-dev libglib2.0-dev (for vterm)=
 
+In case you need to copy something from vterm terminal, use =vterm-copy-mode=
+by pressing =C-c C-t=.
+
 #+begin_src emacs-lisp
   (use-package vterm
     :defer t				; deferring until I use it with vterm-toggle
