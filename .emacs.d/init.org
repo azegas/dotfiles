@@ -1790,7 +1790,12 @@ libncurses-dev libz-dev libglib2.0-dev (for vterm)=
     ;; using Fish as default vterm bash. Fish(Friendly interactive shell) is
     ;; basically buffed bash shell. Syntax highlighting, autocompletion, aliases
     ;; More about fish - https://www.youtube.com/watch?v=C2a7jJTh3kU&ab_channel=LukeSmith
-    (setq vterm-shell "fish"))
+
+    ;; [2023-12-09 Sat] turning off fish. Reverse isearch does not work as I
+    ;; expect.. no thanks, turning fish off.
+
+    ;; (setq vterm-shell "fish")
+    )
 #+end_src
 
 vterm-toggle
