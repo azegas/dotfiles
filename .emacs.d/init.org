@@ -205,6 +205,8 @@ the terminal while in =.emacs.d= directory.
 - https://github.com/terlar/emacs-config
 - https://github.com/larstvei/dot-emacs
 - https://github.com/freetonik/emacs-dotfiles (https://emacscast.org/)
+- https://github.com/drewcsillag/emacsconfig/blob/master/emacs-config.org
+  (creator of dockerfile-mode)
 
 * Configurations
 ** Tangling
