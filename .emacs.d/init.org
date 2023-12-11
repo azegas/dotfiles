@@ -1174,14 +1174,14 @@ My personal capture templates. Click =C-cC= to see all the capture templates in
 sort of graphical view.
 #+begin_src emacs-lisp
   (setq org-capture-templates '(
-                                ("t" "Tasks")
                                 (
-                                 "ti"
-                                 "Inbox"
+                                 "i"
+                                 "Sooner than later"
                                  entry
-                                 (file+headline ag/task-file "Inbox")
+                                 (file+headline ag/task-file "Sooner than later")
                                  "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
                                  )
+                                ("t" "Tasks")
                                 (
                                  "te"
                                  "Emacs"
