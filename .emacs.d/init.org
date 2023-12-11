@@ -392,6 +392,14 @@ the config.
   (global-set-key (kbd "C-x <C-backspace>") 'ag/find-init.org)
 #+end_src
 
+Jump to my NixOS configuration file
+#+begin_src emacs-lisp
+  (defun ag/find-nix-configuration nil
+    (interactive)
+    (find-file "/etc/nixos/configuration.nix"))
+  (global-set-key (kbd "C-x C-<home>") 'ag/find-nix-configuration)
+#+end_src
+
 Set utf-8 as preferred coding system.
 
 #+begin_src emacs-lisp
