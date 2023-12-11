@@ -1597,13 +1597,8 @@ them in M-x ~consult-~
     )
 
   ;; overriding some default consult keybindings
-  (define-key ag/custom-bindings-map (kbd "C-r") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep
-  (define-key ag/custom-bindings-map (kbd "C-q") 'consult-imenu) ; Remaping the default "M-s r" for ripgrep
-
-  ;; Enable automatic preview at point in the *Completions* buffer. This is
-  ;; relevant when you use the default completion UI.
-  ;; DONT REMEMBER WHAT THIS IS, turning off for now
-  ;; (add-hook 'completion-list-mode #'consult-preview-at-point-mode)
+  (define-key ag/custom-bindings-map (kbd "C-t") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep. Not using C-r suz of isearch in terminals
+  (define-key ag/custom-bindings-map (kbd "C-q") 'consult-imenu) ; Remaping the default "M-s somethnig"
 #+end_src
 
 *** Swiper
