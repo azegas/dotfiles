@@ -924,12 +924,12 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
   (defun ag/open-denote-dir-in-dired ()
     (interactive)
     (dired denote-directory))
-    (define-key ag/custom-bindings-map (kbd "") 'ag/open-denote-dir-in-dired)
+    (define-key ag/custom-bindings-map (kbd "C-x n") 'ag/open-denote-dir-in-dired)
 #+end_src
 
 Start emacs in denote dired folder
 #+begin_src emacs-lisp
-(setq initial-buffer-choice #'ag/open-denote-dir-in-dired)
+  ;; (setq initial-buffer-choice #'ag/open-denote-dir-in-dired)
 #+end_src
 
 *** Change front matter(what appears on each note at the top)
@@ -1602,8 +1602,8 @@ them in M-x ~consult-~
     )
 
   ;; overriding some default consult keybindings
-  (define-key ag/custom-bindings-map (kbd "C-t") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep. Not using C-r suz of isearch in terminals
-  (define-key ag/custom-bindings-map (kbd "C-q") 'consult-imenu) ; Remaping the default "M-s somethnig"
+  (define-key ag/custom-bindings-map (kbd "C-x r") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep. Not using C-r suz of isearch in terminals
+  (define-key ag/custom-bindings-map (kbd "C-x q") 'consult-imenu) ; Remaping the default "M-s somethnig"
 #+end_src
 
 *** Swiper
@@ -1627,7 +1627,7 @@ The nicest buffer search.
   (setq dired-recursive-copies  'always)
   (setq dired-recursive-deletes 'top)
 
-  (global-set-key (kbd "C-x C-d") 'dired-jump)
+  (define-key ag/custom-bindings-map (kbd "C-x C-d") 'dired-jump)
 #+end_src
 
 Enable dired-find-alternate-file. In new config it always asks at the beginning
