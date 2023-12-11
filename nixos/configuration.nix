@@ -19,6 +19,9 @@
   environment.systemPackages = with pkgs; [
     emacs29
     git
+    htop
+    tmux
+    vim
   ];
 
   # This value determines the NixOS release from which the default
