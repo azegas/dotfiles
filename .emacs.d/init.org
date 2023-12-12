@@ -945,7 +945,7 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
   (defun ag/open-denote-dir-in-dired ()
     (interactive)
     (dired denote-directory))
-    (define-key ag/custom-bindings-map (kbd "C-x n") 'ag/open-denote-dir-in-dired)
+    (define-key ag/custom-bindings-map (kbd "C-x e") 'ag/open-denote-dir-in-dired)
 #+end_src
 
 Start emacs in denote dired folder
