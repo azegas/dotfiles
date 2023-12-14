@@ -22,6 +22,10 @@
     htop
     tmux
     vim
+    # to be able to use ripgrep
+    ripgrep
+    # for emacs flyspell spell checking
+    ispell
   ];
 
   # This value determines the NixOS release from which the default
