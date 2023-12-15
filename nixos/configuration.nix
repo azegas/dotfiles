@@ -22,10 +22,15 @@
     htop
     tmux
     vim
-    # to be able to use ripgrep
+    # ripgrep - rg
     ripgrep
-    # for emacs flyspell spell checking
+    # ispell for flyspell in emacs
     ispell
+    # gnumake, cmake, gcc, libtool - all for for emacs vterm package
+    gnumake
+    cmake
+    gcc
+    libtool
   ];
 
   # This value determines the NixOS release from which the default

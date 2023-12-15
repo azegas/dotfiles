@@ -1797,7 +1797,7 @@ All possible tools listed [[https://www.emacswiki.org/emacs/SessionManagement][h
 
 ** Terminal
 
-*** COMMENT Vterm
+*** Vterm
 
 Using vterm is like using Gnome Terminal inside Emacs.
 
