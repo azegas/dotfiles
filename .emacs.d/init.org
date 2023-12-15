@@ -1863,6 +1863,13 @@ vterm-toggle
 
 ** Programming
 
+*** flymake
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Flymake.html
+
+Use it when checking for syntax errors. =consult-flymake= helps with this. =M-g
+f=.
+
 *** COMMENT Bash
 
 wanted to have completion in .sh files, but this seems to be for shell terminal?
