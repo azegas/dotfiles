@@ -1022,6 +1022,8 @@ Create variables and add a hook to denote journal hook.
 
 I use Org mode extensively.
 
+In buffer settings - https://orgmode.org/manual/In_002dbuffer-Settings.html
+
 *** Org-mode generals
 
 The deeper you go in the headings, the mode indented it is. Basically makes the
