@@ -441,6 +441,28 @@ variable’s default value.
    )
 #+end_src
 
+*** Spell checking with flyspell
+
+“Flyspell enables on-the-fly spell checking in Emacs by the means of a minor
+mode. It is called Flyspell. This facility is hardly intrusive. It requires no
+help. Flyspell highlights incorrect words as soon as they are completed or as
+soon as the TextCursor hits a new word.”
+
+Docs - https://www.emacswiki.org/emacs/FlySpell. Make sure you have =ispell=
+installed on your system.
+
+Here is an example to enable it for text-mode, and disable it for log-edit-mode
+and change-log-mode. These two are derived from text-mode, and thus enabling
+flyspell-mode for text-mode also enables it for these two. An alternative
+solution would be the writing of a flyspell-mode-predicate such that symbols
+are ignored by flyspell.
+#+begin_src emacs-lisp
+  (dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1))))
+  (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode -1))))
+#+end_src
+
 *** y-or-n-p
 
 Answering yes and no to each question from Emacs can be tedious, a single y or
