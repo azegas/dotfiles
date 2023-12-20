@@ -994,6 +994,50 @@ that note. Have overview view instead.
 ")
 #+end_src
 
+*** Denote links fix
+
+Working, but with warnings. So not tangling it on startup and only evaluating
+it when I need it. Otherwise, I am getting these warnings:
+
+#+begin_quote
+In ag/denote-link:
+init.el:313:29: Warning: Unused lexical argument `file-type'
+init.el:322:11: Warning: Unused lexical variable `beg'
+init.el:323:11: Warning: Unused lexical variable `identifier-only'
+init.el:332:20: Warning: reference to free variable ‘beg’
+#+end_quote
+
+#+begin_src emacs-lisp :tangle no
+  (defun ag/denote-link (file file-type description &optional id-only)
+    (interactive
+     (let ((file (denote-file-prompt))
+           (type (denote-filetype-heuristics (buffer-file-name))))
+       (list
+        file
+        type
+        (denote--link-get-description file type)
+        current-prefix-arg)))
+    (let* ((beg (point))
+           (identifier-only (or id-only (string-empty-p description)))
+           (filename (file-name-nondirectory file))
+           (org-title (ag/denote-get-org-title file))) ;; Ensure to prefix function with the right namespace
+      (insert
+       (format "[[file:%s][%s]]"
+               (file-name-nondirectory file) ;; Get just the filename
+               (or org-title filename))))
+      ;; Ensure the below logic falls under the let binding block
+      (unless (derived-mode-p 'org-mode)
+        (make-button beg (point) 'type 'denote-link-button)))
+
+  (defun ag/denote-get-org-title (file)
+    "Extract the title from an Org mode file."
+    (with-temp-buffer
+      (insert-file-contents file)
+      (goto-char (point-min))
+      (when (re-search-forward "^\\#\\+title: *\\(.*\\)" nil t)
+        (match-string 1))))
+#+end_src
+
 *** COMMENT Denote journal with a timer
 
 https://protesilaos.com/emacs/denote - "Journalling with a timer" part.
