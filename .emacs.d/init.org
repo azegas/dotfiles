@@ -1027,6 +1027,11 @@ In buffer settings - https://orgmode.org/manual/In_002dbuffer-Settings.html
 
 *** Org-mode generals
 
+Something for when having images in .org file. Read devnotes.
+#+begin_src emacs-lisp
+  (setq org-image-actual-width nil)
+#+end_src
+
 Open org links in the same buffer as you are now. Don't like it when I can not
 control it and it just opens the link in a random frame.
 
