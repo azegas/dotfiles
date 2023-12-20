@@ -1877,6 +1877,13 @@ vterm-toggle
 
 ** Programming
 
+*** COMMENT simple-httpd
+
+#+begin_src emacs-lisp
+(use-package simple-httpd
+  :ensure t)
+#+end_src
+
 *** flymake
 
 https://www.gnu.org/software/emacs/manual/html_node/emacs/Flymake.html
