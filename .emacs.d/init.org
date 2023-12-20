@@ -1027,6 +1027,13 @@ In buffer settings - https://orgmode.org/manual/In_002dbuffer-Settings.html
 
 *** Org-mode generals
 
+Open org links in the same buffer as you are now. Don't like it when I can not
+control it and it just opens the link in a random frame.
+
+#+begin_src emacs-lisp
+  (setq org-link-frame-setup '((file . find-file)))
+#+end_src
+
 The deeper you go in the headings, the mode indented it is. Basically makes the
 org file to look nicer.
 #+begin_src emacs-lisp
