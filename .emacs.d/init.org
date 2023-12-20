@@ -1355,6 +1355,19 @@ https://orgmode.org/worg/doc.html#org-archive-location
 or in my old config -
 https://github.com/arvydasg/.emacs.d/tree/20231124-Before-denote
 
+*** COMMENT org-download
+
+#+begin_src emacs-lisp
+  (use-package org-download
+    :ensure t)
+
+  (setq-default org-download-image-dir "~/GIT/devnotes/media")
+
+  ;; Drag-and-drop to `dired`
+  (add-hook 'dired-mode-hook 'org-download-enable)
+#+end_src
+
+
 *** COMMENT LaTeX export
 
 Latex config example here - https://github.com/larstvei/dot-emacs. Did not use
