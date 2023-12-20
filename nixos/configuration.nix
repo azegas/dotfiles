@@ -31,6 +31,10 @@
     cmake
     gcc
     libtool
+    tree
+    # for org-download
+    scrot
+    xclip
   ];
 
   # Set the timezone to Lithuania (Europe/Vilnius)
