@@ -3,7 +3,6 @@
 # key: img
 # --
 
-
 #+attr_html: :width 800px
 #+ATTR_ORG: :width 600
-[[./static/images/$0.png]]
+[[../media/$0.png]]
