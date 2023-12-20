@@ -1,5 +1,6 @@
 #+TITLE: Emacs configuration file
 #+AUTHOR: Arvydas Gasparavicius
+#+date: [2021-06-15 Tue 22:22]
 #+PROPERTY: header-args :tangle yes
 #+STARTUP: overview
 
