@@ -668,7 +668,8 @@ Don't display them globally, only in prog-mode
 
 Use a bar cursor by default.
 #+begin_src emacs-lisp
-  (setq-default cursor-type 'bar)
+  ;; (setq-default cursor-type 'bar)
+  (setq-default cursor-type 't)
 #+end_src
 
 *** Mode line
