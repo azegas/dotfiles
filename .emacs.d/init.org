@@ -1960,13 +1960,17 @@ wanted to have completion in .sh files, but this seems to be for shell terminal?
     :ensure t)
 #+end_src
 
-*** COMMENT Python
+*** Python
+
+If using elpy together with corfu - you will get double suggestions. Do smth about that.
 
 #+begin_src emacs-lisp
   (use-package elpy
     :ensure t
     :init
     (elpy-enable))
+
+  (setq elpy-rpc-virtualenv-path "/home/s2753g/.virtualenvs/duona/")
 #+end_src
 
 ** Lorem ipsum
