@@ -231,6 +231,7 @@ file that is loaded. It looks like this:
 
   ;; We can't tangle without org!
   (require 'org)
+  (require 'org-babel)
   ;; Open the configuration
   (find-file (concat user-emacs-directory "init.org"))
   ;; tangle it
