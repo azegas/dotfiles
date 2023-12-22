@@ -437,7 +437,7 @@ variable’s default value.
 #+begin_src emacs-lisp
   (setq-default
    fill-column 79                   ;Maximum line width
-   auto-fill-function 'do-auto-fill ;Auto-fill-mode everywhere
+   ;; auto-fill-function 'do-auto-fill ;Auto-fill-mode everywhere
    calendar-week-start-day 1        ;self explanatory
    )
 #+end_src
@@ -501,8 +501,10 @@ To avoid file system clutter we put all auto saved files in a single directory.
 *** Auto fill fix
 
 Auto Fill mode breaks lines automatically at the appropriate places whenever
-lines get longer than the desired width
-#+begin_src emacs-lisp
+lines get longer than the desired width. [2023-12-21 Thu] turning this feature
+off for a sec. Not good when you have long command line and emacs automatically
+wraps it
+#+begin_src emacs-lisp :tangle no
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+end_src
 
@@ -805,6 +807,7 @@ percentage.
              smooth-scrolling-mode        ; Smooth scrolling
              show-paren-mode              ; Highlight matching parentheses
              global-hl-line-mode          ; Highlight the line you are on in all buffers
+             global-visual-line-mode              ; wrap lines by default, does not let text to go all the way to the right
              ))
     (funcall mode 1))
 #+end_src
