@@ -35,6 +35,8 @@
     # for org-download
     scrot
     xclip
+    # 'command-not-found python' shows all possible python versions. Using 3.10 because of eglot
+    python310
   ];
 
   # Set the timezone to Lithuania (Europe/Vilnius)
