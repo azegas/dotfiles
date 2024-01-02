@@ -1082,6 +1082,19 @@ here -
     (funcall mode 1))
 #+end_src
 
+*** COMMENT Golden Ratio
+
+nice demo here at 1:49 - https://youtu.be/rwKTc4MNmt8?si=X78w7N3IH9qwS6N0&t=109
+
+If used with ace-window - does not work properly. Turned ace-window off to test
+this out. No more 4 or so windows open at the same time :) Should be able to handle that.
+
+#+begin_src emacs-lisp
+  (use-package golden-ratio
+    :ensure t)
+  (golden-ratio-mode 1)
+#+end_src
+
 ** Modes
 
 Here are a list of modes(that come by default with Emacs) that I prefer to
