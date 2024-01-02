@@ -319,7 +319,18 @@ Absolute path to emacs dir
   (byte-compile-file (concat user-emacs-directory "init.el"))))
 
   (add-hook 'after-save-hook 'tangle-init)
+#+end_src
 
+*** Turn off errors at the beginning of emacs launch? Native compilation.
+
+Due to emacs 29 and probably because of this tangling thing, with each Emacs
+launch I used to suffer seeing lots of warning messages. Emacs worked just
+fine, but all these warnings each time.. Was watching this video -
+https://www.youtube.com/live/9zwNH2Orw8s?si=4XK5e1pC_DsCisHg&t=2351 at 39:10 and saw a
+fix below. Now it's in my config also.
+
+#+begin_src emacs-lisp
+  (setq native-comp-async-report-warnings-errors nil)
 #+end_src
 
 ** Startup performance
