@@ -1772,9 +1772,14 @@ in emacs while in git repo
 buffer "sidebar".
 #+begin_src emacs-lisp
   (use-package diff-hl
+    :defer t
     :ensure t
     :config
-    (global-diff-hl-mode 1))
+    ;; global-diff-hl-mode is hooked to the after-init-hook. This will enable
+    ;; diff-hl globally after Emacs finishes initializing. Using after-init-hook
+    ;; ensures that diff-hl is activated only after the majority of the startup
+    ;; process is completed, reducing the impact on the initial load time
+    (add-hook 'after-init-hook #'global-diff-hl-mode))
 
   ;; Activates diff-hl, highlighting changes in version-controlled files directly
   ;; in the buffer, providing visual cues for modifications using different
@@ -1833,6 +1838,13 @@ there
 The completions are centered in a posframe (a frame at point). Using posframe
 to show Vertico.
 
+But still, some commands that you launch over M-x, like =rgrep= will require
+you to look down to finish the command. And I am very very much accustomed to
+looking to the bottom left corner.
+
+It also blocks important info in the buffer when I use it.. Swiper still is at
+the bottom.. yeah.. this package is not quite there yet.
+
 #+begin_src emacs-lisp
   (use-package vertico-posframe
     :ensure t
@@ -1884,6 +1896,11 @@ Modular text completion framework for code. Using instead of company package.
     corfu-auto-prefix 2
     corfu-popupinfo-delay 0.5))
 #+end_src
+
+*** TODO Company
+
+Write benefits and disadvantages to corfu. Have the config ready from the old
+config.
 
 *** Orderless
 
@@ -2220,19 +2237,221 @@ vterm-toggle
 
 ** Programming
 
+Good intro for setting up programming language -
+https://www.youtube.com/watch?v=iAjIoKqbmg8&ab_channel=BrentWestbrookx
+
+*** Set up syntax highlighting with Tree-stitter! For all languages
+
+First of all, do you know which languages you will be using? In my case it's
+JavaScript and Python. Let's use the built in tree-sitter to download the
+libraries for syntax highlighting(by default js and py files get recognized and
+syntax is highlighted, but for other languages(like rust) you will must install
+treesit library for syntax highlighting of rust code)
+
+Steps like in this video - https://www.youtube.com/watch?v=iAjIoKqbmg8&ab_channel=BrentWestbrook
+1. have git and c compiler installed(gcc or smth else(should be in your nix config already))
+2. do =treesit-install-language-grammar= and write javascript, next next next,
+   then check the messages buffer if it was really installed "Library installed
+   to ~/.emacs.d/tree-sitter/libtree-sitter-javascript.so"
+3. Do the same for python "Library installed to
+   ~/.emacs.d/tree-sitter/libtree-sitter-python.so"
+
+*** Devdocs - for all languages
+
+https://github.com/astoff/devdocs.el
+
+Inspiration config - https://github.com/gopar/.emacs.d?tab=readme-ov-file#devdocs
+
+To install docs of a particular language, do =M-x devdocs-install=
+
+#+begin_src emacs-lisp
+  (use-package devdocs
+    :ensure t
+    :bind (:map ag/custom-bindings-map
+                 ("C-h D" . devdocs-lookup)))
+
+#+end_src
+
+*** Flymake
+
+This is not a spell check, but code error check.
+
+Mostly useful when having lsp or eglot in the buffer and it lists the errors.
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Flymake.html
+
+Use it when checking for syntax/code errors. =consult-flymake= helps with this.
+=M-g f=.
+
+*** Python
+**** Inspiration for python development in emacs
+
+- eglot+numpydoc+blacken+poetry https://gist.github.com/Nathan-Furnal/b327f14e861f009c014af36c1790ec49
+- jupyter+elpy+flycheck https://realpython.com/emacs-the-best-python-editor/
+-
+
+If using elpy together with corfu - you will get double suggestions. Do smth about that.
+
+**** Not having any python specific configuration
+
+Syntax is partyly highlighted, python mode is on when I enter the .py buffer.
+
+Seems like Emacs has SOME python support.
+
+**** Setting up virtual environments
+
+***** Pyvenv
+#+begin_src emacs-lisp
+  (use-package pyvenv
+    :ensure t)
+#+end_src
+
+=pyvenv-create=
+=pyvenv-workon=
+=pyvenv-activate=
+
+Above are some of the commands to work with python virtual environments.
+
+Before doing any of python development work, get into a virtual environment.
+
+In terminal you should be able to see which venv you are in by doing
+
+#+begin_src bash
+  which python
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package virtualenv
+    :ensure t)
+#+end_src
+
+***** COMMENT Pipenv
+
+- Note taken on [2024-01-02 Tue 07:52] \\
+  cant figure out how it works, disabling. Sticking with pyvenv.
+- Note taken on [2024-01-02 Tue 07:40] \\
+  [2024-01-02 Tue] As long as I remember I was using pyvenv. But I will try to
+  use pipenv instead of pyvenv because pipenv is "newer"? and it is recommended
+  by doom-modeline - https://github.com/seagle0128/doom-modeline/issues/109. With
+  pyvenv it's not possible to show current env in modeline.
+
+#+begin_src emacs-lisp
+  (use-package pipenv
+    :ensure t)
+#+end_src
+
+**** Eglot
+
+NOTE: does not work with python3.11!!!
+
+Using Elpy for python development seems like it's enough, but Elpy its only for
+Python.
+
+Since I am not developing ONLY in python, I need something more universal,
+something that can handle multiple programming languages.
+
+One option is LSP - https://github.com/emacs-lsp/lsp-mode. It could be used,
+BUT something similar like it is already built in withing Emacs 29 and it's
+called Eglot - https://github.com/joaotavora/eglot. Better use something that's
+built in, don't you think? Emacs peeps have made a decision to include Eglot
+into it's source, so it must be good.
+
+#+begin_src emacs-lisp
+  (require 'eglot)
+#+end_src
+
+Nice intro to eglot here - https://www.youtube.com/watch?v=NQJBvp77WCo&ab_channel=whatacold
+
+To use it, simply write =M-x eglot= when in python file. If it's first time
+running eglot, you will get a message that no language server is installed. Can
+do that by creating a virtual env and then installing a language server in it.
+
+#+begin_src bash
+  pip install 'python-language-server[all]'
+#+end_src
+
+Now when you do =M-x eglot= - you it will get connected to the language server.
+AND you will start noticing the errors, warnings and so on.
+
+You will be able to jump to definition now, amazing! Docs will work also.
+Warnings/errors all over the place. Seems like it does work.
+
+**** COMMENT Setup python virtual envs
+
+#+begin_src emacs-lisp
+  ;; set a default environment for each python file opening session, elpy packages will lie there(flake, yapf, black, etc)
+  (setq elpy-rpc-virtualenv-path "/home/s2753g/.virtualenvs/duona/")
+#+end_src
+
+**** COMMENT Install elpy
+#+begin_src emacs-lisp
+  ;; (use-package elpy
+  ;;   :ensure nil
+  ;;   :init
+  ;;   (add-hook 'python-mode-hook 'elpy-enable)) ; Enable Elpy in python-mode
+
+  (use-package elpy
+    ;; leave both defer and ensure
+    :defer t
+    :ensure t
+    :init
+    ;; deferring the loading of elpy until you specifically activate a Python
+    ;; buffer. This way, elpy is only loaded when it's needed, reducing the
+    ;; overall impact on Emacs startup time.
+    (with-eval-after-load 'python
+      (elpy-enable)))
+#+end_src
+
+*** COMMENT Chatgpt
+
+https://github.com/xenodium/chatgpt-shell
+
+Created .authinfo file with such content:
+
+#+begin_src bash
+  machine api.openai.com password <KEY-HERE>
+#+end_src
+
+Then was able to install and use the package:
+
+#+begin_src emacs-lisp
+  (use-package chatgpt-shell
+    :ensure t
+    :bind (("C-x m" . chatgpt-shell))
+    ;; :init
+    ;; (add-to-list 'display-buffer-alist
+    ;;              '("\\*chatgpt\\*"
+    ;;                display-buffer-in-side-window
+    ;;                (side . right)
+    ;;                (slot . 0)
+    ;;                (window-parameters . ((no-delete-other-windows . t)))
+    ;;                (dedicated . t)))
+
+    :bind (:map chatgpt-shell-mode-map
+                 (("RET" . newline)
+                 ("M-RET" . shell-maker-submit)
+                 ("M-." . dictionary-lookup-definition)))
+    :custom
+    (chatgpt-shell-openai-key
+     (auth-source-pick-first-password :host "api.openai.com"))
+    (chatgpt-shell-transmitted-context-length 5)
+    (chatgpt-shell-model-versions '("gpt-3.5-turbo-16k" "gpt-3.5-turbo")))
+    ;; (chatgpt-shell-model-versions '("gpt-4" "gpt-3.5-turbo-16k" "gpt-3.5-turbo"  "gpt-4-32k")))
+#+end_src
+
+But I got a message saying "You exceeded your current quota, please check your
+plan and billing details". Okay, not going to buy anything for now.
+
+Info about the credits/limits here:
+- https://platform.openai.com/usage
+- https://platform.openai.com/account/limits
+
 *** COMMENT simple-httpd
 
 #+begin_src emacs-lisp
 (use-package simple-httpd
   :ensure t)
 #+end_src
-
-*** flymake
-
-https://www.gnu.org/software/emacs/manual/html_node/emacs/Flymake.html
-
-Use it when checking for syntax errors. =consult-flymake= helps with this. =M-g
-f=.
 
 *** COMMENT Bash
 
@@ -2241,19 +2460,6 @@ wanted to have completion in .sh files, but this seems to be for shell terminal?
 #+begin_src emacs-lisp
   (use-package bash-completion
     :ensure t)
-#+end_src
-
-*** Python
-
-If using elpy together with corfu - you will get double suggestions. Do smth about that.
-
-#+begin_src emacs-lisp
-  (use-package elpy
-    :ensure t
-    :init
-    (elpy-enable))
-
-  (setq elpy-rpc-virtualenv-path "/home/s2753g/.virtualenvs/duona/")
 #+end_src
 
 ** Lorem ipsum
