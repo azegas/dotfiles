@@ -2080,6 +2080,7 @@ before, does not have the same problem like with =dired-sidebar=.
   ;; discoverability.
 
   (use-package treemacs
+    :ensure t
     :defer t
     :config
     (progn
