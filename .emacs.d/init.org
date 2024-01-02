@@ -392,6 +392,12 @@ and is well maintained.
           ("MELPA"        . 5)
           ("MELPA Stable" . 0)))
 #+end_src
+
+** Customize-group
+
+Run =M-x customize-group RET package-name RET= to see or set the possible
+variables of particular package.
+
 ** General tweaks
 
 Jump to my main config file. Putting this at the top of the config to guarantee
