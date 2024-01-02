@@ -30,3 +30,7 @@ history
 *.elc
 eln-cache/
 org-persist/
+
+test.js
+test.py
+/devdocs
