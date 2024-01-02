@@ -2316,7 +2316,7 @@ Before doing any of python development work, get into a virtual environment.
 
 In terminal you should be able to see which venv you are in by doing
 
-#+begin_src bash
+#+begin_src bash :tangle :no
   which python
 #+end_src
 
@@ -2366,7 +2366,7 @@ To use it, simply write =M-x eglot= when in python file. If it's first time
 running eglot, you will get a message that no language server is installed. Can
 do that by creating a virtual env and then installing a language server in it.
 
-#+begin_src bash
+#+begin_src bash :tangle no
   pip install 'python-language-server[all]'
 #+end_src
 
