@@ -2235,7 +2235,7 @@ vterm-toggle
                ))
 #+end_src
 
-** Programming
+** COMMENT Programming
 
 Good intro for setting up programming language -
 https://www.youtube.com/watch?v=iAjIoKqbmg8&ab_channel=BrentWestbrookx
