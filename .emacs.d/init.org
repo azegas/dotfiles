@@ -692,7 +692,7 @@ Use a bar cursor by default.
 
 *** Mode line
 
-**** COMMENT Custom mode line
+**** Custom mode line
 
 Will create my own modeline following [[https://www.youtube.com/watch?v=Qf_DLPIA9Cs&ab_channel=ProtesilaosStavrou][this]] excellent Protesilaos Stravrou
 guide.
@@ -816,7 +816,7 @@ percentage.
   (powerline-default-theme)
 #+end_src
 
-**** Doom-modeline
+**** COMMENT Doom-modeline
 
 Doom theme modeline. Kind of minimalistic and clean. Many customization options
 here -
