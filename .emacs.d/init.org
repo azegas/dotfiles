@@ -2283,7 +2283,7 @@ https://www.gnu.org/software/emacs/manual/html_node/emacs/Flymake.html
 Use it when checking for syntax/code errors. =consult-flymake= helps with this.
 =M-g f=.
 
-*** COMMENT Python
+*** Python
 **** Inspiration for python development in emacs
 
 - eglot+numpydoc+blacken+poetry https://gist.github.com/Nathan-Furnal/b327f14e861f009c014af36c1790ec49
