@@ -2320,11 +2320,6 @@ In terminal you should be able to see which venv you are in by doing
   which python
 #+end_src
 
-#+begin_src emacs-lisp
-  (use-package virtualenv
-    :ensure t)
-#+end_src
-
 ***** COMMENT Pipenv
 
 - Note taken on [2024-01-02 Tue 07:52] \\
