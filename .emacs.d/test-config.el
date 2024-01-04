@@ -67,3 +67,8 @@
         corfu-auto-delay 0
         corfu-auto-prefix 2
         corfu-popupinfo-delay 0.5))
+
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))
