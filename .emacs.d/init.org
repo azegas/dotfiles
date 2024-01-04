@@ -2256,7 +2256,7 @@ Steps like in this video - https://www.youtube.com/watch?v=iAjIoKqbmg8&ab_channe
 3. Do the same for python "Library installed to
    ~/.emacs.d/tree-sitter/libtree-sitter-python.so"
 
-*** COMMENT Devdocs - for all languages
+*** Devdocs - for all languages
 
 https://github.com/astoff/devdocs.el
 
