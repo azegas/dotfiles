@@ -2235,7 +2235,7 @@ vterm-toggle
                ))
 #+end_src
 
-** COMMENT Programming
+** Programming
 
 Good intro for setting up programming language -
 https://www.youtube.com/watch?v=iAjIoKqbmg8&ab_channel=BrentWestbrookx
@@ -2256,7 +2256,7 @@ Steps like in this video - https://www.youtube.com/watch?v=iAjIoKqbmg8&ab_channe
 3. Do the same for python "Library installed to
    ~/.emacs.d/tree-sitter/libtree-sitter-python.so"
 
-*** Devdocs - for all languages
+*** COMMENT Devdocs - for all languages
 
 https://github.com/astoff/devdocs.el
 
@@ -2283,7 +2283,7 @@ https://www.gnu.org/software/emacs/manual/html_node/emacs/Flymake.html
 Use it when checking for syntax/code errors. =consult-flymake= helps with this.
 =M-g f=.
 
-*** Python
+*** COMMENT Python
 **** Inspiration for python development in emacs
 
 - eglot+numpydoc+blacken+poetry https://gist.github.com/Nathan-Furnal/b327f14e861f009c014af36c1790ec49
