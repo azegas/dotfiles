@@ -2316,7 +2316,7 @@ Before doing any of python development work, get into a virtual environment.
 
 In terminal you should be able to see which venv you are in by doing
 
-#+begin_src bash :tangle :no
+#+begin_src bash :tangle no
   which python
 #+end_src
 
