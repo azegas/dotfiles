@@ -209,9 +209,8 @@ the terminal while in =.emacs.d= directory.
 - https://github.com/drewcsillag/emacsconfig/blob/master/emacs-config.org
   (creator of dockerfile-mode)
 
-* Configurations
-** Tangling
-*** What is tangling, literate programming, org-babel
+* Tangling
+** What is tangling, literate programming, org-babel
 
 All changes to the configuration should be done in =init.org=, *not* in
 =init.el=. Any changes in the =init.el= will be OVERWRITTEN(due to the script
@@ -266,7 +265,7 @@ If one wishes to make changes to the repo-version of init.el start tracking agai
   git update-index --no-assume-unchanged init.el
 #+end_src
 
-*** Lexical binding, garbage collection
+** Lexical binding, garbage collection
 
 Lexical scoping for the init-file is needed, it can be specified in the header.
 Make startup faster by reducing the frequency of garbage collection. The
@@ -288,7 +287,7 @@ as intended.
   (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 
-*** Automatically tangle init.org and recompile the init.el file
+** Automatically tangle init.org and recompile the init.el file
 
 The =init.el= should (after the first run) mirror the source blocks in the
 =init.org=. We can use =C-c C-v t= to run =org-babel-tangle=, which extracts
@@ -321,7 +320,7 @@ Absolute path to emacs dir
   (add-hook 'after-save-hook 'tangle-init)
 #+end_src
 
-*** Turn off errors at the beginning of emacs launch? Native compilation.
+** Turn off errors at the beginning of emacs launch? Native compilation.
 
 Due to emacs 29 and probably because of this tangling thing, with each Emacs
 launch I used to suffer seeing lots of warning messages. Emacs worked just
@@ -333,7 +332,7 @@ fix below. Now it's in my config also.
   (setq native-comp-async-report-warnings-errors nil)
 #+end_src
 
-** Startup performance
+* Startup performance
 
 Make startup faster by reducing the frequency of garbage collection and then
 use a hook to measure Emacs startup time.
@@ -357,7 +356,7 @@ use-package-report= to check the report.
   (setq use-package-compute-statistics t)
 #+end_src
 
-** Packages
+* Packages
 
 John Wiegley's extremely popular [[https://github.com/jwiegley/use-package][use-package]] was included in [[https://lists.gnu.org/archive/html/emacs-devel/2022-12/msg00261.html][Emacs 29]]. It
 provides a powerful macro for isolating package configuration.
@@ -393,12 +392,7 @@ and is well maintained.
           ("MELPA Stable" . 0)))
 #+end_src
 
-** Customize-group
-
-Run =M-x customize-group RET package-name RET= to see or set the possible
-variables of particular package.
-
-** General tweaks
+* General tweaks
 
 Jump to my main config file. Putting this at the top of the config to guarantee
 that I will always have this keybinding available if stuff breaks futher on in
@@ -460,7 +454,7 @@ variable’s default value.
    )
 #+end_src
 
-*** Spell checking with flyspell
+** Spell checking with flyspell
 
 “Flyspell enables on-the-fly spell checking in Emacs by the means of a minor
 mode. It is called Flyspell. This facility is hardly intrusive. It requires no
@@ -482,7 +476,7 @@ are ignored by flyspell.
     (add-hook hook (lambda () (flyspell-mode -1))))
 #+end_src
 
-*** y-or-n-p
+** y-or-n-p
 
 Answering yes and no to each question from Emacs can be tedious, a single y or
 n will suffice.
@@ -491,7 +485,7 @@ n will suffice.
   (fset 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
-*** Autosave stuff
+** Autosave stuff
 
 To avoid file system clutter we put all auto saved files in a single directory.
 ( have not had a chance to use this, keeping anyway..)
@@ -510,13 +504,13 @@ To avoid file system clutter we put all auto saved files in a single directory.
         `((".*" ,emacs-autosave-directory t)))
 #+end_src
 
-*** Clean up all the whitespace in the buffer on buffer save
+** Clean up all the whitespace in the buffer on buffer save
 
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook 'whitespace-cleanup)
 #+end_src
 
-*** Auto fill fix
+** Auto fill fix
 
 Auto Fill mode breaks lines automatically at the appropriate places whenever
 lines get longer than the desired width. [2023-12-21 Thu] turning this feature
@@ -526,7 +520,7 @@ wraps it
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
 #+end_src
 
-*** Unfill region
+** Unfill region
 
 [2022-04-05 Tue] Un-fill region. Used it when putting text content to a website
 and emacs text wrapping at 79 or 80 characters is not appropriate.
@@ -543,7 +537,7 @@ and emacs text wrapping at 79 or 80 characters is not appropriate.
   (define-key global-map "\C-\M-Q" 'ag/unfill-region)
 #+end_src
 
-*** Duplicate current line or region
+** Duplicate current line or region
 
 #+begin_src emacs-lisp
   (defun duplicate-current-line-or-region (arg)
@@ -569,7 +563,12 @@ and emacs text wrapping at 79 or 80 characters is not appropriate.
   (global-set-key (kbd "M-c") 'duplicate-current-line-or-region)
 #+end_src
 
-** Key bindings
+* Customize-group
+
+Run =M-x customize-group RET package-name RET= to see or set the possible
+variables of particular package.
+
+* Create custom bindings map
 
 Inspired by [[http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs][this StackOverflow post]] I keep a =custom-bindings-map= that holds
 all my custom bindings. This map can be activated by toggling a simple
@@ -586,6 +585,7 @@ M-x cusom-bindings-map to preview all the bindings in one place.
     "A keymap for custom bindings.")
 #+end_src
 
+* Packages
 ** Visuals
 
 *** Declutter
@@ -2269,7 +2269,6 @@ To install docs of a particular language, do =M-x devdocs-install=
     :ensure t
     :bind (:map ag/custom-bindings-map
                  ("C-h D" . devdocs-lookup)))
-
 #+end_src
 
 *** Flymake
@@ -2647,7 +2646,7 @@ the reverse.
                 ("M-]" . 'goto-last-change-reverse)))
 #+end_src
 
-** Bindings for functions defined above.
+* Activate custom bindings map
 
 Lastly we need to activate the map by creating and activating the minor-mode.
 
