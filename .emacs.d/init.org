@@ -2190,15 +2190,21 @@ All possible tools listed [[https://www.emacswiki.org/emacs/SessionManagement][h
 **** perspective
 
 #+begin_src emacs-lisp
-    (use-package perspective
-      :ensure t
-      :bind (
-             ("C-x k" . persp-kill-buffer*)
-             )
-      :custom
-      (persp-mode-prefix-key (kbd "C-z"))
-      :init
-      (persp-mode))
+  (use-package perspective
+    :ensure t
+    :bind (
+           ("C-x k" . persp-kill-buffer*)
+           )
+    :custom
+    (persp-mode-prefix-key (kbd "C-z"))
+    :init
+    (persp-mode))
+
+    ;; sort perspectives by time created
+    (setq persp-sort 'created)
+  ;; renaming does not work for some reason..
+    ;; (setq persp-initial-frame-name "zaltys")
+    (setq persp-modestring-dividers '("[" "]" " | "))
 
   ;; windows like window switching baby!
   (define-key ag/custom-bindings-map (kbd "C-<tab>") 'persp-next)
