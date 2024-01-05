@@ -394,7 +394,9 @@ and is well maintained.
 
 * General tweaks
 
-Jump to my main config file. Putting this at the top of the config to guarantee
+** Jump to my main config file.
+
+Putting this at the top of the config to guarantee
 that I will always have this keybinding available if stuff breaks futher on in
 the config.
 
@@ -405,7 +407,8 @@ the config.
   (global-set-key (kbd "C-x <C-backspace>") 'ag/find-init.org)
 #+end_src
 
-Jump to my NixOS configuration file
+** Jump to my NixOS configuration file
+
 #+begin_src emacs-lisp
   (defun ag/find-nix-configuration nil
     (interactive)
@@ -413,17 +416,21 @@ Jump to my NixOS configuration file
   (global-set-key (kbd "C-x C-<home>") 'ag/find-nix-configuration)
 #+end_src
 
-Set utf-8 as preferred coding system.
+** Set utf-8 as preferred coding system.
 
 #+begin_src emacs-lisp
   (set-language-environment "UTF-8")
   (prefer-coding-system 'utf-8)
 #+end_src
 
+** unbind c-z
+
 I am tired of clicking C-z by accident and freezing my pane.
 #+begin_src emacs-lisp
   (global-unset-key (kbd "C-z"))
 #+end_src
+
+** Set some default variables
 
 We can set variables to whatever value we’d like using setq.
 
@@ -441,6 +448,8 @@ We can set variables to whatever value we’d like using setq.
         read-extended-command-predicate #'command-completion-default-include-p ; Hide M-x commands which does not work in the current buffer.
         )
 #+end_src
+
+** Set buffer-local variables?
 
 Some variables are buffer-local, so changing them using setq will only change
 them in a single buffer. Using setq-default we change the buffer-local
