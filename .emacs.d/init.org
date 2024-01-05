@@ -356,7 +356,7 @@ use-package-report= to check the report.
   (setq use-package-compute-statistics t)
 #+end_src
 
-* Packages
+* Installation of packages
 
 John Wiegley's extremely popular [[https://github.com/jwiegley/use-package][use-package]] was included in [[https://lists.gnu.org/archive/html/emacs-devel/2022-12/msg00261.html][Emacs 29]]. It
 provides a powerful macro for isolating package configuration.
