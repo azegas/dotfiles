@@ -512,7 +512,11 @@ To avoid file system clutter we put all auto saved files in a single directory.
         `((".*" ,emacs-autosave-directory t)))
 #+end_src
 
-** Clean up all the whitespace in the buffer on buffer save
+** COMMENT Clean up all the whitespace in the buffer on buffer save
+
+Sounds nice, but VERY dangerous if you open a file that has never been opened
+in emacs and this whitespace-cleanup is ran - the whole file will get changed.
+Probably better to turn off when working in a team with someone else.
 
 #+begin_src emacs-lisp
   (add-hook 'before-save-hook 'whitespace-cleanup)
