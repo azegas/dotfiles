@@ -2259,6 +2259,22 @@ vterm-toggle
                ))
 #+end_src
 
+#+begin_src emacs-lisp
+  (defun create-new-vterm ()
+    "Create a new vterm buffer if one already exists."
+    (interactive)
+    (let ((vterm-buffer-found nil))
+      (dolist (buffer (buffer-list))
+        (when (with-current-buffer buffer
+                (derived-mode-p 'vterm-mode))
+          (setq vterm-buffer-found t)))
+      (if vterm-buffer-found
+          (vterm (generate-new-buffer-name "*vterm*"))
+        (vterm))))
+
+  (global-set-key (kbd "C-c v") 'create-new-vterm)
+#+end_src
+
 ** Programming
 
 Good intro for setting up programming language -
