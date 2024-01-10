@@ -2211,6 +2211,12 @@ All possible tools listed [[https://www.emacswiki.org/emacs/SessionManagement][h
   (define-key ag/custom-bindings-map (kbd "C-<iso-lefttab>") 'persp-prev)
 #+end_src
 
+Load a custom perspective on each emacs launch
+#+begin_src emacs-lisp
+  (setq persp-state-default-file "~/GIT/persp")
+  (add-hook 'emacs-startup-hook #'(lambda () (persp-state-load persp-state-default-file)))
+#+end_src
+
 ** Terminal
 
 *** Vterm
