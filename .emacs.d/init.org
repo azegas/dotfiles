@@ -2204,7 +2204,7 @@ All possible tools listed [[https://www.emacswiki.org/emacs/SessionManagement][h
     (setq persp-sort 'created)
   ;; renaming does not work for some reason..
     ;; (setq persp-initial-frame-name "zaltys")
-    (setq persp-modestring-dividers '("[" "]" " | "))
+    (setq persp-modestring-dividers '("[ " " ]" " | "))
 
   ;; windows like window switching baby!
   (define-key ag/custom-bindings-map (kbd "C-<tab>") 'persp-next)
