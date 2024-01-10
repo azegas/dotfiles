@@ -2599,6 +2599,18 @@ https://notabug.org/arkhan/dots.old/src/master/emacs/.emacs.d/snippets
     (yas-global-mode 1))
 #+end_src
 
+To study the current snippets, use =M-x yas-describe-tables=, which will show a
+table representation of all the snippets that =are available in the current
+mode=.
+
+Install the package, snippets will be in
+=.emacs.d/elpa/yasnippet-snippets-20240105.1144/snippets=
+
+#+begin_src emacs-lisp
+  (use-package yasnippet-snippets
+    :ensure t)
+#+end_src
+
 ** COMMENT Keycast
 
 Shows the keys that you type in the modeline. Might be useful when presenting
