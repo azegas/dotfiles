@@ -2032,7 +2032,7 @@ them in M-x ~consult-~
     )
 
   ;; overriding some default consult keybindings
-  (define-key ag/custom-bindings-map (kbd "C-x r") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep. Not using C-r suz of isearch in terminals
+  (define-key ag/custom-bindings-map (kbd "C-x p g") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep. Not using C-r suz of isearch in terminals. [2024-01-09 Tue] remapping to C-x p g to replace the sucky project.el ripgrep and to free up C-x r for bookmarks
   (define-key ag/custom-bindings-map (kbd "C-x q") 'consult-imenu) ; Remaping the default "M-s somethnig"
 #+end_src
 
