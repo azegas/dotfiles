@@ -2388,6 +2388,15 @@ AND you will start noticing the errors, warnings and so on.
 You will be able to jump to definition now, amazing! Docs will work also.
 Warnings/errors all over the place. Seems like it does work.
 
+**** Shortcuts
+
+if you want to write functions quickier, use yasnippet-snippets. Refer to that
+package for instructions.
+
+f.x
+if + <TAB>
+def + <TAB>
+
 **** COMMENT Setup python virtual envs
 
 #+begin_src emacs-lisp
@@ -2413,6 +2422,31 @@ Warnings/errors all over the place. Seems like it does work.
     (with-eval-after-load 'python
       (elpy-enable)))
 #+end_src
+
+*** HTML
+
+**** Snippets
+for tag completion - using yasnippet snippets
+**** COMMENT emmet-mode
+[2021-07-01] “Emmet mode” - HTML completion. Click c-j to autocomplete a tag.
+Cheat sheet - https://docs.emmet.io/cheat-sheet/
+
+SU WEB MODE PRADEDA flycheck nebeveikti ir emmet durniuoja.
+
+[2024-01-08 Mon] tag completion does not work. Like writing p and clicking TAB
+does not make <p></p>. Basically now I need only that. Could use yasnippet, but
+using emmet mode instead, even though it is no longer maintained.
+
+#+begin_src emacs-lisp
+  (use-package emmet-mode
+    :ensure t
+    :config
+    :hook ((web-mode . emmet-mode)
+           (html-mode . emmet-mode)
+           ;; turning off dell scss C-c C-c shortcut
+           ;; (css-mode . emmet-mode)
+           (sgml-mode . emmet-mode)))
+  #+end_src
 
 *** COMMENT Chatgpt
 
