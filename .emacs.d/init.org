@@ -2376,13 +2376,18 @@ In terminal you should be able to see which venv you are in by doing
 
 **** Eglot
 
-NOTE: does not work with python3.11!!!
+Nice intro to eglot:
+ - https://www.youtube.com/watch?v=NQJBvp77WCo&ab_channel=whatacold
+ - https://www.adventuresinwhy.com/post/eglot/
+
+NOTE: Eglot does not work with python3.11!!! Install a lower python version.
 
 Using Elpy for python development seems like it's enough, but Elpy its only for
-Python.
+Python. And elpy is no longer maintained.
 
-Since I am not developing ONLY in python, I need something more universal,
-something that can handle multiple programming languages.
+Since I am not developing ONLY in
+python, I need something more universal, something that can handle multiple
+programming languages.
 
 One option is LSP - https://github.com/emacs-lsp/lsp-mode. It could be used,
 BUT something similar like it is already built in withing Emacs 29 and it's
@@ -2390,25 +2395,131 @@ called Eglot - https://github.com/joaotavora/eglot. Better use something that's
 built in, don't you think? Emacs peeps have made a decision to include Eglot
 into it's source, so it must be good.
 
+To use Eglot it, simply write =M-x eglot= when in a Python file(or any other
+file that you have language server of installed in your system). If it's first
+time running eglot, you will get a message that no language server is
+installed.
+
 #+begin_src emacs-lisp
   (require 'eglot)
 #+end_src
 
-Nice intro to eglot here - https://www.youtube.com/watch?v=NQJBvp77WCo&ab_channel=whatacold
+***** Eglot virtualenv setup for python
 
-To use it, simply write =M-x eglot= when in python file. If it's first time
-running eglot, you will get a message that no language server is installed. Can
-do that by creating a virtual env and then installing a language server in it.
-
-#+begin_src bash :tangle no
-  pip install 'python-language-server[all]'
-#+end_src
-
-Now when you do =M-x eglot= - you it will get connected to the language server.
-AND you will start noticing the errors, warnings and so on.
+- create a virtual env with =pyvenv-create=
+- activate the env with =pyvenv-workon=
+- Open terminal(vterm, eshell, shell) and write =which python= and make sure
+  you are inside the virtual environment that you have created in previous
+  steps
+- install language server with =pip install 'python-language-server[all]'=
+- pip list to confirm that =pip install 'python-language-server[all]'= was
+  properly installed
+- open a python file in emacs
+- run =M-x eglot=
+- Now when you do =M-x eglot= - you it will get connected to the language
+  server. AND you will start noticing the errors, warnings and so on.
 
 You will be able to jump to definition now, amazing! Docs will work also.
 Warnings/errors all over the place. Seems like it does work.
+
+[2024-01-10 Wed] Previously I would do the method described above to work with
+python files. But that is tedious, better make it automatic, like described
+here - https://www.adventuresinwhy.com/post/eglot/.
+
+But now it does not know where the language server is. Previously I would
+activate venv that has language server, but now we did not.
+
+- create virtual environment anywhere on your machine(with pyvenv or just
+  python -m venv), any way. (I prefer the emacs way, so that all of the venvs
+  are in ~/.virtualvenvs folder). In my case it is named "base""
+- Open terminal(vterm, eshell, shell) and write =which python= and make sure
+  you are inside the virtual environment that you have created in previous
+  steps
+- install language server with =pip install 'python-language-server[all]'=
+- pip list to confirm that =pip install 'python-language-server[all]'= was
+  properly installed
+- create/open ~/.bashrc file
+- add the following line to it - =export PATH=$PATH:/home/s2753g/.virtualenvs/base/bin=
+- run =source ~/.bashrc= in your wsl/linux terminal
+- restart emacs/and/or your wsl also
+- do =echo $PATH= and make sure  you see your virtual environment in the path
+- open a python file in emacs
+- eglot must have started automatically by now, congrats
+
+So no whenever we want some package globally, we install it in the "base"
+virtual environment and when we need to activate project specific virtual
+environment, we can do that also. Packages will be taken from both the
+environments. No more requirements.txt collision.
+
+[2024-01-10 Wed] Don't use python relative paths like from =.utils import bla=.
+Better use =app_name.utils import bla=. The second way is recognizable for
+elpy.
+
+[2024-01-11 Thu] NOTE that if package is NOT installed globally(in base env)
+and installed only in your additional virtual env - eglot will not notice that.
+Better install all packages in base env to have a variaty of packages there.
+And to launch/build stuff - use virtualenv. NOTE NOTE - actually it will work
+if you activate the virtual environment AND then enable eglot in current
+buffer(or restart eglot if it already was enabled)
+
+***** Launch Eglot upon opening python file
+
+Since we have virtualenv's setup, we can now safely ask Emacs to launch eglot when opening python files.
+
+#+begin_src emacs-lisp
+  (add-hook 'python-mode-hook 'eglot-ensure)
+#+end_src
+
+***** Turn on `flyspell-mode' for comments and strings.
+
+#+begin_src emacs-lisp
+  (add-hook 'python-mode-hook 'flyspell-prog-mode)
+#+end_src
+
+***** Toggle superword movement and editing
+
+ Enabling it changes the definition of words such that characters which have
+ symbol syntax are treated as parts of words: e.g., in `superword-mode',
+ \"this_is_a_symbol\" counts as one word.
+
+ this_is_a_symbol. With superword mode, when pressing M-f or M-b you will jump
+ from t in this to l in symbol. Instead of "this", then "is", then "a"...
+
+#+begin_src emacs-lisp
+  (add-hook 'python-mode-hook 'superword-mode)
+#+end_src
+
+***** Selectively hide/show code and comment blocks
+
+Strange shortcut for this, but good to know it exists.
+
+#+begin_src emacs-lisp
+  (add-hook 'python-mode-hook 'hs-minor-mode)
+#+end_src
+
+***** COMMENT figure out how to use pylsp?
+
+now installing all language servers - work, but still.. would like to be able
+to configure stuff myself like in the next point
+
+***** COMMENT figure out how to make this work
+
+from here https://www.adventuresinwhy.com/post/eglot/
+
+#+begin_src emacs-lisp
+  (setq-default eglot-workspace-configuration
+                '((:pylsp . (:configurationSources ["flake8"]
+                             :plugins (
+                                       :pycodestyle (:enabled :json-false)
+                                       :mccabe (:enabled :json-false)
+                                       :pyflakes (:enabled :json-false)
+                                       :flake8 (:enabled :json-false
+                                                :maxLineLength 88)
+                                       :yapf (:enabled :json-false)
+                                       :autopep8 (:enabled :json-false))))))
+#+end_src
+
+***** COMMENT look into tree-sitter
 
 **** Shortcuts
 
@@ -2450,14 +2561,19 @@ def + <TAB>
 **** Snippets
 for tag completion - using yasnippet snippets
 **** COMMENT emmet-mode
+- Note taken on [2024-01-10 Wed 14:30] \\
+  after installing and reading web-mode docs, realized that web mode also has
+  some tag completion help, so might not use emmet for this. Web mode is a must
+  for django templates.
+
 [2021-07-01] “Emmet mode” - HTML completion. Click c-j to autocomplete a tag.
 Cheat sheet - https://docs.emmet.io/cheat-sheet/
 
 SU WEB MODE PRADEDA flycheck nebeveikti ir emmet durniuoja.
 
-[2024-01-08 Mon] tag completion does not work. Like writing p and clicking TAB
-does not make <p></p>. Basically now I need only that. Could use yasnippet, but
-using emmet mode instead, even though it is no longer maintained.
+[2024-01-10 Wed] enabling it again, should click C-j to expand tag I think.
+Using emmet ONLY for tags like p etc, since yasnippet-snippets does not provide
+such basic tags.
 
 #+begin_src emacs-lisp
   (use-package emmet-mode
@@ -2469,6 +2585,32 @@ using emmet mode instead, even though it is no longer maintained.
            ;; (css-mode . emmet-mode)
            (sgml-mode . emmet-mode)))
   #+end_src
+
+**** web-mode
+- Note taken on [2024-01-10 Wed 14:34] \\
+  =C-e= in html buffer provides many keybindings.
+
+  Also, for django you can use =C-c C-s= to have a list of snippets! Like if, block ,etc! Nice.
+
+https://web-mode.org/
+
+https://www.reddit.com/r/emacs/comments/ram6jz/i_need_some_help_on_how_to_use_emacs_for/
+
+Web mode in my case is useful when I want to edit html files, but django(jinja)
+style. Web mode has language specific engines, "django" engine is one of them.
+
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :ensure t)
+
+  ;; enabling web mode for ALL html files
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+
+  ;; all the .html files in these directories will have "django" engine applied
+  ;; to them and syntax formatting will work properly
+  (setq web-mode-engines-alist
+  '(("django" . "/home/s2753g/GIT/rights/.*\\.html\\'")))
+#+end_src
 
 *** COMMENT Chatgpt
 
