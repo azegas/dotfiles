@@ -2491,16 +2491,19 @@ Web mode in my case is useful when I want to edit html files, but django(jinja)
 style. Web mode has language specific engines, "django" engine is one of them.
 
 #+begin_src emacs-lisp
-  (use-package web-mode
-    :ensure t)
+        (use-package web-mode
+          :ensure t)
 
-  ;; enabling web mode for ALL html files
-  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+        ;; enabling web mode for ALL html files
+        (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
-  ;; all the .html files in these directories will have "django" engine applied
-  ;; to them and syntax formatting will work properly
-  (setq web-mode-engines-alist
-  '(("django" . "/home/s2753g/GIT/rights/.*\\.html\\'")))
+        ;; all the .html files in these directories will have "django" engine applied
+        ;; to them and syntax formatting will work properly
+        (setq web-mode-engines-alist
+        '(
+          ("django" . "/home/s2753g/GIT/rights/.*\\.html\\'")
+          ("django" . "/home/s2753g/GIT/shipping/.*\\.html\\'")
+          ))
 #+end_src
 
 *** COMMENT Chatgpt
