@@ -1447,15 +1447,10 @@ When a TODO is set to a done state, record a timestamp
   (setq org-log-done 'time)
 #+end_src
 
-Assigning a few files to variables
-#+begin_src emacs-lisp
-  (setq ag/task-file "~/GIT/notes/tasks.org")
-  (setq ag/somedaymaybe-file "~/GIT/notes/somedaymaybe.org")
-#+end_src
-
 Setting up org-agenda-files using those variables
 #+begin_src emacs-lisp
-  (setq org-agenda-files `(,ag/task-file ,ag/somedaymaybe-file))
+  (setq org-agenda-files
+      (directory-files-recursively "~/GIT/notes/" ".*agenda.*\\.org$"))
 #+end_src
 
 Create a keybinding for org-agenda
@@ -1542,7 +1537,7 @@ Set org refile targets. Refiling helps me to move headings(content) between or
 different org files that I have(in this case, 'org-agenda-files') with "C-w"
 command.
 #+begin_src emacs-lisp
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 1)))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
 #+end_src
 
 *** Org-mode capture
@@ -1568,133 +1563,21 @@ Create a keybinding for org-capture.
   (define-key ag/custom-bindings-map (kbd "\C-cc") 'org-capture)
 #+end_src
 
-My personal capture templates. Click =C-cC= to see all the capture templates in
-sort of graphical view.
+Load capture templates depending on the linux/wsl user
 #+begin_src emacs-lisp
-  (setq org-capture-templates '(
-                                (
-                                 "i"
-                                 "Sooner than later"
-                                 entry
-                                 (file+headline ag/task-file "Sooner than later")
-                                 "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
-                                 )
-                                ("t" "Tasks")
-                                (
-                                 "te"
-                                 "Emacs"
-                                 entry
-                                 (file+headline ag/task-file "Emacs")
-                                 "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
-                                 )
-                                (
-                                 "tl"
-                                 "Lifeapi"
-                                 entry
-                                 (file+headline ag/task-file "Lifeapi")
-                                 "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
-                                 )
-                                (
-                                 "tq"
-                                 "Quotes"
-                                 entry
-                                 (file+headline ag/task-file "Quotes")
-                                 "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
-                                 )
-                                (
-                                 "ta"
-                                 "Arvydasdev"
-                                 entry
-                                 (file+headline ag/task-file "Arvydasdev")
-                                 "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
-                                 )
-                                (
-                                 "tp"
-                                 "PagalbaGyvunams"
-                                 entry
-                                 (file+headline ag/task-file "PagalbaGyvunams")
-                                 "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
-                                 )
-                                (
-                                 "tp"
-                                 "Core Django Project"
-                                 entry
-                                 (file+headline ag/task-file "Core Django Project")
-                                 "* TODO %^{Title}\n:PROPERTIES:\nCAPTURED: %U\nWHERE: %a\nINSERT: %i\n:END:\n\n%?"
-                                 )
-                                ("s" "Someday")
-                                (
-                                 "sw"
-                                 "Watch"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Watch")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sm"
-                                 "Movies"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Movies")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sv"
-                                 "Visit"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Visit")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sb"
-                                 "Buy"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Buy")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sB"
-                                 "Books"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Books")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sh"
-                                 "Home"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Home")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sp"
-                                 "Photography"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Photography")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "si"
-                                 "Project Ideas"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Project Ideas")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sc"
-                                 "Code"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Code")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                (
-                                 "sq"
-                                 "Quotes"
-                                 entry
-                                 (file+headline ag/somedaymaybe-file "Quotes")
-                                 "* TODO %?\n:PROPERTIES:\nCAPTURED: %U\n:END:\n\n"
-                                 )
-                                ))
+  ;; Get the current username
+  (setq current-username (getenv "USER"))
+
+  ;; Check the username and load the appropriate capture templates file
+  (if (string= current-username "s2753g")
+      (load "~/.emacs.d/s2753g-capture-templates.el")
+    (load "~/.emacs.d/default-capture-templates.el"))
 #+end_src
+
+Made a personal file for them, so I could load a different capture template
+configuration for work and for personal use.
+
+Click =C-cC= to see all the capture templates in sort of graphical view.
 
 *** Org-mode archive
 
