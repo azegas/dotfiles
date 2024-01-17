@@ -1592,6 +1592,14 @@ https://orgmode.org/worg/doc.html#org-archive-location
 or in my old config -
 https://github.com/arvydasg/.emacs.d/tree/20231124-Before-denote
 
+Use internal archiving for all files
+#+begin_src emacs-lisp
+  (setq org-archive-location "::* Archived Tasks")
+#+end_src
+
+or can specify for each file individually with:
+#+ARCHIVE: ::* Archived Tasks
+
 *** COMMENT org-download
 
 #+begin_src emacs-lisp
