@@ -764,6 +764,15 @@ mode-line-modes.
                   local-map ,mode-line-major-mode-keymap))
 #+end_src
 
+Define custom faces(colors). See all colors available with M-x list-colors-display.
+
+#+begin_src emacs-lisp
+  ;; Define a face for the filename part with a different color
+  (defface mode-line-filename-face
+    '((t (:foreground "gold2")))
+    "Face for the filename part of the mode line.")
+#+end_src
+
 Configure the order and components of the mode line.
 
 #+begin_src emacs-lisp
@@ -775,7 +784,8 @@ Configure the order and components of the mode line.
                   mode-line-modified
                   mode-line-remote
                   "  "
-                  (:eval (propertize (concat (abbreviate-file-name default-directory)(buffer-name))))
+                  (:eval (propertize (concat (abbreviate-file-name default-directory)(buffer-name))
+                                     'face 'mode-line-filename-face))
                   ;; mode-line-buffer-identification ;only shows the filename
                   "  "
                   mode-line-position
