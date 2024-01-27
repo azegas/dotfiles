@@ -2243,7 +2243,10 @@ Seems like Emacs has SOME python support.
 ***** Pyvenv
 #+begin_src emacs-lisp
   (use-package pyvenv
-    :ensure t)
+    :ensure t
+    ;; load pyvenv only after one of the commands has been used(reduces emacs
+    ;; init time)
+    :commands (pyvenv-activate pyvenv-deactivate pyvenv-workon pyvenv-create))
 #+end_src
 
 =pyvenv-create=
