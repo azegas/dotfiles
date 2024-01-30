@@ -32,6 +32,8 @@ history
 eln-cache/
 org-persist/
 
+s2753g-capture-templates.el
+
 test.js
 test.py
 /devdocs
