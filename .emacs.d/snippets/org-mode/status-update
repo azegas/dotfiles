@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: status
+# key: status
+# --
+
+- [ ] commit everything(notes,devnotes,dotfiles) 
+- [ ] review notes(work/personal by denote dates), devnotes, dotfiles logs
+
+* How was the last month overall
+
+* New [[https://github.com/arvydasg/devnotes][devnotes]] entries from this month:
+
+* Work
+
+* Personal projects
