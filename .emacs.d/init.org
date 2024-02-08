@@ -2434,6 +2434,25 @@ f.x
 if + <TAB>
 def + <TAB>
 
+**** Be able to source python code blocks in org files
+
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)))
+#+end_src
+
+For example like so:
+
+# By adding :results output to the header arguments of the source block, you
+# instruct Org mode to capture the standard output of the code block execution
+# and display it as the result.
+
+#+begin_src python :results output :tange no
+  a = 5
+  print(a)
+#+end_src
+
 **** COMMENT Setup python virtual envs
 
 #+begin_src emacs-lisp
