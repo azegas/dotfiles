@@ -440,3 +440,20 @@ can now run vim, emacs, tmux usually like you would. Sadly emacs still has glich
 ** GIT authentication
 
 ```
+
+## some commands
+
+list all the installed packages
+```bash
+  nix-store --query --references /run/current-system/sw
+```
+
+smth
+```bash
+  nix search nixpkgs odbc
+```
+
+search for particular library
+```bash
+  ls /nix/store/*/lib/libodbc.so.2
+```
