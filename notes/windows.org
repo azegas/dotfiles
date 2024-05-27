@@ -1,0 +1,271 @@
+* Devcontainers
+
+create .devcontainers folder and inside of it, a Dockerfile:
+
+** Dockerfile
+
+#+begin_src bash
+
+  # inspiration taken from here - https://github.com/devcontainers/images/blob/main/src/python/.devcontainer/Dockerfile
+
+  FROM mcr.microsoft.com/devcontainers/python:1-3.12
+
+  RUN apt-get update \
+      && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+          git \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
+
+  # Install Python dependencies from requirements
+  COPY requirements.txt ./
+  RUN python3 -m pip install --upgrade pip \
+      && pip3 install -r requirements.txt \
+      && rm -rf requirements.txt
+#+end_src
+
+and then alongisde that - devcontainer.json
+
+** devcontainer.json
+
+#+begin_src bash
+  // inspiration from here - https://github.com/devcontainers/images/blob/main/src/python/.devcontainer/devcontainer.json
+
+  {
+      "name": "Quotes Container",
+  
+      // Build configuration
+      "build": {
+          "dockerfile": "./Dockerfile",
+          "context": "." // ".." would allows to reach files outside of the .dockerfile folder
+      },
+  
+      // Features to be installed in the container
+      "features": {
+          "ghcr.io/devcontainers/features/common-utils:2":{
+              "installZsh": "true",
+              "username": "vscode",
+              "userUid": "1000",
+              "userGid": "1000",
+              "upgradePackages": "true"
+          },
+          "ghcr.io/devcontainers/features/python:1": "none",
+          "ghcr.io/devcontainers/features/node:1": "none",
+          "ghcr.io/devcontainers/features/git:1": {
+              "version": "latest",
+              "ppa": "false"
+          }
+      },
+  
+    // Customizations for VS Code
+    "customizations": {
+      // Configure properties specific to VS Code.
+      "vscode": {
+        // Add the IDs of extensions you want installed when the container is created.
+        "extensions": [
+          "ms-python.black-formatter",
+          "VisualStudioExptTeam.vscodeintellicode",
+          "ms-python.isort",
+          "ms-python.pylint",
+          "streetsidesoftware.code-spell-checker",
+          "batisteo.vscode-django",
+          "ms-azuretools.vscode-docker",
+          "eamodio.gitlens",
+          "yzhang.markdown-all-in-one",
+          "GitHub.github-vscode-theme"
+        ],
+        // Set *default* container specific settings.json values on container create.
+        "settings": {
+          "workbench.sideBar.location": "right",
+          "workbench.colorTheme": "GitHub Dark Default",
+          "editor.minimap.enabled": false,
+          "editor.smoothScrolling": true,
+          "editor.formatOnType": true,
+          "files.trimTrailingWhitespace": true,
+          "python.defaultInterpreterPath": "/usr/local/bin/python",
+          "python.formatting.provider":"black",
+          "[python]": {
+            "editor.formatOnSave": true
+          },
+          "emmet.includeLanguages": {
+            "django-html": "html" // allow html tag completion in django html mode https://github.com/vscode-django/vscode-django/issues/125
+          }
+      }
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+  
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "python --version",
+  
+    // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "vscode"
+    }}
+#+end_src
+
+** Notes
+
+STOPPED USING IT HERE (due to slowliness) - https://github.com/azegas/quotes/commit/9477b9062be2e9ac0aa2b7158cfdebabac6a4f54 
+
+## Why devcontainers
+
+Kind of nice to have this practice. People use it at work also. Linux environment... what could go wrong.
+
+To run a project on windows, you need to install:
+
+- python
+- have virtual environments
+- install packages
+
+Then to edit the code, you need to install vscode and it's packages:
+
+- linting
+- black
+
+Then to run the program, you again need some packages
+
+- from the virtual environmnent
+- from the vscode
+  
+Dev containers allow us to have one Dockerfile in which we describe what the project needs. Then it also allows us to describe how the developer environment should look like, which packages should be installed for the developer that is opening this project and so on (jinja, pylance, w/e else).
+
+### How to set up devcontainers
+
+- [My own reference task from quotes project](https://github.com/azegas/quotes/issues/47)
+- [YouTube Totorial](https://www.youtube.com/watch?v=b1RavPr_878&ab_channel=VisualStudioCode)
+- [Official DevContainer docs](https://code.visualstudio.com/docs/devcontainers/containers)
+- [8 series tutorial to get to know what are dev containers](https://www.youtube.com/watch?v=61M2takIKl8&ab_channel=VisualStudioCode)
+- [example of a working devcontainer for quotes project](https://github.com/azegas/quotes/commit/db8585e3aa7b84a33aa1c3b1720cd6691c14a955)
+
+Steps:
+
+- install `remote-development` extension in VsCode (contains devcontainers)
+- Have Docker running
+- have `.devcontainer` folder in your project
+- Re-open the project in the container with `re-open in container` command
+- check if the nice zsh terminal is included.
+
+Keep in mind that you don't have to copy any files from one environment to the dev container, like you usually need with Docker images. With Devcontainers, the files are used from your local machine, but opened in a separate VsCode environment, with fresh plate, no extensions, nothing, only what you have specified.
+
+* VSCode local single project config
+
+Files that should be placed in .vscode folder of a project. The changes
+described in those files will be applied only for a particular project.
+
+** settings.json
+
+#+begin_src json
+// vscode settings for this particular project
+
+// https://github.com/azegas/quotes/issues/9
+
+// When launching terminal in a project, it does not activate virtual environment that *I* want (that is dedicated for this project). 
+// You open terminal, write `workon <nameofthevenv>` (previously you have to install mkvirtualenv(if on windows)) and you activate the needed venv. Good. 
+// But then you see that you need another terminal to run some commands.
+// You open another terminal, do `workon <nameofthevenv>` once again. You need another terminal (for django shell for example), you do `workon <nameofthevenv>` again...
+
+// Would it not be cool if vscode would know - "he is inside of this project directory, it is linked to `<nameofthevenv>` virtual environment, 
+// let me activate it in each new terminal instance'.
+
+{
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "terminal.integrated.cwd": "C:\\Users\\Petras\\GIT\\test",
+    "python.defaultInterpreterPath": "C:\\Users\\arvydas\\Envs\\test\\Scripts\\python.exe"
+}
+
+// Now when you launch new terminal now, it will automatically have shipping virtual environment activated.
+#+end_src
+
+** launch.json
+
+#+begin_src json
+// File that must be in .vscode folder of the project, used for Django app debugging.
+
+// Official docs - https://code.visualstudio.com/docs/editor/debugging
+// Followed the docs, choose the debug option, python, django and the launhc.json was created automatically. Then could debug django app.
+
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Django",
+            "type": "debugpy",
+            "request": "launch",
+            "args": [
+                "runserver"
+            ],
+            "django": true,
+            "autoStartBrowser": false,
+            "program": "${workspaceFolder}/manage.py"
+        }
+    ]
+}
+#+end_src
+
+* VSCode global config
+
+Files that should be placed in C:\Users\<username>\AppData\Roaming\Code\User folder. Overrides Global VsCode settings.
+
+** settings.json
+
+#+begin_src json
+{
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "git.enableSmartCommit": true,
+    "editor.smoothScrolling": true,
+    "explorer.confirmDelete": false,
+    // fix the god damn pasting indentation
+    "editor.formatOnPaste": false,
+
+    
+    // https://dev.to/brad_beggs/vs-code-vertical-rulers-for-prettier-code-3gp3
+    "[git-commit]": {"editor.rulers": [50]},
+    "[javascript]": {
+        "editor.rulers": [
+            79
+        ]
+    },
+    "[python]": {
+        "editor.rulers": [
+            79
+        ],
+        // install "Black Formatter" extension for VsCode
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "never"
+        },
+    },
+    "isort.args":["--profile", "black"],
+    "black-formatter.args": ["--line-length", "79"],
+
+    // https://github.com/vscode-django/vscode-django/issues/125
+    // allow html tag completion in django html mode
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "explorer.confirmDragAndDrop": false,
+    "editor.minimap.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "workbench.sideBar.location": "right",
+    "diffEditor.ignoreTrimWhitespace": false,
+}
+#+end_src
+
+** keybindings.json
+
+#+begin_src json
+[
+    {
+        "key": "alt+x",
+        "command": "workbench.action.showCommands"
+    },
+    {
+        "key": "ctrl+shift+p",
+        "command": "-workbench.action.showCommands"
+    }
+]
+#+end_src
