@@ -4,7 +4,21 @@
 #+PROPERTY: header-args :tangle yes
 #+STARTUP: overview
 
-* Intro
+* Quick launch
+
+#+begin_src bash
+  cd ~/
+  rm -rf .emacs.d
+  mkdir ~/GIT
+  cd ~/GIT
+  git clone git@github.com:azegas/dotfiles.git
+  sudo ln -s ~/GIT/dotfiles/.emacs.d/ ~/.emacs.d
+  # launch Emacs, let it download all the packages, etc
+  # turn off emacs, do this in the terminal, we don't want to commit init.el (explanation in the comments section)
+  git update-index --assume-unchanged init.el
+#+end_src
+
+* Comments
 ** Why I am using emacs
 
 - I take notes in it
@@ -15,13 +29,38 @@
 - I can write journal in it
 - I basically live in it when I am at the computer
 - I like improving my tools and workflow, emacs allows that
-- Emacs is the most flexible and configurable editor in the multiverse
+- Emacs is the most flexible and configurable editor I know
 
-** Little history about my Emacs config
+** Emacs usage/config history
 
 I put this at the end, since this info is not really crucial for the configuration.
 
-*** [2023-12-05 Tue] Back to init.org
+*** [2024-05-27 Mon] Cam back to Emacs
+
+I have been working with VsCode at work and at home for the last 3-4 months. It
+seemed too much time consuming to keep my notes up to date on all
+environments(wanted to have something as easy as onedrive for my notes. One
+place, can open everywhere, even at work).
+
+Also wanted to have my work's environment to be the same as my colleagues, so
+we could launch and debug things easier.
+
+------
+
+Been writing some docs today at home, in vscode, in markdown.. and realized
+that man.. this is just sooo painful. Also saw Torstein's webpage, saw blog
+posts about emacs.. and then realized that I regred switching to VSCode. It is
+just so much more pleasing to be in Emacs and it is kind of my thing... 
+
+About notes - they did not seem like a factor because of which I would not use
+emacs again. At work I would barely open my dev notes and when I do - does not
+matter in what matter they are written, they are helpful. So if it's in org - it's in org.
+
+At work I might continue using VSCode, just because everyone there does it and
+it's a bit tricky to setup emacs there to run on nixos(did it once, can do it
+again).
+
+*** [2023-12-05 Tue] Back to one single init.org file for configuration
 
 While driving from work I listened to [[https://github.com/freetonik/emacscast.org][emacascast]] podcast (episode 2)and
 realized how great the [[https://en.wikipedia.org/wiki/Literate_programming][Literate programming]] is and how well it suites the emacs
@@ -134,6 +173,35 @@ Wish me luck.
 I will simplify it as much as possible, then use it with ease and
 enjoyment. I know it.
 
+** Great Emacs config's of others
+
+- First and only Lithuanian(after myself) I see using Emacs https://github.com/Giedriusj1
+- https://github.com/search?q=language%3Aelisp%20init.el
+- https://github.com/gopar/.emacs.d
+- https://github.com/zamansky/using-emacs/blob/master/myinit.org
+- https://github.com/rememberYou/.emacs.d/blob/master/config.org#javascript
+- http://doc.norang.ca/org-mode.html#TaskEstimates
+- https://alphaalgorithms.github.io/2019/05/17/emacs-agenda-views/
+- https://staff.fnwi.uva.nl/p.vanormondt/blog/2021-02-13-emacs-init-file.html
+- https://github.com/sbroberg/.emacs.d
+- https://github.com/thierryvolpiatto/emacs-config/blob/main/init.el
+- https://gitlab.com/skybert/my-little-friends/-/blob/master/emacs/.emacs#L1100
+- https://github.com/tabfugnic/dotfiles/blob/main/emacs.d/config.org
+- https://sachachua.com/dotemacs/index.html#org604b1d4
+- https://github.com/magnars/.emacs.d
+- https://github.com/zaeph/.emacs.d
+- https://whhone.com/emacs-config/#general
+- https://sqrtminusone.xyz/configs/emacs/
+- https://github.com/novoid/dot-emacs/blob/master/config.org
+- https://github.com/Crandel/home/tree/master/.config/emacs
+- https://github.com/Likhon-baRoy/.emacs.d
+- https://github.com/jakebox/jake-emacs
+- https://github.com/terlar/emacs-config
+- https://github.com/larstvei/dot-emacs
+- https://github.com/freetonik/emacs-dotfiles (https://emacscast.org/)
+- https://github.com/drewcsillag/emacsconfig/blob/master/emacs-config.org
+  (creator of dockerfile-mode)
+
 ** How to use this config
 
 This is an Emacs configuration file written in [[http://orgmode.org][Org mode]]. It is an attempt to
@@ -179,35 +247,6 @@ the terminal while in =.emacs.d= directory.
 #+begin_src bash :tangle no
   emacs -q -l test-config.el
 #+end_src
-
-** Great Emacs config's of others
-
-- First and only Lithuanian(after myself) I see using Emacs https://github.com/Giedriusj1
-- https://github.com/search?q=language%3Aelisp%20init.el
-- https://github.com/gopar/.emacs.d
-- https://github.com/zamansky/using-emacs/blob/master/myinit.org
-- https://github.com/rememberYou/.emacs.d/blob/master/config.org#javascript
-- http://doc.norang.ca/org-mode.html#TaskEstimates
-- https://alphaalgorithms.github.io/2019/05/17/emacs-agenda-views/
-- https://staff.fnwi.uva.nl/p.vanormondt/blog/2021-02-13-emacs-init-file.html
-- https://github.com/sbroberg/.emacs.d
-- https://github.com/thierryvolpiatto/emacs-config/blob/main/init.el
-- https://gitlab.com/skybert/my-little-friends/-/blob/master/emacs/.emacs#L1100
-- https://github.com/tabfugnic/dotfiles/blob/main/emacs.d/config.org
-- https://sachachua.com/dotemacs/index.html#org604b1d4
-- https://github.com/magnars/.emacs.d
-- https://github.com/zaeph/.emacs.d
-- https://whhone.com/emacs-config/#general
-- https://sqrtminusone.xyz/configs/emacs/
-- https://github.com/novoid/dot-emacs/blob/master/config.org
-- https://github.com/Crandel/home/tree/master/.config/emacs
-- https://github.com/Likhon-baRoy/.emacs.d
-- https://github.com/jakebox/jake-emacs
-- https://github.com/terlar/emacs-config
-- https://github.com/larstvei/dot-emacs
-- https://github.com/freetonik/emacs-dotfiles (https://emacscast.org/)
-- https://github.com/drewcsillag/emacsconfig/blob/master/emacs-config.org
-  (creator of dockerfile-mode)
 
 * Tangling
 ** What is tangling, literate programming, org-babel
@@ -2811,3 +2850,5 @@ Lastly we need to activate the map by creating and activating the minor-mode.
     :init-value t
     :keymap ag/custom-bindings-map)
 #+end_src
+
+* Commands
