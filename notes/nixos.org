@@ -1,7 +1,5 @@
-# first nixos installation
-
-```org
-* Why NixOS
+* first nixos installation
+** Why NixOS
 
 AFTER you reinstall your machine - to install the DEV environment, all you
 have to take with you is =/etc/nixos/configuration.nix= file, everything is
@@ -13,23 +11,23 @@ environment same as it was before, then run different scripts from different
 places, make sure you got them all.. with nix you will never have that pain
 again.
 
-* Why NixOS by others
+** Why NixOS by others
 
 - https://github.com/hlissner/dotfiles
 - https://github.com/terlar/nix-config
 
-* Documentation
+** Documentation
 
 - nixos github repo - https://github.com/nix-community/NixOS-WSL
 - nixos manual - https://nixos.org/manual/nix/stable/
 
-* Installation on WSL
+** Installation on WSL
 
 Steps described here:
 
 https://github.com/nix-community/NixOS-WSL
 
-** Check if NixOS is not already installed
+*** Check if NixOS is not already installed
 
 Run the commands in windows cmd or powershell.
 
@@ -40,7 +38,7 @@ Run the commands in windows cmd or powershell.
   wsl --list --verbose
 #+end_src
 
-** Install
+*** Install
 
 If it does not exist(=wsl --list --verbose= does not yield result with nixos ),
 then basically download =nixos-wsl.tar.gz= into your windows =/Downloads=
@@ -68,7 +66,7 @@ nixos), to be able to use =nixos-rebuild=:
   sudo nix-channel --update
 #+end_src
 
-* Configure NixOS installation over Emacs
+** Configure NixOS installation over Emacs
 
 Enter =nix-shell= to use Emacs(it does not get installed on the system, just
 [[https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments][TEMPORARILY]] FROM NIXOS CACHE?). So I can then modify the configuration
@@ -119,7 +117,7 @@ After this finishes running, you should be able to use Emacs and git!
   git status
 #+end_src
 
-* Authenticate to git
+** Authenticate to git
 
 Some of our config repos are private, so for that we need to authenticate to
 git first.
@@ -135,7 +133,7 @@ Then one of these:
 - On work machine, set up ssh method to work repo.
 - On work machine for personal repos - use token method.
 
-* Clone the dotfiles repo
+** Clone the dotfiles repo
 
 It consists both emacs and nixos config, we will need both in the next steps.
 
@@ -145,7 +143,7 @@ It consists both emacs and nixos config, we will need both in the next steps.
   git clone https://github.com/arvydasg/dotfiles
 #+end_src
 
-* Using your own custom nixos configuration file
+** Using your own custom nixos configuration file
 
 #+begin_src bash
   # delete current nixos directory
@@ -183,7 +181,7 @@ that command. Quite useful to know all the versions/types of the package you
 want to install.
 #+end_quote
 
-* Using your own custom Emacs config
+** Using your own custom Emacs config
 
 After we have all the "OS" dependencies installed, we can install Emacs
 dependencies.
@@ -212,7 +210,7 @@ Do the following step that is described in the emacs config, tangling part -
 
 Try to launch emacs for all the packages to be installed.
 
-*  GUI glitch
+**  GUI glitch
 
 Reported it here  - https://github.com/microsoft/wslg/issues/1148
 
