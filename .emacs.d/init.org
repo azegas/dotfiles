@@ -1306,7 +1306,7 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
     (denote-rename-buffer-mode -1)
     )
 
-  (setq denote-directory (expand-file-name "~/GIT/notes/")) ;Set denote directory
+  (setq denote-directory (expand-file-name "~/GIT/devnotes/")) ;Set denote directory
 #+end_src
 
 *** Define a function to open a specific directory in Dired mode
@@ -1499,7 +1499,7 @@ When a TODO is set to a done state, record a timestamp
 Setting up org-agenda-files using those variables
 #+begin_src emacs-lisp
   (setq org-agenda-files
-      (directory-files-recursively "~/GIT/notes/" ".*agenda.*\\.org$"))
+      (directory-files-recursively "~/GIT/devnotes/" ".*agenda.*\\.org$"))
 #+end_src
 
 Create a keybinding for org-agenda
