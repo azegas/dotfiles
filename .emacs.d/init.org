@@ -1499,7 +1499,10 @@ When a TODO is set to a done state, record a timestamp
 Setting up org-agenda-files using those variables
 #+begin_src emacs-lisp
   (setq org-agenda-files
-      (directory-files-recursively "~/GIT/devnotes/" ".*agenda.*\\.org$"))
+      (directory-files-recursively "~/GIT/devnotes/" ".org$"))
+
+  ;; (setq org-agenda-files
+  ;;     (directory-files-recursively "~/GIT/devnotes/" ".*agenda.*\\.org$"))
 #+end_src
 
 Create a keybinding for org-agenda
