@@ -6,7 +6,7 @@
 
 * Quick launch
 
-#+begin_src bash
+#+begin_src bash :tangle no
   cd ~/
   rm -rf .emacs.d
   mkdir ~/GIT
@@ -50,7 +50,7 @@ we could launch and debug things easier.
 Been writing some docs today at home, in vscode, in markdown.. and realized
 that man.. this is just sooo painful. Also saw Torstein's webpage, saw blog
 posts about emacs.. and then realized that I regred switching to VSCode. It is
-just so much more pleasing to be in Emacs and it is kind of my thing... 
+just so much more pleasing to be in Emacs and it is kind of my thing...
 
 About notes - they did not seem like a factor because of which I would not use
 emacs again. At work I would barely open my dev notes and when I do - does not
@@ -2331,9 +2331,8 @@ NOTE: Eglot does not work with python3.11!!! Install a lower python version.
 Using Elpy for python development seems like it's enough, but Elpy its only for
 Python. And elpy is no longer maintained.
 
-Since I am not developing ONLY in
-python, I need something more universal, something that can handle multiple
-programming languages.
+Since I am not developing ONLY in python, I need something more universal,
+something that can handle multiple programming languages.
 
 One option is LSP - https://github.com/emacs-lsp/lsp-mode. It could be used,
 BUT something similar like it is already built in withing Emacs 29 and it's
@@ -2410,7 +2409,8 @@ buffer(or restart eglot if it already was enabled)
 
 ***** Launch Eglot upon opening python file
 
-Since we have virtualenv's setup, we can now safely ask Emacs to launch eglot when opening python files.
+Since we have virtualenv's setup, we can now safely ask Emacs to launch eglot
+when opening python files.
 
 #+begin_src emacs-lisp
   (add-hook 'python-mode-hook 'eglot-ensure)
@@ -2490,10 +2490,52 @@ For example like so:
 # instruct Org mode to capture the standard output of the code block execution
 # and display it as the result.
 
-#+begin_src python :results output :tange no
+#+begin_src python :tange no :results output
   a = 5
   print(a)
 #+end_src
+
+**** Black formatter on save
+
+- https://black.readthedocs.io/en/stable/integrations/editors.html#emacs
+- https://github.com/wbolster/emacs-python-black
+
+Make sure black is installed in your virtual environment:
+
+#+begin_src bash :tangle no
+  pip install black
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package python-black
+    :demand t
+    :after python
+    :hook (python-mode . python-black-on-save-mode-enable-dwim))
+#+end_src
+
+dwmi means "do what I mean".
+
+=python-black-on-save-mode-enable-dwim= uses heuristics to autodetect if a file
+should be autoformatted:
+
+- file inside a site-packages/ directory? ➡ do not format
+- project not using black? ➡ do not format
+
+in your case the autodetection that your project uses black likely doesn't
+work. Having a line like this in =pyproject.toml= should make that work:
+
+#+begin_src toml :tangle no
+[tool.black]
+#+end_src
+
+It does indeed work then.
+
+- Have virtual env activated
+- Have black installed
+- Have pyproject.toml with [tool.black]
+
+Black formatter should work in your project.
+
 
 **** COMMENT Setup python virtual envs
 
@@ -2587,7 +2629,7 @@ https://github.com/xenodium/chatgpt-shell
 
 Created .authinfo file with such content:
 
-#+begin_src bash
+#+begin_src bash :tangle no
   machine api.openai.com password <KEY-HERE>
 #+end_src
 
@@ -2687,7 +2729,7 @@ between brackets or parenthesis.
 
 ** Mode specific
 
-*** COMMENT markdown-mode
+*** markdown-mode
 
 Emacs Major mode for Markdown-formatted files
 
@@ -2841,6 +2883,58 @@ the reverse.
     :bind (:map ag/custom-bindings-map
                 ("M-[" . 'goto-last-change)
                 ("M-]" . 'goto-last-change-reverse)))
+#+end_src
+
+** COMMENT Impatient-mode
+
+[2024-05-30 Thu] Tried to use it to preview .org file, but it's kind of glichy.
+
+Commands:
+
+#+begin_quote
+M-x httpd-start
+M-x impatient-mode on the file's
+M-x imp-set-current-filter, choose one from the below
+
+Works fine with .md files, but not with .org
+#+end_quote
+
+Can use it to render .html pages live or .markdown files.
+
+#+begin_src emacs-lisp
+  (use-package impatient-mode
+    :ensure t)
+#+end_src
+
+#+begin_src emacs-lisp
+  (defun markdown-html (buffer)
+    (princ (with-current-buffer buffer
+      (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://ndossougbe.github.io/strapdown/dist/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+    (current-buffer)))
+#+end_src
+
+#+begin_src emacs-lisp
+   (defun markdown-filter (buffer)
+     (princ
+       (with-temp-buffer
+         (let ((tmpname (buffer-name)))
+           (set-buffer buffer)
+           (set-buffer (markdown tmpname)) ; the function markdown is in `markdown-mode.el'
+           (buffer-string)))
+       (current-buffer)))
+#+end_src
+
+
+** COMMENT org-preview-html
+
+https://github.com/jakebox/org-preview-html
+
+Looks nice, can do .org file preview, but needs xwidget support in emacs. And
+in nixos don't have the time to explore how to make it work now.
+
+#+begin_src emacs-lisp
+  (use-package org-preview-html
+    :ensure t)
 #+end_src
 
 * Activate custom bindings map
