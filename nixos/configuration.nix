@@ -37,6 +37,8 @@
     xclip
     # 'command-not-found python' shows all possible python versions. Using 3.10 because of eglot
     python310
+    # Run GitHub Actions locally
+    act
   ];
 
   # Set the timezone to Lithuania (Europe/Vilnius)
