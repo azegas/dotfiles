@@ -2730,6 +2730,15 @@ between brackets or parenthesis.
 
 ** Mode specific
 
+*** yaml-mode
+
+Emacs Major mode for yaml-formatted files
+
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t)
+    #+end_src
+
 *** markdown-mode
 
 Emacs Major mode for Markdown-formatted files
