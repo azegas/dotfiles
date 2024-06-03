@@ -729,9 +729,10 @@ Dashboard provides a nice welcome.
 
 Don't display them globally, only in prog-mode
 #+begin_src emacs-lisp
-;; (global-display-line-numbers-mode 1)
-;; (add-hook 'text-mode-hook #'display-line-numbers-mode)
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  ;; (global-display-line-numbers-mode 1)
+  ;; (add-hook 'text-mode-hook #'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (add-hook 'yaml-mode-hook #'display-line-numbers-mode)
 #+end_src
 
 *** Cursor type
