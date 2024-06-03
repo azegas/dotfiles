@@ -176,6 +176,7 @@ enjoyment. I know it.
 ** Great Emacs config's of others
 
 - First and only Lithuanian(after myself) I see using Emacs https://github.com/Giedriusj1
+- https://github.com/magnars/emacsd-reboot/tree/main (emacs rocks, parens of the dead author)
 - https://github.com/search?q=language%3Aelisp%20init.el
 - https://github.com/gopar/.emacs.d
 - https://github.com/zamansky/using-emacs/blob/master/myinit.org
