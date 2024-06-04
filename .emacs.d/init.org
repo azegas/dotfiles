@@ -2358,9 +2358,9 @@ installed.
 - Open terminal(vterm, eshell, shell) and write =which python= and make sure
   you are inside the virtual environment that you have created in previous
   steps
-- install language server with =pip install 'python-language-server[all]'=
-- pip list to confirm that =pip install 'python-language-server[all]'= was
-  properly installed
+- install language server with =pip install python-lsp-server= to install only the defaults.
+- Or install ALL the possible thingies [[https://github.com/python-lsp/python-lsp-server?tab=readme-ov-file#installation][mentioned here]] with =pip install
+  'python-language-server[all]'=
 - open a python file in emacs
 - run =M-x eglot=
 - Now when you do =M-x eglot= - you it will get connected to the language
@@ -2527,7 +2527,17 @@ in your case the autodetection that your project uses black likely doesn't
 work. Having a line like this in =pyproject.toml= should make that work:
 
 #+begin_src toml :tangle no
+# https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-format
 [tool.black]
+# https://peps.python.org/pep-0008/#maximum-line-length
+line-length = 79
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | migrations
+)/
+'''
 #+end_src
 
 It does indeed work then.
@@ -2538,6 +2548,7 @@ It does indeed work then.
 
 Black formatter should work in your project.
 
+To manually run black in a project, write =black .=.
 
 **** COMMENT Setup python virtual envs
 
