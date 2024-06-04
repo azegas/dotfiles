@@ -39,6 +39,8 @@
     python310
     # Run GitHub Actions locally
     act
+    # be able to connect to postgresql db's that are running on windows
+    postgresql
   ];
 
   # Set the timezone to Lithuania (Europe/Vilnius)
