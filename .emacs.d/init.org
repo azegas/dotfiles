@@ -1420,6 +1420,12 @@ In buffer settings - https://orgmode.org/manual/In_002dbuffer-Settings.html
 
 *** Org-mode generals
 
+Load this built in package on emacs startup, so =C-h v= and jumping to
+definition would work. Not only when building the site...
+#+begin_src emacs-lisp
+(require 'ox-publish)
+#+end_src
+
 Something for when having images in .org file. Read devnotes.
 #+begin_src emacs-lisp
   (setq org-image-actual-width nil)
