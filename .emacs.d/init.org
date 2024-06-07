@@ -2563,6 +2563,30 @@ Black formatter should work in your project.
 
 To manually run black in a project, write =black .=.
 
+**** Pylint linting
+
+Lints code according to the rules. Line lengths, etc.
+
+First - =pip install pylint=.
+
+Have =.pylintrc= in your project's directory. Can generate one with =pylint
+--generate-rcfile > ~/.pylintrc=.
+
+=C-c ! l= to see a list of errors.
+
+#+begin_src emacs-lisp
+  ;; On the fly syntax checking
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode))
+  (setq flycheck-python-pylint-executable "pylint")
+#+end_src
+
+Flycheck will read the contents of =.pylintrc= and format the =.py=
+accordingly.
+
+Can also declare a single =.pylintrc= globally like so =(setq flycheck-pylintrc "~/.pylintrc")=, but I like to use one in each project.
+
 **** COMMENT Setup python virtual envs
 
 #+begin_src emacs-lisp
