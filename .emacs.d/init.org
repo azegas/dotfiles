@@ -2544,7 +2544,7 @@ For example like so:
 # instruct Org mode to capture the standard output of the code block execution
 # and display it as the result.
 
-#+begin_src python :tange no :results output
+#+begin_src python :tangle no :results output
   a = 5
   print(a)
 #+end_src
