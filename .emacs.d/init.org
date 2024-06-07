@@ -1965,7 +1965,7 @@ them in M-x ~consult-~
            ("M-s" . consult-history)                 ;; orig. next-matching-history-element
            ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
-    ;; Enable automatic preview at point in the *Completions* buffer. This is
+    ;; Enable automatic preview at point in the *Compleptions* buffer. This is
     ;; relevant when you use the default completion UI.
     :hook (completion-list-mode . consult-preview-at-point-mode)
 
@@ -1985,12 +1985,51 @@ them in M-x ~consult-~
     ;; Use Consult to select xref locations with preview
     (setq xref-show-xrefs-function #'consult-xref
           xref-show-definitions-function #'consult-xref)
+
+
+    ;; imenu is very useful when needing to filter the variables/functions in the buffer
+    ;; for each mode the configuration should be separate, since originally its only created for elisp code
+    ;; https://www.reddit.com/r/emacs/comments/1chh9yp/consultimenu_and_narrowing_python_c/
+
+    ;; Ok so to implement this - took a while. below, the defcustom block is
+    ;; taken from consult source code. It is here only to "register" this
+    ;; consult-imenu-config variable so later I can append to it and add
+    ;; "python-mode" configuration. This below is not touched,, only the
+    ;; add-to-list part. Now when I am in python buffer, with eglot on, I can
+    ;; press M-g i and have a list of functions/classes/variables by writing f/c/v SPC
+    (defcustom consult-imenu-config
+      '((emacs-lisp-mode :toplevel "Functions"
+                         :types ((?f "Functions" font-lock-function-name-face)
+                                 (?m "Macros"    font-lock-function-name-face)
+                                 (?p "Packages"  font-lock-constant-face)
+                                 (?t "Types"     font-lock-type-face)
+                                 (?v "Variables" font-lock-variable-name-face))))
+      "Imenu configuration, faces and narrowing keys used by `consult-imenu'.
+
+  For each type a narrowing key and a name must be specified.  The
+  face is optional.  The imenu representation provided by the
+  backend usually puts functions directly at the toplevel.
+  `consult-imenu' moves them instead under the type specified by
+  :toplevel."
+      :type '(repeat (cons symbol plist))
+      :group 'consult)
+
+    (add-to-list 'consult-imenu-config
+                 '(python-mode
+                   :toplevel "Function"
+                   :types
+                   ((?f "Function" font-lock-function-name-face)
+                    (?m "Method" font-lock-function-name-face)
+                    (?c "Class" font-lock-property-use-face)
+                    (?M "Module" font-lock-builtin-face)
+                    (?F "Field" font-lock-regexp-face)
+                    (?v "Variable" font-lock-constant-face))))
+
     )
 
   ;; overriding some default consult keybindings
   (define-key ag/custom-bindings-map (kbd "C-x p g") 'consult-ripgrep) ; Remaping the default "M-s r" for ripgrep. Not using C-r suz of isearch in terminals. [2024-01-09 Tue] remapping to C-x p g to replace the sucky project.el ripgrep and to free up C-x r for bookmarks
   ;; (define-key ag/custom-bindings-map (kbd "C-x q") 'consult-imenu) ; Remaping the default "M-s somethnig"
-
 
 #+end_src
 
