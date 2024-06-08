@@ -1842,7 +1842,7 @@ candidates
     (marginalia-mode 1))
 #+end_src
 
-*** Completion with corfu
+*** COMMENT Auto Completion with Corfu
 
 Modular text completion framework for code. Using instead of company package.
 
@@ -1861,10 +1861,27 @@ Modular text completion framework for code. Using instead of company package.
     corfu-popupinfo-delay 0.5))
 #+end_src
 
-*** TODO Company
+*** PROGRESS Auto Completion Company
 
 Write benefits and disadvantages to corfu. Have the config ready from the old
 config.
+
+https://emacs.stackexchange.com/questions/23840/text-completion-suggestion-in-emacs -
+I guess company mode is best for auto completion.
+
+But company mode can autocomplete words that are already in the file. So far
+only the =M-/= (dabbrev-expand) can do that, it is built in function. But it
+does not propose words to you visibly as you type, that's the problem.
+
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t)
+
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-idle-delay 0.2)
+  (setq company-minimum-prefix-length 2)
+  (setq company-tooltip-offset-display 'lines)
+#+end_src
 
 *** Orderless
 
