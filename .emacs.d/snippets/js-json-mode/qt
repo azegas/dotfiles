@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: qt
+# key: qt
+# --
+
+{
+  "text": "$0",
+"author": "",
+"date_created": ""
+},
