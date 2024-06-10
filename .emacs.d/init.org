@@ -2409,6 +2409,20 @@ https://www.gnu.org/software/emacs/manual/html_node/emacs/Flymake.html
 Use it when checking for syntax/code errors. =consult-flymake= helps with this.
 =M-g f=.
 
+Turning it off on [2024-06-10 Mon]. I could not make flymake to show errors in
+the modeline, only flycheck would show the errors. So I then googleed what is
+the difference between the two:
+
+#+begin_quote
+In summary, both Flycheck and Flymake offer on-the-fly syntax checking for
+Emacs, but Flycheck is generally preferred for its richer feature set, better
+language support, and external tool integration. If you're starting a new Emacs
+configuration or project, Flycheck is likely the better choice.
+#+end_quote
+
+Nvm seems like eglot turns it on, so leaving it running for a while, maybe it
+will catch some errors at some point.
+
 *** Python
 **** Inspiration for python development in emacs
 
@@ -2564,10 +2578,10 @@ Since we have virtualenv's setup, we can now safely ask Emacs to launch eglot
 when opening python files.
 
 #+begin_src emacs-lisp
-  (add-hook 'python-mode-hook 'eglot-ensure)
+  ;; (add-hook 'python-mode-hook 'eglot-ensure)
 #+end_src
 
-***** Turn on `flyspell-mode' for comments and strings.
+***** COMMENT Turn on `flyspell-mode' for comments and strings.
 
 #+begin_src emacs-lisp
   (add-hook 'python-mode-hook 'flyspell-prog-mode)
