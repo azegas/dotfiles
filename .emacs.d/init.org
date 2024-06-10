@@ -2438,7 +2438,12 @@ time running eglot, you will get a message that no language server is
 installed.
 
 #+begin_src emacs-lisp
-  (require 'eglot)
+  ;; Define a function to load eglot only when entering Python mode
+  (defun my/load-eglot ()
+    (require 'eglot))
+
+  ;; Add a hook to load eglot when entering Python mode
+  (add-hook 'python-mode-hook #'my/load-eglot)
 #+end_src
 
 ***** Eglot virtualenv setup for python
