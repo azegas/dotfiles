@@ -706,7 +706,7 @@ Add a small border on the frame.
   (add-to-list 'default-frame-alist '(internal-border-width . 24))
 #+end_src
 
-*** COMMENT Dashboard
+*** Dashboard
 
 Dashboard provides a nice welcome.
 
