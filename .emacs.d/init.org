@@ -2852,7 +2852,9 @@ Emacs Major mode for Markdown-formatted files
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
-    :ensure t)
+  :ensure t
+  :mode ("\\.md\\'" . markdown-mode)
+        ("\\.markdown\\'" . markdown-mode))
 #+end_src
 
 *** COMMENT dockerfile-mode
