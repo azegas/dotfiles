@@ -2585,8 +2585,7 @@ Make sure black is installed in your virtual environment:
 
 #+begin_src emacs-lisp
   (use-package python-black
-    ;; : ensure t        ;first ensure, then demand?
-    :demand t
+    :ensure t
     :after python
     :hook (python-mode . python-black-on-save-mode-enable-dwim))
 #+end_src
