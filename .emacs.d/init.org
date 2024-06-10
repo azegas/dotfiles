@@ -1181,7 +1181,7 @@ enable by default.
     (funcall mode 1))
 #+end_src
 
-** EditorConfig
+** COMMENT EditorConfig
 
 Using [[https://editorconfig.org/][EditorConfig]] is a must when collaborating with others. It is also a way
 of having multiple tools that want to format your buffer to agree (e.g. both
@@ -1255,29 +1255,34 @@ keybind - C-x o and then the commands that follow below.
 
 #+begin_src emacs-lisp
   (use-package ace-window
-    :ensure t)
+    :ensure t
+    :defer t
+    :init
+    ;; Set keybindings that should be available immediately
+    (global-set-key (kbd "C-x o") 'ace-window)
+    (global-set-key (kbd "M-0") 'ace-swap-window)
+    (global-set-key (kbd "C-x v") 'aw-split-window-horz)
+    :config
+    ;; Configure ace-window after it is loaded
+    (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l))
 
-  (setq aw-keys '(?q ?w ?e ?r ?y ?h ?j ?k ?l))
-  (global-set-key (kbd "C-x o") 'ace-window)
-  (global-set-key (kbd "M-0") 'ace-swap-window)
-  (global-set-key (kbd "C-x v") 'aw-split-window-horz)
-
-  (defvar aw-dispatch-alist
-    '((?x aw-delete-window "Delete Window")
-      (?m aw-swap-window "Swap Windows")
-      (?M aw-move-window "Move Window")
-      (?c aw-copy-window "Copy Window")
-      (?f aw-switch-buffer-in-window "Select Buffer")
-      (?n aw-flip-window)
-      (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-      (?c aw-split-window-fair "Split Fair Window")
-      (?h aw-split-window-vert "Split Vert Window")
-      (?v aw-split-window-horz "Split Horz Window")
-      (?o delete-other-windows)
-      ;; (?o delete-other-windows "Delete Other Windows")
-      ;; (?o delete-other-windows " Ace - Maximize Window")
-      (?? aw-show-dispatch-help))
-    "List of actions for `aw-dispatch-default'.")
+    ;; Define the dispatch list for ace-window
+    (defvar aw-dispatch-alist
+      '((?x aw-delete-window "Delete Window")
+        (?m aw-swap-window "Swap Windows")
+        (?M aw-move-window "Move Window")
+        (?c aw-copy-window "Copy Window")
+        (?f aw-switch-buffer-in-window "Select Buffer")
+        (?n aw-flip-window)
+        (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+        (?c aw-split-window-fair "Split Fair Window")
+        (?h aw-split-window-vert "Split Vert Window")
+        (?v aw-split-window-horz "Split Horz Window")
+        (?o delete-other-windows)
+        ;; (?o delete-other-windows "Delete Other Windows")
+        ;; (?o delete-other-windows " Ace - Maximize Window")
+        (?? aw-show-dispatch-help))
+      "List of actions for `aw-dispatch-default'."))
 #+end_src
 
 ** Denote
@@ -1290,6 +1295,7 @@ made of simply text file, so they won't get corrupted or old/unused overtime.
 #+begin_src emacs-lisp
   (use-package denote
     :ensure t
+    :defer t
 
     ;; Denote DOES NOT define any key bindings. I just pick some of the bindings
     ;; from "Sample configuration" here - https://protesilaos.com/emacs/denote and
@@ -1733,6 +1739,7 @@ in emacs while in git repo
 #+begin_src emacs-lisp
   (use-package magit
     :ensure t
+    :defer t
     :bind (("C-x g" . magit-status)
            ("C-x C-g" . magit-status)))
 #+end_src
@@ -1741,8 +1748,8 @@ in emacs while in git repo
 buffer "sidebar".
 #+begin_src emacs-lisp
   (use-package diff-hl
-    :defer t
     :ensure t
+    :defer t
     :config
     ;; global-diff-hl-mode is hooked to the after-init-hook. This will enable
     ;; diff-hl globally after Emacs finishes initializing. Using after-init-hook
@@ -1782,6 +1789,8 @@ buffer "sidebar".
 
 *** Vertico
 
+vertico.el - VERTical Interactive COmpletion
+
 [2023-11-26] decided to try out vertico instead of ivy.  Ivy
 depends on a lot of packages, vertico is more simple. It also
 replaces amx for M-x search. Prot inspired me to try it out. Let's
@@ -1789,7 +1798,7 @@ see.
 
 It is everywhere - Ctrl-x f, M-x, ctrl-x d, ctrl-h v... everywhere
 where you are trying to list and jump to something - vertico is
-there
+there.
 
 #+begin_src emacs-lisp
   (use-package vertico
@@ -1880,12 +1889,14 @@ does not propose words to you visibly as you type, that's the problem.
 
 #+begin_src emacs-lisp
   (use-package company
-    :ensure t)
-
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-idle-delay 0.2)
-  (setq company-minimum-prefix-length 2)
-  (setq company-tooltip-offset-display 'lines)
+    :ensure t
+    :defer t
+    :config
+    ;; activated after Emacs finishes initializing
+    (add-hook 'after-init-hook 'global-company-mode)
+    (setq company-idle-delay 0.2)
+    (setq company-minimum-prefix-length 2)
+    (setq company-tooltip-offset-display 'lines))
 #+end_src
 
 *** Orderless
@@ -2063,6 +2074,7 @@ The nicest buffer search.
 #+begin_src emacs-lisp
   (use-package swiper
     :ensure t
+    :defer t
     :bind ("C-s" . swiper))
 #+end_src
 
@@ -2212,9 +2224,8 @@ All possible tools listed [[https://www.emacswiki.org/emacs/SessionManagement][h
 #+begin_src emacs-lisp
   (use-package perspective
     :ensure t
-    :bind (
-           ("C-x k" . persp-kill-buffer*)
-           )
+    :defer t
+    :bind (("C-x k" . persp-kill-buffer*))
     :custom
     (persp-mode-prefix-key (kbd "C-z"))
     :init
@@ -2273,6 +2284,7 @@ vterm-toggle
 #+begin_src emacs-lisp
   (use-package vterm-toggle
     :ensure t
+    :defer t
     :bind(:map ag/custom-bindings-map
                ("C-`" . vterm-toggle)		; toggles vterm window
                ("C-<return>" . vterm-toggle-insert-cd) ; insert current dir and enter it when in vterm shell
@@ -2327,6 +2339,7 @@ To install docs of a particular language, do =M-x devdocs-install=
 #+begin_src emacs-lisp
   (use-package devdocs
     :ensure t
+    :defer t
     :bind (:map ag/custom-bindings-map
                  ("C-h D" . devdocs-lookup)))
 #+end_src
@@ -2363,6 +2376,7 @@ Seems like Emacs has SOME python support.
 #+begin_src emacs-lisp
   (use-package pyvenv
     :ensure t
+    :defer t
     ;; load pyvenv only after one of the commands has been used(reduces emacs
     ;; init time)
     :commands (pyvenv-activate pyvenv-deactivate pyvenv-workon pyvenv-create))
@@ -2394,6 +2408,7 @@ In terminal you should be able to see which venv you are in by doing
 
 #+begin_src emacs-lisp
   (use-package pipenv
+    :defer t
     :ensure t)
 #+end_src
 
@@ -2586,6 +2601,7 @@ Make sure black is installed in your virtual environment:
 #+begin_src emacs-lisp
   (use-package python-black
     :ensure t
+    :defer t
     :after python
     :hook (python-mode . python-black-on-save-mode-enable-dwim))
 #+end_src
@@ -2665,8 +2681,8 @@ Can also declare a single =.pylintrc= globally like so =(setq flycheck-pylintrc 
 
   (use-package elpy
     ;; leave both defer and ensure
-    :defer t
     :ensure t
+    :defer t
     :init
     ;; deferring the loading of elpy until you specifically activate a Python
     ;; buffer. This way, elpy is only loaded when it's needed, reducing the
@@ -2801,6 +2817,7 @@ Do you ever want to insert some [[https://en.wikipedia.org/wiki/Lorem_ipsum][Lor
 
 #+begin_src emacs-lisp
   (use-package lorem-ipsum
+    :ensure t
     :defer t)
 #+end_src
 
@@ -3075,3 +3092,7 @@ Lastly we need to activate the map by creating and activating the minor-mode.
 #+end_src
 
 * TODO Commands
+* Debugging emacs
+
+- Check if package has been loaded by ~(featurep 'magit)~
+-
