@@ -373,6 +373,28 @@ fix below. Now it's in my config also.
 
 * Startup performance
 
+** Main ideas
+
+#+begin_quote :tangle no
+"My" tricks for <1s startup time (GUI Emacs on ~5 year old laptop):
+#+end_quote
+
+From here - https://www.reddit.com/r/emacs/comments/lkfuk5/how_to_cut_emacs_start_up_time_in_half_emacs_from/
+
+- Defer most packages using use-package (most important)
+- increase gc-cons-threshold during startup
+- use early-init.el to set graphical parameters and fonts
+- make sure scratch starts in fundamental-mode
+- avoid set-face-attributes
+- avoid load-theme
+- avoid require during startup
+- don't use :init in use-package
+- use esup to find things that slow down startup
+- use package-quickstart
+- unset file-name-handler-alist during startup
+
+** Garbage collection + welcome message
+
 Make startup faster by reducing the frequency of garbage collection and then
 use a hook to measure Emacs startup time.
 
@@ -393,6 +415,56 @@ use-package-report= to check the report.
 
 #+begin_src emacs-lisp
   (setq use-package-compute-statistics t)
+#+end_src
+
+** Monitor init time with esup
+
+# Placed this package in packages section instead of "startup
+# performance", since this block needs to install a package and for that
+# we have to have use package initiated first.
+
+It might not work at first as described here -
+https://www.reddit.com/r/emacs/comments/13jh7gk/has_anyone_been_able_to_get_esup_working_in_emacs/
+
+But if you set ~esup-depth~ to 0, it will work :))
+
+1. install this package by hand by replacing :disabled with :ensure
+2. Make the package disabled again
+3. eval ~(setq esup-depth 0)~
+4. run ~esup~ when needed
+
+#+begin_src emacs-lisp
+  (use-package esup
+    :disabled t
+    :custom
+    (esup-depth 0))
+  (setq esup-depth 0)
+#+end_src
+
+This is how it looked the first time I ran it. Already had deferred all the
+packages.
+
+#+begin_src txt :tangle no
+  Total User Startup Time: 2.755sec     Total Number of GC Pauses: 1     Total GC Time: 0.042sec
+
+  init.el:796  1.488sec   54%
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)))
+
+  init.el:32  0.516sec   18%
+  (package-initialize)
+
+  init.el:315  0.433sec   15%
+  (require 'ox-publish)
+
+  init.el:786  0.132sec   4%
+  (require 'eglot)
+
+  init.el:807  0.061sec   2%
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode))
 #+end_src
 
 * Installation of packages
@@ -640,19 +712,7 @@ M-x cusom-bindings-map to preview all the bindings in one place.
 * Packages
 ** Visuals
 
-*** Declutter
-
-First off, let’s declutter. Remove clickies to give a nice and clean look.
-Also, the cursor can relax.
-
-#+begin_src emacs-lisp
-  (dolist (mode
-           '(tool-bar-mode                ; No toolbars, more room for text
-             scroll-bar-mode              ; No scroll bars either
-             menu-bar-mode                ; No menu bar as well
-             blink-cursor-mode))          ; Disable blinking cursor
-    (funcall mode 0))
-#+end_src
+*** COMMENT Declutter
 
 *** Theme
 
@@ -1431,12 +1491,6 @@ I use Org mode extensively.
 In buffer settings - https://orgmode.org/manual/In_002dbuffer-Settings.html
 
 *** Org-mode generals
-
-Load this built in package on emacs startup, so =C-h v= and jumping to
-definition would work. Not only when building the site...
-#+begin_src emacs-lisp
-(require 'ox-publish)
-#+end_src
 
 Something for when having images in .org file. Read devnotes.
 #+begin_src emacs-lisp
@@ -3104,4 +3158,5 @@ Lastly we need to activate the map by creating and activating the minor-mode.
 * Debugging emacs
 
 - Check if package has been loaded by ~(featurep 'magit)~
--
+- use =esup= to see the load time of the packages
+- use =use-package-report= to see the load time of each package
