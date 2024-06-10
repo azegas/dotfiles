@@ -2568,7 +2568,9 @@ f.x
 if + <TAB>
 def + <TAB>
 
-**** Be able to source python code blocks in org files
+**** COMMENT Be able to source python code blocks in org files
+
+This rerely used feature adds significantly to emacs init time, disabling it.
 
 #+begin_src emacs-lisp
   (org-babel-do-load-languages
