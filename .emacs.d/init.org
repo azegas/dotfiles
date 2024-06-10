@@ -2219,25 +2219,25 @@ those sessions from last closed emacs session.
 
 All possible tools listed [[https://www.emacswiki.org/emacs/SessionManagement][here]].
 
-**** perspective
+**** Perspective
 
 #+begin_src emacs-lisp
   (use-package perspective
     :ensure t
     :defer t
-    :bind (("C-x k" . persp-kill-buffer*))
+    :bind (("C-z" . persp-mode))
     :custom
     (persp-mode-prefix-key (kbd "C-z"))
-    :init
-    (persp-mode))
-
-    ;; sort perspectives by time created
+    :config
+    ;; Sort perspectives by time created
     (setq persp-sort 'created)
-  ;; renaming does not work for some reason..
+    ;; Set perspective modestring dividers
     ;; (setq persp-initial-frame-name "zaltys")
     (setq persp-modestring-dividers '("[ " " ]" " | "))
+    ;; Enable perspective mode
+    (persp-mode))
 
-  ;; windows like window switching baby!
+  ;; Define keybindings for perspective mode (windows like window switching baby!)
   (define-key ag/custom-bindings-map (kbd "C-<tab>") 'persp-next)
   (define-key ag/custom-bindings-map (kbd "C-<iso-lefttab>") 'persp-prev)
 #+end_src
