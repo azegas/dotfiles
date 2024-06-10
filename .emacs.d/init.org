@@ -2580,6 +2580,7 @@ Make sure black is installed in your virtual environment:
 
 #+begin_src emacs-lisp
   (use-package python-black
+    ;; : ensure t        ;first ensure, then demand?
     :demand t
     :after python
     :hook (python-mode . python-black-on-save-mode-enable-dwim))
@@ -2597,17 +2598,17 @@ in your case the autodetection that your project uses black likely doesn't
 work. Having a line like this in =pyproject.toml= should make that work:
 
 #+begin_src toml :tangle no
-# https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-format
-[tool.black]
-# https://peps.python.org/pep-0008/#maximum-line-length
-line-length = 79
-exclude = '''
-/(
-    \.git
-  | \.venv
-  | migrations
-)/
-'''
+  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-format
+  [tool.black]
+  # https://peps.python.org/pep-0008/#maximum-line-length
+  line-length = 79
+  exclude = '''
+  /(
+      \.git
+    | \.venv
+    | migrations
+  )/
+  '''
 #+end_src
 
 It does indeed work then.
@@ -3064,4 +3065,4 @@ Lastly we need to activate the map by creating and activating the minor-mode.
     :keymap ag/custom-bindings-map)
 #+end_src
 
-* Commands
+* TODO Commands
