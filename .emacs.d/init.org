@@ -2736,10 +2736,11 @@ style. Web mode has language specific engines, "django" engine is one of them.
 
 #+begin_src emacs-lisp
   (use-package web-mode
-    :ensure t)
-
-  ;; enabling web mode for ALL html files
-  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+    :ensure t
+    :defer t
+    :config
+    ;; Enable web-mode for all HTML files
+    (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode)))
 
   ;; all the .html files in these directories will have "django" engine applied
   ;; to them and syntax formatting will work properly
