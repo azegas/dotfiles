@@ -689,7 +689,7 @@ for color contrast between background and foreground values (WCAG AAA)¨
   ;; (load-theme 'wombat)
 #+end_src
 
-*** Smooth scrolling
+*** COMMENT Smooth scrolling
 
 #+begin_src emacs-lisp
   (use-package smooth-scrolling
