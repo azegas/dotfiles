@@ -670,18 +670,23 @@ asking for confirmation each time you start Emacs.
   (setq custom-safe-themes t)
 #+end_src
 
+*** COMMENT Modus-theme
+
 ¨Highly accessible themes for GNU Emacs, conforming with the highest standard
-for colour contrast between background and foreground values (WCAG AAA)¨
+for color contrast between background and foreground values (WCAG AAA)¨
 
 #+begin_src emacs-lisp :tangle no
   (use-package modus-themes
     :ensure t
     :config
-    (load-theme 'modus-vivendi-tinted))
+    (load-theme 'modus-vivendi-tinded))
 #+end_src
+
+*** Zenburn theme
 
 #+begin_src emacs-lisp
   (load-theme 'zenburn)
+  ;; (load-theme 'wombat)
 #+end_src
 
 *** Smooth scrolling
