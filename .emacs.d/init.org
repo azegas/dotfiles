@@ -706,9 +706,9 @@ Add a small border on the frame.
   (add-to-list 'default-frame-alist '(internal-border-width . 24))
 #+end_src
 
-*** Dashboard
+*** COMMENT Dashboard
 
-Dashboard provides a nice welcome.
+Dashboard provides a nice welcome. (takes too long to load.)
 
 #+begin_src emacs-lisp
   ;; A startup screen extracted from Spacemacs
