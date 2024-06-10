@@ -2927,9 +2927,11 @@ https://notabug.org/arkhan/dots.old/src/master/emacs/.emacs.d/snippets
 #+begin_src emacs-lisp
   (use-package yasnippet
     :ensure t
+    :defer t
+    :hook ((prog-mode . yas-minor-mode)
+           (text-mode . yas-minor-mode))
     :config
-    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
-    (yas-global-mode 1))
+    (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets"))
 #+end_src
 
 To study the current snippets, use =M-x yas-describe-tables=, which will show a
@@ -2941,7 +2943,8 @@ Install the package, snippets will be in
 
 #+begin_src emacs-lisp
   (use-package yasnippet-snippets
-    :ensure t)
+    :ensure t
+    :after yasnippet)
 #+end_src
 
 ** COMMENT Keycast
