@@ -2653,11 +2653,12 @@ Have =.pylintrc= in your project's directory. Can generate one with =pylint
 =C-c ! l= to see a list of errors.
 
 #+begin_src emacs-lisp
-  ;; On the fly syntax checking
   (use-package flycheck
     :ensure t
-    :init (global-flycheck-mode))
-  (setq flycheck-python-pylint-executable "pylint")
+    :defer t
+    :hook (prog-mode . flycheck-mode)
+    :config
+    (setq flycheck-python-pylint-executable "pylint"))
 #+end_src
 
 Flycheck will read the contents of =.pylintrc= and format the =.py=
