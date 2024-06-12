@@ -4,6 +4,14 @@
 #+PROPERTY: header-args :tangle yes
 #+STARTUP: overview
 
+* COMMENT refresh contents
+
+When you launch emacs for the FIRST TIME on the new machine, uncomment this heading. When all the packages have been installed, comment it out.
+
+#+begin_src emacs-lisp
+  (package-refresh-contents)
+#+end_src
+
 * Quick launch
 
 #+begin_src bash :tangle no
@@ -1695,9 +1703,9 @@ Load capture templates depending on the linux/wsl user
   (setq current-username (getenv "USER"))
 
   ;; Check the username and load the appropriate capture templates file
-  (if (string= current-username "s2753g")
-      (load "~/.emacs.d/s2753g-capture-templates.el")
-    (load "~/.emacs.d/default-capture-templates.el"))
+  ;; (if (string= current-username "s2753g")
+  ;;     (load "~/.emacs.d/s2753g-capture-templates.el")
+  ;;   (load "~/.emacs.d/default-capture-templates.el"))
 #+end_src
 
 Made a personal file for them, so I could load a different capture template
@@ -2767,6 +2775,73 @@ Can also declare a single =.pylintrc= globally like so =(setq flycheck-pylintrc 
       (elpy-enable)))
 #+end_src
 
+**** COMMENT Debugging with dap-mode
+
+**The following configuration was tested at work, not at home.**
+
+https://emacs-lsp.github.io/dap-mode/page/configuration/
+
+No need for lsp, independent. can use with eglot/lsp or without. No need for
+node stuff or other js stuff.
+
+#+begin_quote
+For debugging Python code in Emacs, especially when working with Django and
+using eglot for language server support, you have a few options for debuggers
+that integrate well with this setup. The primary debugger for Python is =pdb=,
+but there are enhanced versions like =ipdb= (which integrates with IPython for
+a more interactive experience) and =pdb++= (which offers additional features
+and improvements over pdb).
+
+You can utilize these debuggers with packages that enable interactive debugging
+sessions within Emacs. A popular choice is =dap-mode= (Debug Adapter Protocol
+mode), which works well with eglot and supports various debuggers.
+#+end_quote
+
+#+begin_src emacs-lisp
+  (use-package dap-mode
+    :commands dap-debug
+    :hook ((python-mode . dap-ui-mode) (python-mode . dap-mode))
+    :config
+    ;; dap-debug has many different modes, we activate python mode
+    (require 'dap-python)
+    ;; pip install debugpy (in virtualenv that is reachable for all emacs
+    ;; sessions. Base in my case.) This will add the python related configuration
+    ;; to dap-debug.
+    (setq dap-python-debugger 'debugpy)
+
+    ;; Enable dap-auto-configure-mode(shows default windows)
+    (dap-auto-configure-mode 1)
+    ;; configure the default windows
+    ;; (setq dap-auto-configure-features '(sessions locals breakpoints expressions repl controls tooltip output))
+
+    ;; (dap-register-debug-template "Neveikia Shipping"
+    ;;                            (list :name "Python: Django"
+    ;;                                  :type "python"
+    ;;                                  :args "runserver"
+    ;;                                  :cwd "~/GIT/shipping/code/backend/app/"
+    ;;                                  :module nil
+    ;;                                  :console "integratedTerminal"
+    ;;                                  :program "~/GIT/shipping/code/backend/app/manage.py"
+    ;;                                  :request "launch"
+    ;;                                  :django t
+    ;;                                  ))
+
+    (dap-register-debug-template "Test app"
+                                 (list :name "Python: Django"
+                                       :type "python"
+                                       :args "runserver"
+                                       :cwd "~/GIT/django-dap-debug/mysite/"
+                                       :module nil
+                                       :console "integratedTerminal"
+                                       :program "~/GIT/django-dap-debug/mysite/manage.py"
+                                       :request "launch"
+                                       :env '(("DJANGO_SETTINGS_MODULE" . "mysite.settings"))
+                                       :django t
+                                       ))
+    )
+
+#+end_src
+
 *** HTML
 
 **** Snippets
@@ -2811,21 +2886,24 @@ Web mode in my case is useful when I want to edit html files, but django(jinja)
 style. Web mode has language specific engines, "django" engine is one of them.
 
 #+begin_src emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :defer t
-    :config
-    ;; Enable web-mode for all HTML files
-    (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode)))
+    (use-package web-mode
+      :ensure t
+      :defer t
+      :config
+      ;; Enable web-mode for all HTML files
+      (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode)))
 
-  ;; all the .html files in these directories will have "django" engine applied
-  ;; to them and syntax formatting will work properly
-  (setq web-mode-engines-alist
-        '(
-          ("django" . "/home/s2753g/GIT/rights/.*\\.html\\'")
-          ("django" . "/home/s2753g/GIT/shipping/.*\\.html\\'")
-          ("django" . "/home/s2753g/GIT/django-playground/.*\\.html\\'")
-          ))
+    ;; all the .html files in these directories will have "django" engine applied
+    ;; to them and syntax formatting will work properly
+    (setq web-mode-engines-alist
+          '(
+            ("django" . "/home/s2753g/GIT/rights/.*\\.html\\'")
+            ("django" . "/home/s2753g/GIT/shipping/.*\\.html\\'")
+            ("django" . "/home/s2753g/GIT/django/.*\\.html\\'")
+            ("django" . "/home/s2753g/GIT/django-unfold/.*\\.html\\'")
+            ("django" . "/home/s2753g/GIT/django-playground/.*\\.html\\'")
+            ("django" . "/home/s2753g/GIT/django-htmx/.*\\.html\\'")
+            ))
 #+end_src
 
 *** COMMENT Chatgpt
