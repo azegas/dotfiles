@@ -720,6 +720,11 @@ M-x cusom-bindings-map to preview all the bindings in one place.
 * Packages
 ** Visuals
 
+*** Font
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil :height 130)
+#+end_src
+
 *** COMMENT Declutter
 
 *** Theme
