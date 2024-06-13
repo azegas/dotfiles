@@ -1,0 +1,12 @@
+- ~C-c i~ - consult-info-docs
+- C-M f/g - beginning/end of the parenthesis
+- C-x p b - list opened project buffers
+- C-x b f/b SPC - FILTER buffers
+- M-g f - flymake errors
+- M-g g - go to line
+- M-g o - show headings of the file (outline for org files)
+- M-g i - imenu (find functions, variables, etc)
+- M-s e - search history
+- M-s consult history minibuffer
+- M-s o - occur - RG OF OPENED FILE, not directory, but put all the things into a buffer
+- C-h m - list all currently opened minor modes
