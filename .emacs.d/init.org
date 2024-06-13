@@ -4,14 +4,6 @@
 #+PROPERTY: header-args :tangle yes
 #+STARTUP: overview
 
-* COMMENT refresh contents
-
-When you launch emacs for the FIRST TIME on the new machine, uncomment this heading. When all the packages have been installed, comment it out.
-
-#+begin_src emacs-lisp
-  (package-refresh-contents)
-#+end_src
-
 * Quick launch
 
 #+begin_src bash :tangle no
@@ -382,6 +374,23 @@ fix below. Now it's in my config also.
 
 #+begin_src emacs-lisp
   (setq native-comp-async-report-warnings-errors nil)
+#+end_src
+
+* COMMENT refresh contents
+
+When you launch emacs for the FIRST TIME on the new machine, uncomment this heading. When all the packages have been installed, comment it out.
+
+#+begin_src emacs-lisp
+  (package-refresh-contents)
+#+end_src
+
+* Secret file
+A file that is not commited to git, different for each environment.
+
+File template currently:
+
+#+begin_src emacs-lisp
+  (load-file "secret.el")
 #+end_src
 
 * Startup performance
@@ -1632,8 +1641,8 @@ When a TODO is set to a done state, record a timestamp
 
 Setting up org-agenda-files using those variables
 #+begin_src emacs-lisp
-  (setq org-agenda-files
-      (directory-files-recursively "~/GIT/devnotes/" ".org$"))
+  ;; (setq org-agenda-files
+  ;;     (directory-files-recursively "~/GIT/devnotes/" ".org$"))
 
   ;; (setq org-agenda-files
   ;;     (directory-files-recursively "~/GIT/devnotes/" ".*agenda.*\\.org$"))
@@ -1669,17 +1678,17 @@ the agenda view - you see it like this:
 #+end_src
 
 For me that is too much information, I don't need to know in which file the
-agenda item is, sicne I only have one agenda file. Instead of that information,
+agenda item is, since I only have one agenda file. Instead of that information,
 I make it as clutter free as possible by overriding everything(those file names
-nad etc) to a dot like so:
+and etc) to a dot like so:
 #+begin_src emacs-lisp
-;; (setq org-agenda-prefix-format '(
-;;          (agenda  . "  • ")
-;;          (timeline  . " • ")
-;;          (todo  . " • ")
-;;          (tags  . " • ")
-;;          (search . " • ")
-;;          ))
+  ;; (setq org-agenda-prefix-format '(
+  ;;          (agenda  . "  • ")
+  ;;          (timeline  . " • ")
+  ;;          (todo  . " • ")
+  ;;          (tags  . " • ")
+  ;;          (search . " • ")
+  ;;          ))
 #+end_src
 
 Hook to display the agenda in a single window by deleting all the
