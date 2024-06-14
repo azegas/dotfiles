@@ -41,7 +41,16 @@
     act
     # be able to connect to postgresql db's that are running on windows
     postgresql
+
+    # installing monospaced font so stuff aligns well in Emacs
+    fira-code
+    # iosevka
   ];
+
+  fonts = {
+    enableDefaultFonts = true;
+    fonts = with pkgs; [ fira-code ];
+  };
 
   # Set the timezone to Lithuania (Europe/Vilnius)
   time.timeZone = "Europe/Vilnius";
