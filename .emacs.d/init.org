@@ -390,7 +390,7 @@ A file that is not commited to git, different for each environment.
 File template currently:
 
 #+begin_src emacs-lisp
-  (load-file "secret.el")
+  (load-file (concat ag/emacs-dir "/secret.el"))
 #+end_src
 
 * Startup performance
@@ -1641,6 +1641,7 @@ When a TODO is set to a done state, record a timestamp
 
 Setting up org-agenda-files using those variables
 #+begin_src emacs-lisp
+  ;; SECRET
   ;; (setq org-agenda-files
   ;;     (directory-files-recursively "~/GIT/devnotes/" ".org$"))
 
@@ -2006,7 +2007,7 @@ Modular text completion framework for code. Using instead of company package.
     corfu-popupinfo-delay 0.5))
 #+end_src
 
-*** PROGRESS Auto Completion Company
+*** Auto Completion Company
 
 Write benefits and disadvantages to corfu. Have the config ready from the old
 config.
@@ -2021,7 +2022,7 @@ does not propose words to you visibly as you type, that's the problem.
 #+begin_src emacs-lisp
   (use-package company
     :ensure t
-    :defer t
+    ;; :defer t
     :config
     ;; activated after Emacs finishes initializing
     (add-hook 'after-init-hook 'global-company-mode)
@@ -2610,8 +2611,10 @@ installed.
 - Open terminal(vterm, eshell, shell) and write =which python= and make sure
   you are inside the virtual environment that you have created in previous
   steps
-- install language server with =pip install python-lsp-server= (pylsp for
-  short) to install only the defaults.
+- install language server with =pip install python-lsp-server[pyls]= WARNING
+  pylsp is [[https://github.com/joaotavora/eglot/discussions/1408#discussioncomment-9724717][bugged]] if installed with [all]!!! Use pyls instead (install all
+  language servers wiht [all] command and then declare to use pyls in the eglot
+  config.)
 - Or install ALL the possible thingies [[https://github.com/python-lsp/python-lsp-server?tab=readme-ov-file#installation][mentioned here]] with =pip install
   'python-language-server[all]'=
 - open a python file in emacs
@@ -2636,9 +2639,8 @@ activate venv that has language server, but now we did not.
   you are inside the virtual environment that you have created in previous
   steps
 - install language server with =pip install 'python-language-server[all]'=
-- pip list to confirm that =pip install 'python-language-server[all]'= was
-  properly installed
-- create/open ~/.bashrc file
+- =pip list= to confirm that it was properly installed
+- create/open =~/.bashrc= file
 - add the following line to it - =export PATH=$PATH:/home/s2753g/.virtualenvs/base/bin=
 - run =source ~/.bashrc= in your wsl/linux terminal
 - restart emacs/and/or your wsl also
@@ -2668,7 +2670,7 @@ Since we have virtualenv's setup, we can now safely ask Emacs to launch eglot
 when opening python files.
 
 #+begin_src emacs-lisp
-  ;; (add-hook 'python-mode-hook 'eglot-ensure)
+  (add-hook 'python-mode-hook 'eglot-ensure)
 #+end_src
 
 ***** COMMENT Turn on `flyspell-mode' for comments and strings.
@@ -2697,11 +2699,6 @@ Strange shortcut for this, but good to know it exists.
 #+begin_src emacs-lisp
   (add-hook 'python-mode-hook 'hs-minor-mode)
 #+end_src
-
-***** COMMENT figure out how to use pylsp?
-
-now installing all language servers - work, but still.. would like to be able
-to configure stuff myself like in the next point
 
 ***** COMMENT figure out how to make this work
 
