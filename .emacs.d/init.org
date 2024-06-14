@@ -4,14 +4,6 @@
 #+PROPERTY: header-args :tangle yes
 #+STARTUP: overview
 
-* COMMENT refresh contents
-
-When you launch emacs for the FIRST TIME on the new machine, uncomment this heading. When all the packages have been installed, comment it out.
-
-#+begin_src emacs-lisp
-  (package-refresh-contents)
-#+end_src
-
 * Quick launch
 
 #+begin_src bash :tangle no
@@ -258,6 +250,11 @@ the terminal while in =.emacs.d= directory.
 #+end_src
 
 * Tangling
+
+#+begin_src emacs-lisp
+  (message "Tangling")
+#+end_src
+
 ** What is tangling, literate programming, org-babel
 
 All changes to the configuration should be done in =init.org=, *not* in
@@ -379,7 +376,28 @@ fix below. Now it's in my config also.
   (setq native-comp-async-report-warnings-errors nil)
 #+end_src
 
+* COMMENT refresh contents
+
+When you launch emacs for the FIRST TIME on the new machine, uncomment this heading. When all the packages have been installed, comment it out.
+
+#+begin_src emacs-lisp
+  (package-refresh-contents)
+#+end_src
+
+* Secret file
+A file that is not commited to git, different for each environment.
+
+File template currently:
+
+#+begin_src emacs-lisp
+  (load-file "secret.el")
+#+end_src
+
 * Startup performance
+
+#+begin_src emacs-lisp
+  (message "Startup performance")
+#+end_src
 
 ** Main ideas
 
@@ -443,6 +461,7 @@ But if you set ~esup-depth~ to 0, it will work :))
 
 #+begin_src emacs-lisp
   (use-package esup
+    ;; :ensure t
     :disabled t
     :custom
     (esup-depth 0))
@@ -477,6 +496,10 @@ packages.
 
 * Installation of packages
 
+#+begin_src emacs-lisp
+  (message "Installation of packages")
+#+end_src
+
 John Wiegley's extremely popular [[https://github.com/jwiegley/use-package][use-package]] was included in [[https://lists.gnu.org/archive/html/emacs-devel/2022-12/msg00261.html][Emacs 29]]. It
 provides a powerful macro for isolating package configuration.
 
@@ -489,7 +512,7 @@ Install use-package if it's not already installed.
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
-#+end_src
+  #+end_src
 
 #+begin_src emacs-lisp
   (require 'use-package)
@@ -512,6 +535,10 @@ and is well maintained.
 #+end_src
 
 * General tweaks
+
+#+begin_src emacs-lisp
+  (message "Genreal Tweaks")
+#+end_src
 
 ** Jump to my main config file.
 
@@ -718,7 +745,21 @@ M-x cusom-bindings-map to preview all the bindings in one place.
 #+end_src
 
 * Packages
+
+#+begin_src emacs-lisp
+  (message "Packages")
+#+end_src
+
 ** Visuals
+
+#+begin_src emacs-lisp
+  (message "Visuals")
+#+end_src
+
+*** Font
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil :height 130)
+#+end_src
 
 *** COMMENT Declutter
 
@@ -1234,6 +1275,10 @@ this out. No more 4 or so windows open at the same time :) Should be able to han
 
 ** Modes
 
+#+begin_src emacs-lisp
+  (message "Modes")
+#+end_src
+
 Here are a list of modes(that come by default with Emacs) that I prefer to
 enable by default.
 
@@ -1250,6 +1295,10 @@ enable by default.
 #+end_src
 
 ** COMMENT EditorConfig
+
+#+begin_src emacs-lisp
+  (message "EditorConfig")
+#+end_src
 
 Using [[https://editorconfig.org/][EditorConfig]] is a must when collaborating with others. It is also a way
 of having multiple tools that want to format your buffer to agree (e.g. both
@@ -1318,6 +1367,10 @@ Finally let's install it.
 
 ** Ace-window
 
+#+begin_src emacs-lisp
+  (message "Ace-window")
+#+end_src
+
 [2021-07-01] “Ace windows” helps me to switch windows easily. Main
 keybind - C-x o and then the commands that follow below.
 
@@ -1354,6 +1407,10 @@ keybind - C-x o and then the commands that follow below.
 #+end_src
 
 ** Denote
+
+#+begin_src emacs-lisp
+  (message "Denote")
+#+end_src
 
 Using denote for my personal knowledge base that will last forever and does not
 depend on any close-source tools(Evernote, Onenote, etc). The knowledge base is
@@ -1494,6 +1551,10 @@ Create variables and add a hook to denote journal hook.
 
 ** Org-mode
 
+#+begin_src emacs-lisp
+  (message "Org-mode")
+#+end_src
+
 I use Org mode extensively.
 
 In buffer settings - https://orgmode.org/manual/In_002dbuffer-Settings.html
@@ -1580,8 +1641,8 @@ When a TODO is set to a done state, record a timestamp
 
 Setting up org-agenda-files using those variables
 #+begin_src emacs-lisp
-  (setq org-agenda-files
-      (directory-files-recursively "~/GIT/devnotes/" ".org$"))
+  ;; (setq org-agenda-files
+  ;;     (directory-files-recursively "~/GIT/devnotes/" ".org$"))
 
   ;; (setq org-agenda-files
   ;;     (directory-files-recursively "~/GIT/devnotes/" ".*agenda.*\\.org$"))
@@ -1617,17 +1678,17 @@ the agenda view - you see it like this:
 #+end_src
 
 For me that is too much information, I don't need to know in which file the
-agenda item is, sicne I only have one agenda file. Instead of that information,
+agenda item is, since I only have one agenda file. Instead of that information,
 I make it as clutter free as possible by overriding everything(those file names
-nad etc) to a dot like so:
+and etc) to a dot like so:
 #+begin_src emacs-lisp
-;; (setq org-agenda-prefix-format '(
-;;          (agenda  . "  • ")
-;;          (timeline  . " • ")
-;;          (todo  . " • ")
-;;          (tags  . " • ")
-;;          (search . " • ")
-;;          ))
+  ;; (setq org-agenda-prefix-format '(
+  ;;          (agenda  . "  • ")
+  ;;          (timeline  . " • ")
+  ;;          (todo  . " • ")
+  ;;          (tags  . " • ")
+  ;;          (search . " • ")
+  ;;          ))
 #+end_src
 
 Hook to display the agenda in a single window by deleting all the
@@ -1770,6 +1831,10 @@ I disable ~org-modern-block-fringe~ due to [[https://github.com/minad/org-modern
 
 ** Version control
 
+#+begin_src emacs-lisp
+  (message "Version control")
+#+end_src
+
 [2021-07-01] “Magit” - can not imagine working with git without
 it. Instead of writing full commands like: “git add .” and then “git
 commit -m ‘bla blaa’” then “git push”… I can simply =C-x g= for a git
@@ -1848,6 +1913,10 @@ buffer "sidebar".
 #+end_src
 
 ** Completion UI
+
+#+begin_src emacs-lisp
+  (message "Completion UI")
+#+end_src
 
 *** Vertico
 
@@ -1977,6 +2046,10 @@ Let's you to type "pa re con" in vertico minubuffer instead of
 #+end_src
 
 ** Navigation and searching
+
+#+begin_src emacs-lisp
+  (message "Navigation and searching")
+#+end_src
 
 *** Consult
 The package Consult improves navigation and searching.
@@ -2312,6 +2385,10 @@ Load a custom perspective on each emacs launch
 
 ** Terminal
 
+#+begin_src emacs-lisp
+  (message "Terminal")
+#+end_src
+
 *** Vterm
 
 Using vterm is like using Gnome Terminal inside Emacs.
@@ -2370,6 +2447,10 @@ vterm-toggle
 #+end_src
 
 ** Programming
+
+#+begin_src emacs-lisp
+  (message "Programming")
+#+end_src
 
 Good intro for setting up programming language -
 https://www.youtube.com/watch?v=iAjIoKqbmg8&ab_channel=BrentWestbrookx
@@ -2529,7 +2610,8 @@ installed.
 - Open terminal(vterm, eshell, shell) and write =which python= and make sure
   you are inside the virtual environment that you have created in previous
   steps
-- install language server with =pip install python-lsp-server= to install only the defaults.
+- install language server with =pip install python-lsp-server= (pylsp for
+  short) to install only the defaults.
 - Or install ALL the possible thingies [[https://github.com/python-lsp/python-lsp-server?tab=readme-ov-file#installation][mentioned here]] with =pip install
   'python-language-server[all]'=
 - open a python file in emacs
@@ -2968,6 +3050,10 @@ wanted to have completion in .sh files, but this seems to be for shell terminal?
 
 ** Lorem ipsum
 
+#+begin_src emacs-lisp
+  (message "Lorem ipsum")
+#+end_src
+
 Do you ever want to insert some [[https://en.wikipedia.org/wiki/Lorem_ipsum][Lorem ipsum]]?
 
 #+begin_src emacs-lisp
@@ -2989,6 +3075,10 @@ rutrum. Nam vestibulum accumsan nisl.
 
 ** Multiple-cursors
 
+#+begin_src emacs-lisp
+  (message "Multiple cursors")
+#+end_src
+
 Select same words inside the buffer and replace them - wow!!
 
 #+begin_src emacs-lisp
@@ -3002,6 +3092,10 @@ Select same words inside the buffer and replace them - wow!!
 
 ** Expand region
 
+#+begin_src emacs-lisp
+  (message "Expand region")
+#+end_src
+
 Increase selected region by semantic units. Good for quickly selecting text in
 between brackets or parenthesis.
 #+begin_src emacs-lisp
@@ -3012,6 +3106,10 @@ between brackets or parenthesis.
 #+end_src
 
 ** Mode specific
+
+#+begin_src emacs-lisp
+  (message "Mode specific")
+#+end_src
 
 *** yaml-mode
 
@@ -3052,6 +3150,10 @@ Emacs Major mode for Dockerfile-formatted files
 
 ** Which-key
 
+#+begin_src emacs-lisp
+  (message "Which key")
+#+end_src
+
 [2021-07-01] A package that displays the available keybindings in a popup. The
 package is pretty useful, as Emacs seems to have more keybindings than I can
 remember at any given point. For example press Ctrl+c or Ctrl+x in a buffer and
@@ -3070,6 +3172,10 @@ you will see the possible commands. [[https://github.com/justbur/emacs-which-key
 
 ** Helpful
 
+#+begin_src emacs-lisp
+  (message "Helpful")
+#+end_src
+
 [2022-03-15 An] Improves *help* buffer. Way more info than with regular help.
 #+begin_src emacs-lisp
   (use-package helpful
@@ -3085,6 +3191,10 @@ you will see the possible commands. [[https://github.com/justbur/emacs-which-key
 #+end_src
 
 ** Yasnippet
+
+#+begin_src emacs-lisp
+  (message "Yasnippet")
+#+end_src
 
 [2022-02-13 Sk] ”Yasnippet” - expand to a switch statement with placeholders.
 Tab between the placeholders & type actual values. like in
@@ -3120,6 +3230,10 @@ Install the package, snippets will be in
 
 ** COMMENT Keycast
 
+#+begin_src emacs-lisp
+  (message "Keycast")
+#+end_src
+
 Shows the keys that you type in the modeline. Might be useful when presenting
 emacs to someone.
 
@@ -3143,6 +3257,10 @@ emacs to someone.
 
 ** Undo-tree
 
+#+begin_src emacs-lisp
+  (message "Undo tree")
+#+end_src
+
 [2021-07-01]”Undo tree” lets me to return to the file stage before any
 modifications were made. Keybind - C-x u.
 
@@ -3157,6 +3275,10 @@ modifications were made. Keybind - C-x u.
 
 ** Save place
 
+#+begin_src emacs-lisp
+  (message "Save place")
+#+end_src
+
 [2021-07-01] “Saveplace” remembers your location in a file when saving files
 #+begin_src emacs-lisp
   (use-package saveplace
@@ -3168,6 +3290,10 @@ modifications were made. Keybind - C-x u.
 #+end_src
 
 ** Goto-chg
+
+#+begin_src emacs-lisp
+  (message "Goto-chg")
+#+end_src
 
 Go to last/previous change [2022-02-24 Kt] Perfect! Can now cycle through the
 last changes in the buffer. Very useful when doing some C-s in the buffer and
@@ -3184,6 +3310,10 @@ the reverse.
 #+end_src
 
 ** COMMENT Impatient-mode
+
+#+begin_src emacs-lisp
+  (message "Impatient-mode")
+#+end_src
 
 [2024-05-30 Thu] Tried to use it to preview .org file, but it's kind of glichy.
 
@@ -3222,8 +3352,11 @@ Can use it to render .html pages live or .markdown files.
        (current-buffer)))
 #+end_src
 
-
 ** COMMENT org-preview-html
+
+#+begin_src emacs-lisp
+  (message "org-preview-html")
+#+end_src
 
 https://github.com/jakebox/org-preview-html
 
@@ -3237,6 +3370,10 @@ in nixos don't have the time to explore how to make it work now.
 
 * Activate custom bindings map
 
+#+begin_src emacs-lisp
+  (message "Custom bindings map")
+#+end_src
+
 Lastly we need to activate the map by creating and activating the minor-mode.
 
 #+begin_src emacs-lisp
@@ -3246,9 +3383,9 @@ Lastly we need to activate the map by creating and activating the minor-mode.
     :keymap ag/custom-bindings-map)
 #+end_src
 
-* TODO Commands
-* Debugging emacs
+* Notes about way to debug emacs
 
 - Check if package has been loaded by ~(featurep 'magit)~
 - use =esup= to see the load time of the packages
 - use =use-package-report= to see the load time of each package
+- write some messages (in the config) and see if they get printed =(message "hello")=
