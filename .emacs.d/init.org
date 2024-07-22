@@ -2408,6 +2408,8 @@ by pressing =C-c C-t=.
     :defer t				; deferring until I use it with vterm-toggle
     :init
     (setq vterm-max-scrollback 100000)
+    :hook
+    (vterm-mode . (lambda () (toggle-truncate-lines 1))
     ;; using Fish as default vterm bash. Fish(Friendly interactive shell) is
     ;; basically buffed bash shell. Syntax highlighting, autocompletion, aliases
     ;; More about fish - https://www.youtube.com/watch?v=C2a7jJTh3kU&ab_channel=LukeSmith
@@ -2416,7 +2418,7 @@ by pressing =C-c C-t=.
     ;; expect.. no thanks, turning fish off.
 
     ;; (setq vterm-shell "fish")
-    )
+    ))
 #+end_src
 
 vterm-toggle
@@ -2446,6 +2448,8 @@ vterm-toggle
 
   (global-set-key (kbd "C-c v") 'create-new-vterm)
 #+end_src
+
+
 
 ** Programming
 
