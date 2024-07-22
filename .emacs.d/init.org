@@ -2664,6 +2664,26 @@ And to launch/build stuff - use virtualenv. NOTE NOTE - actually it will work
 if you activate the virtual environment AND then enable eglot in current
 buffer(or restart eglot if it already was enabled)
 
+***** NEW - install python-language-server/black GLOBALLY not in your venv
+
+We will be using pipx - https://github.com/pypa/pipx?tab=readme-ov-file
+
+- Add pipx to your nixos installed apps =python310Packages.pipx= 3.11 version
+  is not supported by eglot
+- sudo nixos-rebuild switch
+- pipx
+- pipx list
+- pipx install pycowsay
+- pipx ensurepath
+- pipx list
+- pycowsay moo
+- pipx install python-language-server
+- pipx install black
+
+And now even when you are NOT in a virtualenv, eglot will run, because
+python-language-server is installed globally. The same is if you ARE in the
+virtualenv.
+
 ***** Launch Eglot upon opening python file
 
 Since we have virtualenv's setup, we can now safely ask Emacs to launch eglot
