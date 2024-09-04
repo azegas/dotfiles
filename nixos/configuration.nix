@@ -45,6 +45,10 @@
     # installing monospaced font so stuff aligns well in Emacs
     fira-code
     # iosevka
+    # hugo - static site generator
+    hugo
+    # wget was needed for VSCode
+    wget
   ];
 
   fonts = {
