@@ -3365,6 +3365,16 @@ in nixos don't have the time to explore how to make it work now.
     :ensure t)
 #+end_src
 
+** ox-hugo
+
+Decided to rebuild a wordpress site with hugo.
+
+#+begin_src emacs-lisp
+  (use-package ox-hugo
+    :ensure t)
+#+end_src
+
+
 * Activate custom bindings map
 
 #+begin_src emacs-lisp
