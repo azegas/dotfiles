@@ -22,6 +22,8 @@
     htop
     tmux
     vim
+    # show system info in a nice way
+    neofetch
     # ripgrep - rg
     ripgrep
     # ispell for flyspell in emacs

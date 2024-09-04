@@ -2408,6 +2408,8 @@ by pressing =C-c C-t=.
     :defer t				; deferring until I use it with vterm-toggle
     :init
     (setq vterm-max-scrollback 100000)
+    :hook
+    (vterm-mode . (lambda () (toggle-truncate-lines 1))
     ;; using Fish as default vterm bash. Fish(Friendly interactive shell) is
     ;; basically buffed bash shell. Syntax highlighting, autocompletion, aliases
     ;; More about fish - https://www.youtube.com/watch?v=C2a7jJTh3kU&ab_channel=LukeSmith
@@ -2416,7 +2418,7 @@ by pressing =C-c C-t=.
     ;; expect.. no thanks, turning fish off.
 
     ;; (setq vterm-shell "fish")
-    )
+    ))
 #+end_src
 
 vterm-toggle
@@ -2446,6 +2448,8 @@ vterm-toggle
 
   (global-set-key (kbd "C-c v") 'create-new-vterm)
 #+end_src
+
+
 
 ** Programming
 
@@ -2663,6 +2667,26 @@ Better install all packages in base env to have a variaty of packages there.
 And to launch/build stuff - use virtualenv. NOTE NOTE - actually it will work
 if you activate the virtual environment AND then enable eglot in current
 buffer(or restart eglot if it already was enabled)
+
+***** NEW - install python-language-server/black GLOBALLY not in your venv
+
+We will be using pipx - https://github.com/pypa/pipx?tab=readme-ov-file
+
+- Add pipx to your nixos installed apps =python310Packages.pipx= 3.11 version
+  is not supported by eglot
+- sudo nixos-rebuild switch
+- pipx
+- pipx list
+- pipx install pycowsay
+- pipx ensurepath
+- pipx list
+- pycowsay moo
+- pipx install python-language-server
+- pipx install black
+
+And now even when you are NOT in a virtualenv, eglot will run, because
+python-language-server is installed globally. The same is if you ARE in the
+virtualenv.
 
 ***** Launch Eglot upon opening python file
 
