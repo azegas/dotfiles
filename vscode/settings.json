@@ -1,0 +1,23 @@
+{
+  "window.commandCenter": 1,
+  "workbench.sideBar.location": "right",
+  "explorer.confirmPasteNative": false,
+  "git.autofetch": true,
+  "files.autoSave": "afterDelay",
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "remote.SSH.remotePlatform": {
+    "192.168.0.82": "linux"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}
