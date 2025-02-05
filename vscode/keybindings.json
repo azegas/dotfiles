@@ -1,10 +1,28 @@
 [
-  {
-    "key": "alt+1",
-    "command": "workbench.action.navigateBackInEditLocations"
-  },
-  {
-    "key": "alt+2",
-    "command": "workbench.action.navigateForwardInEditLocations"
-  }
-]
+    {
+      "key": "alt+1",
+      "command": "workbench.action.navigateBackInEditLocations"
+    },
+    {
+      "key": "alt+2",
+      "command": "workbench.action.navigateForwardInEditLocations"
+    },
+    {
+      "key": "alt+3",
+      "command": "workbench.action.navigateBackInNavigationLocations"
+    },
+    {
+      "key": "alt+4",
+      "command": "workbench.action.navigateForwardInNavigationLocations"
+    },
+    {
+      "key": "ctrl+alt+`",
+      "command": "workbench.debug.action.toggleRepl",
+      "when": "workbench.panel.repl.view.active"
+    },
+    {
+      "key": "ctrl+shift+y",
+      "command": "-workbench.debug.action.toggleRepl",
+      "when": "workbench.panel.repl.view.active"
+    }
+  ]
