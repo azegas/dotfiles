@@ -35,6 +35,23 @@
 
 I put this at the end, since this info is not really crucial for the configuration.
 
+*** [2025-08-26] Not in emacs
+
+I am not spending my days in emacs for a looooong time already.
+
+- For tasks - using microsoft To Do
+- For calendar - google calendar
+- For notes - OneNote
+- For cloud stuff - OneDrive
+- For FrontEnd dev work - VsCode
+- For BackEnd dev work - Visual Studio
+
+Since I have moved to .NET and Angular, I was forced to use the tools the team is using. I can say I am progressing a lot when not fiddling with my configuration environment at every step.
+
+Emacs has taught me A LOT - I am very grateful to it, but it's not the time I come back to it. 
+
+Cya.
+
 *** [2024-05-27 Mon] Cam back to Emacs
 
 I have been working with VsCode at work and at home for the last 3-4 months. It
