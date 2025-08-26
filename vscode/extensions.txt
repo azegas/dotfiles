@@ -1,0 +1,16 @@
+pomdtr.excalidraw-editor
+hediet.vscode-drawio
+yzhang.markdown-all-in-one
+humao.rest-client
+wayou.vscode-todo-highlight
+ms-dotnettools.csdevkit
+angular.ng-template
+dbaeumer.vscode-eslint
+github.copilot
+github.copilot-chat
+esbenp.prettier-vscode
+redhat.vscode-yaml
+jmrog.vscode-nuget-package-manager
+editorconfig.editorconfig
+ms-python.python
+

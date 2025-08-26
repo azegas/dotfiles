@@ -1,23 +1,97 @@
 {
-  "window.commandCenter": 1,
-  "workbench.sideBar.location": "right",
-  "explorer.confirmPasteNative": false,
-  "git.autofetch": true,
-  "files.autoSave": "afterDelay",
-  "terminal.integrated.enableMultiLinePasteWarning": false,
-  "remote.SSH.remotePlatform": {
-    "192.168.0.82": "linux"
-  },
-  "explorer.confirmDragAndDrop": false,
-  "diffEditor.ignoreTrimWhitespace": false,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "git.enableSmartCommit": true,
+  "editor.smoothScrolling": true,
+  "explorer.confirmDelete": false,
+  // fix the god damn pasting indentation
+  "editor.formatOnPaste": true,
 
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+
+  // https://dev.to/brad_beggs/vs-code-vertical-rulers-for-prettier-code-3gp3
+  "[git-commit]": { "editor.rulers": [50] },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.rulers": [79],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  }
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    // install "Black Formatter" extension for VsCode
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "[csharp]": {
+    // "editor.defaultFormatter": "ms-dotnettools.csharp"
+    "editor.defaultFormatter": "csharpier.csharpier-vscode"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "csharpier.csharpier-vscode"
+  },
+  "isort.args": ["--profile", "black"],
+  "black-formatter.args": ["--line-length", "79"],
+
+  // https://github.com/vscode-django/vscode-django/issues/125
+  // allow html tag completion in django html mode
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "explorer.confirmDragAndDrop": false,
+  "editor.minimap.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "git.confirmSync": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "remote.SSH.remotePlatform": {
+    "192.168.0.82": "linux",
+    "192.168.18.2": "linux"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "inlineChat.accessibleDiffView": "on",
+  "redhat.telemetry.enabled": false,
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "hediet.vscode-drawio.resizeImages": null,
+  "@azure.argTenant": "",
+  "workbench.sideBar.location": "right",
+
+  // something from work
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": true
+  },
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor"
+  },
+  "window.zoomLevel": -1,
+  "git.blame.editorDecoration.enabled": false,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "dotnet.inlayHints.enableInlayHintsForOtherParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForObjectCreationParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForLiteralParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForIndexerParameters": true,
+  "csharp.inlayHints.enableInlayHintsForTypes": true,
+  "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": true,
+  "csharp.inlayHints.enableInlayHintsForImplicitVariableTypes": true,
+  "csharp.inlayHints.enableInlayHintsForImplicitObjectCreation": true,
+  "dotnet.formatting.organizeImportsOnFormat": true,
+  "dotnet.automaticallySyncWithActiveItem": true,
+  "csharp.experimental.debug.hotReload": true,
+  "git.blame.statusBarItem.enabled": true
 }
