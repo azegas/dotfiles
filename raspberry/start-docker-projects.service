@@ -1,0 +1,14 @@
+[Unit]
+Description=Start all Docker projects
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/arvydas/GIT/dotfiles/raspberry/start-docker-projects.sh
+RemainAfterExit=yes
+User=arvydas
+WorkingDirectory=/home/arvydas
+
+[Install]
+WantedBy=multi-user.target
