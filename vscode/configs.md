@@ -17,7 +17,7 @@ mklink keybindings.json C:\Users\arvydas\Desktop\GIT\dotfiles\vscode\keybindings
 
 ## At work
 
-1. Order SID LAR (if on work laptop)
+1. Order SID LAR (if on work laptop) (if don't have LAR - simply don't make symlinks, but copy the settings/keybindings from this repo and paste in Roaming folder)
 
 ```bash
 # jeigu darai darbe - galimai po direktorijos pokyciu - neuzsisakiau lar ir pridejau fiziskai tuos failiukus i roaming/code/user forlderi, ne symlinkas
